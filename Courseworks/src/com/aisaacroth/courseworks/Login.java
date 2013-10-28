@@ -236,28 +236,9 @@ public class Login extends Activity {
 
 			CasClient2 cas = new CasClient2("https://cas.columbia.edu/cas/");
 			try {
-				try {
-					cas.login(
-							"https%3A%2F%2Fcourseworks.columbia.edu%2Fsakai-login-tool%2Fcontainer",
-							new UsernamePasswordCredentials(mUNI, mPassword));
-				} catch (KeyManagementException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (KeyStoreException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-
-				// } catch (CasAuthenticationException e) {
-				// e.printStackTrace();
-				// return false;
-				// } catch (CasProtocolException e) {
-				// e.printStackTrace();
-				// return false;
-				// }
+				cas.login(
+						"https%3A%2F%2Fcourseworks.columbia.edu%2Fsakai-login-tool%2Fcontainer%3Fforce.login%3Dyes",
+						new UsernamePasswordCredentials(mUNI, mPassword));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
