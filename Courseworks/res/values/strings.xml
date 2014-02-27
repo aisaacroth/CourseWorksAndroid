@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="white">#FFFFFF</color>
+    <color name="columbia_blue">#6699CC</color>
+    <color name="silver">#CCCCCC</color>
+
+    <string name="app_name">Courseworks</string>
+    <string name="action_settings">Settings</string>
+    <string name="splash_desc">Columbia University Courseworks</string>
+    <string name="remember_me">Remember me!</string>
+
+</resources>
