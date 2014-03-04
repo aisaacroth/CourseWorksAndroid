@@ -1,8 +1,13 @@
 package com.aisaacroth.courseworks;
 
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+
+import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -229,19 +234,33 @@ public class Login extends Activity {
 		protected Boolean doInBackground(Void... params) {
 			HttpClient client = new DefaultHttpClient();
 
-			CasClient cas = new CasClient(client,
+			CasClient2 cas = new CasClient2(client,
 					"https://cas.columbia.edu/cas/");
 			try {
-				cas.login(
-						"https%3A%2F%2Fcourseworks.columbia.edu%2Fsakai-login-tool%2Fcontainer",
-						mUNI, mPassword);
+				try {
+					cas.login(
+							"https%3A%2F%2Fcourseworks.columbia.edu%2Fsakai-login-tool%2Fcontainer",
+							new UsernamePasswordCredentials(mUNI, mPassword));
+				} catch (KeyManagementException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (KeyStoreException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoSuchAlgorithmException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-			} catch (CasAuthenticationException e) {
+				// } catch (CasAuthenticationException e) {
+				// e.printStackTrace();
+				// return false;
+				// } catch (CasProtocolException e) {
+				// e.printStackTrace();
+				// return false;
+				// }
+			} catch (IOException e) {
 				e.printStackTrace();
-				return false;
-			} catch (CasProtocolException e) {
-				e.printStackTrace();
-				return false;
 			}
 			return true;
 		}

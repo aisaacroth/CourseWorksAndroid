@@ -1,12 +1,18 @@
 package com.aisaacroth.courseworks;
 
-import org.apache.http.auth.AuthScope;
+import java.io.IOException;
+import java.net.URL;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManagerFactory;
+
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
-import org.apache.http.impl.auth.BasicScheme;
-import org.apache.http.impl.client.AbstractHttpClient;
-import org.apache.http.protocol.BasicHttpContext;
-
 
 public class CasClient2 {
 	private static final String TAG = "CASCLIENT";
@@ -25,9 +31,24 @@ public class CasClient2 {
 		this.httpClient = httpClient;
 		this.casBaseUrl = casBaseURL;
 	}
+	
+	// 1. Grab the Ticket Granting Ticket.
 
 	public String login(String serviceUrl,
-			UsernamePasswordCredentials credentials) {
+			UsernamePasswordCredentials credentials) throws IOException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
+		KeyStore store = KeyStore.getInstance(KeyStore.getDefaultType());
+		String algorithm = TrustManagerFactory.getDefaultAlgorithm();
+		TrustManagerFactory tmf = TrustManagerFactory.getInstance(algorithm);
+		tmf.init(store);
+
+		SSLContext context = SSLContext.getInstance("TLS");
+		context.init(null, tmf.getTrustManagers(), null);
+
+		URL url = new URL(casBaseUrl + CAS_LOGIN_URL_PART + "?service="
+					+ serviceUrl);
+		HttpsURLConnection safeConn = (HttpsURLConnection)url.openConnection();
+		
+		String serviceTicket = null;
 		return null;
 	}
 }
