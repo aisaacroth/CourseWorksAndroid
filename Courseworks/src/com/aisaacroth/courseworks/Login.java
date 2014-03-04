@@ -1,5 +1,9 @@
 package com.aisaacroth.courseworks;
 
+import org.apache.http.client.HttpClient;
+import org.apache.http.impl.client.DefaultHttpClient;
+
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
@@ -19,12 +23,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /*******************************************************************************
- * Login Activity which displays a login screen to the user.
- * TODO: Implement either OAuth or CAS for user authentication.
- * TODO: Implement with AccountManager for tokens for CAS or OAuth.
- * TODO: Update the login method.
+ * Login Activity which displays a login screen to the user. TODO: Implement
+ * either OAuth or CAS for user authentication. TODO: Implement with
+ * AccountManager for tokens for CAS or OAuth. TODO: Update the login method.
  * 
- * @author Alexander Roth 
+ * @author Alexander Roth
  * @Date: 2014-02-25
  * @version: 0.1
  ******************************************************************************/
@@ -33,7 +36,8 @@ public class Login extends Activity {
 	 * A dummy authentication store containing known user names and passwords.
 	 * TODO: remove after connecting to a real authentication system.
 	 */
-	private static final String[] DUMMY_CREDENTIALS = new String[] { "air2112:Columbia2016" };
+	// private static final String[] DUMMY_CREDENTIALS = new String[] {
+	// "air2112:Columbia2016" };
 
 	/**
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -64,15 +68,15 @@ public class Login extends Activity {
 		// Set up the login form.
 		mUNIView = (EditText) findViewById(R.id.uni);
 		mPasswordView = (EditText) findViewById(R.id.password);
-		rememberMe = (CheckBox)findViewById(R.id.remember_me);
+		rememberMe = (CheckBox) findViewById(R.id.remember_me);
 		mLoginFormView = findViewById(R.id.login_form);
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
-		
+
 		// Create the file that will contain login information.
 		loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
 		loginPrefEditor = loginPreferences.edit();
-		
+
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
@@ -90,8 +94,8 @@ public class Login extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						
-						//TODO: Check to make sure that this block is working
+
+						// TODO: Check to make sure that this block is working
 						// and saving to SharedPreferences.
 						if (rememberMe.isChecked()) {
 							loginPrefEditor.putBoolean("saveLogin", true);
@@ -105,7 +109,7 @@ public class Login extends Activity {
 						attemptLogin();
 					}
 				});
-		
+
 		saveLogin = loginPreferences.getBoolean("saveLogin", false);
 		if (saveLogin == true) {
 			mUNIView.setText(loginPreferences.getString("uni", ""));
@@ -130,7 +134,6 @@ public class Login extends Activity {
 		if (mAuthTask != null) {
 			return;
 		}
-
 		// Reset errors.
 		mUNIView.setError(null);
 		mPasswordView.setError(null);
@@ -224,24 +227,22 @@ public class Login extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			// TODO: attempt authentication against a network service.
+			HttpClient client = new DefaultHttpClient();
 
+			CasClient cas = new CasClient(client,
+					"https://cas.columbia.edu/cas/");
 			try {
-				// Simulate network access.
-				Thread.sleep(2000);
-			} catch (InterruptedException e) {
+				cas.login(
+						"https%3A%2F%2Fcourseworks.columbia.edu%2Fsakai-login-tool%2Fcontainer",
+						mUNI, mPassword);
+
+			} catch (CasAuthenticationException e) {
+				e.printStackTrace();
+				return false;
+			} catch (CasProtocolException e) {
+				e.printStackTrace();
 				return false;
 			}
-
-			for (String credential : DUMMY_CREDENTIALS) {
-				String[] pieces = credential.split(":");
-				if (pieces[0].equals(mUNI)) {
-					// Account exists, return true if the password matches.
-					return pieces[1].equals(mPassword);
-				}
-			}
-
-			// TODO: register the new account here.
 			return true;
 		}
 

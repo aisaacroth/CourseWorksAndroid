@@ -4,8 +4,14 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -17,10 +23,26 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
 import android.util.Log;
 
+/**
+ * CAS Client, almost fully operational. I'm fairly certain that there is a
+ * transparent redirect occuring though.
+ * 
+ * TODO Investigate with the CAS team whether there is a transport redirect
+ * occurring after ticket validation.
+ * 
+ * @author Alexander Roth
+ * @date 2014-02-28
+ * 
+ */
 public class CasClient {
 	private static final String TAG = "CASCLIENT";
 	private static final String CAS_LOGIN_URL_PART = "login";
@@ -55,8 +77,8 @@ public class CasClient {
 	 * @param casBaseUrl
 	 *            The base URL of the CAS service to be used.
 	 */
-	public CasClient(HttpClient httpCLient, String casBaseUrl) {
-		this.httpClient = httpCLient;
+	public CasClient(HttpClient httpClient, String casBaseUrl) {
+		this.httpClient = this.sslClient(httpClient);
 		this.casBaseURL = casBaseUrl;
 	}
 
@@ -112,7 +134,10 @@ public class CasClient {
 						+ response.getStatusLine().getStatusCode() + ":"
 						+ response.getStatusLine().toString());
 
-				Header headers[] = response.getHeaders("Location");
+				// TODO It would seem that when the client is already
+				// authenticated, the CAS server redirects transparently to the
+				// service URL!
+				Header[] headers = response.getHeaders("Location");
 				if (headers != null && headers.length > 0)
 					serviceTicket = extractServiceTicket(headers[0].getValue());
 				HttpEntity entity = response.getEntity();
@@ -229,6 +254,7 @@ public class CasClient {
 	protected String getLTFromLoginForm(String serviceUrl) {
 		HttpGet httpGet = new HttpGet(casBaseURL + CAS_LOGIN_URL_PART
 				+ "?service=" + serviceUrl);
+		System.out.println(serviceUrl);
 
 		String lt = null;
 		try {
@@ -329,5 +355,50 @@ public class CasClient {
 			Log.d(TAG, e.getMessage());
 		}
 		return token;
+	}
+
+	/**
+	 * Implementing this method because there is an issue with the SSL Peer
+	 * certification. Necessary to set up because the test emulator does not
+	 * have a valid SSL certificate causing a
+	 * javax.net.ssl.SSLPeerUnverifiedException to be thrown. TODO: Document
+	 * heavily.
+	 * 
+	 * NOTE: REMOVE BEFORE PUSHING TO PRODUCTION CODE! THIS IS SOLEY FOR TESTING
+	 * PURPOSES!!!!!!!!!
+	 * 
+	 * @param client
+	 * @return
+	 */
+	private HttpClient sslClient(HttpClient client) {
+		try {
+			X509TrustManager tm = new X509TrustManager() {
+
+				@Override
+				public X509Certificate[] getAcceptedIssuers() {
+					return null;
+				}
+
+				@Override
+				public void checkServerTrusted(X509Certificate[] arg0,
+						String arg1) throws CertificateException {
+				}
+
+				@Override
+				public void checkClientTrusted(X509Certificate[] arg0,
+						String arg1) throws CertificateException {
+				}
+			};
+			SSLContext ctx = SSLContext.getInstance("TLS");
+			ctx.init(null, new TrustManager[] { tm }, null);
+			SSLSocketFactory ssf = new BetterSSLSocketFactory(ctx);
+			ssf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+			ClientConnectionManager ccm = client.getConnectionManager();
+			SchemeRegistry sr = ccm.getSchemeRegistry();
+			sr.register(new Scheme("https", ssf, 443));
+			return new DefaultHttpClient(ccm, client.getParams());
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 }
