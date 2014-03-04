@@ -39,6 +39,8 @@ import android.util.Log;
  * TODO Investigate with the CAS team whether there is a transport redirect
  * occurring after ticket validation.
  * 
+ * TODO Reimplement with HttpsURLConnection
+ * 
  * @author Alexander Roth
  * @date 2014-02-28
  * 
