@@ -10,4 +10,12 @@
         <param-name>serverName</param-name>
         <param-value>https://courseworks.columbia.edu/portal</param-value>
     </init-param>
+    <init-param>
+        <param-name>artifactParameterName</param-name>
+        <param-value>ticket</param-value>
+    </init-param>
+    <init-param>
+        <param-name>redirectAfterValidation</param-name>
+        <param-value>true</param-value>
+    </init-param>
 </filter>
