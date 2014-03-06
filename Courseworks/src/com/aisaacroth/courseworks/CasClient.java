@@ -69,7 +69,7 @@ public class CasClient {
 	private String casBaseURL;
 
 	/**
-	 * Constrcut a new CasClient which uses the specified HttpClient for its
+	 * Construct a new CasClient which uses the specified HttpClient for its
 	 * HTTP calls. If the CAS authentication is successful, it is the supplied
 	 * HttpClient to which the acquired credentials are attached.
 	 * 
