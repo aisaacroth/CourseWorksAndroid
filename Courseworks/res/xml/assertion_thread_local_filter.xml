@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<filter>
-    <filter-name>CAS_Assertion_Thread_Local_Filter</filter-name>
-    <filter-class>org.jasig.cas.client.util.AssertionThreadLocalFilter</filter-class>
-</filter>

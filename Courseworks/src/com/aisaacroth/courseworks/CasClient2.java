@@ -1,10 +1,7 @@
 package com.aisaacroth.courseworks;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.security.KeyManagementException;
-import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
@@ -12,16 +9,15 @@ import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
-import org.apache.http.HttpRequest;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
@@ -30,7 +26,7 @@ import org.apache.http.conn.scheme.SchemeRegistry;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HttpContext;
+import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
 
@@ -104,22 +100,56 @@ public class CasClient2 {
 		params.add(new BasicNameValuePair("_eventId", "submit"));
 		params.add(new BasicNameValuePair("username", credentials.getUserName()));
 		params.add(new BasicNameValuePair("password", credentials.getPassword()));
+		post.setEntity(new UrlEncodedFormEntity(params));
 
 		// 1. Grab the Ticket Granting Ticket (TGT)
-		
-		//TODO Check the connection
+
+		// TODO Check the connection
 		HttpResponse response = httpClient.execute(post);
-		Log.d(TAG,
-				"POST RESPONSE STATUS="
-						+ response.getStatusLine().getStatusCode() + ":"
-						+ response.getStatusLine().toString() + "URL:"
-						+ response.getParams().toString());
+		for (Header h : response.getAllHeaders()) {
+			Log.d(TAG,
+					"POST RESPONSE STATUS="
+							+ response.getStatusLine().getStatusCode() + ":"
+							+ response.getStatusLine().toString() + " PARAMS: "
+							+ h.toString());
+		}
+		Header[] headers = response.getHeaders("Set-Cookie");
+		for (Header header : headers) {
+			Log.d(TAG, "HEADERS =" + header.toString());
+		}
+		System.out.println(EntityUtils.toString(response.getEntity()));
+
+		// HttpGet get = new HttpGet(casBaseUrl + CAS_LOGIN_URL_PART +
+		// "?service="
+		// + serviceUrl);
+		// response = httpClient.execute(get);
+		//
+		// for (Header h : response.getAllHeaders()) {
+		// Log.d(TAG,
+		// "GET RESPONSE STATUS = "
+		// + response.getStatusLine().getStatusCode() + ":"
+		// + response.getStatusLine().toString() + " PARAMS: "
+		// + h.toString());
+		// }
+		// System.out.println(EntityUtils.toString(response.getEntity()));
+		//
+		// get = new HttpGet("https://courseworks.columbia.edu/portal/site~" +
+		// credentials.getUserName());
+		// response = httpClient.execute(get);
+		// for (Header h : response.getAllHeaders()) {
+		// Log.d(TAG,
+		// "POST RESPONSE STATUS = "
+		// + response.getStatusLine().getStatusCode() + ":"
+		// + response.getStatusLine().toString() + " PARAMS: "
+		// + h.toString());
+		// }
+		// System.out.println(EntityUtils.toString(response.getEntity()));
 
 		// 2. Grab a service ticket (ST) for a CAS protected service.
 
 		// 3. Grab the protected document.
 		String serviceTicket = null;
-		return null;
+		return serviceTicket;
 	}
 
 	/**

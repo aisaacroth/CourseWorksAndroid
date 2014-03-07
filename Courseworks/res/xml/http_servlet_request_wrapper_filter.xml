@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<filter>
-    <filter-name>CAS_HttpServletRequest_Wrapper_Filter</filter-name>
-    <filter-class>org.jasig.cas.client.util.HttpServletRequestWrapperFilter</filter-class>
-</filter>

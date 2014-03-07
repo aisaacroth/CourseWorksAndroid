@@ -104,9 +104,6 @@ public final class R {
         public static final int LoginFormContainer=0x7f090002;
     }
     public static final class xml {
-        public static final int assertion_thread_local_filter=0x7f040000;
-        public static final int authentication_filter=0x7f040001;
-        public static final int cas_20_proxy_receiving_ticket_validation_filter=0x7f040002;
-        public static final int http_servlet_request_wrapper_filter=0x7f040003;
+        public static final int cas_authentication_filter=0x7f040000;
     }
 }
