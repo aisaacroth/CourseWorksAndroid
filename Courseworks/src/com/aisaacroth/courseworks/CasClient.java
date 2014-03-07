@@ -32,7 +32,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.util.Log;
 
-/**
+/*******************************************************************************
  * CAS Client, almost fully operational. I'm fairly certain that there is a
  * transparent redirect occuring though.
  * 
@@ -44,7 +44,7 @@ import android.util.Log;
  * @author Alexander Roth
  * @date 2014-02-28
  * 
- */
+ ******************************************************************************/
 public class CasClient {
 	private static final String TAG = "CASCLIENT";
 	private static final String CAS_LOGIN_URL_PART = "login";
@@ -68,7 +68,7 @@ public class CasClient {
 	 */
 	private String casBaseURL;
 
-	/**
+	/***************************************************************************
 	 * Construct a new CasClient which uses the specified HttpClient for its
 	 * HTTP calls. If the CAS authentication is successful, it is the supplied
 	 * HttpClient to which the acquired credentials are attached.
@@ -78,13 +78,13 @@ public class CasClient {
 	 *            "login" to the CAS server.
 	 * @param casBaseUrl
 	 *            The base URL of the CAS service to be used.
-	 */
+	 **************************************************************************/
 	public CasClient(HttpClient httpClient, String casBaseUrl) {
 		this.httpClient = this.sslClient(httpClient);
 		this.casBaseURL = casBaseUrl;
 	}
 
-	/**
+	/***************************************************************************
 	 * Authenticate the specified user credentials and request a service ticket
 	 * for the specified service. If no service is specified, user credentials
 	 * are checks but no service ticket is generated (returns null).
@@ -103,7 +103,7 @@ public class CasClient {
 	 *             server.
 	 * @throws CasProtocolException
 	 *             if there is an error communicating with the CAS server.
-	 */
+	 **************************************************************************/
 	public String login(String serviceUrl, String username, String password)
 			throws CasAuthenticationException, CasProtocolException {
 		String serviceTicket = null;
@@ -166,12 +166,12 @@ public class CasClient {
 
 	}
 
-	/**
+	/***************************************************************************
 	 * Logout from the CAS Server. This destroys all the local authentication
 	 * cookies and any tickets stored on the server.
 	 * 
 	 * @return <code>true</false> if the logout is acknowledged by the CAS server
-	 */
+	 **************************************************************************/
 	public boolean logout() {
 		boolean logoutSuccess = false;
 		HttpGet httpGet = new HttpGet(casBaseURL + CAS_LOGOUT_URL_PART);
@@ -186,7 +186,7 @@ public class CasClient {
 		return logoutSuccess;
 	}
 
-	/**
+	/***************************************************************************
 	 * Validate the specified service ticket against the specified service. If
 	 * the ticket is valid, this will yield the clear text user name of the
 	 * authenticated user.
@@ -204,7 +204,7 @@ public class CasClient {
 	 *             if a protocol or communication error occurs.
 	 * @throws CasClientValidationException
 	 *             if the CAS server refuses the ticket for the service.
-	 */
+	 **************************************************************************/
 	public String validate(String serviceUrl, String serviceTicket)
 			throws CasAuthenticationException, CasProtocolException {
 		HttpPost httpPost = new HttpPost(casBaseURL
@@ -239,7 +239,7 @@ public class CasClient {
 		return username;
 	}
 
-	/**
+	/***************************************************************************
 	 * This method requests the original login form from CAS. This form contains
 	 * an LT, an initial token that must be presented to CAS upon sending it an
 	 * authentication request with credentials.
@@ -252,7 +252,7 @@ public class CasClient {
 	 * @param serviceUrl
 	 * @return The LT token if it could be extracted from the CAS response, else
 	 *         null.
-	 */
+	 **************************************************************************/
 	protected String getLTFromLoginForm(String serviceUrl) {
 		HttpGet httpGet = new HttpGet(casBaseURL + CAS_LOGIN_URL_PART
 				+ "?service=" + serviceUrl);
@@ -284,7 +284,7 @@ public class CasClient {
 		return lt;
 	}
 
-	/**
+	/***************************************************************************
 	 * Helper method to extract the user name from a "service validate" call to
 	 * CAS.
 	 * 
@@ -292,7 +292,7 @@ public class CasClient {
 	 *            Response data.
 	 * @return The clear text username, if it could be extracted, null
 	 *         otherwise.
-	 */
+	 **************************************************************************/
 	protected String extractUser(InputStream dataStream) {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
 				dataStream));
@@ -314,13 +314,13 @@ public class CasClient {
 		return user;
 	}
 
-	/**
+	/***************************************************************************
 	 * Helper method to extract the service ticket from a login call to CAS.
 	 * 
 	 * @param data
 	 *            Response data.
 	 * @return The service ticket, if it could be extracted, null otherwise.
-	 */
+	 **************************************************************************/
 	protected String extractServiceTicket(String data) {
 		String serviceTicket = null;
 		int start = data.indexOf(CAS_TICKET_BEGIN);
@@ -331,13 +331,13 @@ public class CasClient {
 		return serviceTicket;
 	}
 
-	/**
+	/***************************************************************************
 	 * Helper method to extract the LT from the login form received from CAS.
 	 * 
 	 * @param data
 	 *            InputStream with HTTP response body.
 	 * @return The LT, if it could be extracted, null otherwise.
-	 */
+	 **************************************************************************/
 	protected String extractLt(InputStream dataStream) {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(
 				dataStream));
@@ -359,7 +359,7 @@ public class CasClient {
 		return token;
 	}
 
-	/**
+	/***************************************************************************
 	 * Implementing this method because there is an issue with the SSL Peer
 	 * certification. Necessary to set up because the test emulator does not
 	 * have a valid SSL certificate causing a
@@ -371,7 +371,7 @@ public class CasClient {
 	 * 
 	 * @param client
 	 * @return
-	 */
+	 **************************************************************************/
 	private HttpClient sslClient(HttpClient client) {
 		try {
 			X509TrustManager tm = new X509TrustManager() {

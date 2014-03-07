@@ -1,6 +1,7 @@
 package com.aisaacroth.courseworks;
 
 import java.io.IOException;
+import java.net.URL;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -44,9 +45,9 @@ public class Login extends Activity {
 	// private static final String[] DUMMY_CREDENTIALS = new String[] {
 	// "air2112:Columbia2016" };
 
-	/**
+	/***************************************************************************
 	 * Keep track of the login task to ensure we can cancel it if requested.
-	 */
+	 **************************************************************************/
 	private UserLoginTask mAuthTask = null;
 
 	// Values for email and password at the time of the login attempt.
@@ -232,10 +233,8 @@ public class Login extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-			HttpClient client = new DefaultHttpClient();
 
-			CasClient2 cas = new CasClient2(client,
-					"https://cas.columbia.edu/cas/");
+			CasClient2 cas = new CasClient2("https://cas.columbia.edu/cas/");
 			try {
 				try {
 					cas.login(
