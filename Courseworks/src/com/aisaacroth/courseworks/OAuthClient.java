@@ -1,7 +1,5 @@
 package com.aisaacroth.courseworks;
 
-
-
 /**
  * An Oauth Client for the Courseworks Android application. Interacts with the 
  * web version of Courseworks and accepts user-based information. Performs 
@@ -12,5 +10,6 @@ package com.aisaacroth.courseworks;
  * @version 0.1
  */
 public class OAuthClient {
+	
 
 }
