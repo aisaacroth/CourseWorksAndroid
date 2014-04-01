@@ -1,7 +1,9 @@
 package com.aisaacroth.courseworks;
 
-import org.scribe.builder.ServiceBuilder;
-import org.scribe.oauth.OAuthService;
+import oauth.signpost.OAuthConsumer;
+import oauth.signpost.OAuthProvider;
+import oauth.signpost.commonshttp.CommonsHttpOAuthConsumer;
+
 
 /**
  * An Oauth Client for the Courseworks Android application. Interacts with the
@@ -16,9 +18,17 @@ public class OAuthClient {
 
 	/*
 	 * TODO: Implement a custom API for CAS and Courseworks, if I wanted to use
-	 * Scribe. 
-	 * TODO: Look into using Google's signpost library; seems more readily 
-	 * available at the current moment.
+	 * Scribe. TODO: Look into using Google's signpost library; seems more
+	 * readily available at the current moment.
 	 */
+	private OAuthConsumer mConsumer;
+	private OAuthProvider mProvider;
+	private String mCallbackUrl;
+
+	public OAuthClient(String consumerKey, String consumerSecret, String scope,
+			String callbackUrl) {
+		mConsumer = new CommonsHttpOAuthConsumer(consumerKey, consumerSecret);
+
+	}
 
 }
