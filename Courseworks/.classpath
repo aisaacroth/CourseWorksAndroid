@@ -8,5 +8,10 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry kind="lib" path="libs/cas-client-core-3.1.10.jar"/>
 	<classpathentry kind="lib" path="libs/bcprov-jdk15on-150.jar"/>
+	<classpathentry kind="lib" path="libs/cas-server-support-pac4j-4.0.0-RC3.jar" sourcepath="libs/cas-server-support-pac4j-4.0.0-RC3-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:platform:/resource/Courseworks/libs/cas-server-support-pac4j-4.0.0-RC3-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>
