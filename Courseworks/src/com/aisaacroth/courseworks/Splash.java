@@ -12,8 +12,8 @@ import android.os.Handler;
  * activity checks whether there is a file that already contains login
  * information.
  * 
- * @author Alexander Roth
- * @date: 2014-02-24
+ * @author:  Alexander Roth
+ * @date:    2014-02-24
  * @version: 0.1
  ******************************************************************************/
 public class Splash extends Activity {

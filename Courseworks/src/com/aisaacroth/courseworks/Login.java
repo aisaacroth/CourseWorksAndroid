@@ -1,21 +1,14 @@
 package com.aisaacroth.courseworks;
 
-import java.io.IOException;
-import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
+import java.io.File;
 
-import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.DefaultHttpClient;
-
+import android.accounts.AccountManager;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,17 +26,11 @@ import android.widget.TextView;
  * either OAuth or CAS for user authentication. TODO: Implement with
  * AccountManager for tokens for CAS or OAuth. TODO: Update the login method.
  * 
- * @author Alexander Roth
+ * @author: Alexander Roth
  * @Date: 2014-02-25
  * @version: 0.1
  ******************************************************************************/
 public class Login extends Activity {
-	/**
-	 * A dummy authentication store containing known user names and passwords.
-	 * TODO: remove after connecting to a real authentication system.
-	 */
-	// private static final String[] DUMMY_CREDENTIALS = new String[] {
-	// "air2112:Columbia2016" };
 
 	/***************************************************************************
 	 * Keep track of the login task to ensure we can cancel it if requested.
@@ -54,6 +41,11 @@ public class Login extends Activity {
 	private String mUNI;
 	private String mPassword;
 
+	// AccountManager for Oauth authentication.
+	private AccountManager accountManager;
+	private AuthPreferences loginPreferences;
+	private Context context;
+
 	// UI references.
 	private EditText mUNIView;
 	private EditText mPasswordView;
@@ -61,9 +53,6 @@ public class Login extends Activity {
 	private View mLoginStatusView;
 	private TextView mLoginStatusMessageView;
 	private CheckBox rememberMe;
-	private SharedPreferences loginPreferences;
-	private SharedPreferences.Editor loginPrefEditor;
-	private Boolean saveLogin;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -79,9 +68,8 @@ public class Login extends Activity {
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-		// Create the file that will contain login information.
-		loginPreferences = getSharedPreferences("loginPrefs", MODE_PRIVATE);
-		loginPrefEditor = loginPreferences.edit();
+		accountManager = AccountManager.get(this);
+		loginPreferences = new AuthPreferences(this);
 
 		mPasswordView
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -104,22 +92,23 @@ public class Login extends Activity {
 						// TODO: Check to make sure that this block is working
 						// and saving to SharedPreferences.
 						if (rememberMe.isChecked()) {
-							loginPrefEditor.putBoolean("saveLogin", true);
-							loginPrefEditor.putString("uni", mUNI);
-							loginPrefEditor.putString("password", mPassword);
-							loginPrefEditor.commit();
+							loginPreferences.setUser(mUNI);
+							loginPreferences.setToken(mPassword);
 						} else {
-							loginPrefEditor.clear();
-							loginPrefEditor.commit();
+							loginPreferences.clear();
 						}
 						attemptLogin();
 					}
 				});
 
-		saveLogin = loginPreferences.getBoolean("saveLogin", false);
-		if (saveLogin == true) {
-			mUNIView.setText(loginPreferences.getString("uni", ""));
-			mPasswordView.setText(loginPreferences.getString("password", ""));
+		// If there exists a Shared Preference file.
+		context = this;
+		String dirtyPath = context.getFilesDir().toString();
+		String path = dirtyPath.substring(0, dirtyPath.indexOf("files"));
+		File loginAuth = new File(path + "/shared_prefs/auth.xml");
+		if (loginAuth.exists()) {
+			mUNIView.setText(loginPreferences.getUser());
+			mPasswordView.setText(loginPreferences.getToken());
 			rememberMe.setChecked(true);
 		}
 	}
@@ -233,15 +222,8 @@ public class Login extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-
-			CasClient2 cas = new CasClient2("https://cas.columbia.edu/cas/");
-			try {
-				cas.login(
-						"https%3A%2F%2Fcourseworks.columbia.edu%2Fsakai-login-tool%2Fcontainer%3Fforce.login%3Dyes",
-						new UsernamePasswordCredentials(mUNI, mPassword));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			context = getApplicationContext();
+			OAuthClient.login(accountManager, context);
 			return true;
 		}
 
