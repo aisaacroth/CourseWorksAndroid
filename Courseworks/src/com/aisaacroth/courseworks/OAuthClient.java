@@ -21,31 +21,32 @@ public class OAuthClient {
 
 	public static void login(AccountManager accountManager, Context context) {
 		Bundle options = new Bundle();
-		
+
 		// TODO: This is a place holder. When we have it prepared for Columbia
 		// servers, we will adjust as necessary.
 		Account[] profiles = accountManager.getAccountsByType("Columbia");
 		Account user = profiles[0];
-		accountManager.getAuthToken(user, "oauth2:", null, context, new OnTokenAcquired(), null);
+		// accountManager.getAuthToken(user, "oauth2:", null, context, new
+		// OnTokenAcquired(), null);
 	}
-	
-	private class OnTokenAcquired implements AccountManagerCallback<Bundle> {
 
-		@Override
-		public void run(AccountManagerFuture<Bundle> result) {
-			try {
-				Bundle bundle = result.getResult();
-				
-				Intent launch = (Intent) bundle.get(AccountManager.KEY_INTENT);
-				if (launch != null) {
-					// Some form of start activity. Yet to figure out what.
-				} else {
-					String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
-					
-				}
-			}
-			
-		}
-		
-	}
+	// private class OnTokenAcquired implements AccountManagerCallback<Bundle> {
+
+	// @Override
+	// public void run(AccountManagerFuture<Bundle> result) {
+	// // try {
+	// // Bundle bundle = result.getResult();
+	//
+	// Intent launch = (Intent) bundle.get(AccountManager.KEY_INTENT);
+	// if (launch != null) {
+	// // Some form of start activity. Yet to figure out what.
+	// } else {
+	// String token = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+	//
+	// }
+	// // }
+	//
+	// }
+
+	// }
 }
