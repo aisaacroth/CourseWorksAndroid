@@ -17,6 +17,7 @@ public class AuthPreferences {
 
 	private static final String KEY_USER = "uni";
 	private static final String KEY_PASSWORD = "password";
+	private static final String KEY_REMEMBER = "remember";
 	private SharedPreferences preferences;
 
 	/***************************************************************************
@@ -52,6 +53,13 @@ public class AuthPreferences {
 		editor.commit();
 	}
 	
+	//TODO: Add Documentation
+	public void isRemembered(boolean remember) {
+		Editor editor = preferences.edit();
+		editor.putBoolean(KEY_REMEMBER, remember);
+		editor.commit();
+	}
+	
 	/***************************************************************************
 	 * Clears the information in the "auth" file in case the user does not want
 	 * to save his or her credential information.
@@ -78,5 +86,10 @@ public class AuthPreferences {
 	 **************************************************************************/
 	public String getToken() {
 		return preferences.getString(KEY_PASSWORD, null);
+	}
+	
+	//TODO: Add Documentation.
+	public boolean hasRemembered() {
+		return preferences.getBoolean(KEY_REMEMBER, false);
 	}
 }
