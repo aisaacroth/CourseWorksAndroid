@@ -88,7 +88,7 @@ public class AuthPreferences {
 		return preferences.getString(KEY_PASSWORD, null);
 	}
 	
-	//TODO: Add Documentation.
+	//TODO: Need to add Documentation.
 	public boolean hasRemembered() {
 		return preferences.getBoolean(KEY_REMEMBER, false);
 	}
