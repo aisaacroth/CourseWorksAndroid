@@ -11,7 +11,7 @@ import android.content.SharedPreferences.Editor;
  * 
  * @author:  Alexander Roth
  * @Date:    2014-04-04
- * @version: 0.1
+ * @version: 0.4
  ******************************************************************************/
 public class AuthPreferences {
 
@@ -34,7 +34,7 @@ public class AuthPreferences {
 	/***************************************************************************
 	 * Sets the user of the current session for Oauth authentication.
 	 *
-	 * @param user the user credential.
+	 * @param user the user's username.
 	 **************************************************************************/
 	public void setUser(String user) {
 		Editor editor = preferences.edit();
@@ -45,7 +45,7 @@ public class AuthPreferences {
 	/***************************************************************************
 	 * Sets the password credentials for the Oauth authentication process.
 	 *
-	 * @param password the new token
+	 * @param password the user's password
 	 **************************************************************************/
 	public void setToken(String password) {
 		Editor editor = preferences.edit();
@@ -53,7 +53,11 @@ public class AuthPreferences {
 		editor.commit();
 	}
 	
-	//TODO: Add Documentation
+	/***************************************************************************
+	 * Sets the remember me feature to the Shared Preferences file.
+	 * 
+	 * @param remember
+	 **************************************************************************/
 	public void isRemembered(boolean remember) {
 		Editor editor = preferences.edit();
 		editor.putBoolean(KEY_REMEMBER, remember);
@@ -73,7 +77,7 @@ public class AuthPreferences {
 	/***************************************************************************
 	 * Gets the user information
 	 *
-	 * @return the user
+	 * @return the username
 	 **************************************************************************/
 	public String getUser() {
 		return preferences.getString(KEY_USER, null);
@@ -82,13 +86,18 @@ public class AuthPreferences {
 	/***************************************************************************
 	 * Gets the password information.
 	 *
-	 * @return the token
+	 * @return the user's password
 	 **************************************************************************/
 	public String getToken() {
 		return preferences.getString(KEY_PASSWORD, null);
 	}
 	
-	//TODO: Need to add Documentation.
+	/***************************************************************************
+	 * Checks if the SharedPreferences file is supposed to remember user
+	 * information.
+	 * 
+	 * @return boolean value if file is supposed to remember user info
+	 **************************************************************************/
 	public boolean hasRemembered() {
 		return preferences.getBoolean(KEY_REMEMBER, false);
 	}

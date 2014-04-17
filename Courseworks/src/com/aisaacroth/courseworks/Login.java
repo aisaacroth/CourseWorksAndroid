@@ -84,9 +84,15 @@ public class Login extends Activity {
 		String dirtyPath = context.getFilesDir().toString();
 		String path = dirtyPath.substring(0, dirtyPath.indexOf("files"));
 		File loginAuth = new File(path + "/shared_prefs/auth.xml");
-		if (loginAuth.exists()) {
+
+		// If the Shared Preference file exists and the username and password
+		// both exist.
+		if (loginAuth.exists() && loginPreferences.getUser() != null
+				&& loginPreferences.getToken() != null) {
 			mUNIView.setText(loginPreferences.getUser());
 			mPasswordView.setText(loginPreferences.getToken());
+			// Auto-login feature.
+			// attemptLogin();
 		}
 
 		mPasswordView
@@ -106,7 +112,7 @@ public class Login extends Activity {
 				new View.OnClickListener() {
 					@Override
 					public void onClick(View view) {
-						
+
 						if (rememberMe.isChecked()) {
 							mUNI = mUNIView.getText().toString();
 							mPassword = mPasswordView.getText().toString();
@@ -231,21 +237,21 @@ public class Login extends Activity {
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
-				try {
-					 OAuthClient.login(credentials, URL);
-				} catch (KeyManagementException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (ClientProtocolException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			try {
+				OAuthClient.login(credentials, URL);
+			} catch (KeyManagementException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return true;
 		}
 
