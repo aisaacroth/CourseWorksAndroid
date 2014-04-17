@@ -88,9 +88,9 @@ public class Login extends Activity {
 		// If the Shared Preference file exists and the username and password
 		// both exist.
 		if (loginAuth.exists() && loginPreferences.getUser() != null
-				&& loginPreferences.getToken() != null) {
+				&& loginPreferences.getPassword() != null) {
 			mUNIView.setText(loginPreferences.getUser());
-			mPasswordView.setText(loginPreferences.getToken());
+			mPasswordView.setText(loginPreferences.getPassword());
 			// Auto-login feature.
 			// attemptLogin();
 		}
@@ -117,7 +117,7 @@ public class Login extends Activity {
 							mUNI = mUNIView.getText().toString();
 							mPassword = mPasswordView.getText().toString();
 							loginPreferences.setUser(mUNI);
-							loginPreferences.setToken(mPassword);
+							loginPreferences.setPassword(mPassword);
 						} else {
 							loginPreferences.clear();
 						}

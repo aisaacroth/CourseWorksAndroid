@@ -11,13 +11,13 @@ import android.content.SharedPreferences.Editor;
  * 
  * @author:  Alexander Roth
  * @Date:    2014-04-04
- * @version: 0.4
+ * @version: 0.5
+ * @updated: 2014-04-17
  ******************************************************************************/
 public class AuthPreferences {
 
 	private static final String KEY_USER = "uni";
 	private static final String KEY_PASSWORD = "password";
-	private static final String KEY_REMEMBER = "remember";
 	private SharedPreferences preferences;
 
 	/***************************************************************************
@@ -47,20 +47,9 @@ public class AuthPreferences {
 	 *
 	 * @param password the user's password
 	 **************************************************************************/
-	public void setToken(String password) {
+	public void setPassword(String password) {
 		Editor editor = preferences.edit();
 		editor.putString(KEY_PASSWORD, password);
-		editor.commit();
-	}
-	
-	/***************************************************************************
-	 * Sets the remember me feature to the Shared Preferences file.
-	 * 
-	 * @param remember
-	 **************************************************************************/
-	public void isRemembered(boolean remember) {
-		Editor editor = preferences.edit();
-		editor.putBoolean(KEY_REMEMBER, remember);
 		editor.commit();
 	}
 	
@@ -88,17 +77,7 @@ public class AuthPreferences {
 	 *
 	 * @return the user's password
 	 **************************************************************************/
-	public String getToken() {
+	public String getPassword() {
 		return preferences.getString(KEY_PASSWORD, null);
-	}
-	
-	/***************************************************************************
-	 * Checks if the SharedPreferences file is supposed to remember user
-	 * information.
-	 * 
-	 * @return boolean value if file is supposed to remember user info
-	 **************************************************************************/
-	public boolean hasRemembered() {
-		return preferences.getBoolean(KEY_REMEMBER, false);
 	}
 }
