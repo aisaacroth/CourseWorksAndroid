@@ -28,9 +28,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /*******************************************************************************
- * Login Activity which displays a login screen to the user. TODO: Implement
- * either OAuth or CAS for user authentication. TODO: Implement with
- * AccountManager for tokens for CAS or OAuth. TODO: Update the login method.
+ * Login Activity which displays a login screen to the user. 
  * 
  * @author: Alexander Roth
  * @Date: 2014-02-25
@@ -76,7 +74,6 @@ public class Login extends Activity {
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-		// accountManager = AccountManager.get(this);
 		loginPreferences = new AuthPreferences(this);
 
 		// If there exists a Shared Preference file.
@@ -166,7 +163,7 @@ public class Login extends Activity {
 			cancel = true;
 		}
 
-		// Check for a valid uni.
+		// Check if uni is present.
 		if (TextUtils.isEmpty(mUNI)) {
 			mUNIView.setError(getString(R.string.error_field_required));
 			focusView = mUNIView;

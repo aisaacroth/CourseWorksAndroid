@@ -35,6 +35,18 @@ import android.util.Log;
  ******************************************************************************/
 public class OAuthClient {
 
+	/**
+	 * Logins in the user using his or her credentials to the specified server at the URL given.
+	 * 
+	 * @param credentials
+	 *            The user's credentials.
+	 * @param stringUrl
+	 *            The location of the authentication server.
+	 * @throws ClientProtocolException
+	 * @throws IOException
+	 * @throws KeyManagementException
+	 * @throws NoSuchAlgorithmException
+	 */
 	@SuppressLint("TrulyRandom")
 	public static void login(UsernamePasswordCredentials credentials,
 			String stringUrl) throws ClientProtocolException, IOException, KeyManagementException, NoSuchAlgorithmException {
@@ -74,6 +86,15 @@ public class OAuthClient {
 		Log.d("LOGIN", conn.getRequestMethod() + " " + conn.getResponseCode() + " " + conn.getResponseMessage());
 	}
 	
+	/***************************************************************************
+	 * Converts a List of NameValuePairs into a UTF-8 encoded string for HTTP
+	 * requests.
+	 * 
+	 * @param params
+	 *            The list of NameValuePairs that will be encoded.
+	 * @return The encoded string for use in the HTTP request call.
+	 * @throws UnsupportedEncodingException
+	 **************************************************************************/
 	private static String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException {
 		StringBuilder result = new StringBuilder();
 		boolean first = true;
