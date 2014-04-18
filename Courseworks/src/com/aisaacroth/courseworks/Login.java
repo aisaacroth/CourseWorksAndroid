@@ -74,7 +74,7 @@ public class Login extends Activity {
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-		loginPreferences = new AuthPreferences(this);
+		loginPreferences = new AuthPreferences(this, "auth", "Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
 
 		// If there exists a Shared Preference file.
 		context = this;
@@ -84,10 +84,10 @@ public class Login extends Activity {
 
 		// If the Shared Preference file exists and the username and password
 		// both exist.
-		if (loginAuth.exists() && loginPreferences.getUser() != null
-				&& loginPreferences.getPassword() != null) {
-			mUNIView.setText(loginPreferences.getUser());
-			mPasswordView.setText(loginPreferences.getPassword());
+		if (loginAuth.exists() && loginPreferences.getString("uni") != null
+				&& loginPreferences.getString("password") != null) {
+			mUNIView.setText(loginPreferences.getString("uni"));
+			mPasswordView.setText(loginPreferences.getString("password"));
 			// Auto-login feature.
 			// attemptLogin();
 		}
@@ -113,8 +113,8 @@ public class Login extends Activity {
 						if (rememberMe.isChecked()) {
 							mUNI = mUNIView.getText().toString();
 							mPassword = mPasswordView.getText().toString();
-							loginPreferences.setUser(mUNI);
-							loginPreferences.setPassword(mPassword);
+							loginPreferences.put("uni", mUNI);
+							loginPreferences.put("password", mPassword);
 						} else {
 							loginPreferences.clear();
 						}
