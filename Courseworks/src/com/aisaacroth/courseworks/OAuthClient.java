@@ -20,7 +20,6 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 
-
 import android.annotation.SuppressLint;
 import android.util.Log;
 
@@ -35,8 +34,9 @@ import android.util.Log;
  ******************************************************************************/
 public class OAuthClient {
 
-	/**
-	 * Logins in the user using his or her credentials to the specified server at the URL given.
+	/***************************************************************************
+	 * Logins in the user using his or her credentials to the specified server
+	 * at the URL given.
 	 * 
 	 * @param credentials
 	 *            The user's credentials.
@@ -46,11 +46,12 @@ public class OAuthClient {
 	 * @throws IOException
 	 * @throws KeyManagementException
 	 * @throws NoSuchAlgorithmException
-	 */
+	 **************************************************************************/
 	@SuppressLint("TrulyRandom")
 	public static void login(UsernamePasswordCredentials credentials,
-			String stringUrl) throws ClientProtocolException, IOException, KeyManagementException, NoSuchAlgorithmException {
-		
+			String stringUrl) throws ClientProtocolException, IOException,
+			KeyManagementException, NoSuchAlgorithmException {
+
 		URL url = new URL(stringUrl);
 		HttpsURLConnection conn = (HttpsURLConnection) url.openConnection();
 
@@ -59,33 +60,35 @@ public class OAuthClient {
 		sc = SSLContext.getInstance("TLS");
 		sc.init(null, null, new java.security.SecureRandom());
 		conn.setSSLSocketFactory(sc.getSocketFactory());
-		
+
 		// Set Timeout and method
 		conn.setReadTimeout(7000);
 		conn.setConnectTimeout(7000);
 		conn.setRequestMethod("POST");
 		conn.setDoInput(true);
 		conn.setDoOutput(true);
-		
+
 		// Add the data here.
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("grant_type", "password"));
 		params.add(new BasicNameValuePair("username", credentials.getUserName()));
 		params.add(new BasicNameValuePair("password", credentials.getPassword()));
 		params.add(new BasicNameValuePair("client_id", "CLIENT_ID"));
-		
+
 		OutputStream os = conn.getOutputStream();
-		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os, "UTF-8"));
+		BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(os,
+				"UTF-8"));
 		writer.write(getQuery(params));
 		writer.flush();
 		writer.close();
 		os.close();
-		
+
 		conn.connect();
-		
-		Log.d("LOGIN", conn.getRequestMethod() + " " + conn.getResponseCode() + " " + conn.getResponseMessage());
+
+		Log.d("LOGIN", conn.getRequestMethod() + " " + conn.getResponseCode()
+				+ " " + conn.getResponseMessage());
 	}
-	
+
 	/***************************************************************************
 	 * Converts a List of NameValuePairs into a UTF-8 encoded string for HTTP
 	 * requests.
@@ -95,16 +98,17 @@ public class OAuthClient {
 	 * @return The encoded string for use in the HTTP request call.
 	 * @throws UnsupportedEncodingException
 	 **************************************************************************/
-	private static String getQuery(List<NameValuePair> params) throws UnsupportedEncodingException {
+	private static String getQuery(List<NameValuePair> params)
+			throws UnsupportedEncodingException {
 		StringBuilder result = new StringBuilder();
 		boolean first = true;
-		
-		for (NameValuePair pair: params) {
-			if (first) 
+
+		for (NameValuePair pair : params) {
+			if (first)
 				first = false;
 			else
 				result.append("&");
-			
+
 			result.append(URLEncoder.encode(pair.getName(), "UTF-8"));
 			result.append("=");
 			result.append(URLEncoder.encode(pair.getValue(), "UTF-8"));
@@ -112,5 +116,5 @@ public class OAuthClient {
 		Log.d("LOGIN", result.toString());
 		return result.toString();
 	}
-	
+
 }
