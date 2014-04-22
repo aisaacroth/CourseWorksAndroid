@@ -285,7 +285,7 @@ public class AuthPreferences {
 	 *            The initialized cipher
 	 * @param bs
 	 *            The byte array input
-	 * @return
+	 * @return the encrypted or decrypted data
 	 **************************************************************************/
 	private static byte[] convert(Cipher cipher, byte[] bs) {
 		try {
