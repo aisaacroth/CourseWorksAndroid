@@ -46,5 +46,5 @@ Developed for CUIT
 Author: Alexander Roth  
 Date:   2014-04-22
 
-[Documentation]:
+[Documentation]: https://github.com/aisaacroth/CourseWorks/blob/master/Documentation/Desig%20Documentation%2C%20Courseworks%20App.pdf
 
