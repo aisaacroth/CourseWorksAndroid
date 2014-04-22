@@ -8,7 +8,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 
@@ -20,15 +19,17 @@ import android.util.Base64;
 /*******************************************************************************
  * Writes Authentication information for Oauth to a shared preference file. This
  * preference file will contain the password and user information for the
- * application.
+ * application. Encrypts the information using AES (a symmetric cypher) and
+ * saves it to the file that way. TODO: Document everything.
  * 
  * @author: Alexander Roth
  * @Date: 2014-04-04
- * @version: 0.5
- * @updated: 2014-04-17
+ * @version: 0.7
+ * @updated: 2014-04-18
  ******************************************************************************/
 public class AuthPreferences {
 
+	/* Custom exception class - Acts as a catch-all for testing purposes */
 	@SuppressWarnings("serial")
 	public static class AuthPreferencesException extends RuntimeException {
 		public AuthPreferencesException(Throwable e) {
@@ -36,13 +37,11 @@ public class AuthPreferences {
 		}
 	}
 
-//	private static final String KEY_USER = "uni";
-//	private static final String KEY_PASSWORD = "password";
 	private static final String TRANSFORMATION = "AES/CBC/PKCS5Padding";
 	private static final String KEY_TRANSFORMATION = "AES/ECB/PKCS5Padding";
 	private static final String SECRET_KEY_HASH_TRANSFORMATION = "SHA-256";
 	private static final String CHARSET = "UTF-8";
-	
+
 	private final boolean encryptKeys;
 	private final Cipher writer;
 	private final Cipher reader;
@@ -50,13 +49,19 @@ public class AuthPreferences {
 	private SharedPreferences preferences;
 
 	/***************************************************************************
-	 * Creates a new file named "auth", which will house all the information
-	 * related to the Oauth authentication process.
+	 * Instantiates an AuthPreferences object. This object controls the ciphers
+	 * that will read and write to the file. It will also hold onto the type of
+	 * encryption.
 	 * 
 	 * @param context
-	 *            the current context
-	 * @throws NoSuchPaddingException
-	 * @throws NoSuchAlgorithmException
+	 *            The given context
+	 * @param preferenceName
+	 *            The file where the user information is being stored.
+	 * @param secureKey
+	 *            The keys that will be used by the ciphers.
+	 * @param encryptKeys
+	 *            Declares whether encryption is on.
+	 * @throws AuthPreferencesException
 	 **************************************************************************/
 	public AuthPreferences(Context context, String preferenceName,
 			String secureKey, boolean encryptKeys)
@@ -76,6 +81,14 @@ public class AuthPreferences {
 		}
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param secureKey
+	 * @throws InvalidKeyException
+	 * @throws InvalidAlgorithmParameterException
+	 * @throws UnsupportedEncodingException
+	 * @throws NoSuchAlgorithmException
+	 **************************************************************************/
 	@SuppressLint("TrulyRandom")
 	protected void initCiphers(String secureKey) throws InvalidKeyException,
 			InvalidAlgorithmParameterException, UnsupportedEncodingException,
@@ -88,6 +101,10 @@ public class AuthPreferences {
 		keyWriter.init(Cipher.ENCRYPT_MODE, secretKey);
 	}
 
+	/***************************************************************************
+	 * 
+	 * @return
+	 **************************************************************************/
 	protected IvParameterSpec getIv() {
 		byte[] iv = new byte[writer.getBlockSize()];
 		System.arraycopy("fldsjfodasjifudslfjdsaofshaufihadsf".getBytes(), 0,
@@ -95,12 +112,31 @@ public class AuthPreferences {
 		return new IvParameterSpec(iv);
 	}
 
+	/***************************************************************************
+	 * Constructs a secret key from a given byte array.
+	 * 
+	 * @param key
+	 *            The encryption key that will be used to get the byte array.
+	 * @return Secret key from the given byte array.
+	 * @throws UnsupportedEncodingException
+	 * @throws NoSuchAlgorithmException
+	 **************************************************************************/
 	protected SecretKeySpec getSecretKey(String key)
 			throws UnsupportedEncodingException, NoSuchAlgorithmException {
-		byte[] keyBytles = createKeyBytes(key);
-		return new SecretKeySpec(keyBytles, TRANSFORMATION);
+		byte[] keyBytes = createKeyBytes(key);
+		return new SecretKeySpec(keyBytes, TRANSFORMATION);
 	}
 
+	/***************************************************************************
+	 * Hashes the given encryption key by using SHA-256 as the hashing
+	 * algorithm.
+	 * 
+	 * @param key
+	 *            The encryption key that will be hashed
+	 * @return the array of bytes of the hashed encryption key.
+	 * @throws UnsupportedEncodingException
+	 * @throws NoSuchAlgorithmException
+	 **************************************************************************/
 	protected byte[] createKeyBytes(String key)
 			throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		MessageDigest md = MessageDigest
@@ -110,6 +146,11 @@ public class AuthPreferences {
 		return keyBytes;
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param key
+	 * @param value
+	 **************************************************************************/
 	public void put(String key, String value) {
 		if (value == null) {
 			preferences.edit().remove(toKey(key)).commit();
@@ -118,14 +159,28 @@ public class AuthPreferences {
 		}
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param key
+	 * @return
+	 **************************************************************************/
 	public boolean containsKey(String key) {
 		return preferences.contains(toKey(key));
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param key
+	 **************************************************************************/
 	public void removeValue(String key) {
 		preferences.edit().remove(toKey(key)).commit();
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param key
+	 * @return
+	 **************************************************************************/
 	public String getString(String key) {
 		if (preferences.contains(toKey(key))) {
 			String securedEncodedValue = preferences.getString(toKey(key), "");
@@ -134,10 +189,18 @@ public class AuthPreferences {
 		return null;
 	}
 
+	/***************************************************************************
+	 * 
+	 **************************************************************************/
 	public void clear() {
 		preferences.edit().clear().commit();
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param key
+	 * @return
+	 **************************************************************************/
 	private String toKey(String key) {
 		if (encryptKeys)
 			return encrypt(key, keyWriter);
@@ -145,11 +208,22 @@ public class AuthPreferences {
 			return key;
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param key
+	 * @param value
+	 **************************************************************************/
 	private void putValue(String key, String value) {
 		String secureValueEncoded = encrypt(value, writer);
 		preferences.edit().putString(key, secureValueEncoded).commit();
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param value
+	 * @param writer
+	 * @return
+	 **************************************************************************/
 	protected String encrypt(String value, Cipher writer) {
 		byte[] secureValue;
 		try {
@@ -162,6 +236,11 @@ public class AuthPreferences {
 		return secureValueEncoded;
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param securedEncodedValue
+	 * @return
+	 **************************************************************************/
 	protected String decrypt(String securedEncodedValue) {
 		byte[] securedValue = Base64
 				.decode(securedEncodedValue, Base64.NO_WRAP);
@@ -173,6 +252,12 @@ public class AuthPreferences {
 		}
 	}
 
+	/***************************************************************************
+	 * 
+	 * @param cipher
+	 * @param bs
+	 * @return
+	 **************************************************************************/
 	private static byte[] convert(Cipher cipher, byte[] bs) {
 		try {
 			return cipher.doFinal(bs);
@@ -180,56 +265,4 @@ public class AuthPreferences {
 			throw new AuthPreferencesException(e);
 		}
 	}
-	// /***************************************************************************
-	// * Sets the user of the current session for Oauth authentication.
-	// *
-	// * @param user
-	// * the user's username.
-	// **************************************************************************/
-	// public void setUser(String user) {
-	// Editor editor = preferences.edit();
-	// editor.putString(KEY_USER, user);
-	// editor.commit();
-	// }
-	//
-	// /***************************************************************************
-	// * Sets the password credentials for the Oauth authentication process.
-	// *
-	// * @param password
-	// * the user's password
-	// **************************************************************************/
-	// public void setPassword(String password) {
-	// Editor editor = preferences.edit();
-	// editor.putString(KEY_PASSWORD, password);
-	// editor.commit();
-	// }
-	//
-	// /***************************************************************************
-	// * Clears the information in the "auth" file in case the user does not
-	// want
-	// * to save his or her credential information.
-	// **************************************************************************/
-	// // public void clear() {
-	// // Editor editor = preferences.edit();
-	// // editor.clear();
-	// // editor.commit();
-	// // }
-	//
-	// /***************************************************************************
-	// * Gets the user information
-	// *
-	// * @return the username
-	// **************************************************************************/
-	// public String getUser() {
-	// return preferences.getString(KEY_USER, null);
-	// }
-	//
-	// /***************************************************************************
-	// * Gets the password information.
-	// *
-	// * @return the user's password
-	// **************************************************************************/
-	// public String getPassword() {
-	// return preferences.getString(KEY_PASSWORD, null);
-	// }
 }
