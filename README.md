@@ -33,7 +33,8 @@ The current design of the app works in a three-step process: the preamble, the a
 For more extensive detail on the application, please refer to the [documentation][Documentation]
 
 ## Class Design
-    Please read the documentation [here][Documentation]
+Please read the documentation [here][Documentation]
+    
 ## ToDo
 
 1. Test Authentication Process
