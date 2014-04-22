@@ -118,12 +118,21 @@ The real meat of the program so far. It will contain all the authentication meth
 \subsection{AuthPreferences}
 A helper class for the Login activity and the OAuthClient class. The class contains a number of the methods that either write to or read from the SharedPreference file ``auth.xml''.
  \begin{description}
-  \item[AuthPreferences] The constructor for the class. Links to the ``auth.xml'' file depending on the context in which it is created.
-  \item[setUser] Sets the user in the auth file to the current session user.
-  \item[setPassword] Sets the password of the current session user into the auth file.
-  \item[clear] Clears all information from the auth file in case the user does not want to save her credential information.
-  \item[getUser] Returns the UNI of the user stored in the auth file.
-  \item[getPassword] Returns the password of the user stored in the auth file.
+  \item[AuthPreferences] The constructor for the class. Links to the ``auth.xml'' file depending on the context in which it is created. Controls the ciphers that will read and write to the auth file. Also holds onto the encryption protocol used throughout the program.
+  \item[initCiphers] Initializes the ciphers for encryption and decryption.
+  \item[getIV] Creates an initialization vector for the ciphers to use.
+  \item[getSecretKey] Constructs a secret key from a given byte array.
+  \item[createKeyBytes] Hashes the given encryption key by using SHA-256 as the hashing alogrithm.
+  \item[put] Adds key-value pair to the SharedPreference file. If the value already exists, it is overwritten.
+  \item[containsKey] Checks if the given key is within the SharedPreference file.
+  \item[removeValue] Removes the specified value from the SharedPreference file.
+  \item[getString] Checks if the SharedPreference file contains the given key value; if present, retrieve the encoded value and decode it.
+  \item[clear] Clears all information from the auth file in case the user does not want to save his or her credential information.
+  \item[toKey] Encrypts a given key value.
+  \item[putValue] Encodes a value and stores it in the SharedPreference file.
+  \item[encrypt] Encrypts a plain text string into an encoded string.
+  \item[decrypt] Decrypts an encoded string into a plain text stirng.
+  \item[convert] Encryps or decrypts data in a single-part operation, or finished a multiple-part operation. The data is encrypted or decrypted, depending on how the cipher was initialized.
  \end{description}
 
 % Section 5: Risks
