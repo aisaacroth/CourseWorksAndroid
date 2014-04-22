@@ -82,8 +82,10 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
+	 * Initializes the ciphers for encryption and decryption.
 	 * 
 	 * @param secureKey
+	 *            The key used for encoding and decoding.
 	 * @throws InvalidKeyException
 	 * @throws InvalidAlgorithmParameterException
 	 * @throws UnsupportedEncodingException
@@ -102,8 +104,9 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
+	 * Creates an initialization vector for the cipher to work off of.
 	 * 
-	 * @return
+	 * @return a specification to an initialization vector
 	 **************************************************************************/
 	protected IvParameterSpec getIv() {
 		byte[] iv = new byte[writer.getBlockSize()];
@@ -147,9 +150,13 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
+	 * Adds key-value pair to the SharedPreference file. If the value already
+	 * exists, it is overwritten.
 	 * 
 	 * @param key
+	 *            The key in the key-value pair.
 	 * @param value
+	 *            The value in the key-value pair.
 	 **************************************************************************/
 	public void put(String key, String value) {
 		if (value == null) {
@@ -160,26 +167,33 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
+	 * Checks if the given key is within the SharedPreference file.
 	 * 
 	 * @param key
-	 * @return
+	 *            The key value being checked for
+	 * @return true if present, false if not
 	 **************************************************************************/
 	public boolean containsKey(String key) {
 		return preferences.contains(toKey(key));
 	}
 
 	/***************************************************************************
+	 * Removes the specified value from the SharedPreference file.
 	 * 
 	 * @param key
+	 *            The key value that will be removed.
 	 **************************************************************************/
 	public void removeValue(String key) {
 		preferences.edit().remove(toKey(key)).commit();
 	}
 
 	/***************************************************************************
+	 * Checks if the SharedPreference file contains the given key value; if
+	 * present, retrieve the encoded value and decode it.
 	 * 
 	 * @param key
-	 * @return
+	 *            The key value being searched for
+	 * @return The decrypted string value
 	 **************************************************************************/
 	public String getString(String key) {
 		if (preferences.contains(toKey(key))) {
@@ -190,16 +204,18 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
-	 * 
+	 * Clears the SharedPreference file.
 	 **************************************************************************/
 	public void clear() {
 		preferences.edit().clear().commit();
 	}
 
 	/***************************************************************************
+	 * Encrypts a given key value.
 	 * 
 	 * @param key
-	 * @return
+	 *            The key value of the SharedPreference file.
+	 * @return either the encrypted key or the key if encryption is turned off
 	 **************************************************************************/
 	private String toKey(String key) {
 		if (encryptKeys)
@@ -209,9 +225,12 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
+	 * Encodes a value and stores it in the SharedPreference file.
 	 * 
 	 * @param key
+	 *            The encrypted key
 	 * @param value
+	 *            The string that will be encrypted and stored
 	 **************************************************************************/
 	private void putValue(String key, String value) {
 		String secureValueEncoded = encrypt(value, writer);
@@ -219,10 +238,13 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
+	 * Encrypts a plain text string into an encoded string.
 	 * 
 	 * @param value
+	 *            The string that will be encoded.
 	 * @param writer
-	 * @return
+	 *            The cipher that will being the encoding.
+	 * @return the encoded string value.
 	 **************************************************************************/
 	protected String encrypt(String value, Cipher writer) {
 		byte[] secureValue;
@@ -237,9 +259,11 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
+	 * Decrypts an encoded string into a plain text string.
 	 * 
 	 * @param securedEncodedValue
-	 * @return
+	 *            The encoded string
+	 * @return The decoded string
 	 **************************************************************************/
 	protected String decrypt(String securedEncodedValue) {
 		byte[] securedValue = Base64
@@ -253,9 +277,14 @@ public class AuthPreferences {
 	}
 
 	/***************************************************************************
+	 * Encrypts or decrypts data in a single-part operation, or finished a
+	 * multiple-part operation. The data is encrypted or decrypted, depending on
+	 * how this cipher was initialized.
 	 * 
 	 * @param cipher
+	 *            The initialized cipher
 	 * @param bs
+	 *            The byte array input
 	 * @return
 	 **************************************************************************/
 	private static byte[] convert(Cipher cipher, byte[] bs) {
