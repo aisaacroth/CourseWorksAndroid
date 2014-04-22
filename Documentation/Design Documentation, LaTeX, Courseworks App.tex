@@ -1,6 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{indentfirst}
+\usepackage{ulem}
 
 \title{Courseworks App Design Documentation \\ Pre-Alpha Build}
 \author{Alexander Roth \\ UNI: air2112}
@@ -128,19 +129,19 @@ A helper class for the Login activity and the OAuthClient class. The class conta
 % Section 5: Risks
 \section{Risks}
  \subsection{Security}
-Since the application is native, it is more conducive to store the user's credentials on the mobile device, thus allowing the application to hold the user's credentials in a file system. However, this ease opens up a large security risk. The file holding the user's sensitive information (e.g. uni and password) is not secure at the present moment. There are three workarounds to this issue:
+Since the application is native, it is more conducive to store the user's credentials on the mobile device; thus allowing the application to hold the user's credentials in a file system. However, this ease opens up a large security risk. The file holding the user's sensitive information (e.g. uni and password) is not secure at the present moment. There are three workarounds to this issue:
   \begin{enumerate}
    \item We encrypt the SharedPreference file holding the user's information.
    \item We remove the ``Remember Me!'' feature.
    \item We move to web authentication through OAuth's \emph{Authorization Code} protocol.
   \end{enumerate}
-Our best course of action may be to encrypt the file. The overhead from the web calls needed for a web application may slow down the application immensely.
+As of \today, I have implemented an encryption method using Advanced Encryption Standard (AES). However, the SharedPreference file is not guaranteed completely secure; I just increased the difficulty for someone to access the information.
 
 % Section 6: ToDo
 \section{ToDo}
  \begin{enumerate}
   \item Test Authentication Process.
-  \item Secure private information of user.
+  \item \sout{Secure private information of user.}
   \item Update feature list based on student response.
   \item Move to alpha build once the Courseworks servers are prepared.
  \end{enumerate}
