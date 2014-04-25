@@ -33,13 +33,13 @@ The current design of the app works in a three-step process: the preamble, the a
 For more extensive detail on the application, please refer to the [documentation][Documentation]
 
 ## Class Design
-Please read the documentation [here][Documentation]
+Please refer to the [documentation][Documentation]
 
 ## Risks
 ### Security
 Since the application is native, itis more conducive to store the user's credentials on the mobile device; thus, allowing the application to hold the user's credentials in a file system. However, this ease opens up a large security risk. The file holding the user's sensitive information (e.g. uni and password) is now secured through the use of AES encryption.
 
-Please see [documentation][Documentation] for more security information.
+Please refer to the [documentation][Documentation] for more security information.
     
 ## ToDo
 
