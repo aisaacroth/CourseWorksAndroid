@@ -38,6 +38,8 @@ Please read the documentation [here][Documentation]
 ## Risks
 ### Security
 Since the application is native, itis more conducive to store the user's credentials on the mobile device; thus, allowing the application to hold the user's credentials in a file system. However, this ease opens up a large security risk. The file holding the user's sensitive information (e.g. uni and password) is now secured through the use of AES encryption.
+
+Please see [documentation][Documentation] for more security information.
     
 ## ToDo
 
