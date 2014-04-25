@@ -20,7 +20,6 @@ import android.graphics.Bitmap;
  * @date: 2014-04-25
  * @version: 0.1
  ******************************************************************************/
-
 public class ImplicitGrant extends Activity {
 	private static final String TAG = "ImplicitGrant";
 	public static final String CLIENT_ID = "CLIENT_ID";
