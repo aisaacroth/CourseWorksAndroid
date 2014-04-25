@@ -235,7 +235,7 @@ public class Login extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			try {
-				OAuthClient.login(credentials, URL);
+				ResourceOwnerCredential.login(credentials, URL);
 			} catch (KeyManagementException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
