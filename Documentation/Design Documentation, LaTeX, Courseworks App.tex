@@ -1,7 +1,7 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{indentfirst}
-\usepackage{ulem}
+\usepackage{soul}
 
 \title{Courseworks App Design Documentation \\ Pre-Alpha Build}
 \author{Alexander Roth \\ UNI: air2112}
@@ -26,12 +26,13 @@ Features currently implemented within the application include:
 \begin{enumerate}
 \item ``Remember Me!'' functionality
 \item OAuth 2.0 Resource Owner Password Credentials Protocol
+\item OAuth 2.0 Implicit Grant Protocol
 \end{enumerate}
 
 % Subsection 2.2: Future & Proposed Features
 \subsection{Future \& Proposed Features}
 \begin{enumerate}
-\item OAuth 2.0 Authorization Code Protocol
+\item OAuth 2.0 Authorization Code Grant Protocol
 \item Current Semester Homepage
 \item Course Names instead of Course numbers
 \item Seamless calendar integration with native mobile calendar applications.
@@ -143,6 +144,7 @@ Since the application is native, it is more conducive to store the user's creden
    \item We encrypt the SharedPreference file holding the user's information.
    \item We remove the ``Remember Me!'' feature.
    \item We move to web authentication through OAuth's \emph{Authorization Code} protocol.
+   \item We move to web authentication through OAuth's \emph{Implicit Grant} protocol.
   \end{enumerate}
 As of \today, I have implemented an encryption method using Advanced Encryption Standard (AES). However, the SharedPreference file is not guaranteed completely secure; I just increased the difficulty for someone to access the information.
 
@@ -150,7 +152,7 @@ As of \today, I have implemented an encryption method using Advanced Encryption 
 \section{ToDo}
  \begin{enumerate}
   \item Test Authentication Process.
-  \item \sout{Secure private information of user.}
+  \item \st{Secure private information of user.}
   \item Update feature list based on student response.
   \item Move to alpha build once the Courseworks servers are prepared.
  \end{enumerate}
