@@ -74,7 +74,8 @@ public class Login extends Activity {
 		mLoginStatusView = findViewById(R.id.login_status);
 		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
 
-		loginPreferences = new AuthPreferences(this, "auth", "Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
+		loginPreferences = new AuthPreferences(this, "auth",
+				"Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
 
 		// If there exists a Shared Preference file.
 		context = this;
