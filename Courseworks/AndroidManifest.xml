@@ -7,9 +7,9 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCOUNT_MANAGER"/>
-    <uses-permission android:name="android.permission.USE_CREDENTIALS"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.USE_CREDENTIALS" />
 
     <application
         android:allowBackup="true"
@@ -34,20 +34,33 @@
         <activity
             android:name="com.aisaacroth.courseworks.Main"
             android:label="@string/app_name" >
-            <intent-filter> 
-                <action android:name="android.intent.action.VIEW"></action>
-                <category android:name="android.intent.category.DEFAULT"></category>
-                <category android:name="android.intent.category.BROWSABLE"></category>
-                <data android:scheme="main-activity"></data>
-                </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" >
+                </action>
+
+                <category android:name="android.intent.category.DEFAULT" >
+                </category>
+                <category android:name="android.intent.category.BROWSABLE" >
+                </category>
+
+                <data android:scheme="main-activity" >
+                </data>
+            </intent-filter>
         </activity>
-        
+
         <!-- Login activity -->
         <activity
             android:name="com.aisaacroth.courseworks.Login"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
+
+        <!-- Implicit Grant activity -->
+        <activity
+            android:name="com.aisaacroth.courseworks.ImplicitGrant"
+            android:label="@string/app_name" >
+        </activity>
+        
     </application>
 
 </manifest>
