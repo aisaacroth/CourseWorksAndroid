@@ -88,6 +88,8 @@ public class ResourceOwnerCredential {
 
 		Log.d("LOGIN", conn.getRequestMethod() + " " + conn.getResponseCode()
 				+ " " + conn.getResponseMessage());
+		
+		//TODO: Handle the login token when received.
 	}
 
 	/***************************************************************************
