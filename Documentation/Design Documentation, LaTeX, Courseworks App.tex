@@ -12,33 +12,38 @@
 
 % Section 1: Overview
 \section{Overview}
-The goal of mobile application is to compliment the features of Columbia's Courseworks web site and increase accessibility for students. \\
-\indent As of \date{\today}, this document outlines the development process and future iterations of the Columbia Courseworks app. 
-\textbf{Note:} This application is still in development in a \emph{pre-alpha build} and is currently being built for Android only.
+The goal of mobile application is to compliment the features of Columbia's Courseworks web
+site and increase accessibility for students. \\
+\indent As of \date{\today}, this document outlines the development process and future 
+iterations of the Columbia Courseworks app. 
+\textbf{Note:} This application is still in development in a \emph{pre-alpha build} and is
+currently being built for Android only.
 
 % Section 2: Features
 \section{Features}
-Again, this application is in the pre-alpha development cycle. Thus, this section is subject to heavy change depending on justification in further design and development cycles.
+Again, this application is in the pre-alpha development cycle. Thus, this section is 
+subject to heavy change depending on justification in further design and development 
+cycles.
 
 % Subsection 2.1: Current Features
 \subsection{Current Features}
 Features currently implemented within the application include:
 \begin{enumerate}
-\item ``Remember Me!'' functionality
-\item OAuth 2.0 Resource Owner Password Credentials Protocol
-\item OAuth 2.0 Implicit Grant Protocol
+    \item ``Remember Me!'' functionality
+    \item OAuth 2.0 Resource Owner Password Credentials Protocol
+    \item OAuth 2.0 Implicit Grant Protocol
 \end{enumerate}
 
 % Subsection 2.2: Future & Proposed Features
 \subsection{Future \& Proposed Features}
 \begin{enumerate}
-\item OAuth 2.0 Authorization Code Grant Protocol
-\item Current Semester Homepage
-\item Course Names instead of Course numbers
-\item Seamless calendar integration with native mobile calendar applications.
-\item A viewable roster
-\item Easy downloads under ``Files \& Resources''
-\item Notification hub for emails and updates from professors to students.
+    \item OAuth 2.0 Authorization Code Grant Protocol
+    \item Current Semester Homepage
+    \item Course Names instead of Course numbers
+    \item Seamless calendar integration with native mobile calendar applications.
+    \item A viewable roster
+    \item Easy downloads under ``Files \& Resources''
+    \item Notification hub for emails and updates from professors to students.
 \end{enumerate}
 
 % Section 3: Implementation & Efficiency
@@ -46,15 +51,25 @@ Features currently implemented within the application include:
 
 % Subsection 3.1: Workflow
 \subsection{Workflow}
-The current design of the app works in a three-step process: the preamble, the authentication, and the main process.
+The current design of the app works in a three-step process: the preamble, the authenticat
+ion, and the main process.
 \begin{enumerate}
-\item \textbf{Preamble Process} \\ 
-The preamble process involves the use of the Splash screen. To the user, a splash screen with Columbia's logo will be displayed. On the back-end, the application will be checking if the ``auth.xml'' exists. If this file is present, then a login attempt will begin. If this file is not present, then the login activity will be invoked.
-\item \textbf{Authentication Process} \\ 
-After the preamble process, the application moves into authentication. If the auth file exists, the system goes to auto-login using the credentials of the last user. If this is not the case, the user will be redirected to the login screen, where he or she will provide credentials for the system to use. \\
-Once credentials are provided, the application runs OAuth's \emph{Resource Owner Password Credential} protocol. The user's credentials are sent to the authentication web server, where they are authenticated by the server. Meanwhile, the application waits for an access token after verification occurs. When an access token is granted, the application moves to the main process.
-\item \textbf{Main Process} \\ 
-This process controls all the main functionality of the app. (Please see Section 2)
+    \item \textbf{Preamble Process} \\ 
+The preamble process involves the use of the Splash screen. To the user, a splash screen 
+with Columbia's logo will be displayed. On the back-end, the application will be checking 
+if the ``auth.xml'' exists. If this file is present, then a login attempt will begin. If 
+this file is not present, then the login activity will be invoked.
+    \item \textbf{Authentication Process} \\ 
+        After the preamble process, the application moves into authentication. If the auth
+        file exists, the system goes to auto-login using the credentials of the last user.
+        If this is not the case, the user will be redirected to the login screen, where he
+        or she will provide credentials for the system to use. \\ Once credentials are 
+        provided, the application runs OAuth's \emph{Resource Owner Password Credential} 
+        protocol. The user's credentials are sent to the authentication web server, where 
+        they are authenticated by the server. Meanwhile, the application
+        waits for an access token after verification occurs. When an access token is 
+        granted, the application moves to the main process.
+    \item \textbf{Main Process} 
 \end{enumerate}
 
 % Subsection 3.2: Allocation of Resources
@@ -66,95 +81,157 @@ servers. As of \date{\today}, there are only two requests being sent to the Cour
 % Section 4: Class Design
 \section{Class Design}
 
-% Subsection 4.1: Splash class
-\subsection{Splash} 
-The Splash activity acts as a buffer between the Login activity (on first access of the application) or the Main activity on the application. 
+% Subsection 4.1: AuthPreferences Class
+\subsection{AuthPreferences}
+A helper class for the Login activity and the OAuthClient class. The class contains a 
+number of the methods that either write to or read from the SharedPreference file ``auth
+.xml''.
 \begin{description}
-\item[run] Runs the splash screen for a set period of time.
+    \item[AuthPreferences] The constructor for the class. Links to the ``auth.xml'' file 
+                           depending on the context in which it is created. Controls the 
+                           ciphers that will read and write to the auth file. Also holds 
+                           onto the encryption protocol used throughout the program.
+    \item[initCiphers] Initializes the ciphers for encryption and decryption.
+    \item[getIV] Creates an initialization vector for the ciphers to use.
+    \item[getSecretKey] Constructs a secret key from a given byte array.
+    \item[createKeyBytes] Hashes the given encryption key by using SHA-256 as the hashing 
+                          algorithm.
+    \item[put] Adds key-value pair to the SharedPreference file. If the value already 
+               exists, it is overwritten.
+    \item[containsKey] Checks if the given key is within the SharedPreference file.
+    \item[removeValue] Removes the specified value from the SharedPreference file.
+    \item[getString] Checks if the SharedPreference file contains the given key value; if 
+                     present, retrieve the encoded value and decode it.
+    \item[clear] Clears all information from the auth file in case the user does not want 
+                 to save his or her credential information.
+    \item[toKey] Encrypts a given key value.
+    \item[putValue] Encodes a value and stores it in the SharedPreference file.
+    \item[encrypt] Encrypts a plain text string into an encoded string.
+    \item[decrypt] Decrypts an encoded string into a plain text stirng.
+    \item[convert] Encryps or decrypts data in a single-part operation, or finished a 
+                   multiple-part operation. The data is encrypted or decrypted, depending 
+                   on how the cipher was initialized.
 \end{description}
+ 
+% Subsection 4.2: ImplicitGrant class
+\subsection{ImplicitGrant}
+Authentication based off of Oauth2.0's ImplicitGrant Authorization flow. 
+\begin{enumerate}
+    \item From the Login activity, launches a WebView activity that redirects to the 
+          Columbia CAS/Oauth2.0 servers with the already supplied Client ID and Redirect 
+          URI.
+    \item Confirms user and authorizes the app to access the user's information.
+    \item Parse the token from the response URI.
+\end{enumerate}
 
-% Subsection 4.2: Login class
+% Subsection 4.3: Main class
+\subsection{Main}
+Not sure yet, haven't really built anything here since Authentication is still being worked on.
+
+% Subsection 4.4: Login class
 \subsection{Login}
 This activity controls the Login screen.
 \begin{description}
-\item[onCreate] Creates the login form and the functionality for the activity. 
-\begin{enumerate}
-\item Sets up the login form.
-\item Checks if there is a SharedPreference file containing the previous user information. If there is previous user information, it automatically logs in.
-\item If there is no previous user information, waits for the user input and user 
-command to log in.
-\end{enumerate}
-\item[onCreateOptionsMenu] Creates the options menu. Standard for any Android 
-application.
-\item[attemptLogin] Attempts to sign into the account specified by the login form. If there are form errors (i.e. invalid uni, missing fileds, etc.), the errors are presented to the user and no actual login request is made.
-\item[showProgress] Shows the progress UI and hides the login form.
-\item[doInBackground] Launches the login task from OAuthClient in an Asynchronous task.
+    \item[onCreate] Creates the login form and the functionality for the activity. 
+    \begin{enumerate}
+        \item Sets up the login form.
+        \item Checks if there is a SharedPreference file containing the previous user 
+              information. If there is previous user information, it automatically logs in
+              .
+        \item If there is no previous user information, waits for the user input and user 
+              command to log in.
+    \end{enumerate}
+    \item[onCreateOptionsMenu] Creates the options menu. Standard for any Android 
+                               application.
+    \item[attemptLogin] Attempts to sign into the account specified by the login form. If 
+                        there are form errors (i.e. invalid uni, missing fileds, etc.), 
+                        the errors are presented to the user and no actual login request 
+                        is made.
+    \item[showProgress] Shows the progress UI and hides the login form.
+    \item[doInBackground] Launches the login task from OAuthClient in an Asynchronous task
+                          .
 \end{description}
 
-% Subsection 4.3: OAuthClient Class
-\subsection{OAuthClient}
+% Subsection 4.5: ResourceOwnerCredential Class
+\subsection{ResourceOwnerCredential}
 The real meat of the program so far. It will contain all the authentication methods for the application. Currently, it only contains the login method.
- \begin{description}
-  \item[login] Uses OAuth's \emph{Resource Owner Password Credentials} protocol to log the user into Courseworks. \\
-  The process falls into a number of steps:
-  \begin{enumerate}
-   \item Takes in the user's credentials and a URL to the Courseworks servers.
-   \item Creates an HTTPS connection between application and server.
-   \item Sets the security of the connection to TLS.
-   \item Prepares the connection to be a POST request.
-   \item Adds necessary data values for the Resource Owner Password Credentials. This includes 4 variables:
-   \begin{itemize}
-    \item The grant type
-    \item The username
-    \item The password
-    \item The client ID number
-   \end{itemize}
-   \item These values are then passed to getQuery which encodes the variables onto the POST request.
-   \item Sends POST request to the server.
-  \end{enumerate}
-  \item[getQuery] Takes in a value-paired list of parameters which are then encoded into proper formatting for the POST request.
- \end{description}
+\begin{description}
+    \item[login] Uses OAuth's \emph{Resource Owner Password Credentials} protocol to log 
+                 the user into Courseworks. \\
+                 The process falls into a number of steps:
+    \begin{enumerate}
+        \item Takes in the user's credentials and a URL to the Courseworks servers.
+        \item Creates an HTTPS connection between application and server.
+        \item Sets the security of the connection to TLS.
+        \item Prepares the connection to be a POST request.
+        \item Adds necessary data values for the Resource Owner Password Credentials. This
+              includes 4 variables:
+        \begin{itemize}
+            \item The grant type
+            \item The username
+            \item The password
+            \item The client ID number
+        \end{itemize}
+        \item These values are then passed to getQuery which encodes the variables onto
+              the POST request.
+        \item Sends POST request to the server.
+    \end{enumerate}
+    \item[getQuery] Takes in a value-paired list of parameters which are then encoded into
+                    proper formatting for the POST request.
+\end{description}
  
-% Subsection 4.4: AuthPreferences
-\subsection{AuthPreferences}
-A helper class for the Login activity and the OAuthClient class. The class contains a number of the methods that either write to or read from the SharedPreference file ``auth.xml''.
- \begin{description}
-  \item[AuthPreferences] The constructor for the class. Links to the ``auth.xml'' file depending on the context in which it is created. Controls the ciphers that will read and write to the auth file. Also holds onto the encryption protocol used throughout the program.
-  \item[initCiphers] Initializes the ciphers for encryption and decryption.
-  \item[getIV] Creates an initialization vector for the ciphers to use.
-  \item[getSecretKey] Constructs a secret key from a given byte array.
-  \item[createKeyBytes] Hashes the given encryption key by using SHA-256 as the hashing alogrithm.
-  \item[put] Adds key-value pair to the SharedPreference file. If the value already exists, it is overwritten.
-  \item[containsKey] Checks if the given key is within the SharedPreference file.
-  \item[removeValue] Removes the specified value from the SharedPreference file.
-  \item[getString] Checks if the SharedPreference file contains the given key value; if present, retrieve the encoded value and decode it.
-  \item[clear] Clears all information from the auth file in case the user does not want to save his or her credential information.
-  \item[toKey] Encrypts a given key value.
-  \item[putValue] Encodes a value and stores it in the SharedPreference file.
-  \item[encrypt] Encrypts a plain text string into an encoded string.
-  \item[decrypt] Decrypts an encoded string into a plain text stirng.
-  \item[convert] Encryps or decrypts data in a single-part operation, or finished a multiple-part operation. The data is encrypted or decrypted, depending on how the cipher was initialized.
- \end{description}
+% Subsection 4.6: RestGrant class
+\subsection{RestGrant}
+An alternative to both OAuth implementations mentioned beforehand. Implements CAS RESTful 
+API to make a series of calls to the CAS Authentication servers.
+\begin{description}
+    \item[login] Logs the user into Columbia's CAS servers using calls to CAS' RESTful API
+                 .
+    \item[logout] Logs the user out of the CAS server by calling DELETE to the RESTful API
+                  .
+    \item[getGrantingTicket] Makes a POST call to CAS authentication servers in order to 
+                             return a Ticket Granting Ticket Resource.
+    \item[getServiceTicket] Gets the Service Ticket from the CAS Authentication server.
+    \item[postUserToServer] Sends a POST call to Columbia's CAS Authentication server
+                            with the user's information in order to request a Ticket 
+                            Granting Resource.
+    \item[postTicketToServer] Sends a POST call to Columbia's CAS Authentication server 
+                              with the Ticket Granting Resource in order to request a 
+                              Service ticket
+\end{description}
+
+% Subsection 4.7: Splash class
+\subsection{Splash} 
+The Splash activity acts as a buffer between the Login activity (on first access of the 
+application) or the Main activity on the application. 
+\begin{description}
+    \item[run] Runs the splash screen for a set period of time.
+\end{description}
 
 % Section 5: Risks
 \section{Risks}
- \subsection{Security}
-Since the application is native, it is more conducive to store the user's credentials on the mobile device; thus allowing the application to hold the user's credentials in a file system. However, this ease opens up a large security risk. The file holding the user's sensitive information (e.g. uni and password) is not secure at the present moment. There are three workarounds to this issue:
-  \begin{enumerate}
-   \item We encrypt the SharedPreference file holding the user's information.
-   \item We remove the ``Remember Me!'' feature.
-   \item We move to web authentication through OAuth's \emph{Authorization Code} protocol.
-   \item We move to web authentication through OAuth's \emph{Implicit Grant} protocol.
-  \end{enumerate}
+\subsection{Security}
+Since the application is native, it is more conducive to store the user's credentials on 
+the mobile device; thus allowing the application to hold the user's credentials in a file 
+system. However, this ease opens up a large security risk. The file holding the user's 
+sensitive information (e.g. uni and password) is not secure at the present moment. There 
+are three workarounds to this issue:
+ \begin{enumerate}
+    \item We encrypt the SharedPreference file holding the user's information.
+    \item We remove the ``Remember Me!'' feature.
+    \item We move to web authentication through OAuth's \emph{Authorization Code} protocol
+          .
+    \item We move to web authentication through OAuth's \emph{Implicit Grant} protocol
+\end{enumerate}
 As of \today, I have implemented an encryption method using Advanced Encryption Standard (AES). However, the SharedPreference file is not guaranteed completely secure; I just increased the difficulty for someone to access the information.
 
 % Section 6: ToDo
 \section{ToDo}
- \begin{enumerate}
-  \item Test Authentication Process.
-  \item \st{Secure private information of user.}
-  \item Update feature list based on student response.
-  \item Move to alpha build once the Courseworks servers are prepared.
- \end{enumerate}
+\begin{enumerate}
+    \item Test Authentication Process.
+    \item \st{Secure private information of user.}
+    \item Update feature list based on student response.
+    \item Move to alpha build once the Courseworks servers are prepared.
+\end{enumerate}
 
 \end{document}
