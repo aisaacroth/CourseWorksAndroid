@@ -12,6 +12,8 @@ We are currently in the pre-Alpha build stage.
 ### Current Features
 1. "Remember Me!" functionality.
 2. OAuth 2.0 Resource Ownder Password Credentials Protocol
+3. OAuth 2.0 Implicit Grant Protocol
+4. CAS RESTful API Protocol
 
 ### Future & Proposed Features
 1. OAuth 2.0 Authorization Code Protocol
