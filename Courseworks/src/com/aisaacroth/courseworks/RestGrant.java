@@ -80,7 +80,7 @@ public class RestGrant {
 
 	/***************************************************************************
 	 * Makes a POST call to CAS authentication servers in order to return a
-	 * Ticket Granting Ticket Resource.
+	 * Ticket Granting Resource.
 	 * 
 	 * @param username
 	 *            The user's username (e.g. their uni).
@@ -111,7 +111,7 @@ public class RestGrant {
 	 * Gets the service ticket from the CAS Authentication server.
 	 * 
 	 * @param ticket
-	 *            the Ticket Granting Ticket Resource used to request a service
+	 *            the Ticket Granting Resource used to request a service
 	 *            ticket.
 	 * @return the service ticket
 	 * @throws ClientProtocolException
@@ -132,8 +132,8 @@ public class RestGrant {
 	}
 
 	/***************************************************************************
-	 * Sends a POST call to the Columbia CAS Authentication server with the
-	 * user's information in order to request a Ticket Granting Ticket Resource.
+	 * Sends a POST call to Columbia's CAS Authentication server with the
+	 * user's information in order to request a Ticket Granting Resource.
 	 * 
 	 * @param username
 	 *            the username
@@ -168,8 +168,8 @@ public class RestGrant {
 	}
 
 	/***************************************************************************
-	 * Sends a POST call to the Columbia CAS Authentication server with the
-	 * Ticket Granting Ticket Resource in order to request a Service Ticket.
+	 * Sends a POST call to Columbia's CAS Authentication server with the
+	 * Ticket Granting Resource in order to request a Service Ticket.
 	 * 
 	 * @param ticket
 	 *            The Ticket Granting Ticket Resource
