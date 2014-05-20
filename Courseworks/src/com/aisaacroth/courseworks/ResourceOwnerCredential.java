@@ -30,8 +30,7 @@ import android.util.Log;
  * method of Oauth2.0
  * 
  * @author: Alexander Roth
- * @date: 2014-04-01
- * @version: 0.1
+ * @Date: 2014-04-01
  ******************************************************************************/
 public class ResourceOwnerCredential {
 
@@ -88,8 +87,8 @@ public class ResourceOwnerCredential {
 
 		Log.d("LOGIN", conn.getRequestMethod() + " " + conn.getResponseCode()
 				+ " " + conn.getResponseMessage());
-		
-		//TODO: Handle the login token when received.
+
+		// TODO: Handle the login token when received.
 	}
 
 	/***************************************************************************

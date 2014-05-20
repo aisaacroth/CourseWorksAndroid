@@ -17,8 +17,7 @@ import android.graphics.Bitmap;
  * of Oauth2.0.
  * 
  * @author: Alexander Roth
- * @date: 2014-04-25
- * @version: 0.1
+ * @Date: 2014-04-25
  ******************************************************************************/
 public class ImplicitGrant extends Activity {
 	private static final String TAG = "ImplicitGrant";

@@ -9,7 +9,6 @@ import android.view.Menu;
  * 
  * @author Alexander Roth
  * @date 2014-02-24
- * @version 0.1
  ******************************************************************************/
 public class Main extends Activity {
 

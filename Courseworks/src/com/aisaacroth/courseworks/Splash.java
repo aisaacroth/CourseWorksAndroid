@@ -14,7 +14,6 @@ import android.os.Handler;
  * 
  * @author: Alexander Roth
  * @date: 2014-02-24
- * @version: 0.1
  ******************************************************************************/
 public class Splash extends Activity {
 

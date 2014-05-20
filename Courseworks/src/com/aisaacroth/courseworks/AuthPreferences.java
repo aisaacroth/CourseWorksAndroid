@@ -24,8 +24,6 @@ import android.util.Base64;
  * 
  * @author: Alexander Roth
  * @Date: 2014-04-04
- * @version: 0.7
- * @updated: 2014-04-18
  ******************************************************************************/
 public class AuthPreferences {
 
