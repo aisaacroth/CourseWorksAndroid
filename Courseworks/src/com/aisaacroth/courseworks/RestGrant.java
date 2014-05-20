@@ -108,10 +108,11 @@ public class RestGrant {
 	}
 
 	/***************************************************************************
-	 * Gets the service ticket.
+	 * Gets the service ticket from the CAS Authentication server.
 	 * 
 	 * @param ticket
-	 *            the ticket
+	 *            the Ticket Granting Ticket Resource used to request a service
+	 *            ticket.
 	 * @return the service ticket
 	 * @throws ClientProtocolException
 	 *             the client protocol exception
@@ -122,7 +123,7 @@ public class RestGrant {
 			throws ClientProtocolException, IOException {
 		String serviceTicket = null;
 		HttpResponse response = RestGrant.postTicketToServer(ticket);
-		
+
 		// Parses the Service Ticket from the HTTP response.
 		if (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) {
 			serviceTicket = response.getEntity().toString();
@@ -131,13 +132,14 @@ public class RestGrant {
 	}
 
 	/***************************************************************************
-	 * Post user to server.
+	 * Sends a POST call to the Columbia CAS Authentication server with the
+	 * user's information in order to request a Ticket Granting Ticket Resource.
 	 * 
 	 * @param username
 	 *            the username
 	 * @param password
 	 *            the password
-	 * @return the http response
+	 * @return The HTTP response containing the Ticket Granting Ticket Resource.
 	 * @throws ClientProtocolException
 	 *             the client protocol exception
 	 * @throws IOException
@@ -166,11 +168,12 @@ public class RestGrant {
 	}
 
 	/***************************************************************************
-	 * Post ticket to server.
+	 * Sends a POST call to the Columbia CAS Authentication server with the
+	 * Ticket Granting Ticket Resource in order to request a Service Ticket.
 	 * 
 	 * @param ticket
-	 *            the ticket
-	 * @return the http response
+	 *            The Ticket Granting Ticket Resource
+	 * @return The HTTP response that contains the Service Ticket.
 	 * @throws ClientProtocolException
 	 *             the client protocol exception
 	 * @throws IOException
