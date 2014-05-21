@@ -150,7 +150,7 @@ public class RestGrant {
 		// Create a new HttpClient and Post Header
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(
-				"http://cas.columbia.edu/cas/v1/tickets");
+				"http://cas.columbia.edu/cas/v1/tickets HTTP/1.0");
 
 		// Add the necessary data
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -184,7 +184,7 @@ public class RestGrant {
 		// Create a new HttpClient and Post Header
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(
-				"http://cas.columbia.edu/cas/v1/tickets/" + ticket);
+				"http://cas.columbia.edu/cas/v1/tickets/" + ticket + " HTTP/1.0");
 
 		// Add the necessary data
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
