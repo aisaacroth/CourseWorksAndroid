@@ -3,8 +3,6 @@
     tools:context=".Login" >
 
     <!-- Login progress -->
-
-
     <LinearLayout
         android:id="@+id/login_status"
         android:layout_width="wrap_content"
@@ -30,9 +28,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium" />
     </LinearLayout>
 
-
     <!-- Login form -->
-
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"
@@ -69,8 +65,8 @@
                 android:textColor="@color/white"
                 android:textColorHint="@color/white"
                 android:textCursorDrawable="@null" />
-            
-            <CheckBox 
+
+            <CheckBox
                 android:id="@+id/remember_me"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

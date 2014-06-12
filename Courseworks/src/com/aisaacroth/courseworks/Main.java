@@ -1,5 +1,7 @@
 package com.aisaacroth.courseworks;
 
+import java.util.ArrayList;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +14,12 @@ import android.view.Menu;
  * @date 2014-02-24
  ******************************************************************************/
 public class Main extends Activity {
+	private Class[] activities = {
+			CourseView.class,
+			AnnouncementView.class,
+			CalendarView.class,
+			Settings.class
+	};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
