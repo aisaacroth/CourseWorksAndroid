@@ -1,4 +1,6 @@
-package com.aisaacroth.courseworks;
+package com.aisaacroth.courseworks.views;
+
+import com.aisaacroth.courseworks.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;

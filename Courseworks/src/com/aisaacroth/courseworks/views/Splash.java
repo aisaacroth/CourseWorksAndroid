@@ -1,4 +1,6 @@
-package com.aisaacroth.courseworks;
+package com.aisaacroth.courseworks.views;
+
+import com.aisaacroth.courseworks.R;
 
 import android.app.Activity;
 import android.content.Intent;

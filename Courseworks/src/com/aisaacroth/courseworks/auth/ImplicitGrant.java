@@ -1,4 +1,7 @@
-package com.aisaacroth.courseworks;
+package com.aisaacroth.courseworks.auth;
+
+import com.aisaacroth.courseworks.R;
+import com.aisaacroth.courseworks.views.Main;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;

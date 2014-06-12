@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks;
+package com.aisaacroth.courseworks.views;
 
 import java.util.ArrayList;
 

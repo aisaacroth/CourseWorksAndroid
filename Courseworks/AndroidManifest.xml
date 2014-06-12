@@ -19,7 +19,7 @@
 
         <!-- Splash Screen -->
         <activity
-            android:name="com.aisaacroth.courseworks.Splash"
+            android:name="com.aisaacroth.courseworks.views.Splash"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Black.NoTitleBar" >
@@ -32,7 +32,7 @@
 
         <!-- Main activity -->
         <activity
-            android:name="com.aisaacroth.courseworks.Main"
+            android:name="com.aisaacroth.courseworks.views.Main"
             android:label="@string/app_name" >
 
             <!--
@@ -53,30 +53,30 @@
 
         <!-- Login activity -->
         <activity
-            android:name="com.aisaacroth.courseworks.Login"
+            android:name="com.aisaacroth.courseworks.views.Login"
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
 
         <!-- Implicit Grant activity -->
         <activity
-            android:name="com.aisaacroth.courseworks.ImplicitGrant"
+            android:name="com.aisaacroth.courseworks.auth.ImplicitGrant"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.aisaacroth.courseworks.CourseView"
+            android:name="com.aisaacroth.courseworks.views.CourseView"
             android:label="@string/title_activity_course_view" >
         </activity>
         <activity
-            android:name="com.aisaacroth.courseworks.AnnouncementView"
+            android:name="com.aisaacroth.courseworks.views.AnnouncementView"
             android:label="@string/title_activity_announcement_view" >
         </activity>
         <activity
-            android:name="com.aisaacroth.courseworks.CalendarView"
+            android:name="com.aisaacroth.courseworks.views.CalendarView"
             android:label="@string/title_activity_calendar_view" >
         </activity>
         <activity
-            android:name="com.aisaacroth.courseworks.Settings"
+            android:name="com.aisaacroth.courseworks.views.Settings"
             android:label="@string/title_activity_settings" >
         </activity>
     </application>

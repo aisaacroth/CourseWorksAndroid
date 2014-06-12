@@ -1,4 +1,6 @@
-package com.aisaacroth.courseworks;
+package com.aisaacroth.courseworks.views;
+
+import com.aisaacroth.courseworks.R;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
@@ -11,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class CourseView extends ActionBarActivity {
+public class AnnouncementView extends ActionBarActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_course_view);
+		setContentView(R.layout.activity_announcement_view);
 
 		if (savedInstanceState == null) {
 			getSupportFragmentManager().beginTransaction()
@@ -28,7 +30,7 @@ public class CourseView extends ActionBarActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.course_view, menu);
+		getMenuInflater().inflate(R.menu.announcement_view, menu);
 		return true;
 	}
 
@@ -55,8 +57,8 @@ public class CourseView extends ActionBarActivity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_course_view,
-					container, false);
+			View rootView = inflater.inflate(
+					R.layout.fragment_announcement_view, container, false);
 			return rootView;
 		}
 	}

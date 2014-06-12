@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks;
+package com.aisaacroth.courseworks.views;
 
 import java.io.File;
 import java.io.IOException;
@@ -7,6 +7,10 @@ import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
+
+import com.aisaacroth.courseworks.R;
+import com.aisaacroth.courseworks.auth.AuthPreferences;
+import com.aisaacroth.courseworks.auth.ResourceOwnerCredential;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

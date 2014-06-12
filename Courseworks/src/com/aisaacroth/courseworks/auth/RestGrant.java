@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks;
+package com.aisaacroth.courseworks.auth;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;

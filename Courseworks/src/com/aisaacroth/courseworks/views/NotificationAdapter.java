@@ -1,6 +1,8 @@
-package com.aisaacroth.courseworks;
+package com.aisaacroth.courseworks.views;
 
 import java.util.ArrayList;
+
+import com.aisaacroth.courseworks.R;
 
 import android.content.Context;
 import android.view.LayoutInflater;
