@@ -8,7 +8,7 @@ import android.content.Intent;
 import android.view.Menu;
 
 /*******************************************************************************
- * The Main class. TODO: Will act as the homepage for the Courseworks app.
+ * The Home class. TODO: Will act as the homepage for the Courseworks app.
  * 
  * @author Alexander Roth
  * @date 2014-02-24
