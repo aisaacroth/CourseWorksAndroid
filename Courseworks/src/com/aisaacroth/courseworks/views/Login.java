@@ -35,7 +35,7 @@ import android.widget.TextView;
  * Login Activity which displays a login screen to the user.
  * 
  * @author: Alexander Roth
- * @Date: 2014-02-25
+ * @date: 2014-02-25
  ******************************************************************************/
 public class Login extends Activity {
 
