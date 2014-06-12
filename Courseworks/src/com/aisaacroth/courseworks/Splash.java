@@ -30,7 +30,7 @@ public class Splash extends Activity {
 			@Override
 			public void run() {
 				// Go to the Login screen after this is implemented.
-				Intent i = new Intent(Splash.this, Login.class);
+				Intent i = new Intent(Splash.this, Main.class);
 				startActivity(i);
 
 				// Close this activity
