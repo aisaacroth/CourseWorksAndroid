@@ -1,7 +1,5 @@
 package com.aisaacroth.courseworks.views;
 
-import java.util.ArrayList;
-
 /*******************************************************************************
  * The Notifications class acts as a container for all possible notifications
  * that will be generated and appear within the Main (Homepage) activity.
@@ -9,10 +7,10 @@ import java.util.ArrayList;
  * @author Alexander Roth
  * @date: 2014-06-12
  ******************************************************************************/
-public class Notifications {
+public class Notification {
 
 	private String mTitle;
-	private ArrayList<String> mArrayChildren;
+	private String info;
 
 	/***************************************************************************
 	 * Gets the title of the Notification object.
@@ -26,10 +24,10 @@ public class Notifications {
 	/***************************************************************************
 	 * Gets the information attached to the Notification object.
 	 * 
-	 * @return the array of notifications
+	 * @return the information attached to the notification.
 	 **************************************************************************/
-	public ArrayList<String> getNotifications() {
-		return this.mArrayChildren;
+	public String getInformiation() {
+		return this.info;
 	}
 
 	/***************************************************************************
@@ -46,10 +44,10 @@ public class Notifications {
 	 * Sets the Notification object with strings that contain necessary
 	 * information.
 	 * 
-	 * @param mArrayChildren
-	 *            the new array children.
+	 * @param info
+	 *            the information that will be attached.
 	 **************************************************************************/
-	public void setNotifications(ArrayList<String> mArrayChildren) {
-		this.mArrayChildren = mArrayChildren;
+	public void setInformation(String info) {
+		this.info = info;
 	}
 }

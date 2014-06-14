@@ -23,7 +23,7 @@ import android.widget.TextView;
 public class NotificationAdapter extends BaseExpandableListAdapter {
 
 	private LayoutInflater inflater;
-	private ArrayList<Notifications> mParent;
+	private ArrayList<Notification> mParent;
 
 	/***************************************************************************
 	 * Instantiates a new notification adapter to be used by the Main activity.
@@ -33,7 +33,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 * @param parent
 	 *            the parent objects in the list.
 	 **************************************************************************/
-	public NotificationAdapter(Context context, ArrayList<Notifications> parent) {
+	public NotificationAdapter(Context context, ArrayList<Notification> parent) {
 		mParent = parent;
 		inflater = LayoutInflater.from(context);
 	}
@@ -62,7 +62,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 **************************************************************************/
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return mParent.get(groupPosition).getNotifications().size();
+		return mParent.size();
 	}
 
 	/***************************************************************************
@@ -95,7 +95,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 **************************************************************************/
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return mParent.get(groupPosition).getNotifications().get(childPosition);
+		return mParent.get(groupPosition).getInformiation();
 	}
 
 	/***************************************************************************
@@ -212,8 +212,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 
 		TextView textView = (TextView) convertView
 				.findViewById(R.id.list_item_child);
-		textView.setText(mParent.get(groupPosition).getNotifications()
-				.get(childPosition));
+		textView.setText(mParent.get(groupPosition).getInformiation());
 		convertView.setTag(holder);
 
 		// Return the entire view.

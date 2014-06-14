@@ -1023,7 +1023,6 @@ containing a value of this type.
         public static final int edit_query=0x7f070036;
         public static final int end=0x7f070013;
         public static final int expand_activities_button=0x7f070024;
-        public static final int expandableListView1=0x7f07004d;
         public static final int expanded_menu=0x7f07002a;
         public static final int home=0x7f070014;
         public static final int homeAsUp=0x7f070005;
@@ -1032,6 +1031,7 @@ containing a value of this type.
         public static final int image=0x7f070025;
         public static final int left_icon=0x7f070031;
         public static final int listMode=0x7f070001;
+        public static final int listView=0x7f07004d;
         public static final int list_item=0x7f070027;
         public static final int list_item_child=0x7f070050;
         public static final int list_item_text_child=0x7f070051;
