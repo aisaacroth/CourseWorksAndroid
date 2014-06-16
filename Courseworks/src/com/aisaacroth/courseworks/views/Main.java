@@ -21,6 +21,7 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+// TODO: Auto-generated Javadoc
 /*******************************************************************************
  * The Home class. TODO: Will act as the homepage for the Courseworks app.
  * 
@@ -31,6 +32,11 @@ public class Main extends Activity {
 
 	List<Map<String, String>> notificationList = new ArrayList<Map<String, String>>();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onCreate(android.os.Bundle)
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -107,6 +113,11 @@ public class Main extends Activity {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
@@ -114,19 +125,40 @@ public class Main extends Activity {
 		return true;
 	}
 
+	/**
+	 * Initializes the central list on the home page with place holder
+	 * notifications. TODO: Create method that dynamically creates
+	 * notifications.
+	 */
 	private void initList() {
 		for (int i = 0; i < 10; i++) {
-			notificationList
-					.add(createNotification("notification", "Test" + i));
+			notificationList.add(createNotification("notification",
+					"Notification" + i));
 		}
 	}
 
+	/**
+	 * Creates a notification object that will be placed into the notification
+	 * section of the home page.
+	 * 
+	 * @param key
+	 *            the key that will be used to access the notification.
+	 * @param name
+	 *            the name of the notification.
+	 * @return the hash map that points to the notification.
+	 */
 	private HashMap<String, String> createNotification(String key, String name) {
 		HashMap<String, String> notification = new HashMap<String, String>();
 		notification.put(key, name);
 		return notification;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see android.app.Activity#onCreateContextMenu(android.view.ContextMenu,
+	 * android.view.View, android.view.ContextMenu.ContextMenuInfo)
+	 */
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
