@@ -21,7 +21,6 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
-// TODO: Auto-generated Javadoc
 /*******************************************************************************
  * The Home class. TODO: Will act as the homepage for the Courseworks app.
  * 
