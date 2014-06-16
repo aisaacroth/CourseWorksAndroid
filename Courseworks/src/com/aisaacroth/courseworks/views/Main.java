@@ -9,16 +9,13 @@ import com.aisaacroth.courseworks.R;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.OnChildClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -32,9 +29,6 @@ import android.widget.Toast;
  ******************************************************************************/
 public class Main extends Activity {
 
-	@SuppressWarnings("rawtypes")
-	private Class[] activities = { CourseView.class, AnnouncementView.class,
-			CalendarView.class, Settings.class };
 	List<Map<String, String>> notificationList = new ArrayList<Map<String, String>>();
 
 	@Override
@@ -66,6 +60,49 @@ public class Main extends Activity {
 			}
 		});
 
+		final Button courses = (Button) findViewById(R.id.currentCourses);
+		final Button announcements = (Button) findViewById(R.id.announcements);
+		final Button calendar = (Button) findViewById(R.id.calendar);
+		final Button settings = (Button) findViewById(R.id.settings);
+
+		courses.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent navCourse = new Intent(Main.this, CourseView.class);
+				startActivity(navCourse);
+			}
+		});
+
+		announcements.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent navAnnouncment = new Intent(Main.this,
+						AnnouncementView.class);
+				startActivity(navAnnouncment);
+
+			}
+		});
+
+		calendar.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent navCalendar = new Intent(Main.this, CalendarView.class);
+				startActivity(navCalendar);
+			}
+		});
+
+		settings.setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Intent navSettings = new Intent(Main.this, Settings.class);
+				startActivity(navSettings);
+			}
+		});
+
 		// finish();
 
 	}
@@ -89,9 +126,10 @@ public class Main extends Activity {
 		notification.put(key, name);
 		return notification;
 	}
-	
+
 	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
 	}
 
 }

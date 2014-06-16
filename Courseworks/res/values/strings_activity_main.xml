@@ -3,5 +3,9 @@
     
     <!-- Strings related to the Homepage -->
     <string name="welcome">Welcome to Courseworks Mobile</string>
+    <string name="currentCourses">CC</string>
+    <string name="announcements">Flag</string>
+    <string name="calendar">Cal</string>
+    <string name="settings">Settings</string>
     
 </resources>

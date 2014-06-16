@@ -1003,19 +1003,22 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f070021;
         public static final int action_bar_title=0x7f070020;
         public static final int action_context_bar=0x7f07001b;
-        public static final int action_forgot_password=0x7f070054;
+        public static final int action_forgot_password=0x7f070059;
         public static final int action_menu_divider=0x7f070016;
         public static final int action_menu_presenter=0x7f070017;
         public static final int action_mode_bar=0x7f07002f;
         public static final int action_mode_bar_stub=0x7f07002e;
         public static final int action_mode_close_button=0x7f070022;
-        public static final int action_settings=0x7f070053;
+        public static final int action_settings=0x7f070058;
         public static final int activity_chooser_view_content=0x7f070023;
         public static final int always=0x7f07000b;
+        public static final int announcements=0x7f070050;
         public static final int beginning=0x7f070011;
+        public static final int calendar=0x7f070051;
         public static final int checkbox=0x7f07002b;
         public static final int collapseActionView=0x7f07000d;
         public static final int container=0x7f070042;
+        public static final int currentCourses=0x7f07004f;
         public static final int default_activity_button=0x7f070026;
         public static final int dialog=0x7f07000e;
         public static final int disableHome=0x7f070008;
@@ -1030,12 +1033,13 @@ containing a value of this type.
         public static final int ifRoom=0x7f07000a;
         public static final int image=0x7f070025;
         public static final int left_icon=0x7f070031;
+        public static final int linearList=0x7f07004c;
         public static final int listMode=0x7f070001;
         public static final int listView=0x7f07004d;
         public static final int list_item=0x7f070027;
-        public static final int list_item_child=0x7f070050;
-        public static final int list_item_text_child=0x7f070051;
-        public static final int list_item_text_view=0x7f070052;
+        public static final int list_item_child=0x7f070055;
+        public static final int list_item_text_child=0x7f070056;
+        public static final int list_item_text_view=0x7f070057;
         public static final int login=0x7f070048;
         public static final int login_form=0x7f070045;
         public static final int login_status=0x7f070043;
@@ -1048,6 +1052,7 @@ containing a value of this type.
         public static final int progress_circular=0x7f070034;
         public static final int progress_horizontal=0x7f070035;
         public static final int radio=0x7f07002d;
+        public static final int relativeButtons=0x7f07004e;
         public static final int remember_me=0x7f070049;
         public static final int right_container=0x7f070032;
         public static final int right_icon=0x7f070033;
@@ -1061,24 +1066,24 @@ containing a value of this type.
         public static final int search_plate=0x7f07003c;
         public static final int search_src_text=0x7f07003d;
         public static final int search_voice_btn=0x7f070041;
+        public static final int settings=0x7f070052;
         public static final int shortcut=0x7f07002c;
         public static final int showCustom=0x7f070007;
         public static final int showHome=0x7f070004;
         public static final int showTitle=0x7f070006;
         public static final int sign_in_button=0x7f07004a;
-        public static final int splashScreen=0x7f07004e;
+        public static final int splashScreen=0x7f070053;
         public static final int split_action_bar=0x7f07001c;
         public static final int submit_area=0x7f07003f;
         public static final int tabMode=0x7f070002;
         public static final int textView1=0x7f07004b;
-        public static final int textView2=0x7f07004c;
         public static final int title=0x7f070029;
         public static final int title_container=0x7f070030;
         public static final int top_action_bar=0x7f07001e;
         public static final int uni=0x7f070046;
         public static final int up=0x7f07001f;
         public static final int useLogo=0x7f070003;
-        public static final int webview=0x7f07004f;
+        public static final int webview=0x7f070054;
         public static final int withText=0x7f07000c;
     }
     public static final class integer {
@@ -1199,44 +1204,48 @@ containing a value of this type.
         public static final int action_forgot_password=0x7f0c0018;
         public static final int action_log_in=0x7f0c0017;
         public static final int action_settings=0x7f0c000e;
+        public static final int announcements=0x7f0c0020;
         public static final int app_name=0x7f0c000d;
+        public static final int calendar=0x7f0c0021;
+        public static final int currentCourses=0x7f0c001f;
         public static final int error_field_required=0x7f0c001d;
         public static final int error_incorrect_password=0x7f0c001c;
         public static final int error_invalid_password=0x7f0c001b;
         public static final int error_invalid_uni=0x7f0c001a;
         public static final int login_progress_signing_in=0x7f0c0019;
-        public static final int pref_default_display_name=0x7f0c0024;
-        public static final int pref_description_social_recommendations=0x7f0c0022;
+        public static final int pref_default_display_name=0x7f0c0028;
+        public static final int pref_description_social_recommendations=0x7f0c0026;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f0c0026;
+        public static final int pref_header_data_sync=0x7f0c002a;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f0c0020;
+        public static final int pref_header_general=0x7f0c0024;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f0c0029;
-        public static final int pref_ringtone_silent=0x7f0c002c;
-        public static final int pref_title_add_friends_to_messages=0x7f0c0025;
-        public static final int pref_title_display_name=0x7f0c0023;
-        public static final int pref_title_new_message_notifications=0x7f0c002a;
-        public static final int pref_title_ringtone=0x7f0c002b;
-        public static final int pref_title_social_recommendations=0x7f0c0021;
-        public static final int pref_title_sync_frequency=0x7f0c0027;
-        public static final int pref_title_system_sync_settings=0x7f0c0028;
-        public static final int pref_title_vibrate=0x7f0c002d;
+        public static final int pref_header_notifications=0x7f0c002d;
+        public static final int pref_ringtone_silent=0x7f0c0030;
+        public static final int pref_title_add_friends_to_messages=0x7f0c0029;
+        public static final int pref_title_display_name=0x7f0c0027;
+        public static final int pref_title_new_message_notifications=0x7f0c002e;
+        public static final int pref_title_ringtone=0x7f0c002f;
+        public static final int pref_title_social_recommendations=0x7f0c0025;
+        public static final int pref_title_sync_frequency=0x7f0c002b;
+        public static final int pref_title_system_sync_settings=0x7f0c002c;
+        public static final int pref_title_vibrate=0x7f0c0031;
         public static final int prompt_password=0x7f0c0016;
         /**  Strings related to login 
          */
         public static final int prompt_uni=0x7f0c0015;
         public static final int remember_me=0x7f0c0010;
+        public static final int settings=0x7f0c0022;
         public static final int splash_desc=0x7f0c000f;
         public static final int title_activity_announcement_view=0x7f0c0012;
         public static final int title_activity_calendar_view=0x7f0c0013;
         public static final int title_activity_course_view=0x7f0c0011;
         public static final int title_activity_login=0x7f0c0014;
-        public static final int title_activity_settings=0x7f0c001f;
+        public static final int title_activity_settings=0x7f0c0023;
         /**  Strings related to the Homepage 
          */
         public static final int welcome=0x7f0c001e;
