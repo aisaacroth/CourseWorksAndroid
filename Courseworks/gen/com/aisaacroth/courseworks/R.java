@@ -1020,6 +1020,7 @@ containing a value of this type.
         public static final int container=0x7f070042;
         public static final int currentCourses=0x7f07004f;
         public static final int default_activity_button=0x7f070026;
+        public static final int delete=0x7f07005b;
         public static final int dialog=0x7f07000e;
         public static final int disableHome=0x7f070008;
         public static final int dropdown=0x7f07000f;
@@ -1048,6 +1049,7 @@ containing a value of this type.
         public static final int never=0x7f070009;
         public static final int none=0x7f070010;
         public static final int normal=0x7f070000;
+        public static final int open=0x7f07005a;
         public static final int password=0x7f070047;
         public static final int progress_circular=0x7f070034;
         public static final int progress_horizontal=0x7f070035;
@@ -1156,6 +1158,7 @@ containing a value of this type.
         public static final int course_view=0x7f0f0002;
         public static final int login=0x7f0f0003;
         public static final int main=0x7f0f0004;
+        public static final int main_context_menu=0x7f0f0005;
     }
     public static final class raw {
         public static final int courseworkscert=0x7f060000;
@@ -1207,33 +1210,35 @@ containing a value of this type.
         public static final int announcements=0x7f0c0020;
         public static final int app_name=0x7f0c000d;
         public static final int calendar=0x7f0c0021;
-        public static final int currentCourses=0x7f0c001f;
+        public static final int courses=0x7f0c001f;
+        public static final int delete_link=0x7f0c0024;
         public static final int error_field_required=0x7f0c001d;
         public static final int error_incorrect_password=0x7f0c001c;
         public static final int error_invalid_password=0x7f0c001b;
         public static final int error_invalid_uni=0x7f0c001a;
         public static final int login_progress_signing_in=0x7f0c0019;
-        public static final int pref_default_display_name=0x7f0c0028;
-        public static final int pref_description_social_recommendations=0x7f0c0026;
+        public static final int open_link=0x7f0c0023;
+        public static final int pref_default_display_name=0x7f0c002a;
+        public static final int pref_description_social_recommendations=0x7f0c0028;
         /**  Example settings for Data & Sync 
          */
-        public static final int pref_header_data_sync=0x7f0c002a;
+        public static final int pref_header_data_sync=0x7f0c002c;
         /**  Strings related to Settings 
  Example General settings 
          */
-        public static final int pref_header_general=0x7f0c0024;
+        public static final int pref_header_general=0x7f0c0026;
         /**  Example settings for Notifications 
          */
-        public static final int pref_header_notifications=0x7f0c002d;
-        public static final int pref_ringtone_silent=0x7f0c0030;
-        public static final int pref_title_add_friends_to_messages=0x7f0c0029;
-        public static final int pref_title_display_name=0x7f0c0027;
-        public static final int pref_title_new_message_notifications=0x7f0c002e;
-        public static final int pref_title_ringtone=0x7f0c002f;
-        public static final int pref_title_social_recommendations=0x7f0c0025;
-        public static final int pref_title_sync_frequency=0x7f0c002b;
-        public static final int pref_title_system_sync_settings=0x7f0c002c;
-        public static final int pref_title_vibrate=0x7f0c0031;
+        public static final int pref_header_notifications=0x7f0c002f;
+        public static final int pref_ringtone_silent=0x7f0c0032;
+        public static final int pref_title_add_friends_to_messages=0x7f0c002b;
+        public static final int pref_title_display_name=0x7f0c0029;
+        public static final int pref_title_new_message_notifications=0x7f0c0030;
+        public static final int pref_title_ringtone=0x7f0c0031;
+        public static final int pref_title_social_recommendations=0x7f0c0027;
+        public static final int pref_title_sync_frequency=0x7f0c002d;
+        public static final int pref_title_system_sync_settings=0x7f0c002e;
+        public static final int pref_title_vibrate=0x7f0c0033;
         public static final int prompt_password=0x7f0c0016;
         /**  Strings related to login 
          */
@@ -1245,7 +1250,7 @@ containing a value of this type.
         public static final int title_activity_calendar_view=0x7f0c0013;
         public static final int title_activity_course_view=0x7f0c0011;
         public static final int title_activity_login=0x7f0c0014;
-        public static final int title_activity_settings=0x7f0c0023;
+        public static final int title_activity_settings=0x7f0c0025;
         /**  Strings related to the Homepage 
          */
         public static final int welcome=0x7f0c001e;

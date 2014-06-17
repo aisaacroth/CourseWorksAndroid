@@ -9,12 +9,16 @@ import com.aisaacroth.courseworks.R;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -161,6 +165,29 @@ public class Main extends Activity {
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v,
 			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.main_context_menu, menu);
 	}
 
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		switch (item.getItemId()) {
+		    case R.id.open:
+			    return true;
+		    case R.id.delete:
+			    deleteNote(info.id);
+			    return true;
+		    default:
+			    return super.onContextItemSelected(item);
+		}
+	}
+
+	public void deleteNote(long id) {
+		AlertDialog.Builder adb = new AlertDialog.Builder(Main.this);
+		adb.setTitle("Delete?");
+		adb.setMessage("Are you sure you want to delete?");
+	}
 }

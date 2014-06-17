@@ -52,19 +52,22 @@
         <!-- CourseView activity -->
         <activity
             android:name="com.aisaacroth.courseworks.views.CourseView"
-            android:label="@string/title_activity_course_view" >
+            android:label="@string/title_activity_course_view"
+            android:theme="@style/Theme.AppCompat" >
         </activity>
 
         <!-- AnnouncementView activity -->
         <activity
             android:name="com.aisaacroth.courseworks.views.AnnouncementView"
-            android:label="@string/title_activity_announcement_view" >
+            android:label="@string/title_activity_announcement_view" 
+            android:theme="@style/Theme.AppCompat">
         </activity>
 
         <!-- CalendarView activity -->
         <activity
             android:name="com.aisaacroth.courseworks.views.CalendarView"
-            android:label="@string/title_activity_calendar_view" >
+            android:label="@string/title_activity_calendar_view"
+            android:theme="@style/Theme.AppCompat" >
         </activity>
 
         <!-- Settings activity -->

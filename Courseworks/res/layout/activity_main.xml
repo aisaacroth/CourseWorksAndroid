@@ -28,7 +28,6 @@
             android:layout_width="match_parent"
             android:layout_height="326dp" >
         </ListView>
-
     </LinearLayout>
 
     <RelativeLayout
@@ -43,7 +42,7 @@
             android:id="@+id/currentCourses"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/currentCourses" />
+            android:text="@string/courses" />
 
         <Button
             android:id="@+id/announcements"
@@ -66,7 +65,6 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/calendar"
             android:text="@string/settings" />
-
     </RelativeLayout>
 
 </RelativeLayout>
