@@ -50,27 +50,6 @@
             android:label="@string/app_name" >
         </activity>
 
-        <!-- CourseView activity -->
-        <activity
-            android:name="com.aisaacroth.courseworks.views.CourseView"
-            android:label="@string/title_activity_course_view"
-            android:theme="@style/Theme.AppCompat.Light" >
-        </activity>
-
-        <!-- AnnouncementView activity -->
-        <activity
-            android:name="com.aisaacroth.courseworks.views.AnnouncementView"
-            android:label="@string/title_activity_announcement_view" 
-            android:theme="@style/Theme.AppCompat.Light">
-        </activity>
-
-        <!-- CalendarView activity -->
-        <activity
-            android:name="com.aisaacroth.courseworks.views.CalendarView"
-            android:label="@string/title_activity_calendar_view"
-            android:theme="@style/Theme.AppCompat.Light" >
-        </activity>
-
         <!-- Settings activity -->
         <activity
             android:name="com.aisaacroth.courseworks.views.Settings"
