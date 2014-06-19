@@ -22,8 +22,8 @@ import android.util.Base64;
  * application. Encrypts the information using AES (a symmetric cypher) and
  * saves it to the file that way. TODO: Document everything.
  * 
- * @author: Alexander Roth
- * @Date: 2014-04-04
+ * @author Alexander Roth
+ * @date 2014-04-04
  ******************************************************************************/
 public class AuthPreferences {
 
@@ -292,4 +292,5 @@ public class AuthPreferences {
 			throw new AuthPreferencesException(e);
 		}
 	}
+
 }

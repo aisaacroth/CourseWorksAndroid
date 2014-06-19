@@ -5,7 +5,7 @@ package com.aisaacroth.courseworks.other;
  * that will be generated and appear within the Main (Homepage) activity.
  * 
  * @author Alexander Roth
- * @date: 2014-06-12
+ * @date 2014-06-12
  ******************************************************************************/
 public class Notification {
 
@@ -50,4 +50,5 @@ public class Notification {
 	public void setInformation(String info) {
 		this.info = info;
 	}
+
 }

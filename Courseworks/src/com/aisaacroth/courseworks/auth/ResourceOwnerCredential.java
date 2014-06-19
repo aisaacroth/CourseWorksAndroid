@@ -29,8 +29,8 @@ import android.util.Log;
  * authentication based on Oauth specifications. Uses ResourceOwnerCredential
  * method of Oauth2.0
  * 
- * @author: Alexander Roth
- * @Date: 2014-04-01
+ * @author Alexander Roth
+ * @date 2014-04-01
  ******************************************************************************/
 public class ResourceOwnerCredential {
 

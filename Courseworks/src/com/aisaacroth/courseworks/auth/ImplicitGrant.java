@@ -19,8 +19,8 @@ import android.graphics.Bitmap;
  * authentication based on Oauth specifications. Uses the Implicit Grant method
  * of Oauth2.0.
  * 
- * @author: Alexander Roth
- * @Date: 2014-04-25
+ * @author Alexander Roth
+ * @date 2014-04-25
  ******************************************************************************/
 public class ImplicitGrant extends Activity {
 	private static final String TAG = "ImplicitGrant";
@@ -60,4 +60,5 @@ public class ImplicitGrant extends Activity {
 		});
 		webView.loadUrl(url);
 	}
+
 }

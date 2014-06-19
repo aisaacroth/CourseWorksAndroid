@@ -25,8 +25,8 @@ import android.util.Log;
  * the authentication server. Meant as an alternate to the method than the OAuth
  * protocols that could also be implemented.
  * 
- * @author: Alexander Roth
- * @Date: 2014-05-19
+ * @author Alexander Roth
+ * @date 2014-05-19
  ******************************************************************************/
 
 public class RestGrant {
@@ -199,4 +199,5 @@ public class RestGrant {
 		HttpResponse response = httpClient.execute(httpPost);
 		return response;
 	}
+
 }

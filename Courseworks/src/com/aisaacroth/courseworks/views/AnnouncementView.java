@@ -10,16 +10,28 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+/*******************************************************************************
+ * The Class AnnouncementView. TODO: Add in the Announcement ListView.
+ * 
+ * @author Alexander Roth
+ * @date 2014-06-19
+ ******************************************************************************/
 public class AnnouncementView extends ListFragment {
 
 	boolean mDualPane;
 	int mCurCheckPosition = 0;
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
+	 */
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 	}
 
+	/* (non-Javadoc)
+	 * @see android.support.v4.app.Fragment#onOptionsItemSelected(android.view.MenuItem)
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -32,14 +44,20 @@ public class AnnouncementView extends ListFragment {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/**
+	/***************************************************************************
 	 * A placeholder fragment containing a simple view.
-	 */
+	 **************************************************************************/
 	public static class PlaceholderFragment extends Fragment {
 
+		/***********************************************************************
+		 * Instantiates a new placeholder fragment.
+		 **********************************************************************/
 		public PlaceholderFragment() {
 		}
 
+		/* (non-Javadoc)
+		 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
+		 */
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {

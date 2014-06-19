@@ -254,4 +254,5 @@ public class Settings extends PreferenceActivity {
 			bindPreferenceSummaryToValue(findPreference("sync_frequency"));
 		}
 	}
+
 }

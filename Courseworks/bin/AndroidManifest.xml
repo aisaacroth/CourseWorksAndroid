@@ -33,7 +33,7 @@
         <!-- Main activity -->
         <activity
             android:name="com.aisaacroth.courseworks.views.Main"
-            android:label="@string/home_page"
+            android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light" >
         </activity>
 
@@ -57,10 +57,10 @@
         </activity>
         
         <!-- CourseView Activity -->
-        <activity
+        <!-- <activity
             android:name="com.aisaacroth.courseworks.views.CourseView"
             android:label="@string/title_activity_course_view" >
-        </activity>
+        </activity> -->
         
         <!-- CalendarView Activity -->
         <activity

@@ -22,6 +22,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	private ViewPager viewPager;
 	private TabsPagerAdapter mAdapter;
 	private ActionBar actionBar;
+	private final int MIDDLE = 1;
 
 	// Tab titles
 	private String[] tabs = { "Courses", "Home", "Calendar" };
@@ -41,7 +42,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
-	    viewPager.setAdapter(mAdapter);
+		// Place everything in the activity.
+		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(true);
 		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -50,6 +52,26 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 			actionBar.addTab(actionBar.newTab().setText(tab_name)
 					.setTabListener(this));
 		}
+
+		// Linking the tabs to their displays.
+		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+			@Override
+			public void onPageSelected(int position) {
+				actionBar.setSelectedNavigationItem(position);
+			}
+
+			@Override
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+			}
+
+			@Override
+			public void onPageScrollStateChanged(int arg0) {
+			}
+		});
+		
+		// Set the initial fragment as the middle tab.
+		viewPager.setCurrentItem(MIDDLE);
 	}
 
 	/*
@@ -66,20 +88,15 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
 	@Override
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
+		viewPager.setCurrentItem(tab.getPosition());
 	}
 
 	@Override
 	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-		// TODO Auto-generated method stub
-		
 	}
 
 }
