@@ -1,8 +1,9 @@
-package com.aisaacroth.courseworks.views;
+package com.aisaacroth.courseworks.adapters;
 
 import java.util.ArrayList;
 
 import com.aisaacroth.courseworks.R;
+import com.aisaacroth.courseworks.other.Notification;
 
 import android.content.Context;
 import android.view.LayoutInflater;

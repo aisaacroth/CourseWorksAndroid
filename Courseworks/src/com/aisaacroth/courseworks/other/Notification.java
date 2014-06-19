@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks.views;
+package com.aisaacroth.courseworks.other;
 
 /*******************************************************************************
  * The Notifications class acts as a container for all possible notifications
