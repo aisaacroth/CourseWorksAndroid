@@ -2,13 +2,13 @@ package com.aisaacroth.courseworks.views;
 
 import com.aisaacroth.courseworks.R;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 /*******************************************************************************
  * The Class AnnouncementView. TODO: Add in the Announcement ListView.
@@ -18,19 +18,27 @@ import android.view.ViewGroup;
  ******************************************************************************/
 public class AnnouncementView extends ListFragment {
 
-	boolean mDualPane;
-	int mCurCheckPosition = 0;
+	String[] values = new String[] { "Notification 1", "Notification 2",
+			"Notification 3", "Notification 4", "Notification 5",
+			"Notification 6", "Notification 7", "Notification 8" };
 
-	/* (non-Javadoc)
-	 * @see android.support.v4.app.Fragment#onActivityCreated(android.os.Bundle)
-	 */
 	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				inflater.getContext(), android.R.layout.simple_list_item_1,
+				values);
+		setListAdapter(adapter);
+		return super.onCreateView(inflater, container, savedInstanceState);
+
 	}
 
-	/* (non-Javadoc)
-	 * @see android.support.v4.app.Fragment#onOptionsItemSelected(android.view.MenuItem)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * android.support.v4.app.Fragment#onOptionsItemSelected(android.view.MenuItem
+	 * )
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -42,28 +50,5 @@ public class AnnouncementView extends ListFragment {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	/***************************************************************************
-	 * A placeholder fragment containing a simple view.
-	 **************************************************************************/
-	public static class PlaceholderFragment extends Fragment {
-
-		/***********************************************************************
-		 * Instantiates a new placeholder fragment.
-		 **********************************************************************/
-		public PlaceholderFragment() {
-		}
-
-		/* (non-Javadoc)
-		 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
-		 */
-		@Override
-		public View onCreateView(LayoutInflater inflater, ViewGroup container,
-				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(
-					R.layout.fragment_announcement_view, container, false);
-			return rootView;
-		}
 	}
 }

@@ -3,11 +3,13 @@ package com.aisaacroth.courseworks.views;
 import com.aisaacroth.courseworks.R;
 
 import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 
 /*******************************************************************************
  * The Class CourseView. TODO: Implement CourseView styling
@@ -15,21 +17,20 @@ import android.view.ViewGroup;
  * @author Alexander Roth
  * @data 2014-06-19
  ******************************************************************************/
-public class CourseView extends Fragment {
+public class CourseView extends ListFragment {
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
-	 * android.view.ViewGroup, android.os.Bundle)
-	 */
+	String[] values = new String[] { "Course 1", "Course 2", "Course 3",
+			"Course 4", "Course 5" };
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.fragment_course_view, container,
-				false);
-		return view;
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+				inflater.getContext(), android.R.layout.simple_list_item_1,
+				values);
+		setListAdapter(adapter);
+		return super.onCreateView(inflater, container, savedInstanceState);
+
 	}
 
 	/*
