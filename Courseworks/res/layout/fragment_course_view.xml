@@ -12,8 +12,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:gravity="center"
-        android:text="CourseView Design"
-        android:textSize="20dp" />
+        android:gravity="center" >
+    </TextView>
 
 </RelativeLayout>

@@ -4,12 +4,16 @@ import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.TabsPagerAdapter;
 
 import android.app.ActionBar;
+import android.app.SearchManager;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
+import android.view.MenuInflater;
 
 /*******************************************************************************
  * The Home class. TODO: Will act as the homepage for the Courseworks app.
@@ -69,7 +73,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 			public void onPageScrollStateChanged(int arg0) {
 			}
 		});
-		
+
 		// Set the initial fragment as the middle tab.
 		viewPager.setCurrentItem(MIDDLE);
 	}
@@ -81,8 +85,9 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.options_menu, menu);
+
 		return true;
 	}
 
