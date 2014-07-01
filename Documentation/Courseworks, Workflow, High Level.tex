@@ -1,0 +1,77 @@
+\documentclass{article}
+\usepackage{fullpage}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shadows}
+\usepackage{pgf-umlsd}
+\title{Courseworks App Android Design}
+\author{Alex Roth}
+\date{June 26th, 2014}
+\begin{document}
+
+\maketitle
+
+\section*{Design 1}
+\begin{sequencediagram}
+\newthread[white]{u}{User}
+\newinst[1]{m}{Mobile App}
+\newinst[2]{b}{Backend}
+\newinst[2]{c}{CAS}
+\newinst[2]{w}{Courseworks}
+
+\begin{call}{u}{User/Password}{m}{}
+    \begin{call}{m}{Connect to Backend}{b}{Display to User}
+        \begin{sdblock}{Request Loop}{}
+            \begin{call}{b}{Auth REST call}{c}{TGT Returned}
+            \end{call}
+            \begin{call}{b}{Request ST}{c}{ST Returned}
+            \end{call}
+            \begin{call}{b}{REST Request Info}{w}{JSON File Returned}
+            \end{call}
+        \end{sdblock}
+    \end{call}
+\end{call}
+\end{sequencediagram}
+
+With Non-Privileged Backend:
+\begin{itemize}
+    \item Relying on CAS's ability to return User information.
+    \item Constant overhead from CAS servers in the Request Loop. 
+    \item Need to increase age of the TGT in order to run with the Courseworks server.
+\end{itemize}
+
+\section*{Design 2}
+\begin{sequencediagram}
+\newthread[white]{u}{User}
+\newinst[1]{m}{Mobile App}
+\newinst[2]{b}{Backend}
+\newinst[2]{c}{CAS}
+\newinst[2]{w}{Courseworks}
+
+\begin{call}{u}{User/Password}{m}{}
+    \begin{call}{m}{Connect to Backend}{b}{Display to User}
+        \begin{call}{b}{Auth REST call}{c}{TGT Returned}
+        \end{call}
+        \begin{call}{b}{Request ST}{c}{ST Returned}
+        \end{call}
+        \begin{sdblock}{Request Loop}{}
+            \begin{call}{b}{REST Request Info}{w}{JSON File Returned}
+            \end{call}
+        \end{sdblock}
+    \end{call}
+\end{call}
+\end{sequencediagram}
+
+With Privileged Backend:
+\begin{itemize}
+    \item Backend maintains user identity, not the CAS servers.
+    \item Reduced overhead, only need to make two calls to CAS initially.
+    \item Backend controls length of time that the user is logged in.
+    \item No need to increase the age of the Ticket Granting Tickets from the CAS Server.
+    \item More visiblity on who is accessing the application and the Courseworks servers.
+    \item[\textbf{TO DO:}] Figure out how to implement the privileged functionality for the Backend.
+    \begin{itemize}
+        \item Possibly cache the first ST call and retain the user identity.
+    \end{itemize}
+\end{itemize}
+
+\end{document}
