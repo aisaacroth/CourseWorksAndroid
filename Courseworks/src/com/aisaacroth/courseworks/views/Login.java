@@ -2,15 +2,12 @@ package com.aisaacroth.courseworks.views;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.KeyManagementException;
-import java.security.NoSuchAlgorithmException;
 
 import org.apache.http.auth.UsernamePasswordCredentials;
-import org.apache.http.client.ClientProtocolException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.auth.AuthPreferences;
-import com.aisaacroth.courseworks.auth.ResourceOwnerCredential;
+import com.aisaacroth.courseworks.auth.RestGrant;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -48,12 +45,9 @@ public class Login extends Activity {
 	private String mUNI;
 	private String mPassword;
 
-	// AccountManager for Oauth authentication.
-	// private AccountManager accountManager;
 	private AuthPreferences loginPreferences;
 	private Context context;
 	private UsernamePasswordCredentials credentials;
-	private static final String URL = "https://cas.columbia.edu/cas/login?service=https%3A%2F%2Fcourseworks.columbia.edu%2Fsakai-login-tool%2Fcontainer";
 
 	// UI references.
 	private EditText mUNIView;
@@ -86,7 +80,7 @@ public class Login extends Activity {
 		String path = dirtyPath.substring(0, dirtyPath.indexOf("files"));
 		File loginAuth = new File(path + "/shared_prefs/auth.xml");
 
-		// If the Shared Preference file exists and the username and password
+		// If the Shared Preference file exists and the UNI and password
 		// both exist.
 		if (loginAuth.exists() && loginPreferences.getString("uni") != null
 				&& loginPreferences.getString("password") != null) {
@@ -136,7 +130,7 @@ public class Login extends Activity {
 
 	/***************************************************************************
 	 * Attempts to sign in the account specified by the login form. If there are
-	 * form errors (invalid uni, missing fields, etc.), the errors are presented
+	 * form errors (invalid UNI, missing fields, etc.), the errors are presented
 	 * and no actual login attempt is made.
 	 **************************************************************************/
 	public void attemptLogin() {
@@ -239,16 +233,7 @@ public class Login extends Activity {
 		@Override
 		protected Boolean doInBackground(Void... params) {
 			try {
-				ResourceOwnerCredential.login(credentials, URL);
-			} catch (KeyManagementException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				RestGrant.login(credentials);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
