@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 /**
- * The Class CourseView. TODO: Implement CourseView styling
+ * The CourseView Class. TODO: Implement CourseView styling
  * 
  * @author Alexander Roth
  * @data 2014-06-19
