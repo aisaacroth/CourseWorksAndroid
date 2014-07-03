@@ -2,7 +2,6 @@ package com.aisaacroth.courseworks.views;
 
 import com.aisaacroth.courseworks.R;
 
-import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-/*******************************************************************************
+/**
  * The Class CourseView. TODO: Implement CourseView styling
  * 
  * @author Alexander Roth
  * @data 2014-06-19
- ******************************************************************************/
+ */
 public class CourseView extends ListFragment {
 
 	String[] values = new String[] { "Course 1", "Course 2", "Course 3",

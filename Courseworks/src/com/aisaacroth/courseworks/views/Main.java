@@ -4,27 +4,24 @@ import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.TabsPagerAdapter;
 
 import android.app.ActionBar;
-import android.app.SearchManager;
 import android.app.ActionBar.Tab;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-/*******************************************************************************
+/**
  * The Home class. TODO: Will act as the homepage for the Courseworks app.
  * 
  * @author Alexander Roth
  * @date 2014-02-24
- ******************************************************************************/
+ */
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
 	private ViewPager viewPager;
-	private TabsPagerAdapter mAdapter;
+	private TabsPagerAdapter tabsPagerAdapter;
 	private ActionBar actionBar;
 	private final int MIDDLE = 1;
 
@@ -41,21 +38,9 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		// Initialization
-		viewPager = (ViewPager) findViewById(R.id.pager);
-		actionBar = getActionBar();
-		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-
-		// Place everything in the activity.
-		viewPager.setAdapter(mAdapter);
-		actionBar.setHomeButtonEnabled(true);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-
-		// Adding Tabs
-		for (String tab_name : tabs) {
-			actionBar.addTab(actionBar.newTab().setText(tab_name)
-					.setTabListener(this));
-		}
+		initializeTabsPagerAdapter();
+		setupActivity();
+		addTabsToView();
 
 		// Linking the tabs to their displays.
 		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -102,6 +87,26 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
 	@Override
 	public void onTabReselected(Tab tab, FragmentTransaction ft) {
+	}
+
+	private void addTabsToView() {
+		for (String tab_name : tabs) {
+			actionBar.addTab(actionBar.newTab().setText(tab_name)
+					.setTabListener(this));
+
+		}
+	}
+
+	private void initializeTabsPagerAdapter() {
+		viewPager = (ViewPager) findViewById(R.id.pager);
+		actionBar = getActionBar();
+		tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+	}
+
+	private void setupActivity() {
+		viewPager.setAdapter(tabsPagerAdapter);
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	}
 
 }

@@ -20,20 +20,20 @@ import org.apache.http.params.HttpParams;
 import android.annotation.SuppressLint;
 import android.util.Log;
 
-/*******************************************************************************
+/**
  * A CAS Client that implements CAS' RESTful API in order to communicate with
  * the authentication server. Meant as an alternate to the method than the OAuth
  * protocols that could also be implemented.
  * 
  * @author Alexander Roth
  * @date 2014-05-19
- ******************************************************************************/
+ */
 
 public class RestGrant {
 
 	public static String tGT;
 
-	/***************************************************************************
+	/**
 	 * Logins the user into the Columbia's CAS Servers using calls to the CAS
 	 * RESTful API.
 	 * 
@@ -41,28 +41,19 @@ public class RestGrant {
 	 *            The user's personal credentials (i.e. username and password).
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
-	 **************************************************************************/
+	 */
 	@SuppressLint("NewApi")
 	public static void login(UsernamePasswordCredentials credentials)
 			throws IOException {
 		String username = credentials.getUserName();
 		String password = credentials.getPassword();
 		tGT = RestGrant.getGrantingTicket(username, password);
-
-		// Checks that the ticket is not empty and that it exists.
-		if (tGT.isEmpty() || tGT == null) {
-			throw new NullPointerException();
-		}
-
+		checkTGTExists();
 		String serviceTicket = RestGrant.getServiceTicket(tGT);
-
-		// Checks that the ticket is not empty and that it exists.
-		if (serviceTicket.isEmpty() || tGT == null) {
-			throw new NullPointerException();
-		}
+		checkServiceTicketExists(serviceTicket);
 	}
 
-	/***************************************************************************
+	/**
 	 * Logouts the user out of the CAS server by calling DELETE to the RESTful
 	 * API.
 	 * 
@@ -70,7 +61,7 @@ public class RestGrant {
 	 *             the client protocol exception
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
-	 **************************************************************************/
+	 */
 	public static void logout() throws ClientProtocolException, IOException {
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpDelete delete = new HttpDelete(
@@ -78,7 +69,7 @@ public class RestGrant {
 		httpClient.execute(delete);
 	}
 
-	/***************************************************************************
+	/**
 	 * Makes a POST call to CAS authentication servers in order to return a
 	 * Ticket Granting Resource.
 	 * 
@@ -91,34 +82,28 @@ public class RestGrant {
 	 *         not granted.
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
-	 **************************************************************************/
+	 */
 	public static String getGrantingTicket(String username, String password)
 			throws IOException {
 		String ticket = null;
 		HttpResponse response = postUserToServer(username, password);
 		HttpParams param = response.getParams();
 
-		// Checks that everything returned OK in the call, begins parsing.
-		if (param.getParameter("Location") != null
-				&& response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_CREATED) {
-			String paramString = param.getParameter("Locatin").toString();
-			ticket = paramString.substring(paramString.lastIndexOf('/') + 1);
-		}
+		ticket = parseTicket(ticket, param, response);
 		return ticket;
 	}
 
-	/***************************************************************************
+	/**
 	 * Gets the service ticket from the CAS Authentication server.
 	 * 
 	 * @param ticket
-	 *            the Ticket Granting Resource used to request a service
-	 *            ticket.
+	 *            the Ticket Granting Resource used to request a service ticket.
 	 * @return the service ticket
 	 * @throws ClientProtocolException
 	 *             the client protocol exception
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
-	 **************************************************************************/
+	 */
 	public static String getServiceTicket(String ticket)
 			throws ClientProtocolException, IOException {
 		String serviceTicket = null;
@@ -131,9 +116,9 @@ public class RestGrant {
 		return serviceTicket;
 	}
 
-	/***************************************************************************
-	 * Sends a POST call to Columbia's CAS Authentication server with the
-	 * user's information in order to request a Ticket Granting Resource.
+	/**
+	 * Sends a POST call to Columbia's CAS Authentication server with the user's
+	 * information in order to request a Ticket Granting Resource.
 	 * 
 	 * @param username
 	 *            the username
@@ -144,7 +129,7 @@ public class RestGrant {
 	 *             the client protocol exception
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
-	 **************************************************************************/
+	 */
 	private static HttpResponse postUserToServer(String username,
 			String password) throws ClientProtocolException, IOException {
 		// Create a new HttpClient and Post Header
@@ -167,9 +152,9 @@ public class RestGrant {
 		return response;
 	}
 
-	/***************************************************************************
-	 * Sends a POST call to Columbia's CAS Authentication server with the
-	 * Ticket Granting Resource in order to request a Service Ticket.
+	/**
+	 * Sends a POST call to Columbia's CAS Authentication server with the Ticket
+	 * Granting Resource in order to request a Service Ticket.
 	 * 
 	 * @param ticket
 	 *            The Ticket Granting Ticket Resource
@@ -178,13 +163,14 @@ public class RestGrant {
 	 *             the client protocol exception
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
-	 **************************************************************************/
+	 */
 	private static HttpResponse postTicketToServer(String ticket)
 			throws ClientProtocolException, IOException {
 		// Create a new HttpClient and Post Header
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpPost httpPost = new HttpPost(
-				"http://cas.columbia.edu/cas/v1/tickets/" + ticket + " HTTP/1.0");
+				"http://cas.columbia.edu/cas/v1/tickets/" + ticket
+						+ " HTTP/1.0");
 
 		// Add the necessary data
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -198,6 +184,40 @@ public class RestGrant {
 		// Execute HTTP Post Request
 		HttpResponse response = httpClient.execute(httpPost);
 		return response;
+	}
+
+	private static boolean checkParametersExist(HttpParams param) {
+		return (param.getParameter("Location") != null) ? true : false;
+	}
+
+	private static boolean checkResponseCreated(HttpResponse response) {
+		return (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_CREATED) ? true
+				: false;
+	}
+
+	private static void checkServiceTicketExists(String serviceTicket) {
+		if (serviceTicket.isEmpty() || hasTGT()) {
+			throw new NullPointerException();
+		}
+	}
+
+	private static void checkTGTExists() {
+		if (hasTGT()) {
+			throw new NullPointerException();
+		}
+	}
+
+	private static boolean hasTGT() {
+		return (tGT.isEmpty() || tGT == null) ? true : false;
+	}
+
+	private static String parseTicket(String ticket, HttpParams params,
+			HttpResponse response) {
+		if (checkParametersExist(params) && checkResponseCreated(response)) {
+			String paramString = params.getParameter("Location").toString();
+			ticket = paramString.substring(paramString.lastIndexOf('/') + 1);
+		}
+		return ticket;
 	}
 
 }

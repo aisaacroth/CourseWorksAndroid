@@ -9,12 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
-/*******************************************************************************
+/**
  * The Class CalendarView. TODO: Implement the CalendarView.
  * 
  * @author Alexander Roth
  * @date 2014-06-19
- ******************************************************************************/
+ */
 public class CalendarView extends Fragment {
 
 	/*

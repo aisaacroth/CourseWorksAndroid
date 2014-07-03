@@ -10,12 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
-/*******************************************************************************
- * The Class AnnouncementView. TODO: Add in the Announcement ListView.
+/**
+ * The Class AnnouncementView. 
  * 
  * @author Alexander Roth
  * @date 2014-06-19
- ******************************************************************************/
+ */
 public class AnnouncementView extends ListFragment {
 
 	String[] values = new String[] { "Notification 1", "Notification 2",

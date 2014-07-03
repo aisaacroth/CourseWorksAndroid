@@ -28,20 +28,17 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
-/*******************************************************************************
- * Login Activity which displays a login screen to the user.
+/**
+ * Login Activity which displays a login screen to the user and controls login
+ * protocols.
  * 
  * @author Alexander Roth
  * @date 2014-02-25
- ******************************************************************************/
+ */
 public class Login extends Activity {
 
-	/***************************************************************************
-	 * Keep track of the login task to ensure we can cancel it if requested.
-	 **************************************************************************/
-	private UserLoginTask mAuthTask = null;
+	private UserLoginTask loginTask = null;
 
-	// Values for email and password at the time of the login attempt.
 	private String mUNI;
 	private String mPassword;
 
@@ -49,48 +46,27 @@ public class Login extends Activity {
 	private Context context;
 	private UsernamePasswordCredentials credentials;
 
-	// UI references.
-	private EditText mUNIView;
-	private EditText mPasswordView;
-	private View mLoginFormView;
-	private View mLoginStatusView;
-	private TextView mLoginStatusMessageView;
-	private CheckBox rememberMe;
+	private EditText uniTextField;
+	private EditText passwordTextField;
+	private View loginFormView;
+	private View loginStatusView;
+	private TextView loginStatusMessageField;
+	private CheckBox rememberMeCheckBox;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_login);
+		setUpLoginForm();
 
-		// Set up the login form.
-		mUNIView = (EditText) findViewById(R.id.uni);
-		mPasswordView = (EditText) findViewById(R.id.password);
-		rememberMe = (CheckBox) findViewById(R.id.remember_me);
-		mLoginFormView = findViewById(R.id.login_form);
-		mLoginStatusView = findViewById(R.id.login_status);
-		mLoginStatusMessageView = (TextView) findViewById(R.id.login_status_message);
+		loginPreferences = createLoginPreferences();
+		File loginSettings = locateLoginSettings();
 
-		loginPreferences = new AuthPreferences(this, "auth",
-				"Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
-
-		// If there exists a Shared Preference file.
-		context = this;
-		String dirtyPath = context.getFilesDir().toString();
-		String path = dirtyPath.substring(0, dirtyPath.indexOf("files"));
-		File loginAuth = new File(path + "/shared_prefs/auth.xml");
-
-		// If the Shared Preference file exists and the UNI and password
-		// both exist.
-		if (loginAuth.exists() && loginPreferences.getString("uni") != null
-				&& loginPreferences.getString("password") != null) {
-			mUNIView.setText(loginPreferences.getString("uni"));
-			mPasswordView.setText(loginPreferences.getString("password"));
-			// Auto-login feature.
-			// attemptLogin();
+		if (checkLoginedBefore(loginSettings)) {
+			autoFillTextField();
 		}
 
-		mPasswordView
+		passwordTextField
 				.setOnEditorActionListener(new TextView.OnEditorActionListener() {
 					@Override
 					public boolean onEditorAction(TextView textView, int id,
@@ -108,11 +84,8 @@ public class Login extends Activity {
 					@Override
 					public void onClick(View view) {
 
-						if (rememberMe.isChecked()) {
-							mUNI = mUNIView.getText().toString();
-							mPassword = mPasswordView.getText().toString();
-							loginPreferences.put("uni", mUNI);
-							loginPreferences.put("password", mPassword);
+						if (rememberMeCheckBox.isChecked()) {
+							storeLoginPreferences();
 						} else {
 							loginPreferences.clear();
 						}
@@ -128,65 +101,47 @@ public class Login extends Activity {
 		return true;
 	}
 
-	/***************************************************************************
+	/**
 	 * Attempts to sign in the account specified by the login form. If there are
 	 * form errors (invalid UNI, missing fields, etc.), the errors are presented
 	 * and no actual login attempt is made.
-	 **************************************************************************/
+	 */
 	public void attemptLogin() {
-		if (mAuthTask != null) {
+		if (loginTask != null) {
 			return;
 		}
-		// Reset errors.
-		mUNIView.setError(null);
-		mPasswordView.setError(null);
+
+		resetErrorNotification();
 
 		// Store values at the time of the login attempt.
-		mUNI = mUNIView.getText().toString();
-		mPassword = mPasswordView.getText().toString();
-
+		mUNI = retrieveTextFromTextField(uniTextField);
+		mPassword = retrieveTextFromTextField(passwordTextField);
 		credentials = new UsernamePasswordCredentials(mUNI, mPassword);
 
-		boolean cancel = false;
+		boolean error = false;
 		View focusView = null;
 
-		// Check for a valid password.
 		if (TextUtils.isEmpty(mPassword)) {
-			mPasswordView.setError(getString(R.string.error_field_required));
-			focusView = mPasswordView;
-			cancel = true;
-		} else if (mPassword.length() < 4) {
-			mPasswordView.setError(getString(R.string.error_invalid_password));
-			focusView = mPasswordView;
-			cancel = true;
+			focusView = missingFieldFailedLogin(passwordTextField, focusView,
+					error);
+		} else if (checkPasswordIsShort()) {
+			focusView = invalidPasswordFails(focusView, error);
 		}
 
-		// Check if uni is present.
 		if (TextUtils.isEmpty(mUNI)) {
-			mUNIView.setError(getString(R.string.error_field_required));
-			focusView = mUNIView;
-			cancel = true;
+			focusView = missingFieldFailedLogin(uniTextField, focusView, error);
 		}
 
-		if (cancel) {
-			// There was an error; don't attempt login and focus the first
-			// form field with an error.
+		if (error) {
 			focusView.requestFocus();
 		} else {
-			// Show a progress spinner, and kick off a background task to
-			// perform the user login attempt.
-			mLoginStatusMessageView.setText(R.string.login_progress_signing_in);
-			showProgress(true);
-			mAuthTask = new UserLoginTask();
-			mAuthTask.execute((Void) null);
-			Intent main = new Intent(Login.this, Main.class);
-			startActivity(main);
+			procceedWithLogin();
 		}
 	}
 
-	/***************************************************************************
+	/**
 	 * Shows the progress UI and hides the login form.
-	 **************************************************************************/
+	 */
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
 	private void showProgress(final boolean show) {
 		// On Honeycomb MR2 we have the ViewPropertyAnimator APIs, which allow
@@ -196,39 +151,39 @@ public class Login extends Activity {
 			int shortAnimTime = getResources().getInteger(
 					android.R.integer.config_shortAnimTime);
 
-			mLoginStatusView.setVisibility(View.VISIBLE);
-			mLoginStatusView.animate().setDuration(shortAnimTime)
+			loginStatusView.setVisibility(View.VISIBLE);
+			loginStatusView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 1 : 0)
 					.setListener(new AnimatorListenerAdapter() {
 						@Override
 						public void onAnimationEnd(Animator animation) {
-							mLoginStatusView.setVisibility(show ? View.VISIBLE
+							loginStatusView.setVisibility(show ? View.VISIBLE
 									: View.GONE);
 						}
 					});
 
-			mLoginFormView.setVisibility(View.VISIBLE);
-			mLoginFormView.animate().setDuration(shortAnimTime)
+			loginFormView.setVisibility(View.VISIBLE);
+			loginFormView.animate().setDuration(shortAnimTime)
 					.alpha(show ? 0 : 1)
 					.setListener(new AnimatorListenerAdapter() {
 						@Override
 						public void onAnimationEnd(Animator animation) {
-							mLoginFormView.setVisibility(show ? View.GONE
+							loginFormView.setVisibility(show ? View.GONE
 									: View.VISIBLE);
 						}
 					});
 		} else {
 			// The ViewPropertyAnimator APIs are not available, so simply show
 			// and hide the relevant UI components.
-			mLoginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
-			mLoginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
+			loginStatusView.setVisibility(show ? View.VISIBLE : View.GONE);
+			loginFormView.setVisibility(show ? View.GONE : View.VISIBLE);
 		}
 	}
 
-	/***************************************************************************
+	/**
 	 * Represents an asynchronous login/registration task used to authenticate
 	 * the user.
-	 **************************************************************************/
+	 */
 	public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 		@Override
 		protected Boolean doInBackground(Void... params) {
@@ -243,23 +198,122 @@ public class Login extends Activity {
 
 		@Override
 		protected void onPostExecute(final Boolean success) {
-			mAuthTask = null;
+			loginTask = null;
 			showProgress(false);
 
 			if (success) {
 				finish();
 			} else {
-				mPasswordView
+				passwordTextField
 						.setError(getString(R.string.error_incorrect_password));
-				mPasswordView.requestFocus();
+				passwordTextField.requestFocus();
 			}
 		}
 
 		@Override
 		protected void onCancelled() {
-			mAuthTask = null;
+			loginTask = null;
 			showProgress(false);
 		}
+	}
+
+	private void autoFillTextField() {
+		fillUniTextField();
+		fillPasswordTextField();
+	}
+
+	private boolean checkLoginedBefore(File loginSettings) {
+		if (loginSettings.exists() && hasUNI() && hasPassword()) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean checkPasswordIsShort() {
+		return mPassword.length() < 4 ? true : false;
+	}
+
+	private AuthPreferences createLoginPreferences() {
+		return new AuthPreferences(this, "auth",
+				"Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
+	}
+
+	private void fillPasswordTextField() {
+		passwordTextField.setText(loginPreferences.getString("password"));
+	}
+
+	private void fillUniTextField() {
+		uniTextField.setText(loginPreferences.getString("uni"));
+	}
+
+	private boolean hasPassword() {
+		return (loginPreferences.getString("password") != null) ? true : false;
+	}
+
+	private boolean hasUNI() {
+		return (loginPreferences.getString("uni") != null) ? true : false;
+	}
+
+	private View invalidPasswordFails(View focusView, boolean error) {
+		passwordTextField.setError(getString(R.string.error_invalid_password));
+		focusView = passwordTextField;
+		error = true;
+		return focusView;
+	}
+
+	private String locateFilePath(Context acitivty) {
+		String dirtyPath = context.getFilesDir().toString();
+		String path = dirtyPath.substring(0, dirtyPath.indexOf("file"));
+		return path;
+	}
+
+	private File locateLoginSettings() {
+		context = this;
+		String path = locateFilePath(context);
+		File loginAuth = new File(path + "/shared_prefs/auth.xml");
+		return loginAuth;
+	}
+
+	private View missingFieldFailedLogin(TextView textField, View focusView,
+			boolean error) {
+		textField.setError(getString(R.string.error_field_required));
+		focusView = textField;
+		error = true;
+		return focusView;
+	}
+
+	private void procceedWithLogin() {
+		loginStatusMessageField.setText(R.string.login_progress_signing_in);
+		showProgress(true);
+		loginTask = new UserLoginTask();
+		loginTask.execute((Void) null);
+		Intent main = new Intent(Login.this, Main.class);
+		startActivity(main);
+	}
+
+	private void resetErrorNotification() {
+		uniTextField.setError(null);
+		passwordTextField.setError(null);
+	}
+
+	private String retrieveTextFromTextField(TextView textField) {
+		return textField.getText().toString();
+	}
+
+	private void setUpLoginForm() {
+		uniTextField = (EditText) findViewById(R.id.uni);
+		passwordTextField = (EditText) findViewById(R.id.password);
+		rememberMeCheckBox = (CheckBox) findViewById(R.id.remember_me);
+		loginFormView = findViewById(R.id.login_form);
+		loginStatusView = findViewById(R.id.login_status);
+		loginStatusMessageField = (TextView) findViewById(R.id.login_status_message);
+	}
+
+	private void storeLoginPreferences() {
+		mUNI = retrieveTextFromTextField(uniTextField);
+		mPassword = retrieveTextFromTextField(passwordTextField);
+		loginPreferences.put("uni", mUNI);
+		loginPreferences.put("password", mPassword);
 	}
 
 }

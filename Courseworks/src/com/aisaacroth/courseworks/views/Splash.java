@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-/*******************************************************************************
+/**
  * The Splash screen for the CourseWorks Android application. When the
  * application is called, this splash screen will hold while the program gets
  * retrieves all necessary information. TODO: Implement so that the main
@@ -16,7 +16,7 @@ import android.os.Handler;
  * 
  * @author Alexander Roth
  * @date 2014-02-24
- ******************************************************************************/
+ */
 public class Splash extends Activity {
 
 	// Simulates the load time.
