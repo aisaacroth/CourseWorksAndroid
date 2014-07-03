@@ -39,8 +39,8 @@ public class Login extends Activity {
 
 	private UserLoginTask loginTask = null;
 
-	private String mUNI;
-	private String mPassword;
+	private String uni;
+	private String password;
 
 	private AuthPreferences loginPreferences;
 	private Context context;
@@ -114,21 +114,21 @@ public class Login extends Activity {
 		resetErrorNotification();
 
 		// Store values at the time of the login attempt.
-		mUNI = retrieveTextFromTextField(uniTextField);
-		mPassword = retrieveTextFromTextField(passwordTextField);
-		credentials = new UsernamePasswordCredentials(mUNI, mPassword);
+		uni = retrieveTextFromTextField(uniTextField);
+		password = retrieveTextFromTextField(passwordTextField);
+		credentials = new UsernamePasswordCredentials(uni, password);
 
 		boolean error = false;
 		View focusView = null;
 
-		if (TextUtils.isEmpty(mPassword)) {
+		if (TextUtils.isEmpty(password)) {
 			focusView = missingFieldFailedLogin(passwordTextField, focusView,
 					error);
 		} else if (checkPasswordIsShort()) {
 			focusView = invalidPasswordFails(focusView, error);
 		}
 
-		if (TextUtils.isEmpty(mUNI)) {
+		if (TextUtils.isEmpty(uni)) {
 			focusView = missingFieldFailedLogin(uniTextField, focusView, error);
 		}
 
@@ -230,7 +230,7 @@ public class Login extends Activity {
 	}
 
 	private boolean checkPasswordIsShort() {
-		return mPassword.length() < 4 ? true : false;
+		return password.length() < 4 ? true : false;
 	}
 
 	private AuthPreferences createLoginPreferences() {
@@ -310,10 +310,10 @@ public class Login extends Activity {
 	}
 
 	private void storeLoginPreferences() {
-		mUNI = retrieveTextFromTextField(uniTextField);
-		mPassword = retrieveTextFromTextField(passwordTextField);
-		loginPreferences.put("uni", mUNI);
-		loginPreferences.put("password", mPassword);
+		uni = retrieveTextFromTextField(uniTextField);
+		password = retrieveTextFromTextField(passwordTextField);
+		loginPreferences.put("uni", uni);
+		loginPreferences.put("password", password);
 	}
 
 }

@@ -24,7 +24,7 @@ import android.widget.TextView;
 public class NotificationAdapter extends BaseExpandableListAdapter {
 
 	private LayoutInflater inflater;
-	private ArrayList<Notification> mParent;
+	private ArrayList<Notification> parentArrayList;
 
 	/**
 	 * Instantiates a new notification adapter to be used by the Main activity.
@@ -35,7 +35,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 *            the parent objects in the list.
 	 */
 	public NotificationAdapter(Context context, ArrayList<Notification> parent) {
-		mParent = parent;
+		parentArrayList = parent;
 		inflater = LayoutInflater.from(context);
 	}
 
@@ -47,7 +47,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 */
 	@Override
 	public int getGroupCount() {
-		return mParent.size();
+		return parentArrayList.size();
 	}
 
 	/**
@@ -63,7 +63,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 */
 	@Override
 	public int getChildrenCount(int groupPosition) {
-		return mParent.size();
+		return parentArrayList.size();
 	}
 
 	/**
@@ -78,7 +78,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 */
 	@Override
 	public Object getGroup(int groupPosition) {
-		return mParent.get(groupPosition).getTitle();
+		return parentArrayList.get(groupPosition).getTitle();
 	}
 
 	/**
@@ -96,7 +96,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 */
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return mParent.get(groupPosition).getInformiation();
+		return parentArrayList.get(groupPosition).getInformiation();
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 
 		TextView textView = (TextView) convertView
 				.findViewById(R.id.list_item_child);
-		textView.setText(mParent.get(groupPosition).getInformiation());
+		textView.setText(parentArrayList.get(groupPosition).getInformiation());
 		convertView.setTag(holder);
 
 		// Return the entire view.

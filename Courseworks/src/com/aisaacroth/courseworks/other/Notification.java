@@ -9,7 +9,7 @@ package com.aisaacroth.courseworks.other;
  */
 public class Notification {
 
-	private String mTitle;
+	private String title;
 	private String info;
 
 	/**
@@ -18,7 +18,7 @@ public class Notification {
 	 * @return the title
 	 */
 	public String getTitle() {
-		return this.mTitle;
+		return this.title;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public class Notification {
 	 *            the new title
 	 */
 	public void setTitle(String title) {
-		this.mTitle = title;
+		this.title = title;
 	}
 
 	/**
