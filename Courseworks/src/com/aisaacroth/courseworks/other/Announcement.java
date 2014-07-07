@@ -7,7 +7,7 @@ package com.aisaacroth.courseworks.other;
  * @author Alexander Roth
  * @date 2014-06-12
  */
-public class Notification {
+public class Announcement {
 
 	private String title;
 	private String info;

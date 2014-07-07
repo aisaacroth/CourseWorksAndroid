@@ -3,7 +3,7 @@ package com.aisaacroth.courseworks.adapters;
 import java.util.ArrayList;
 
 import com.aisaacroth.courseworks.R;
-import com.aisaacroth.courseworks.other.Notification;
+import com.aisaacroth.courseworks.other.Announcement;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,10 +21,10 @@ import android.widget.TextView;
  * @author: Alexander Roth
  * @date: 2014-06-12
  */
-public class NotificationAdapter extends BaseExpandableListAdapter {
+public class AnnouncementAdapter extends BaseExpandableListAdapter {
 
 	private LayoutInflater inflater;
-	private ArrayList<Notification> parentArrayList;
+	private ArrayList<Announcement> parentArrayList;
 
 	/**
 	 * Instantiates a new notification adapter to be used by the Main activity.
@@ -34,7 +34,7 @@ public class NotificationAdapter extends BaseExpandableListAdapter {
 	 * @param parent
 	 *            the parent objects in the list.
 	 */
-	public NotificationAdapter(Context context, ArrayList<Notification> parent) {
+	public AnnouncementAdapter(Context context, ArrayList<Announcement> parent) {
 		parentArrayList = parent;
 		inflater = LayoutInflater.from(context);
 	}
