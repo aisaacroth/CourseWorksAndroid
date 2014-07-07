@@ -62,7 +62,7 @@ public class Login extends Activity {
 		loginPreferences = createLoginPreferences();
 		File loginSettings = locateLoginSettings();
 
-		if (checkLoginedBefore(loginSettings)) {
+		if (checkLoggedInBefore(loginSettings)) {
 			autoFillTextField();
 		}
 
@@ -94,11 +94,66 @@ public class Login extends Activity {
 				});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		super.onCreateOptionsMenu(menu);
-		getMenuInflater().inflate(R.menu.login, menu);
-		return true;
+	private void setUpLoginForm() {
+		uniTextField = (EditText) findViewById(R.id.uni);
+		passwordTextField = (EditText) findViewById(R.id.password);
+		rememberMeCheckBox = (CheckBox) findViewById(R.id.remember_me);
+		loginFormView = findViewById(R.id.login_form);
+		loginStatusView = findViewById(R.id.login_status);
+		loginStatusMessageField = (TextView) findViewById(R.id.login_status_message);
+	}
+
+	private AuthPreferences createLoginPreferences() {
+		return new AuthPreferences(this, "auth",
+				"Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
+	}
+
+	private File locateLoginSettings() {
+		context = this;
+		String path = locateFilePath(context);
+		File loginAuth = new File(path + "/shared_prefs/auth.xml");
+		return loginAuth;
+	}
+
+	private String locateFilePath(Context acitivty) {
+		String dirtyPath = context.getFilesDir().toString();
+		String path = dirtyPath.substring(0, dirtyPath.indexOf("file"));
+		return path;
+	}
+
+	private boolean checkLoggedInBefore(File loginSettings) {
+		if (loginSettings.exists() && hasUNI() && hasPassword()) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean hasPassword() {
+		return (loginPreferences.getString("password") != null) ? true : false;
+	}
+
+	private boolean hasUNI() {
+		return (loginPreferences.getString("uni") != null) ? true : false;
+	}
+
+	private void autoFillTextField() {
+		fillUniTextField();
+		fillPasswordTextField();
+	}
+
+	private void fillPasswordTextField() {
+		passwordTextField.setText(loginPreferences.getString("password"));
+	}
+
+	private void fillUniTextField() {
+		uniTextField.setText(loginPreferences.getString("uni"));
+	}
+
+	private void storeLoginPreferences() {
+		uni = retrieveTextFromTextField(uniTextField);
+		password = retrieveTextFromTextField(passwordTextField);
+		loginPreferences.put("uni", uni);
+		loginPreferences.put("password", password);
 	}
 
 	/**
@@ -137,6 +192,43 @@ public class Login extends Activity {
 		} else {
 			procceedWithLogin();
 		}
+	}
+
+	private void resetErrorNotification() {
+		uniTextField.setError(null);
+		passwordTextField.setError(null);
+	}
+
+	private String retrieveTextFromTextField(TextView textField) {
+		return textField.getText().toString();
+	}
+
+	private boolean checkPasswordIsShort() {
+		return password.length() < 4 ? true : false;
+	}
+
+	private View missingFieldFailedLogin(TextView textField, View focusView,
+			boolean error) {
+		textField.setError(getString(R.string.error_field_required));
+		focusView = textField;
+		error = true;
+		return focusView;
+	}
+
+	private View invalidPasswordFails(View focusView, boolean error) {
+		passwordTextField.setError(getString(R.string.error_invalid_password));
+		focusView = passwordTextField;
+		error = true;
+		return focusView;
+	}
+
+	private void procceedWithLogin() {
+		loginStatusMessageField.setText(R.string.login_progress_signing_in);
+		showProgress(true);
+		loginTask = new UserLoginTask();
+		loginTask.execute((Void) null);
+		Intent main = new Intent(Login.this, Main.class);
+		startActivity(main);
 	}
 
 	/**
@@ -217,103 +309,11 @@ public class Login extends Activity {
 		}
 	}
 
-	private void autoFillTextField() {
-		fillUniTextField();
-		fillPasswordTextField();
-	}
-
-	private boolean checkLoginedBefore(File loginSettings) {
-		if (loginSettings.exists() && hasUNI() && hasPassword()) {
-			return true;
-		}
-		return false;
-	}
-
-	private boolean checkPasswordIsShort() {
-		return password.length() < 4 ? true : false;
-	}
-
-	private AuthPreferences createLoginPreferences() {
-		return new AuthPreferences(this, "auth",
-				"Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
-	}
-
-	private void fillPasswordTextField() {
-		passwordTextField.setText(loginPreferences.getString("password"));
-	}
-
-	private void fillUniTextField() {
-		uniTextField.setText(loginPreferences.getString("uni"));
-	}
-
-	private boolean hasPassword() {
-		return (loginPreferences.getString("password") != null) ? true : false;
-	}
-
-	private boolean hasUNI() {
-		return (loginPreferences.getString("uni") != null) ? true : false;
-	}
-
-	private View invalidPasswordFails(View focusView, boolean error) {
-		passwordTextField.setError(getString(R.string.error_invalid_password));
-		focusView = passwordTextField;
-		error = true;
-		return focusView;
-	}
-
-	private String locateFilePath(Context acitivty) {
-		String dirtyPath = context.getFilesDir().toString();
-		String path = dirtyPath.substring(0, dirtyPath.indexOf("file"));
-		return path;
-	}
-
-	private File locateLoginSettings() {
-		context = this;
-		String path = locateFilePath(context);
-		File loginAuth = new File(path + "/shared_prefs/auth.xml");
-		return loginAuth;
-	}
-
-	private View missingFieldFailedLogin(TextView textField, View focusView,
-			boolean error) {
-		textField.setError(getString(R.string.error_field_required));
-		focusView = textField;
-		error = true;
-		return focusView;
-	}
-
-	private void procceedWithLogin() {
-		loginStatusMessageField.setText(R.string.login_progress_signing_in);
-		showProgress(true);
-		loginTask = new UserLoginTask();
-		loginTask.execute((Void) null);
-		Intent main = new Intent(Login.this, Main.class);
-		startActivity(main);
-	}
-
-	private void resetErrorNotification() {
-		uniTextField.setError(null);
-		passwordTextField.setError(null);
-	}
-
-	private String retrieveTextFromTextField(TextView textField) {
-		return textField.getText().toString();
-	}
-
-	private void setUpLoginForm() {
-		uniTextField = (EditText) findViewById(R.id.uni);
-		passwordTextField = (EditText) findViewById(R.id.password);
-		rememberMeCheckBox = (CheckBox) findViewById(R.id.remember_me);
-		loginFormView = findViewById(R.id.login_form);
-		loginStatusView = findViewById(R.id.login_status);
-		loginStatusMessageField = (TextView) findViewById(R.id.login_status_message);
-	}
-
-	private void storeLoginPreferences() {
-		uni = retrieveTextFromTextField(uniTextField);
-		password = retrieveTextFromTextField(passwordTextField);
-		loginPreferences.put("uni", uni);
-		loginPreferences.put("password", password);
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+		getMenuInflater().inflate(R.menu.login, menu);
+		return true;
 	}
 
 }
