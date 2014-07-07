@@ -11,18 +11,16 @@ We are currently in the pre-Alpha build stage.
 
 ### Current Features
 1. "Remember Me!" functionality.
-2. OAuth 2.0 Resource Ownder Password Credentials Protocol
-3. OAuth 2.0 Implicit Grant Protocol
-4. CAS RESTful API Protocol
+2. CAS RESTful API Protocol.
+3. Dynamic notification list.
 
 ### Future & Proposed Features
-1. OAuth 2.0 Authorization Code Protocol
-2. Current Semester Homepage
-3. Course names instead of Course numbers.
-4. Seamless calendar integration with native mobild calendar applications.
-5. A viewable roster
-6. Easy downloads under "File & Resources"
-7. Notification hub for emails and updates from professors to students
+1. Current Semester Homepage
+2. Course names instead of Course numbers.
+3. Seamless calendar integration with native mobild calendar applications.
+4. A viewable roster
+5. Easy downloads under "File & Resources"
+6. Notification hub for emails and updates from professors to students
 
 ## Implementation & Efficiency
 ### Workflow
@@ -30,7 +28,7 @@ The current design of the app works in a three-step process: the preamble, the a
 
 1. **Preamble Process**
 2. **Authentication Process**
-3. **Main Process**
+3. **Information Process**
 
 For more extensive detail on the application, please refer to the [documentation][Documentation]
 
@@ -49,11 +47,11 @@ Please refer to the [documentation][Documentation] for more security information
 2. ~~Secure private information of user.~~
 3. Update feature list based on student responses.
 4. Move to alpha build once Courseworks servers are prepared.
+5. Implement methods to get information from the Courseworks API.
 
 Developed for CUIT
 
 Author: Alexander Roth  
-Date:   2014-04-22
+Date:   2014-07-07
 
-[Documentation]: https://github.com/aisaacroth/CourseWorks/blob/master/Documentation/Design%20Documentation%2C%20Courseworks%20App.pdf
-
+[Documentation]: https://github.com/aisaacroth/CourseWorksAndroid/blob/master/Documentation/Courseworks%2C%20Development%2C%20Android.pdf
