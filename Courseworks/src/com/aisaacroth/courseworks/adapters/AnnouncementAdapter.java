@@ -3,7 +3,7 @@ package com.aisaacroth.courseworks.adapters;
 import java.util.ArrayList;
 
 import com.aisaacroth.courseworks.R;
-import com.aisaacroth.courseworks.other.Announcement;
+import com.aisaacroth.courseworks.data.Announcements;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -24,7 +24,7 @@ import android.widget.TextView;
 public class AnnouncementAdapter extends BaseExpandableListAdapter {
 
 	private LayoutInflater inflater;
-	private ArrayList<Announcement> parentArrayList;
+	private ArrayList<Announcements> parentArrayList;
 
 	/**
 	 * Instantiates a new notification adapter to be used by the Main activity.
@@ -34,7 +34,7 @@ public class AnnouncementAdapter extends BaseExpandableListAdapter {
 	 * @param parent
 	 *            the parent objects in the list.
 	 */
-	public AnnouncementAdapter(Context context, ArrayList<Announcement> parent) {
+	public AnnouncementAdapter(Context context, ArrayList<Announcements> parent) {
 		parentArrayList = parent;
 		inflater = LayoutInflater.from(context);
 	}
@@ -96,7 +96,7 @@ public class AnnouncementAdapter extends BaseExpandableListAdapter {
 	 */
 	@Override
 	public Object getChild(int groupPosition, int childPosition) {
-		return parentArrayList.get(groupPosition).getInformiation();
+		return parentArrayList.get(groupPosition).getBodyText();
 	}
 
 	/**
@@ -213,7 +213,7 @@ public class AnnouncementAdapter extends BaseExpandableListAdapter {
 
 		TextView textView = (TextView) convertView
 				.findViewById(R.id.list_item_child);
-		textView.setText(parentArrayList.get(groupPosition).getInformiation());
+		textView.setText(parentArrayList.get(groupPosition).getBodyText());
 		convertView.setTag(holder);
 
 		// Return the entire view.
