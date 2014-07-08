@@ -36,7 +36,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 		assertTrue(getStringFromEditText(passwordTextField).equals(""));
 		assertTrue(!rememberMe.isChecked());
 	}
-	
+
 	private String getStringFromEditText(EditText textField) {
 		return textField.getText().toString();
 	}
@@ -49,31 +49,33 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 				uniTextField.requestFocus();
 			}
 		});
-		
+
+		String testUNI = "air2112";
 		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
 		this.sendKeys("A I R 2 1 1 2");
-		
-		assertEquals(uniTextField.getText().toString(), "air2112");
+
+		assertEquals(getStringFromEditText(uniTextField), testUNI);
 	}
-	
+
 	public void testPasswordTextField() {
 		testLoginActivity.runOnUiThread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				passwordTextField.requestFocus();
 			}
 		});
-		passwordTextField.requestFocus();
+		
+		String testPassword = "password";
 		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
 		this.sendKeys("P A S S W O R D");
-		
-		assertEquals(passwordTextField.getText().toString(), "password");
+
+		assertEquals(getStringFromEditText(passwordTextField), testPassword);
 	}
-	
+
 	public void testCheckBox() {
 		testLoginActivity.runOnUiThread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				rememberMe.requestFocus();
@@ -83,4 +85,8 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 		assertTrue(rememberMe.isChecked());
 	}
 	
+	public void testCompleteLogin() {
+
+	}
+
 }
