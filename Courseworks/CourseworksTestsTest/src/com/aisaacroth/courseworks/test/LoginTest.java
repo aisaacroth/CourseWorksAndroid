@@ -5,6 +5,7 @@ import com.aisaacroth.courseworks.R;
 
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.KeyEvent;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -14,6 +15,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 	private EditText uniTextField;
 	private EditText passwordTextField;
 	private CheckBox rememberMe;
+	private Button signInButton;
 
 	public LoginTest() {
 		super(Login.class);
@@ -29,6 +31,8 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 				.findViewById(R.id.password);
 		rememberMe = (CheckBox) testLoginActivity
 				.findViewById(R.id.remember_me);
+		signInButton = (Button) testLoginActivity
+				.findViewById(R.id.sign_in_button);
 	}
 
 	public void testEmptyFields() {
@@ -41,7 +45,6 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 		return textField.getText().toString();
 	}
 
-	
 	public void testUniTextField() {
 		String testUNI = "air2112";
 
@@ -68,40 +71,31 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 				rememberMe.requestFocus();
 			}
 		});
-		
+
 		this.select();
 
 		assertTrue(rememberMe.isChecked());
 	}
 
-	// public void testMissingPassword() {
-	// testLoginActivity.runOnUiThread(new Runnable() {
-	// @Override
-	// public void run() {
-	// passwordTextField.requestFocus();
-	// }
-	// });
-	// }
+	public void testMissingPassword() {
 
-	// public void testPasswordMissing() {
-	//
-	// }
+	}
 
-	// @UiThreadTest
-	// public void testPasswordIsTooShort() {
-	//
-	// focusOnTextField(passwordTextField);
-	// this.sendKeys("T E S T");
-	//
-	// }
+	public void testPasswordMissing() {
 
-	// public void testUniIsMissing() {
-	//
-	// }
+	}
 
-	// public void testUniIsTooShort() {
-	//
-	// }
+	public void testPasswordIsTooShort() {
+
+	}
+
+	public void testUniIsMissing() {
+
+	}
+
+	public void testUniIsTooShort() {
+
+	}
 
 	private void focusOnTextField(final EditText textField) {
 		testLoginActivity.runOnUiThread(new Runnable() {
