@@ -204,7 +204,7 @@ public class Login extends Activity {
 	}
 
 	private boolean checkPasswordIsShort() {
-		return password.length() < 4 ? true : false;
+		return password.length() < 8 ? true : false;
 	}
 
 	private View missingFieldFailedLogin(TextView textField, View focusView,

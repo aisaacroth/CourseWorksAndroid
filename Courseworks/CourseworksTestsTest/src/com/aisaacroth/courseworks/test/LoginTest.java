@@ -41,33 +41,20 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 		return textField.getText().toString();
 	}
 
+	
 	public void testUniTextField() {
-		testLoginActivity.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				uniTextField.requestFocus();
-			}
-		});
-
 		String testUNI = "air2112";
-		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+
+		focusOnTextField(uniTextField);
 		this.sendKeys("A I R 2 1 1 2");
 
 		assertEquals(getStringFromEditText(uniTextField), testUNI);
 	}
 
 	public void testPasswordTextField() {
-		testLoginActivity.runOnUiThread(new Runnable() {
-
-			@Override
-			public void run() {
-				passwordTextField.requestFocus();
-			}
-		});
-		
 		String testPassword = "password";
-		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+
+		focusOnTextField(passwordTextField);
 		this.sendKeys("P A S S W O R D");
 
 		assertEquals(getStringFromEditText(passwordTextField), testPassword);
@@ -81,12 +68,52 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 				rememberMe.requestFocus();
 			}
 		});
-		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+		
+		this.select();
+
 		assertTrue(rememberMe.isChecked());
 	}
-	
-	public void testCompleteLogin() {
 
+	// public void testMissingPassword() {
+	// testLoginActivity.runOnUiThread(new Runnable() {
+	// @Override
+	// public void run() {
+	// passwordTextField.requestFocus();
+	// }
+	// });
+	// }
+
+	// public void testPasswordMissing() {
+	//
+	// }
+
+	// @UiThreadTest
+	// public void testPasswordIsTooShort() {
+	//
+	// focusOnTextField(passwordTextField);
+	// this.sendKeys("T E S T");
+	//
+	// }
+
+	// public void testUniIsMissing() {
+	//
+	// }
+
+	// public void testUniIsTooShort() {
+	//
+	// }
+
+	private void focusOnTextField(final EditText textField) {
+		testLoginActivity.runOnUiThread(new Runnable() {
+
+			@Override
+			public void run() {
+				textField.requestFocus();
+			}
+		});
 	}
 
+	private void select() {
+		this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+	}
 }
