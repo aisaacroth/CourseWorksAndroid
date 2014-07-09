@@ -176,15 +176,17 @@ public class Login extends Activity {
         boolean error = false;
         View focusView = null;
 
-        if (TextUtils.isEmpty(password)) {
-            focusView = missingFieldFailedLogin(passwordTextField, focusView,
-                    error);
-        } else if (checkPasswordIsShort()) {
-            focusView = invalidPasswordFails(focusView, error);
+        if (TextUtils.isEmpty(uni)) {
+            focusView = missingFieldFailedLogin(uniTextField, focusView);
+            error = true;
         }
 
-        if (TextUtils.isEmpty(uni)) {
-            focusView = missingFieldFailedLogin(uniTextField, focusView, error);
+        if (TextUtils.isEmpty(password)) {
+            focusView = missingFieldFailedLogin(passwordTextField, focusView);
+            error = true;
+        } else if (checkPasswordIsShort()) {
+            focusView = invalidPasswordFails(focusView);
+            error = true;
         }
 
         if (error) {
@@ -207,18 +209,15 @@ public class Login extends Activity {
         return password.length() < 8 ? true : false;
     }
 
-    private View missingFieldFailedLogin(TextView textField, View focusView,
-            boolean error) {
+    private View missingFieldFailedLogin(TextView textField, View focusView) {
         textField.setError(getString(R.string.error_field_required));
         focusView = textField;
-        error = true;
         return focusView;
     }
 
-    private View invalidPasswordFails(View focusView, boolean error) {
+    private View invalidPasswordFails(View focusView) {
         passwordTextField.setError(getString(R.string.error_invalid_password));
         focusView = passwordTextField;
-        error = true;
         return focusView;
     }
 
@@ -279,12 +278,14 @@ public class Login extends Activity {
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         @Override
         protected Boolean doInBackground(Void... params) {
-            try {
-                RestGrant.login(credentials);
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+            // TODO: Secure the login method for when the authentication
+            // actually works.
+            
+            // try {
+            // RestGrant.login(credentials);
+            // } catch (IOException e) {
+            // e.printStackTrace();
+            // }
             return true;
         }
 
@@ -294,7 +295,7 @@ public class Login extends Activity {
             showProgress(false);
 
             if (success) {
-                finish();
+                // finish();
             } else {
                 passwordTextField
                         .setError(getString(R.string.error_incorrect_password));
