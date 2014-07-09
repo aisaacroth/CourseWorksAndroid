@@ -7,6 +7,8 @@ import com.aisaacroth.courseworks.R;
 import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
+import android.test.suitebuilder.annotation.LargeTest;
+import android.test.suitebuilder.annotation.SmallTest;
 import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -60,12 +62,14 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         testEmptyFields();
     }
     
+    @SmallTest
     public void testEmptyFields() {
         assertTrue(getStringFromEditText(uniTextField).equals(""));
         assertTrue(getStringFromEditText(passwordTextField).equals(""));
         assertTrue(!rememberCheckBox.isChecked());
     }
 
+    @SmallTest
     public void testLayoutExist() {
         assertNotNull(uniTextField);
         assertNotNull(passwordTextField);
@@ -112,6 +116,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         assertNotNull(mainActivity);
     }
 
+    @LargeTest
     private void sendToLoginForm(boolean error) {
         if (error) {
             focusOnTextField(uniTextField);
