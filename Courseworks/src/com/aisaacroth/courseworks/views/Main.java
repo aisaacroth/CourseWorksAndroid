@@ -20,93 +20,93 @@ import android.view.MenuInflater;
  */
 public class Main extends FragmentActivity implements ActionBar.TabListener {
 
-	private ViewPager viewPager;
-	private TabsPagerAdapter tabsPagerAdapter;
-	private ActionBar actionBar;
-	private final int MIDDLE = 1;
+    private ViewPager viewPager;
+    private TabsPagerAdapter tabsPagerAdapter;
+    private ActionBar actionBar;
+    private final int MIDDLE = 1;
 
-	// Tab titles
-	private String[] tabs = { "Courses", "Home", "Calendar" };
+    // Tab titles
+    private String[] tabs = { "Courses", "Home", "Calendar" };
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreate(android.os.Bundle)
-	 */
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onCreate(android.os.Bundle)
+     */
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
 
-		initializeTabsPagerAdapter();
-		setupActivity();
-		addTabsToView();
+        initializeTabsPagerAdapter();
+        setupActivity();
+        addTabsToView();
 
-		// Linking the tabs to their displays.
-		viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        // Linking the tabs to their displays.
+        viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
-			@Override
-			public void onPageSelected(int position) {
-				actionBar.setSelectedNavigationItem(position);
-			}
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
 
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-			}
+            @Override
+            public void onPageScrolled(int arg0, float arg1, int arg2) {
+            }
 
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-			}
-		});
+            @Override
+            public void onPageScrollStateChanged(int arg0) {
+            }
+        });
 
-		// Set the initial fragment as the middle tab.
-		viewPager.setCurrentItem(MIDDLE);
-	}
+        // Set the initial fragment as the middle tab.
+        viewPager.setCurrentItem(MIDDLE);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.options_menu, menu);
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
 
-		return true;
-	}
+        return true;
+    }
 
-	@Override
-	public void onTabSelected(Tab tab, FragmentTransaction ft) {
-		viewPager.setCurrentItem(tab.getPosition());
-	}
+    @Override
+    public void onTabSelected(Tab tab, FragmentTransaction ft) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
 
-	@Override
-	public void onTabUnselected(Tab tab, FragmentTransaction ft) {
-	}
+    @Override
+    public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+    }
 
-	@Override
-	public void onTabReselected(Tab tab, FragmentTransaction ft) {
-	}
+    @Override
+    public void onTabReselected(Tab tab, FragmentTransaction ft) {
+    }
 
-	private void addTabsToView() {
-		for (String tab_name : tabs) {
-			actionBar.addTab(actionBar.newTab().setText(tab_name)
-					.setTabListener(this));
+    private void addTabsToView() {
+        for (String tab_name : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name)
+                    .setTabListener(this));
 
-		}
-	}
+        }
+    }
 
-	private void initializeTabsPagerAdapter() {
-		viewPager = (ViewPager) findViewById(R.id.pager);
-		actionBar = getActionBar();
-		tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-	}
+    private void initializeTabsPagerAdapter() {
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        actionBar = getActionBar();
+        tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+    }
 
-	private void setupActivity() {
-		viewPager.setAdapter(tabsPagerAdapter);
-		actionBar.setHomeButtonEnabled(true);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-	}
+    private void setupActivity() {
+        viewPager.setAdapter(tabsPagerAdapter);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    }
 
 }

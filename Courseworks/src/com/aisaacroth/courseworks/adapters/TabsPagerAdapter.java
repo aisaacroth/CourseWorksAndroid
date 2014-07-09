@@ -18,45 +18,45 @@ import android.support.v4.app.FragmentPagerAdapter;
  */
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
-	/**
-	 * Instantiates a new TabsPagerAdapter, which adapts the Fragments for the 
-	 * any tab interface.
-	 * 
-	 * @param fm
-	 *            the FragmentManager object that will interact with the
-	 *            activity.
-	 */
-	public TabsPagerAdapter(FragmentManager fm) {
-		super(fm);
-	}
+    /**
+     * Instantiates a new TabsPagerAdapter, which adapts the Fragments for the
+     * any tab interface.
+     * 
+     * @param fm
+     *            the FragmentManager object that will interact with the
+     *            activity.
+     */
+    public TabsPagerAdapter(FragmentManager fm) {
+        super(fm);
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.support.v4.app.FragmentPagerAdapter#getItem(int)
-	 */
-	@Override
-	public Fragment getItem(int index) {
-		switch (index) {
-		case 0:
-			return new CourseView();
-		case 1:
-			return new AnnouncementView();
-		case 2:
-			return new CalendarView();
-		}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.support.v4.app.FragmentPagerAdapter#getItem(int)
+     */
+    @Override
+    public Fragment getItem(int index) {
+        switch (index) {
+        case 0:
+            return new CourseView();
+        case 1:
+            return new AnnouncementView();
+        case 2:
+            return new CalendarView();
+        }
 
-		return null;
-	}
+        return null;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see android.support.v4.view.PagerAdapter#getCount()
-	 */
-	@Override
-	public int getCount() {
-		return 3;
-	}
+    /*
+     * (non-Javadoc)
+     * 
+     * @see android.support.v4.view.PagerAdapter#getCount()
+     */
+    @Override
+    public int getCount() {
+        return 3;
+    }
 
 }
