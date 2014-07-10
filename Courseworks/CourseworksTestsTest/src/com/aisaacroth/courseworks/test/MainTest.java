@@ -9,13 +9,22 @@ import android.support.v4.view.ViewPager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
 
+/**
+ * MainTest.java - The test suite for the Main Activity. There are not that many
+ * tests because most of the actions are handled by respective fragments.
+ * 
+ * @author Alexander Roth
+ * @date 2014-07-10
+ */
 public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     private ActionBar testActionBar;
     private Main testMainActivity;
     private TabsPagerAdapter testTabsPagerAdapter;
     private ViewPager testViewer;
-    
+
+    private final int LEFT = 0;
     private final int MIDDLE = 1;
+    private final int RIGHT = 2;
 
     public MainTest() {
         super(Main.class);
@@ -26,10 +35,10 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
         super.setUp();
         setActivityInitialTouchMode(false);
         testMainActivity = getActivity();
-        testViewer = (ViewPager) testMainActivity.findViewById(R.id.pager);
         testActionBar = testMainActivity.getActionBar();
         testTabsPagerAdapter = new TabsPagerAdapter(
                 testMainActivity.getSupportFragmentManager());
+        testViewer = (ViewPager) testMainActivity.findViewById(R.id.pager);
     }
 
     @SmallTest
@@ -43,13 +52,18 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     public void testActionBarContainsTabs() {
         assertEquals(3, testActionBar.getTabCount());
     }
-    
+
     @SmallTest
     public void testInitialTab() {
         assertEquals("Home", testActionBar.getTabAt(MIDDLE).getText());
     }
 
-    
+    @SmallTest
+    public void testTabText() {
+        assertEquals("Courses", testActionBar.getTabAt(LEFT).getText());
+        assertEquals("Home", testActionBar.getTabAt(MIDDLE).getText());
+        assertEquals("Calendar", testActionBar.getTabAt(RIGHT).getText());
+    }
 
     @Override
     protected void tearDown() throws Exception {
