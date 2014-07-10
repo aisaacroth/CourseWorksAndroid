@@ -29,7 +29,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Initial activity which handles the UI elements for the user and delegates 
+ * Initial activity which handles the UI elements for the user and delegates
  * login protocols to the necessary services.
  * 
  * @author Alexander Roth
@@ -94,6 +94,9 @@ public class Login extends Activity {
                 });
     }
 
+    /**
+     * Sets up the Login Form.
+     */
     private void setUpLoginForm() {
         uniTextField = (EditText) findViewById(R.id.uni);
         passwordTextField = (EditText) findViewById(R.id.password);
@@ -103,11 +106,23 @@ public class Login extends Activity {
         loginStatusMessageField = (TextView) findViewById(R.id.login_status_message);
     }
 
+    /**
+     * Creates a new xml file ("auth.xml") which is used to store user
+     * information if requested by the user.
+     * 
+     * @return the newly created "auth.xml" file
+     */
     private AuthPreferences createLoginPreferences() {
         return new AuthPreferences(this, "auth",
                 "Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
     }
 
+    /**
+     * Searches for the "auth.xml" file if the user has previously specified
+     * that he/she wishes to store user information.
+     * 
+     * @return the auth.xml file.
+     */
     private File locateLoginSettings() {
         context = this;
         String path = locateFilePath(context);
@@ -115,12 +130,28 @@ public class Login extends Activity {
         return loginAuth;
     }
 
+    /**
+     * Locates the path to a device's user file directory.
+     * 
+     * @param acitivty
+     *            The current activity.
+     * @return A path leading to the device's user file directory.
+     */
     private String locateFilePath(Context acitivty) {
         String dirtyPath = context.getFilesDir().toString();
         String path = dirtyPath.substring(0, dirtyPath.indexOf("file"));
         return path;
     }
 
+    /**
+     * Checks if a user has previously logged in and stored their information to
+     * the auth.xml file.
+     * 
+     * @param loginSettings
+     *            The user's file containing their login settings.
+     * @return True: if the file exists and contains the necessary information.
+     *         False: if the file does not exist.
+     */
     private boolean checkLoggedInBefore(File loginSettings) {
         if (loginSettings.exists() && hasUNI() && hasPassword()) {
             return true;
@@ -128,27 +159,51 @@ public class Login extends Activity {
         return false;
     }
 
+    /**
+     * Checks if the Login Preferences file contains a password.
+     * 
+     * @return True: if the password value exists. False: if the password value
+     *         does not exist.
+     */
     private boolean hasPassword() {
         return (loginPreferences.getString("password") != null) ? true : false;
     }
 
+    /**
+     * Checks if the Login Preferences file contains a UNI.
+     * 
+     * @return True: if the UNI value exists. False: if the UNI value does not
+     *         exist.
+     */
     private boolean hasUNI() {
         return (loginPreferences.getString("uni") != null) ? true : false;
     }
 
+    /**
+     * Automatically fills the UNI and Password TextViews.
+     */
     private void autoFillTextField() {
         fillUniTextField();
         fillPasswordTextField();
     }
 
+    /**
+     * Automatically fills the Password TextView.
+     */
     private void fillPasswordTextField() {
         passwordTextField.setText(loginPreferences.getString("password"));
     }
 
+    /**
+     * Automatically fills the UNI TextView.
+     */
     private void fillUniTextField() {
         uniTextField.setText(loginPreferences.getString("uni"));
     }
 
+    /**
+     * Stores the user's information on request to the login preferences file.
+     */
     private void storeLoginPreferences() {
         uni = retrieveTextFromTextField(uniTextField);
         password = retrieveTextFromTextField(passwordTextField);
@@ -192,36 +247,75 @@ public class Login extends Activity {
         if (error) {
             focusView.requestFocus();
         } else {
-            procceedWithLogin();
+            proceedWithLogin();
         }
     }
 
+    /**
+     * Resets Error Notifications
+     */
     private void resetErrorNotification() {
         uniTextField.setError(null);
         passwordTextField.setError(null);
     }
 
+    /**
+     * Retrieves text from the given textField
+     * 
+     * @param textField
+     *            The TextView that holds text.
+     * @return A string containing the text from the specified Text Field.
+     */
     private String retrieveTextFromTextField(TextView textField) {
         return textField.getText().toString();
     }
 
+    /**
+     * Checks if the password is too short.
+     * 
+     * @return True: if the password is too short. False: if the password meets
+     *         the length requirement.
+     */
     private boolean checkPasswordIsShort() {
         return password.length() < 8 ? true : false;
     }
 
+    /**
+     * Sets missing filed error message for a given TextView and focuses on said
+     * TextView.
+     * 
+     * @param textField
+     *            The TextView with the error
+     * @param focusView
+     *            The View that will be focused on
+     * @return The View which is being focused on.
+     */
     private View missingFieldFailedLogin(TextView textField, View focusView) {
         textField.setError(getString(R.string.error_field_required));
         focusView = textField;
         return focusView;
     }
 
+    /**
+     * Sets invalid error message for a given TextView and focuses on said
+     * TextView.
+     * 
+     * @param textField
+     *            The TextView with the error
+     * @param focusView
+     *            The View that will be focused on
+     * @return The View which is being focused on.
+     */
     private View invalidPasswordFails(View focusView) {
         passwordTextField.setError(getString(R.string.error_invalid_password));
         focusView = passwordTextField;
         return focusView;
     }
 
-    private void procceedWithLogin() {
+    /**
+     * Proceed with Login method.
+     */
+    private void proceedWithLogin() {
         loginStatusMessageField.setText(R.string.login_progress_signing_in);
         showProgress(true);
         loginTask = new UserLoginTask();
