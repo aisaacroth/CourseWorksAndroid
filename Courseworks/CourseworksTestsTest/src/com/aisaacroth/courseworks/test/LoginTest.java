@@ -15,6 +15,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+/**
+ * LoginTest.java - The test suite for the UI elements of the Login Activity.
+ * 
+ * @author Alexander Roth
+ * @date 2014-07-09
+ */
 public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
     private Login testLoginActivity;
     private EditText uniTextField;
@@ -32,14 +38,13 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         super.setUp();
         setActivityInitialTouchMode(false);
         testLoginActivity = getActivity();
-        uniTextField = (EditText) testLoginActivity.findViewById(R.id.uni);
-        passwordTextField = (EditText) testLoginActivity
-                .findViewById(R.id.password);
+        passwordTextField = (EditText) testLoginActivity.findViewById(R.id.password);
         rememberCheckBox = (CheckBox) testLoginActivity
                 .findViewById(R.id.remember_me);
         signInButton = (Button) testLoginActivity
                 .findViewById(R.id.sign_in_button);
         testSolo = new Solo(getInstrumentation(), getActivity());
+        uniTextField = (EditText) testLoginActivity.findViewById(R.id.uni);
     }
     
     @SmallTest

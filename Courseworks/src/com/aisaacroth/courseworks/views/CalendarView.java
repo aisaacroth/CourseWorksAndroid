@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 /**
- * The Class CalendarView. TODO: Implement the CalendarView.
+ * TODO: Implement the CalendarView.
  * 
  * @author Alexander Roth
  * @date 2014-06-19

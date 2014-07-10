@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.os.Handler;
 
 /**
- * The Splash screen for the CourseWorks Android application. When the
- * application is called, this splash screen will hold while the program gets
- * retrieves all necessary information. TODO: Implement so that the main
- * activity checks whether there is a file that already contains login
+ * When the application is called, this splash screen will hold while the
+ * program gets retrieves all necessary information. TODO: Implement so that the
+ * main activity checks whether there is a file that already contains login
  * information.
  * 
  * @author Alexander Roth

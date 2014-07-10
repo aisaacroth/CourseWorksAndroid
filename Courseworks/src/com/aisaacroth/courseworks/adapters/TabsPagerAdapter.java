@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 /**
- * The TabsPagerAdapter class extends the FragmentPagerAdapter class in order to
+ * Extends the FragmentPagerAdapter class in order to
  * allow for the Tab interface within the Main activity of the Courseworks
  * application.
  * 

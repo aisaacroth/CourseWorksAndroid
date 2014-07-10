@@ -11,7 +11,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 
 /**
- * The Class AnnouncementView.
+ * Maintains a dynamic list of announcements that are pushed to the user each
+ * time he/she logs into the application. Displayed as the initial tab on the
+ * Main Activity.
  * 
  * @author Alexander Roth
  * @date 2014-06-19

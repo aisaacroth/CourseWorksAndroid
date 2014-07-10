@@ -29,8 +29,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Login Activity which displays a login screen to the user and controls login
- * protocols.
+ * Login.java - Activity which handles the UI elements for the user and delegates 
+ * login protocols to the necessary services.
  * 
  * @author Alexander Roth
  * @date 2014-02-25

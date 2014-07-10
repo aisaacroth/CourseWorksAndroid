@@ -1,8 +1,8 @@
 package com.aisaacroth.courseworks.data;
 
 /**
- * The Announcements class acts as a container for all possible announcements
- * that will be generated and appear within the Main (Homepage) activity.
+ * Acts as a container for all possible announcements that will be generated and
+ * appear within the Main (Homepage) activity.
  * 
  * @author Alexander Roth
  * @date 2014-06-12

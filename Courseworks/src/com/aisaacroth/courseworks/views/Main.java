@@ -13,7 +13,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 
 /**
- * The Home class. TODO: Will act as the homepage for the Courseworks app.
+ * The Homepage activity for the Courseworks app. Acts as a container
+ * for all the subsequent fragments.
  * 
  * @author Alexander Roth
  * @date 2014-02-24

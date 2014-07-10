@@ -21,9 +21,9 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 
 /**
- * A CAS Client that implements CAS' RESTful API in order to communicate with
- * the authentication server. Meant as an alternate to the method than the OAuth
- * protocols that could also be implemented.
+ * A CAS Client that implements CAS' RESTful API in order to
+ * communicate with the authentication server. Meant as an alternate to the
+ * method than the OAuth protocols that could also be implemented.
  * 
  * @author Alexander Roth
  * @date 2014-05-19
