@@ -29,7 +29,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 /**
- * Login.java - Activity which handles the UI elements for the user and delegates 
+ * Initial activity which handles the UI elements for the user and delegates 
  * login protocols to the necessary services.
  * 
  * @author Alexander Roth

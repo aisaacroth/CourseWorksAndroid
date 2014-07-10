@@ -14,12 +14,12 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * The NotificationAdapter class extends the BaseExpandableListAdapter class in
+ * Extends the BaseExpandableListAdapter class in
  * order to run an ExpandableListVIew for the notification center within the
  * "Courseworks" application.
  * 
- * @author: Alexander Roth
- * @date: 2014-06-12
+ * @author Alexander Roth
+ * @date 2014-06-12
  */
 public class AnnouncementAdapter extends BaseExpandableListAdapter {
 

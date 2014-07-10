@@ -17,7 +17,7 @@ import android.content.SharedPreferences;
 import android.util.Base64;
 
 /**
- * AuthPreferences - Writes Authentication information for Oauth to a
+ * Writes authentication information for Oauth to a
  * shared preference file. This preference file will contain the password and
  * user information for the application. Encrypts the information using AES (a
  * symmetric cypher) and saves it to the file that way.
