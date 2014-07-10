@@ -16,7 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 
 /**
- * LoginTest.java - The test suite for the UI elements of the Login Activity.
+ * The test suite for the UI elements of the Login Activity.
  * 
  * @author Alexander Roth
  * @date 2014-07-09

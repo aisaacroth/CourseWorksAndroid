@@ -10,8 +10,8 @@ import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
 
 /**
- * MainTest.java - The test suite for the Main Activity. There are not that many
- * tests because most of the actions are handled by respective fragments.
+ * The test suite for the Main Activity. There are not that many tests because
+ * most of the actions are handled by respective fragments.
  * 
  * @author Alexander Roth
  * @date 2014-07-10
