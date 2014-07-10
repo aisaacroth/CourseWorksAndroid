@@ -48,7 +48,7 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     public void testInitialTab() {
         assertEquals("Home", testActionBar.getTabAt(MIDDLE).getText());
     }
-    
+
     
 
     @Override

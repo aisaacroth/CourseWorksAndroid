@@ -3,13 +3,14 @@ package com.aisaacroth.courseworks.test;
 import com.aisaacroth.courseworks.views.Login;
 import com.aisaacroth.courseworks.views.Main;
 import com.aisaacroth.courseworks.R;
+import com.robotium.solo.Solo;
 
-import android.app.Instrumentation.ActivityMonitor;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.TouchUtils;
 import android.test.suitebuilder.annotation.LargeTest;
+import android.test.suitebuilder.annotation.MediumTest;
 import android.test.suitebuilder.annotation.SmallTest;
-import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
     private EditText passwordTextField;
     private CheckBox rememberCheckBox;
     private Button signInButton;
+    private Solo testSolo;
 
     public LoginTest() {
         super(Login.class);
@@ -37,14 +39,24 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
                 .findViewById(R.id.remember_me);
         signInButton = (Button) testLoginActivity
                 .findViewById(R.id.sign_in_button);
+        testSolo = new Solo(getInstrumentation(), getActivity());
+    }
+    
+    @SmallTest
+    public void testEmptyFields() {
+        assertTrue(getStringFromEditText(uniTextField).equals(""));
+        assertTrue(getStringFromEditText(passwordTextField).equals(""));
+        assertTrue(!rememberCheckBox.isChecked());
     }
 
-    public void testErrorMessageForPassword() {
+    @LargeTest
+    public void testErrorMessageForPassword() throws InterruptedException {
         sendToLoginForm(true);
-        assertEquals("This password is too short",
-                getStringFromErrorField(passwordTextField));
+        assertTrue(testSolo.searchText("This password is too short"));
     }
+    
 
+    @MediumTest
     public void testErrorMessagesAppearOnClick() {
         String testErrorMessage = "This field is required";
         TouchUtils.clickView(this, signInButton);
@@ -57,16 +69,10 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         return textField.getError().toString();
     }
 
+    @SmallTest
     public void testLayoutCompletely() {
         testLayoutExist();
         testEmptyFields();
-    }
-    
-    @SmallTest
-    public void testEmptyFields() {
-        assertTrue(getStringFromEditText(uniTextField).equals(""));
-        assertTrue(getStringFromEditText(passwordTextField).equals(""));
-        assertTrue(!rememberCheckBox.isChecked());
     }
 
     @SmallTest
@@ -76,75 +82,60 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         assertNotNull(rememberCheckBox);
         assertNotNull(signInButton);
     }
+    
+    @LargeTest
+    public void testLoginIsFinished() {
+        sendToLoginForm(false);
+        testSolo.assertCurrentActivity("Did not leave Login Class", Main.class);
+        assertTrue(testLoginActivity.isFinishing());
+        testSolo.getCurrentActivity().finish();
+    }
+    
+    @LargeTest
+    public void testLoginSuccessful() {
+        sendToLoginForm(false);
+        testSolo.assertCurrentActivity("Did not leave Login Class", Main.class);
+        testSolo.getCurrentActivity().finish();
+    }
+    
+    private void sendToLoginForm(boolean error) {
+        if (error) {
+            testSolo.typeText(uniTextField, "air2112");
+            testSolo.typeText(passwordTextField, "testerr");
+        } else {
+            testSolo.typeText(uniTextField, "air2112");
+            testSolo.typeText(passwordTextField, "password");
+        }
 
+        testSolo.clickOnView(getRObject(R.id.sign_in_button));
+    }
+
+    @SmallTest
     public void testPostPasswordToField() {
         String testPassword = "password";
-        focusOnTextField(passwordTextField);
-        this.sendKeys("P A S S W O R D");
+        testSolo.typeText(passwordTextField, testPassword);
         assertEquals(testPassword, getStringFromEditText(passwordTextField));
     }
 
+    @SmallTest
     public void testPostUniToField() {
         String testUNI = "air2112";
-        focusOnTextField(uniTextField);
-        this.sendKeys("A I R 2 1 1 2");
+        testSolo.typeText(uniTextField, testUNI);
         assertEquals(testUNI, getStringFromEditText(uniTextField));
     }
-    
+
     private String getStringFromEditText(EditText textField) {
         return textField.getText().toString();
     }
 
+    @MediumTest
     public void testSelectCheckBox() {
-        testLoginActivity.runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-                rememberCheckBox.requestFocus();
-            }
-        });
-
-        this.select();
-        assertTrue(rememberCheckBox.isChecked());
+        testSolo.clickOnView(getRObject(R.id.remember_me));
+        assertTrue(testSolo.isCheckBoxChecked(0));
     }
 
-    public void testSuccessfulLogin() {
-        ActivityMonitor monitor = getInstrumentation().addMonitor(
-                Main.class.getName(), null, false);
-        sendToLoginForm(false);
-        Main mainActivity = (Main) monitor.waitForActivityWithTimeout(2000);
-        assertNotNull(mainActivity);
-    }
-
-    @LargeTest
-    private void sendToLoginForm(boolean error) {
-        if (error) {
-            focusOnTextField(uniTextField);
-            this.sendKeys("A I R 2 1 1 2");
-            focusOnTextField(passwordTextField);
-            this.sendKeys("T E S T E R R");
-        } else {
-            focusOnTextField(uniTextField);
-            this.sendKeys("A I R 2 1 1 2");
-            focusOnTextField(passwordTextField);
-            this.sendKeys("P A S S W O R D");
-        }
-
-        TouchUtils.clickView(this, signInButton);
-    }
-
-    private void focusOnTextField(final EditText textField) {
-        testLoginActivity.runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-                textField.requestFocus();
-            }
-        });
-    }
-
-    private void select() {
-        this.sendKeys(KeyEvent.KEYCODE_DPAD_CENTER);
+    private View getRObject(int RValue) {
+        return testSolo.getView(RValue);
     }
 
     @Override

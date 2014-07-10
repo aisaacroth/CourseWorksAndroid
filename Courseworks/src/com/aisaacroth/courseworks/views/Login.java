@@ -280,7 +280,7 @@ public class Login extends Activity {
         protected Boolean doInBackground(Void... params) {
             // TODO: Secure the login method for when the authentication
             // actually works.
-            
+
             // try {
             // RestGrant.login(credentials);
             // } catch (IOException e) {
@@ -295,7 +295,7 @@ public class Login extends Activity {
             showProgress(false);
 
             if (success) {
-                // finish();
+                finish();
             } else {
                 passwordTextField
                         .setError(getString(R.string.error_incorrect_password));
