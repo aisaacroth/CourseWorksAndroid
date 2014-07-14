@@ -1,9 +1,6 @@
 package com.aisaacroth.courseworks.views;
 
 import java.io.File;
-import java.io.IOException;
-
-import org.apache.http.auth.UsernamePasswordCredentials;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.auth.AuthPreferences;
@@ -44,7 +41,6 @@ public class Login extends Activity {
 
     private AuthPreferences loginPreferences;
     private Context context;
-    private UsernamePasswordCredentials credentials;
 
     private EditText uniTextField;
     private EditText passwordTextField;
@@ -226,7 +222,6 @@ public class Login extends Activity {
         // Store values at the time of the login attempt.
         uni = retrieveTextFromTextField(uniTextField);
         password = retrieveTextFromTextField(passwordTextField);
-        credentials = new UsernamePasswordCredentials(uni, password);
 
         boolean error = false;
         View focusView = null;
@@ -375,11 +370,12 @@ public class Login extends Activity {
             // TODO: Secure the login method for when the authentication
             // actually works.
 
-            // try {
-            // RestGrant.login(credentials);
-            // } catch (IOException e) {
-            // e.printStackTrace();
-            // }
+            Intent loginIntent = new Intent(getApplicationContext(),
+                    RestAuthService.class);
+            loginIntent.putExtra("uni", uni);
+            loginIntent.putExtra("password", password);
+            startService(loginIntent);
+
             return true;
         }
 

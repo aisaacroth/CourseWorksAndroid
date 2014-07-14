@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.auth.UsernamePasswordCredentials;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -17,15 +16,15 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 
-import android.annotation.SuppressLint;
 import android.app.IntentService;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 /**
- * A CAS Client that implements CAS' RESTful API in order to
- * communicate with the authentication server. Meant as an alternate to the
- * method than the OAuth protocols that could also be implemented.
+ * A CAS Client that implements CAS' RESTful API in order to communicate with
+ * the authentication server. Meant as an alternate to the method than the OAuth
+ * protocols that could also be implemented.
  * 
  * @author Alexander Roth
  * @date 2014-05-19
@@ -33,17 +32,30 @@ import android.util.Log;
 
 public class RestAuthService extends IntentService {
 
-    public static String tGT;
+    private String tGT;
 
     public RestAuthService() {
         super("RestAuthService");
     }
-    
+
     @Override
     protected void onHandleIntent(Intent intent) {
-        
+        String username = extractFromIntent(intent, "username");
+        String password = extractFromIntent(intent, "password");
+
+        try {
+            login(username, password);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
-    
+
+    private String extractFromIntent(Intent intent, String key) {
+        Bundle extras = intent.getExtras();
+        return extras.getString(key);
+    }
+
     /**
      * Logins the user into the Columbia's CAS Servers using calls to the CAS
      * RESTful API.
@@ -53,31 +65,11 @@ public class RestAuthService extends IntentService {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    @SuppressLint("NewApi")
-    public static void login(UsernamePasswordCredentials credentials)
-            throws IOException {
-        String username = credentials.getUserName();
-        String password = credentials.getPassword();
-        tGT = RestAuthService.getGrantingTicket(username, password);
+    public void login(String username, String password) throws IOException {
+        tGT = getGrantingTicket(username, password);
         checkTGTExists();
-        String serviceTicket = RestAuthService.getServiceTicket(tGT);
+        String serviceTicket = retrieveServiceTicket(tGT);
         checkServiceTicketExists(serviceTicket);
-    }
-
-    /**
-     * Logouts the user out of the CAS server by calling DELETE to the RESTful
-     * API.
-     * 
-     * @throws ClientProtocolException
-     *             the client protocol exception
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
-     */
-    public static void logout() throws ClientProtocolException, IOException {
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpDelete delete = new HttpDelete(
-                "http://cas.columbia.edu/cas/v1/tickets/" + tGT);
-        httpClient.execute(delete);
     }
 
     /**
@@ -85,7 +77,7 @@ public class RestAuthService extends IntentService {
      * Ticket Granting Resource.
      * 
      * @param username
-     *            The user's username (e.g. their uni).
+     *            The user's username (i.e. their uni).
      * @param password
      *            The user's password.
      * @return the ticket granting ticket, which allows for the system to ask
@@ -94,14 +86,55 @@ public class RestAuthService extends IntentService {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public static String getGrantingTicket(String username, String password)
+    private String getGrantingTicket(String username, String password)
             throws IOException {
         String ticket = null;
-        HttpResponse response = postUserToServer(username, password);
+        HttpResponse response = postUserInfoToServer(username, password);
         HttpParams param = response.getParams();
 
         ticket = parseTicket(ticket, param, response);
         return ticket;
+    }
+
+    /**
+     * Sends a POST call to Columbia's CAS Authentication server with the user's
+     * information in order to request a Ticket Granting Resource.
+     * 
+     * @param username
+     *            The user's username (i.e. their uni).
+     * @param password
+     *            The password
+     * @return The HTTP response containing the Ticket Granting Ticket Resource.
+     * @throws ClientProtocolException
+     *             the client protocol exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
+    private HttpResponse postUserInfoToServer(String username, String password)
+            throws ClientProtocolException, IOException {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost(
+                "https://casdev.cc.columbia.edu/cas/v1/tickets HTTP/1.0");
+
+        List<NameValuePair> paramList = new ArrayList<NameValuePair>();
+        addUserPasswordParameter(paramList, username, password);
+        httpPost.setEntity(new UrlEncodedFormEntity(paramList));
+
+        logPost(httpPost);
+
+        HttpResponse response = httpClient.execute(httpPost);
+        return response;
+    }
+
+    private void addUserPasswordParameter(List<NameValuePair> paramList,
+            String username, String password) {
+        paramList.add(new BasicNameValuePair("username", username));
+        paramList.add(new BasicNameValuePair("password", password));
+    }
+
+    private void logPost(HttpPost post) {
+        Log.d("Courseworks", post.toString());
+        Log.d("Courseworks", post.getEntity().toString());
     }
 
     /**
@@ -115,52 +148,15 @@ public class RestAuthService extends IntentService {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    public static String getServiceTicket(String ticket)
+    private String retrieveServiceTicket(String ticket)
             throws ClientProtocolException, IOException {
         String serviceTicket = null;
-        HttpResponse response = RestAuthService.postTicketToServer(ticket);
+        HttpResponse response = postTicketToServer(ticket);
 
-        // Parses the Service Ticket from the HTTP response.
-        if (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) {
-            serviceTicket = response.getEntity().toString();
+        if (connectionIsGood(response)) {
+            serviceTicket = getServiceTicket(response);
         }
         return serviceTicket;
-    }
-
-    /**
-     * Sends a POST call to Columbia's CAS Authentication server with the user's
-     * information in order to request a Ticket Granting Resource.
-     * 
-     * @param username
-     *            the username
-     * @param password
-     *            the password
-     * @return The HTTP response containing the Ticket Granting Ticket Resource.
-     * @throws ClientProtocolException
-     *             the client protocol exception
-     * @throws IOException
-     *             Signals that an I/O exception has occurred.
-     */
-    private static HttpResponse postUserToServer(String username,
-            String password) throws ClientProtocolException, IOException {
-        // Create a new HttpClient and Post Header
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(
-                "https://casdev.cc.columbia.edu/cas/v1/tickets HTTP/1.0");
-
-        // Add the necessary data
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("username", username));
-        params.add(new BasicNameValuePair("password", password));
-        httpPost.setEntity(new UrlEncodedFormEntity(params));
-
-        // Some debugging information
-        Log.d("Courseworks", httpPost.toString());
-        Log.d("Courseworks", httpPost.getEntity().toString());
-
-        // Execute HTTP Post Request
-        HttpResponse response = httpClient.execute(httpPost);
-        return response;
     }
 
     /**
@@ -175,60 +171,85 @@ public class RestAuthService extends IntentService {
      * @throws IOException
      *             Signals that an I/O exception has occurred.
      */
-    private static HttpResponse postTicketToServer(String ticket)
+    private HttpResponse postTicketToServer(String ticket)
             throws ClientProtocolException, IOException {
-        // Create a new HttpClient and Post Header
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(
                 "https://casdev.cc.columbia.edu/cas/v1/tickets" + ticket
                         + " HTTP/1.0");
 
-        // Add the necessary data
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        params.add(new BasicNameValuePair("service",
-                "https://courseworks.columbia.edu/portal"));
+        List<NameValuePair> paramList = new ArrayList<NameValuePair>();
+        addService(paramList);
+        httpPost.setEntity(new UrlEncodedFormEntity(paramList));
 
-        // Some debugging information.
-        Log.d("Courseworks", httpPost.toString());
-        Log.d("Courseworks", httpPost.getAllHeaders().toString());
+        logPost(httpPost);
 
-        // Execute HTTP Post Request
         HttpResponse response = httpClient.execute(httpPost);
         return response;
     }
 
-    private static boolean checkParametersExist(HttpParams param) {
-        return (param.getParameter("Location") != null) ? true : false;
+    private void addService(List<NameValuePair> paramList) {
+        paramList.add(new BasicNameValuePair("service",
+                "https://courseworks.columbia.edu/portal"));
     }
 
-    private static boolean checkResponseCreated(HttpResponse response) {
-        return (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_CREATED) ? true
-                : false;
+    private boolean connectionIsGood(HttpResponse response) {
+        return ((response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) ? true
+                : false);
     }
 
-    private static void checkServiceTicketExists(String serviceTicket) {
-        if (serviceTicket.isEmpty() || hasTGT()) {
-            throw new NullPointerException();
-        }
+    private String getServiceTicket(HttpResponse response) {
+        return response.getEntity().toString();
     }
 
-    private static void checkTGTExists() {
-        if (hasTGT()) {
-            throw new NullPointerException();
-        }
-    }
-
-    private static boolean hasTGT() {
-        return (tGT.isEmpty() || tGT == null) ? true : false;
-    }
-
-    private static String parseTicket(String ticket, HttpParams params,
+    private String parseTicket(String ticket, HttpParams params,
             HttpResponse response) {
         if (checkParametersExist(params) && checkResponseCreated(response)) {
             String paramString = params.getParameter("Location").toString();
             ticket = paramString.substring(paramString.lastIndexOf('/') + 1);
         }
         return ticket;
+    }
+
+    private boolean checkParametersExist(HttpParams param) {
+        return (param.getParameter("Location") != null) ? true : false;
+    }
+
+    private boolean checkResponseCreated(HttpResponse response) {
+        return (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_CREATED) ? true
+                : false;
+    }
+
+    private void checkServiceTicketExists(String serviceTicket) {
+        if (serviceTicket.isEmpty() || hasTGT()) {
+            throw new NullPointerException();
+        }
+    }
+
+    private void checkTGTExists() {
+        if (hasTGT()) {
+            throw new NullPointerException();
+        }
+    }
+
+    private boolean hasTGT() {
+        return (tGT.isEmpty() || tGT == null) ? true : false;
+    }
+
+    /**
+     * Logouts the user out of the CAS server by calling DELETE to the RESTful
+     * API.
+     * 
+     * @throws ClientProtocolException
+     *             the client protocol exception
+     * @throws IOException
+     *             Signals that an I/O exception has occurred.
+     */
+    public void logout() throws ClientProtocolException, IOException {
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpDelete delete = new HttpDelete(
+                "http://cas.columbia.edu/cas/v1/tickets/" + tGT);
+        httpClient.execute(delete);
     }
 
 }
