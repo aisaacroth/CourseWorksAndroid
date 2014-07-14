@@ -4,10 +4,7 @@ import com.aisaacroth.courseworks.R;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
 /**
  * TODO: Implement the CalendarView.
@@ -17,13 +14,6 @@ import android.view.ViewGroup;
  */
 public class CalendarView extends Fragment {
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater,
-     * android.view.ViewGroup, android.os.Bundle)
-     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -32,13 +22,6 @@ public class CalendarView extends Fragment {
         return rootView;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * android.support.v4.app.Fragment#onOptionsItemSelected(android.view.MenuItem
-     * )
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

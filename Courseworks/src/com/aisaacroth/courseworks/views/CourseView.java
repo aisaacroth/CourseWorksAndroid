@@ -4,10 +4,7 @@ import com.aisaacroth.courseworks.R;
 
 import android.support.v4.app.ListFragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ArrayAdapter;
 
 /**
@@ -32,13 +29,6 @@ public class CourseView extends ListFragment {
 
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see
-     * android.support.v4.app.Fragment#onOptionsItemSelected(android.view.MenuItem
-     * )
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

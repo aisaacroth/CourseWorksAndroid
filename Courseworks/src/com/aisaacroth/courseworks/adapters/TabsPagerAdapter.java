@@ -1,12 +1,8 @@
 package com.aisaacroth.courseworks.adapters;
 
-import com.aisaacroth.courseworks.views.AnnouncementView;
-import com.aisaacroth.courseworks.views.CalendarView;
-import com.aisaacroth.courseworks.views.CourseView;
+import com.aisaacroth.courseworks.views.*;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.*;
 
 /**
  * Extends the FragmentPagerAdapter class in order to

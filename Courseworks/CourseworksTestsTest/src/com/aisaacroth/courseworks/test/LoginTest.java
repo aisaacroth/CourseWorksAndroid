@@ -5,15 +5,10 @@ import com.aisaacroth.courseworks.views.Main;
 import com.aisaacroth.courseworks.R;
 import com.robotium.solo.Solo;
 
-import android.test.ActivityInstrumentationTestCase2;
-import android.test.TouchUtils;
-import android.test.suitebuilder.annotation.LargeTest;
-import android.test.suitebuilder.annotation.MediumTest;
-import android.test.suitebuilder.annotation.SmallTest;
+import android.test.*;
+import android.test.suitebuilder.annotation.*;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
+import android.widget.*;
 
 /**
  * The test suite for the UI elements of the Login Activity.

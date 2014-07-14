@@ -3,14 +3,12 @@ package com.aisaacroth.courseworks.views;
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.TabsPagerAdapter;
 
-import android.app.ActionBar;
+import android.app.*;
 import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
-import android.view.MenuInflater;
+import android.view.*;
 
 /**
  * The Homepage activity for the Courseworks app. Acts as a container
@@ -26,14 +24,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private ActionBar actionBar;
     private final int MIDDLE = 1;
 
-    // Tab titles
-    private String[] tabs = { "Courses", "Home", "Calendar" };
+    private String[] tabTitles = { "Courses", "Home", "Calendar" };
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.app.Activity#onCreate(android.os.Bundle)
-     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,11 +56,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         viewPager.setCurrentItem(MIDDLE);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see android.app.Activity#onCreateOptionsMenu(android.view.Menu)
-     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -91,7 +78,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
     private void addTabsToView() {
-        for (String tab_name : tabs) {
+        for (String tab_name : tabTitles) {
             actionBar.addTab(actionBar.newTab().setText(tab_name)
                     .setTabListener(this));
 

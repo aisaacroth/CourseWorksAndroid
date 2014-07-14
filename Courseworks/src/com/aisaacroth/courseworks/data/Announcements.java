@@ -12,41 +12,18 @@ public class Announcements {
     private String title;
     private String bodyText;
 
-    /**
-     * Gets the title of the Announcement object.
-     * 
-     * @return the title
-     */
     public String getTitle() {
         return this.title;
     }
 
-    /**
-     * Gets the information attached to the Announcement object.
-     * 
-     * @return the information attached to the announcement.
-     */
     public String getBodyText() {
         return this.bodyText;
     }
 
-    /**
-     * Sets the title of the Notification object.
-     * 
-     * @param title
-     *            the new title
-     */
     public void setTitle(String title) {
         this.title = title;
     }
 
-    /**
-     * Sets the Notification object with strings that contain necessary
-     * information.
-     * 
-     * @param bodyText
-     *            the body text that will be attached to the announcement.
-     */
     public void setBodyText(String bodyText) {
         this.bodyText = bodyText;
     }
