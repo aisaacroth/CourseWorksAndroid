@@ -64,6 +64,9 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
         assertEquals("Home", testActionBar.getTabAt(MIDDLE).getText());
         assertEquals("Calendar", testActionBar.getTabAt(RIGHT).getText());
     }
+    
+    public void testAnnouncementViewExist() {
+    }
 
     @Override
     protected void tearDown() throws Exception {

@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks.auth;
+package com.aisaacroth.courseworks.services;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -18,6 +18,8 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 
 import android.annotation.SuppressLint;
+import android.app.IntentService;
+import android.content.Intent;
 import android.util.Log;
 
 /**
@@ -29,10 +31,19 @@ import android.util.Log;
  * @date 2014-05-19
  */
 
-public class RestGrant {
+public class RestAuthService extends IntentService {
 
     public static String tGT;
 
+    public RestAuthService() {
+        super("RestAuthService");
+    }
+    
+    @Override
+    protected void onHandleIntent(Intent intent) {
+        
+    }
+    
     /**
      * Logins the user into the Columbia's CAS Servers using calls to the CAS
      * RESTful API.
@@ -47,9 +58,9 @@ public class RestGrant {
             throws IOException {
         String username = credentials.getUserName();
         String password = credentials.getPassword();
-        tGT = RestGrant.getGrantingTicket(username, password);
+        tGT = RestAuthService.getGrantingTicket(username, password);
         checkTGTExists();
-        String serviceTicket = RestGrant.getServiceTicket(tGT);
+        String serviceTicket = RestAuthService.getServiceTicket(tGT);
         checkServiceTicketExists(serviceTicket);
     }
 
@@ -107,7 +118,7 @@ public class RestGrant {
     public static String getServiceTicket(String ticket)
             throws ClientProtocolException, IOException {
         String serviceTicket = null;
-        HttpResponse response = RestGrant.postTicketToServer(ticket);
+        HttpResponse response = RestAuthService.postTicketToServer(ticket);
 
         // Parses the Service Ticket from the HTTP response.
         if (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) {
@@ -135,7 +146,7 @@ public class RestGrant {
         // Create a new HttpClient and Post Header
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(
-                "http://cas.columbia.edu/cas/v1/tickets HTTP/1.0");
+                "https://casdev.cc.columbia.edu/cas/v1/tickets HTTP/1.0");
 
         // Add the necessary data
         List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -169,7 +180,7 @@ public class RestGrant {
         // Create a new HttpClient and Post Header
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(
-                "http://cas.columbia.edu/cas/v1/tickets/" + ticket
+                "https://casdev.cc.columbia.edu/cas/v1/tickets" + ticket
                         + " HTTP/1.0");
 
         // Add the necessary data

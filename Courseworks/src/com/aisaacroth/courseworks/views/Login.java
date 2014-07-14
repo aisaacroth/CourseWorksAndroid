@@ -7,7 +7,7 @@ import org.apache.http.auth.UsernamePasswordCredentials;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.auth.AuthPreferences;
-import com.aisaacroth.courseworks.auth.RestGrant;
+import com.aisaacroth.courseworks.services.RestAuthService;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;

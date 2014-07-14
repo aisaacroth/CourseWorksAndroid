@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks.web;
+package com.aisaacroth.courseworks.services;
 
 /**
  * The InformationRequester Class. Requests information from the Courseworks
