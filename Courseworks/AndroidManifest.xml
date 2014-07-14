@@ -58,6 +58,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        
+        <!-- RestAuth Service -->
+        <service android:name="com.aisaacroth.courseworks.services.RestAuthService" >
+        </service>
     </application>
 
 </manifest>
