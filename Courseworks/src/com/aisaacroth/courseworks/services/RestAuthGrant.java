@@ -10,11 +10,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.params.HttpParams;
 
-import android.app.IntentService;
-import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 /**
@@ -26,40 +22,19 @@ import android.util.Log;
  * @date 2014-05-19
  */
 
-public class RestAuthService extends IntentService {
+public class RestAuthGrant {
 
-    private String tGT;
+    private static String tGT;
 
-    public RestAuthService() {
-        super("RestAuthService");
-    }
-
-    @Override
-    protected void onHandleIntent(Intent intent) {
-        String username = extractFromIntent(intent, "username");
-        String password = extractFromIntent(intent, "password");
-
-        try {
-            login(username, password);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private String extractFromIntent(Intent intent, String key) {
-        Bundle extras = intent.getExtras();
-        return extras.getString(key);
-    }
-
-    public void login(String username, String password) throws IOException {
+    public static String login(String username, String password) throws IOException {
         tGT = getGrantingTicket(username, password);
         checkTGTExists();
         String serviceTicket = retrieveServiceTicket(tGT);
         checkServiceTicketExists(serviceTicket);
+        return serviceTicket;
     }
 
-    private String getGrantingTicket(String username, String password)
+    private static String getGrantingTicket(String username, String password)
             throws IOException {
         String ticket = null;
         HttpResponse response = postUserInfoToServer(username, password);
@@ -67,7 +42,7 @@ public class RestAuthService extends IntentService {
         return ticket;
     }
 
-    private HttpResponse postUserInfoToServer(String username, String password)
+    private static HttpResponse postUserInfoToServer(String username, String password)
             throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
 
@@ -85,46 +60,47 @@ public class RestAuthService extends IntentService {
         return response;
     }
 
-    private void addUserPasswordParameter(List<NameValuePair> paramList,
+    private static void addUserPasswordParameter(List<NameValuePair> paramList,
             String username, String password) {
         paramList.add(new BasicNameValuePair("username", username));
         paramList.add(new BasicNameValuePair("password", password));
     }
 
-    private void logPost(HttpPost post) {
+    private static void logPost(HttpPost post) {
         Log.d("Courseworks", post.toString());
         Log.d("Courseworks", post.getEntity().toString());
     }
 
-    private String parseTicket(String ticket, HttpResponse response) {
+    private static String parseTicket(String ticket, HttpResponse response) {
         if (checkResponseCreated(response) && checkLocationExists(response)) {
             Header[] locationHeader = response.getHeaders("Location");
             String ticketWithHeader = locationHeader[0].toString();
-            ticket = ticketWithHeader.substring(ticketWithHeader.lastIndexOf('/'));
+            ticket = ticketWithHeader.substring(ticketWithHeader
+                    .lastIndexOf('/'));
         }
         return ticket;
     }
 
-    private boolean checkResponseCreated(HttpResponse response) {
+    private static boolean checkResponseCreated(HttpResponse response) {
         return (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_CREATED) ? true
                 : false;
     }
 
-    private boolean checkLocationExists(HttpResponse response) {
+    private static boolean checkLocationExists(HttpResponse response) {
         return (response.getHeaders("Location") != null) ? true : false;
     }
 
-    private void checkTGTExists() {
+    private static void checkTGTExists() {
         if (hasTGT()) {
             throw new NullPointerException();
         }
     }
 
-    private boolean hasTGT() {
+    private static boolean hasTGT() {
         return (tGT.isEmpty() || tGT == null) ? true : false;
     }
 
-    private String retrieveServiceTicket(String ticket)
+    private static String retrieveServiceTicket(String ticket)
             throws ClientProtocolException, IOException {
         String serviceTicket = null;
         HttpResponse response = postTicketToServer(ticket);
@@ -135,7 +111,7 @@ public class RestAuthService extends IntentService {
         return serviceTicket;
     }
 
-    private HttpResponse postTicketToServer(String ticket)
+    private static HttpResponse postTicketToServer(String ticket)
             throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(
@@ -151,21 +127,21 @@ public class RestAuthService extends IntentService {
         return response;
     }
 
-    private void addService(List<NameValuePair> paramList) {
+    private static void addService(List<NameValuePair> paramList) {
         paramList.add(new BasicNameValuePair("service",
                 "https://courseworks.columbia.edu/sakai-login-tool/container"));
     }
 
-    private boolean connectionIsGood(HttpResponse response) {
+    private static boolean connectionIsGood(HttpResponse response) {
         return ((response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_OK) ? true
                 : false);
     }
 
-    private String getServiceTicket(HttpResponse response) {
+    private static String getServiceTicket(HttpResponse response) {
         return response.getEntity().toString();
     }
 
-    private void checkServiceTicketExists(String serviceTicket) {
+    private static void checkServiceTicketExists(String serviceTicket) {
         if (serviceTicket.isEmpty() || hasTGT()) {
             throw new NullPointerException();
         }

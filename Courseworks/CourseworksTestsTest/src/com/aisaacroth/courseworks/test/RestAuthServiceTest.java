@@ -1,15 +1,9 @@
 package com.aisaacroth.courseworks.test;
 
-import com.aisaacroth.courseworks.fake.RestAuthServiceFake;
+import junit.framework.TestCase;
 
-import android.content.Intent;
-import android.test.ServiceTestCase;
-
-public class RestAuthServiceTest extends ServiceTestCase<RestAuthServiceFake> {
+public class RestAuthServiceTest extends TestCase {
     
-    public RestAuthServiceTest() {
-        super(RestAuthServiceFake.class);
-    }
     
     protected void setUp() throws Exception {
         super.setUp();
@@ -19,11 +13,6 @@ public class RestAuthServiceTest extends ServiceTestCase<RestAuthServiceFake> {
     }
     
     public void testLogin() {
-        Intent startIntent = new Intent();
-        startIntent.setClass(getContext(), RestAuthServiceFake.class);
-        startIntent.putExtra("username", "air2112");
-        startIntent.putExtra("password", "BA115hp34");
-        startService(startIntent);
     }
     
 

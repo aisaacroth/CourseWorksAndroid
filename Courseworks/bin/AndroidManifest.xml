@@ -59,7 +59,7 @@
         </activity>
         
         <!-- RestAuth Service -->
-        <service android:name="com.aisaacroth.courseworks.services.RestAuthService" >
+        <service android:name="com.aisaacroth.courseworks.services.RestAuthGrant" >
         </service>
     </application>
 

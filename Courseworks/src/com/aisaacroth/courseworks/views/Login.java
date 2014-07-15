@@ -1,10 +1,11 @@
 package com.aisaacroth.courseworks.views;
 
 import java.io.File;
+import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.auth.AuthPreferences;
-import com.aisaacroth.courseworks.services.RestAuthService;
+import com.aisaacroth.courseworks.services.RestAuthGrant;
 
 import android.animation.*;
 
@@ -256,13 +257,17 @@ public class Login extends Activity {
             // TODO: Secure the login method for when the authentication
             // actually works.
 
-            Intent loginIntent = new Intent(getApplicationContext(),
-                    RestAuthService.class);
-            loginIntent.putExtra("username", uni);
-            loginIntent.putExtra("password", password);
-            startService(loginIntent);
+            try {
+                // TODO: Clean this up. Need to make it more presentable as a
+                // login method.
+                String serviceTicket = RestAuthGrant.login(uni, password);
+                if (serviceTicket != null)
+                    return true;
 
-            return true;
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return false;
         }
 
         @Override
