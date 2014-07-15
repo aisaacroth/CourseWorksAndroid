@@ -7,7 +7,6 @@ import com.robotium.solo.Solo;
 
 import android.test.*;
 import android.test.suitebuilder.annotation.*;
-import android.view.View;
 import android.widget.*;
 
 /**
@@ -17,11 +16,11 @@ import android.widget.*;
  * @date 2014-07-09
  */
 public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
-    private Login testLoginActivity;
+    private Button signInButton;
+    private CheckBox rememberCheckBox;
     private EditText uniTextField;
     private EditText passwordTextField;
-    private CheckBox rememberCheckBox;
-    private Button signInButton;
+    private Login testLoginActivity;
     private Solo testSolo;
 
     public LoginTest() {
@@ -33,7 +32,8 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         super.setUp();
         setActivityInitialTouchMode(false);
         testLoginActivity = getActivity();
-        passwordTextField = (EditText) testLoginActivity.findViewById(R.id.password);
+        passwordTextField = (EditText) testLoginActivity
+                .findViewById(R.id.password);
         rememberCheckBox = (CheckBox) testLoginActivity
                 .findViewById(R.id.remember_me);
         signInButton = (Button) testLoginActivity
@@ -41,7 +41,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         testSolo = new Solo(getInstrumentation(), getActivity());
         uniTextField = (EditText) testLoginActivity.findViewById(R.id.uni);
     }
-    
+
     @SmallTest
     public void testEmptyFields() {
         assertTrue(getStringFromEditText(uniTextField).equals(""));
@@ -52,17 +52,17 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
     @LargeTest
     public void testErrorMessageForPassword() throws InterruptedException {
         sendToLoginForm(true);
-        assertTrue(testSolo.searchText("This password is too short"));
+        assertEquals("This password is too short",
+                getStringFromErrorField(passwordTextField));
     }
-    
 
     @MediumTest
     public void testErrorMessagesAppearOnClick() {
         String testErrorMessage = "This field is required";
         TouchUtils.clickView(this, signInButton);
-        assertEquals(getStringFromErrorField(uniTextField), testErrorMessage);
-        assertEquals(getStringFromErrorField(passwordTextField),
-                testErrorMessage);
+        assertEquals(testErrorMessage, getStringFromErrorField(uniTextField));
+        assertEquals(testErrorMessage,
+                getStringFromErrorField(passwordTextField));
     }
 
     private String getStringFromErrorField(EditText textField) {
@@ -82,45 +82,49 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         assertNotNull(rememberCheckBox);
         assertNotNull(signInButton);
     }
-    
+
     @LargeTest
     public void testLoginIsFinished() {
         sendToLoginForm(false);
-        testSolo.assertCurrentActivity("Did not leave Login Class", Main.class);
+        testSolo.assertCurrentActivity("Did not leave Login class", Main.class);
         assertTrue(testLoginActivity.isFinishing());
         testSolo.getCurrentActivity().finish();
     }
-    
+
     @LargeTest
     public void testLoginSuccessful() {
         sendToLoginForm(false);
         testSolo.assertCurrentActivity("Did not leave Login Class", Main.class);
         testSolo.getCurrentActivity().finish();
     }
-    
+
     private void sendToLoginForm(boolean error) {
         if (error) {
-            testSolo.typeText(uniTextField, "air2112");
-            testSolo.typeText(passwordTextField, "testerr");
+            sendKeys("A I R 2 1 1 2 ENTER");
+            sendKeys("T E S T E R R");
         } else {
-            testSolo.typeText(uniTextField, "air2112");
-            testSolo.typeText(passwordTextField, "password");
+            sendKeys("A I R 2 1 1 2 ENTER");
+            sendKeys("P A S S W O R D");
         }
 
-        testSolo.clickOnView(getRObject(R.id.sign_in_button));
+        TouchUtils.clickView(this, signInButton);
+
     }
 
     @SmallTest
     public void testPostPasswordToField() {
         String testPassword = "password";
-        testSolo.typeText(passwordTextField, testPassword);
+        sendKeys("ENTER");
+        sendKeys("P A S S W O R D + ENTER");
+        assertEquals("This field is required",
+                getStringFromErrorField(uniTextField));
         assertEquals(testPassword, getStringFromEditText(passwordTextField));
     }
 
     @SmallTest
     public void testPostUniToField() {
         String testUNI = "air2112";
-        testSolo.typeText(uniTextField, testUNI);
+        sendKeys("A I R 2 1 1 2");
         assertEquals(testUNI, getStringFromEditText(uniTextField));
     }
 
@@ -130,12 +134,8 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 
     @MediumTest
     public void testSelectCheckBox() {
-        testSolo.clickOnView(getRObject(R.id.remember_me));
-        assertTrue(testSolo.isCheckBoxChecked(0));
-    }
-
-    private View getRObject(int RValue) {
-        return testSolo.getView(RValue);
+        TouchUtils.clickView(this, rememberCheckBox);
+        assertTrue(rememberCheckBox.isChecked());
     }
 
     @Override

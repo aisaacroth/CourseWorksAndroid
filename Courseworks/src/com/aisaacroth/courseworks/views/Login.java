@@ -258,7 +258,7 @@ public class Login extends Activity {
 
             Intent loginIntent = new Intent(getApplicationContext(),
                     RestAuthService.class);
-            loginIntent.putExtra("uni", uni);
+            loginIntent.putExtra("username", uni);
             loginIntent.putExtra("password", password);
             startService(loginIntent);
 

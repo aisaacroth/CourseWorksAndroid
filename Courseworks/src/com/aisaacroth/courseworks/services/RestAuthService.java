@@ -63,17 +63,17 @@ public class RestAuthService extends IntentService {
             throws IOException {
         String ticket = null;
         HttpResponse response = postUserInfoToServer(username, password);
-        HttpParams param = response.getParams();
-
-        ticket = parseTicket(ticket, param, response);
+        ticket = parseTicket(ticket, response);
         return ticket;
     }
 
     private HttpResponse postUserInfoToServer(String username, String password)
             throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
+
+        // TODO: Switch to Production server. Currently testing on Dev servers.
         HttpPost httpPost = new HttpPost(
-                "https://casdev.cc.columbia.edu/cas/v1/tickets HTTP/1.0");
+                "https://casdev.cc.columbia.edu/cas/v1/tickets");
 
         List<NameValuePair> paramList = new ArrayList<NameValuePair>();
         addUserPasswordParameter(paramList, username, password);
@@ -96,22 +96,22 @@ public class RestAuthService extends IntentService {
         Log.d("Courseworks", post.getEntity().toString());
     }
 
-    private String parseTicket(String ticket, HttpParams params,
-            HttpResponse response) {
-        if (checkParametersExist(params) && checkResponseCreated(response)) {
-            String paramString = params.getParameter("Location").toString();
-            ticket = paramString.substring(paramString.lastIndexOf('/') + 1);
+    private String parseTicket(String ticket, HttpResponse response) {
+        if (checkResponseCreated(response) && checkLocationExists(response)) {
+            Header[] locationHeader = response.getHeaders("Location");
+            String ticketWithHeader = locationHeader[0].toString();
+            ticket = ticketWithHeader.substring(ticketWithHeader.lastIndexOf('/'));
         }
         return ticket;
-    }
-
-    private boolean checkParametersExist(HttpParams param) {
-        return (param.getParameter("Location") != null) ? true : false;
     }
 
     private boolean checkResponseCreated(HttpResponse response) {
         return (response.getStatusLine().getStatusCode() == HttpURLConnection.HTTP_CREATED) ? true
                 : false;
+    }
+
+    private boolean checkLocationExists(HttpResponse response) {
+        return (response.getHeaders("Location") != null) ? true : false;
     }
 
     private void checkTGTExists() {
@@ -139,8 +139,7 @@ public class RestAuthService extends IntentService {
             throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(
-                "https://casdev.cc.columbia.edu/cas/v1/tickets" + ticket
-                        + " HTTP/1.0");
+                "https://casdev.cc.columbia.edu/cas/v1/tickets" + ticket);
 
         List<NameValuePair> paramList = new ArrayList<NameValuePair>();
         addService(paramList);
@@ -154,7 +153,7 @@ public class RestAuthService extends IntentService {
 
     private void addService(List<NameValuePair> paramList) {
         paramList.add(new BasicNameValuePair("service",
-                "https://courseworks.columbia.edu/portal"));
+                "https://courseworks.columbia.edu/sakai-login-tool/container"));
     }
 
     private boolean connectionIsGood(HttpResponse response) {
