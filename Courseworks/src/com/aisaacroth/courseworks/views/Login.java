@@ -256,18 +256,19 @@ public class Login extends Activity {
         protected Boolean doInBackground(Void... params) {
             // TODO: Secure the login method for when the authentication
             // actually works.
+            boolean worked = false;
 
             try {
                 // TODO: Clean this up. Need to make it more presentable as a
                 // login method.
                 String serviceTicket = RestAuthGrant.login(uni, password);
                 if (serviceTicket != null)
-                    return true;
+                    worked = true;
 
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            return false;
+            return worked;
         }
 
         @Override
