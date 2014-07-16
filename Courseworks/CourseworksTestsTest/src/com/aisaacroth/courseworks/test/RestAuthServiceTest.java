@@ -1,5 +1,9 @@
 package com.aisaacroth.courseworks.test;
 
+import java.io.IOException;
+
+import com.aisaacroth.courseworks.services.RestAuthGrant;
+
 import junit.framework.TestCase;
 
 public class RestAuthServiceTest extends TestCase {
@@ -9,10 +13,29 @@ public class RestAuthServiceTest extends TestCase {
         super.setUp();
     }
     
-    public void testPreconditions() {
+    public void testServiceWorks() {
+        String username = "air2112";
+        String password = "BA115hp34";
+        String serviceTicket = null;
+        try {
+            serviceTicket = RestAuthGrant.login(username, password);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertNotNull(serviceTicket);
     }
     
-    public void testLogin() {
+    public void testServiceTicketExists() {
+        String username = "air2112";
+        String password = "BA115hp34";
+        String serviceTicket = null;
+        try {
+            serviceTicket = RestAuthGrant.login(username, password);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        assertTrue(serviceTicket.contains("ST"));
+
     }
     
 

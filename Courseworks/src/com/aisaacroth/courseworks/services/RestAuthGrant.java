@@ -26,6 +26,7 @@ import android.util.Log;
 public class RestAuthGrant {
 
     private static String tGT;
+    private static final int LOCATION = 2;
 
     public static String login(String username, String password)
             throws IOException {
@@ -69,14 +70,15 @@ public class RestAuthGrant {
     }
 
     private static void logPost(HttpPost post) {
-        Log.d("Courseworks", post.toString());
+        Log.d("Courseworks", post.getURI().toString()
+                + post.getParams().toString());
         Log.d("Courseworks", post.getEntity().toString());
     }
 
     private static String parseTicket(String ticket, HttpResponse response) {
         if (checkResponseCreated(response) && checkLocationExists(response)) {
-            Header[] locationHeader = response.getHeaders("Location");
-            String ticketWithHeader = locationHeader[0].toString();
+            Header[] allHeaders = response.getAllHeaders();
+            String ticketWithHeader = allHeaders[LOCATION].toString();
             ticket = ticketWithHeader.substring(ticketWithHeader
                     .lastIndexOf('/') + 1);
         }
