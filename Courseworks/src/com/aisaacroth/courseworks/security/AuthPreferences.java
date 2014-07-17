@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks.auth;
+package com.aisaacroth.courseworks.security;
 
 import java.io.UnsupportedEncodingException;
 import java.security.*;

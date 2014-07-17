@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks.data;
+package com.aisaacroth.courseworks.structures;
 
 /**
  * Acts as a container for all possible announcements that will be generated and

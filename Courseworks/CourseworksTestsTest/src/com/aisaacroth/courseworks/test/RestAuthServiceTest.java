@@ -2,7 +2,7 @@ package com.aisaacroth.courseworks.test;
 
 import java.io.IOException;
 
-import com.aisaacroth.courseworks.services.CASRestAuth;
+import com.aisaacroth.courseworks.services.CASRestAuthenticator;
 
 import junit.framework.TestCase;
 
@@ -18,7 +18,7 @@ public class RestAuthServiceTest extends TestCase {
         String password = "BA115hp34";
         String serviceTicket = null;
         try {
-            serviceTicket = CASRestAuth.login(username, password);
+            serviceTicket = CASRestAuthenticator.login(username, password);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -30,7 +30,7 @@ public class RestAuthServiceTest extends TestCase {
         String password = "BA115hp34";
         String serviceTicket = null;
         try {
-            serviceTicket = CASRestAuth.login(username, password);
+            serviceTicket = CASRestAuthenticator.login(username, password);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -3,7 +3,7 @@ package com.aisaacroth.courseworks.adapters;
 import java.util.ArrayList;
 
 import com.aisaacroth.courseworks.R;
-import com.aisaacroth.courseworks.data.Announcements;
+import com.aisaacroth.courseworks.structures.Announcements;
 
 import android.content.Context;
 import android.view.*;

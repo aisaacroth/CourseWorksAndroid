@@ -23,7 +23,7 @@ import android.util.Log;
  * @date 2014-05-19
  */
 
-public class CASRestAuth {
+public class CASRestAuthenticator {
 
     private static String tGT;
     private static final int LOCATION = 2;

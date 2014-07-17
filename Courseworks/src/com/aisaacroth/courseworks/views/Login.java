@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
-import com.aisaacroth.courseworks.auth.AuthPreferences;
-import com.aisaacroth.courseworks.services.CASRestAuth;
+import com.aisaacroth.courseworks.security.AuthPreferences;
+import com.aisaacroth.courseworks.services.CASRestAuthenticator;
 
 import android.animation.*;
 
@@ -250,6 +250,7 @@ public class Login extends Activity {
     }
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
+        String serviceTicket = null;
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: Secure the login method for when the authentication
@@ -259,7 +260,7 @@ public class Login extends Activity {
             try {
                 // TODO: Clean this up. Need to make it more presentable as a
                 // login method.
-                String serviceTicket = CASRestAuth.login(uni, password);
+                serviceTicket = CASRestAuthenticator.login(uni, password);
                 if (serviceTicket != null)
                     worked = true;
 
@@ -277,6 +278,7 @@ public class Login extends Activity {
             if (success) {
                 finish();
                 Intent mainIntent = new Intent(Login.this, Main.class);
+                mainIntent.putExtra("ServiceTicket", serviceTicket);
                 Login.this.startActivity(mainIntent);
             } else {
                 passwordTextField
