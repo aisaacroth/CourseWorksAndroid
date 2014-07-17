@@ -5,6 +5,7 @@ import com.aisaacroth.courseworks.views.Main;
 import com.aisaacroth.courseworks.R;
 import com.robotium.solo.Solo;
 
+import android.app.Instrumentation;
 import android.test.*;
 import android.test.suitebuilder.annotation.*;
 import android.widget.*;
@@ -104,7 +105,8 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
             sendKeys("T E S T E R R");
         } else {
             sendKeys("A I R 2 1 1 2 ENTER");
-            sendKeys("P A S S W O R D");
+            Instrumentation passwordField = getInstrumentation();
+            passwordField.sendStringSync("BA115hp34");
         }
 
         TouchUtils.clickView(this, signInButton);

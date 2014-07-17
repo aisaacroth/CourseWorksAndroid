@@ -7,6 +7,6 @@ package com.aisaacroth.courseworks.services;
  * @author Alexander Roth
  * @date 2014-07-03
  */
-public class InformationRequester {
+public class CWInformationSupplier {
 
 }

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.auth.AuthPreferences;
-import com.aisaacroth.courseworks.services.RestAuthGrant;
+import com.aisaacroth.courseworks.services.CASRestAuth;
 
 import android.animation.*;
 
@@ -209,8 +209,6 @@ public class Login extends Activity {
         showProgress(true);
         loginTask = new UserLoginTask();
         loginTask.execute((Void) null);
-        Intent main = new Intent(Login.this, Main.class);
-        startActivity(main);
     }
 
     @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR2)
@@ -261,7 +259,7 @@ public class Login extends Activity {
             try {
                 // TODO: Clean this up. Need to make it more presentable as a
                 // login method.
-                String serviceTicket = RestAuthGrant.login(uni, password);
+                String serviceTicket = CASRestAuth.login(uni, password);
                 if (serviceTicket != null)
                     worked = true;
 
@@ -278,9 +276,11 @@ public class Login extends Activity {
 
             if (success) {
                 finish();
+                Intent mainIntent = new Intent(Login.this, Main.class);
+                Login.this.startActivity(mainIntent);
             } else {
                 passwordTextField
-                        .setError(getString(R.string.error_incorrect_password));
+                        .setError(getString(R.string.error_incorrect_login));
                 passwordTextField.requestFocus();
             }
         }

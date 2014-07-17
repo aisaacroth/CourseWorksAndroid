@@ -23,7 +23,7 @@ import android.util.Log;
  * @date 2014-05-19
  */
 
-public class RestAuthGrant {
+public class CASRestAuth {
 
     private static String tGT;
     private static final int LOCATION = 2;
@@ -31,9 +31,11 @@ public class RestAuthGrant {
     public static String login(String username, String password)
             throws IOException {
         tGT = getGrantingTicket(username, password);
-        checkTGTExists();
-        String serviceTicket = getServiceTicket(tGT);
-        checkServiceTicketExists(serviceTicket);
+        String serviceTicket = null;
+        if (ticketGrantingTicketExists()) {
+            serviceTicket = getServiceTicket(tGT);
+        }
+        
         return serviceTicket;
     }
 
@@ -94,14 +96,12 @@ public class RestAuthGrant {
         return (response.getHeaders("Location") != null) ? true : false;
     }
 
-    private static void checkTGTExists() {
-        if (!hasTGT()) {
-            throw new NullPointerException();
-        }
+    private static boolean ticketGrantingTicketExists() {
+        return (hasTGT()) ? true : false;
     }
 
     private static boolean hasTGT() {
-        return (tGT.isEmpty() || tGT == null) ? false : true;
+        return (tGT == null || tGT.isEmpty()) ? false : true;
     }
 
     private static String getServiceTicket(String ticket)
@@ -152,12 +152,6 @@ public class RestAuthGrant {
             e.printStackTrace();
         }
         return serviceTicket;
-    }
-
-    private static void checkServiceTicketExists(String serviceTicket) {
-        if (serviceTicket.isEmpty() || !hasTGT()) {
-            throw new NullPointerException();
-        }
     }
 
     public void logout() throws ClientProtocolException, IOException {
