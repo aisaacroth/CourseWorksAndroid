@@ -2,7 +2,7 @@ package com.aisaacroth.courseworks.test;
 
 import java.io.IOException;
 
-import com.aisaacroth.courseworks.services.CASRestAuthenticator;
+import com.aisaacroth.courseworks.web.CASRestAuthenticator;
 
 import junit.framework.TestCase;
 

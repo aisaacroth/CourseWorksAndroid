@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.security.AuthPreferences;
-import com.aisaacroth.courseworks.services.CASRestAuthenticator;
+import com.aisaacroth.courseworks.web.CASRestAuthenticator;
 
 import android.animation.*;
 

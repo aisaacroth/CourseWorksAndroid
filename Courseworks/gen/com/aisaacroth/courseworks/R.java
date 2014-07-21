@@ -1052,7 +1052,7 @@ containing a value of this type.
         public static final int progress_circular=0x7f070034;
         public static final int progress_horizontal=0x7f070035;
         public static final int radio=0x7f07002d;
-        public static final int remember_me=0x7f070049;
+        public static final int remember_me=0x7f07004a;
         public static final int right_container=0x7f070032;
         public static final int right_icon=0x7f070033;
         public static final int search=0x7f070056;
@@ -1070,7 +1070,7 @@ containing a value of this type.
         public static final int showCustom=0x7f070007;
         public static final int showHome=0x7f070004;
         public static final int showTitle=0x7f070006;
-        public static final int sign_in_button=0x7f07004a;
+        public static final int sign_in_button=0x7f070049;
         public static final int splashScreen=0x7f07004c;
         public static final int split_action_bar=0x7f07001c;
         public static final int submit_area=0x7f07003f;
