@@ -7,18 +7,22 @@ import com.aisaacroth.courseworks.web.CASRestAuthenticator;
 import junit.framework.TestCase;
 
 public class RestAuthServiceTest extends TestCase {
+    private String username;
+    private String password;
+    private String grantingTicket;
     
     
     protected void setUp() throws Exception {
         super.setUp();
+        username = "air2112";
+        password = "BA115hp34";
+        grantingTicket = CASRestAuthenticator.getGrantingTicket(username, password);
     }
     
     public void testServiceWorks() {
-        String username = "air2112";
-        String password = "BA115hp34";
         String serviceTicket = null;
         try {
-            serviceTicket = CASRestAuthenticator.login(username, password);
+            serviceTicket = CASRestAuthenticator.login(username, grantingTicket);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -26,16 +30,18 @@ public class RestAuthServiceTest extends TestCase {
     }
     
     public void testServiceTicketExists() {
-        String username = "air2112";
-        String password = "BA115hp34";
         String serviceTicket = null;
         try {
-            serviceTicket = CASRestAuthenticator.login(username, password);
+            serviceTicket = CASRestAuthenticator.login(username, grantingTicket);
         } catch (IOException e) {
             e.printStackTrace();
         }
         assertTrue(serviceTicket.contains("ST"));
-
+    }
+    
+    public void testGetGrantingTicket() {
+        assertNotNull(grantingTicket);
+        assertTrue(grantingTicket.contains("TGT"));
     }
     
 

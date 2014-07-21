@@ -28,18 +28,7 @@ public class CASRestAuthenticator {
     private static String tGT;
     private static final int LOCATION = 2;
 
-    public static String login(String username, String password)
-            throws IOException {
-        tGT = getGrantingTicket(username, password);
-        String serviceTicket = null;
-        if (ticketGrantingTicketExists()) {
-            serviceTicket = getServiceTicket(tGT);
-        }
-        
-        return serviceTicket;
-    }
-
-    private static String getGrantingTicket(String username, String password)
+    public static String getGrantingTicket(String username, String password)
             throws IOException {
         String ticket = null;
         HttpResponse response = postUserInfoToServer(username, password);
@@ -94,6 +83,17 @@ public class CASRestAuthenticator {
 
     private static boolean checkLocationExists(HttpResponse response) {
         return (response.getHeaders("Location") != null) ? true : false;
+    }
+
+    public static String login(String username, String ticket)
+            throws IOException {
+        tGT = ticket;
+        String serviceTicket = null;
+        if (ticketGrantingTicketExists()) {
+            serviceTicket = getServiceTicket(tGT);
+        }
+
+        return serviceTicket;
     }
 
     private static boolean ticketGrantingTicketExists() {

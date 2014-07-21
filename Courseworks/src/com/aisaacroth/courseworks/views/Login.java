@@ -31,6 +31,7 @@ public class Login extends Activity {
 
     private String uni;
     private String password;
+    private String grantingTicket;
 
     private AuthPreferences loginPreferences;
     private Context context;
@@ -52,7 +53,7 @@ public class Login extends Activity {
         File loginSettings = locateLoginSettings();
 
         if (checkLoggedInBefore(loginSettings)) {
-            autoFillTextField();
+            proceedWithLogin();
         }
 
         passwordTextField
@@ -74,7 +75,7 @@ public class Login extends Activity {
                     public void onClick(View view) {
 
                         if (rememberMeCheckBox.isChecked()) {
-                            storeLoginPreferences();
+                            storeUsername();
                         } else {
                             loginPreferences.clear();
                         }
@@ -93,8 +94,7 @@ public class Login extends Activity {
     }
 
     private AuthPreferences createLoginPreferences() {
-        return new AuthPreferences(this, "auth",
-                "Mh3C67M4IhHlx0BuMf5i2hWFtUtfAzl6", true);
+        return new AuthPreferences(this, "auth");
     }
 
     private File locateLoginSettings() {
@@ -111,38 +111,19 @@ public class Login extends Activity {
     }
 
     private boolean checkLoggedInBefore(File loginSettings) {
-        if (loginSettings.exists() && hasUNI() && hasPassword()) {
+        if (loginSettings.exists() && hasUNI()) {
             return true;
         }
         return false;
-    }
-
-    private boolean hasPassword() {
-        return (loginPreferences.getString("password") != null) ? true : false;
     }
 
     private boolean hasUNI() {
         return (loginPreferences.getString("uni") != null) ? true : false;
     }
 
-    private void autoFillTextField() {
-        fillUniTextField();
-        fillPasswordTextField();
-    }
-
-    private void fillPasswordTextField() {
-        passwordTextField.setText(loginPreferences.getString("password"));
-    }
-
-    private void fillUniTextField() {
-        uniTextField.setText(loginPreferences.getString("uni"));
-    }
-
-    private void storeLoginPreferences() {
+    private void storeUsername() {
         uni = retrieveTextFromTextField(uniTextField);
-        password = retrieveTextFromTextField(passwordTextField);
         loginPreferences.put("uni", uni);
-        loginPreferences.put("password", password);
     }
 
     public void attemptLogin() {
@@ -251,6 +232,7 @@ public class Login extends Activity {
 
     public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
         String serviceTicket = null;
+
         @Override
         protected Boolean doInBackground(Void... params) {
             // TODO: Secure the login method for when the authentication
@@ -258,9 +240,15 @@ public class Login extends Activity {
             boolean worked = false;
 
             try {
-                // TODO: Clean this up. Need to make it more presentable as a
-                // login method.
-                serviceTicket = CASRestAuthenticator.login(uni, password);
+                if (password != null) {
+                    grantingTicket = CASRestAuthenticator.getGrantingTicket(
+                            uni, password);
+                    storeGrantingTicketIfChecked(grantingTicket);
+                } else {
+                    grantingTicket = loginPreferences.getString("ticket");
+                }
+                
+                serviceTicket = CASRestAuthenticator.login(uni, grantingTicket);
                 if (serviceTicket != null)
                     worked = true;
 
@@ -268,6 +256,12 @@ public class Login extends Activity {
                 e.printStackTrace();
             }
             return worked;
+        }
+
+        private void storeGrantingTicketIfChecked(String grantingTicket) {
+            if (rememberMeCheckBox.isChecked()) {
+                loginPreferences.put("ticket", grantingTicket);
+            }
         }
 
         @Override
