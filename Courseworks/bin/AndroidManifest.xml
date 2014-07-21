@@ -59,7 +59,7 @@
         </activity>
         
         <!-- RestAuth Service -->
-        <service android:name="com.aisaacroth.courseworks.web.CASRestAuthenticator" >
+        <service android:name="com.aisaacroth.courseworks.web.ExpirationTimer" >
         </service>
     </application>
 
