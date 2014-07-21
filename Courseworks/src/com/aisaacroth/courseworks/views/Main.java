@@ -2,11 +2,9 @@ package com.aisaacroth.courseworks.views;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.TabsPagerAdapter;
-import com.aisaacroth.courseworks.web.ExpirationTimer;
 
 import android.app.*;
 import android.app.ActionBar.Tab;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
@@ -31,7 +29,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        startTimer();
         setContentView(R.layout.activity_main);
 
         initializeTabsPagerAdapter();
@@ -59,11 +56,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         viewPager.setCurrentItem(MIDDLE);
     }
     
-    private void startTimer() {
-        Intent timeLogout = new Intent(this, ExpirationTimer.class);
-        startService(timeLogout);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();

@@ -6,6 +6,7 @@ import java.io.IOException;
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
 import com.aisaacroth.courseworks.web.CASRestAuthenticator;
+import com.aisaacroth.courseworks.web.ExpirationTimer;
 
 import android.animation.*;
 
@@ -226,6 +227,7 @@ public class Login extends Activity {
                     grantingTicket = CASRestAuthenticator.getGrantingTicket(
                             uni, password);
                     storeGrantingTicketIfChecked(grantingTicket);
+                    startTimer();
                 } else {
                     grantingTicket = loginPreferences.getString("ticket");
                 }
@@ -244,6 +246,11 @@ public class Login extends Activity {
             if (rememberMeCheckBox.isChecked()) {
                 loginPreferences.put("ticket", grantingTicket);
             }
+        }
+        
+        private void startTimer() {
+            Intent timeoutIntent = new Intent(Login.this, ExpirationTimer.class);
+            startService(timeoutIntent);
         }
 
         @Override
