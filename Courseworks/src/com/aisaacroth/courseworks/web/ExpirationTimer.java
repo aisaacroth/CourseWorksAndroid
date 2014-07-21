@@ -15,21 +15,28 @@ public class ExpirationTimer extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        long logoutTime = System.currentTimeMillis() + WEEK;
-        while (System.currentTimeMillis() < logoutTime) {
+        long logoutTime = setWeekTime();
+        if (longerThanWeek(logoutTime)) {
             synchronized (this) {
                 try {
                     wait(logoutTime - System.currentTimeMillis());
                     CASRestAuthenticator.logout();
                     SharedPreferencesAdapter preferences = new SharedPreferencesAdapter(
                             getBaseContext(), "auth.xml");
-                    
                     preferences.clear();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
+    }
+    
+    private long setWeekTime() {
+        return System.currentTimeMillis() + WEEK;
+    }
+    
+    private boolean longerThanWeek(long time) {
+        return (System.currentTimeMillis() > time) ? true : false;
     }
 
 }
