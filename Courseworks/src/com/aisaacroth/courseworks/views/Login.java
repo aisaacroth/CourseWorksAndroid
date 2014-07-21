@@ -34,7 +34,6 @@ public class Login extends Activity {
     private String grantingTicket;
 
     private SharedPreferencesAdapter loginPreferences;
-    private Context context;
 
     private EditText uniTextField;
     private EditText passwordTextField;
@@ -49,8 +48,8 @@ public class Login extends Activity {
         setContentView(R.layout.activity_login);
         setUpLoginForm();
 
-        loginPreferences = createLoginPreferences();
-        File loginSettings = locateLoginSettings();
+        loginPreferences = new SharedPreferencesAdapter(this, "auth");
+        File loginSettings = loginPreferences.locateLoginSettings(this);
 
         if (checkLoggedInBefore(loginSettings)) {
             proceedWithLogin();
@@ -91,23 +90,6 @@ public class Login extends Activity {
         loginFormView = findViewById(R.id.login_form);
         loginStatusView = findViewById(R.id.login_status);
         loginStatusMessageField = (TextView) findViewById(R.id.login_status_message);
-    }
-
-    private SharedPreferencesAdapter createLoginPreferences() {
-        return new SharedPreferencesAdapter(this, "auth");
-    }
-
-    private File locateLoginSettings() {
-        context = this;
-        String path = locateFilePath(context);
-        File loginAuth = new File(path + "/shared_prefs/auth.xml");
-        return loginAuth;
-    }
-
-    private String locateFilePath(Context acitivty) {
-        String dirtyPath = context.getFilesDir().toString();
-        String path = dirtyPath.substring(0, dirtyPath.indexOf("file"));
-        return path;
     }
 
     private boolean checkLoggedInBefore(File loginSettings) {

@@ -1,5 +1,7 @@
 package com.aisaacroth.courseworks.adapters;
 
+import java.io.File;
+
 import android.content.*;
 
 /**
@@ -31,6 +33,18 @@ public class SharedPreferencesAdapter {
 
     public void clear() {
         preferences.edit().clear().commit();
+    }
+
+    public File locateLoginSettings(Context context) {
+        String path = locateFilePath(context);
+        File loginAuth = new File(path + "/shared_prefs/auth.xml");
+        return loginAuth;
+    }
+
+    public String locateFilePath(Context context) {
+        String dirtyPath = context.getFilesDir().toString();
+        String path = dirtyPath.substring(0, dirtyPath.indexOf("file"));
+        return path;
     }
 
 }

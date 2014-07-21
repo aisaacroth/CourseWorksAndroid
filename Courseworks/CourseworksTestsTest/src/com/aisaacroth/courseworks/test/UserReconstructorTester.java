@@ -6,7 +6,7 @@ import com.aisaacroth.courseworks.web.UserReconstructor;
 
 import junit.framework.TestCase;
 
-public class UserIdentityReconstructorTester extends TestCase {
+public class UserReconstructorTester extends TestCase {
     private UserReconstructor testIdentity;
 
     protected void setUp() throws Exception {
@@ -24,11 +24,6 @@ public class UserIdentityReconstructorTester extends TestCase {
         testIdentity.setUsername("name");
         assertEquals("name", testIdentity.getUsername());
         assertNotNull(testIdentity.getUsername());
-    }
-    
-    @SmallTest
-    public void testTimerActivates() {
-        
     }
 
     protected void tearDown() throws Exception {

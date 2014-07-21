@@ -22,7 +22,4 @@ public class UserReconstructor {
         return this.username;
     }
     
-    public boolean timeExpired() {
-        return false;
-    }
 }
