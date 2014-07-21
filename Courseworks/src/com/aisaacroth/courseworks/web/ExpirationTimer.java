@@ -23,6 +23,7 @@ public class ExpirationTimer extends IntentService {
                     CASRestAuthenticator.logout();
                     SharedPreferencesAdapter preferences = new SharedPreferencesAdapter(
                             getBaseContext(), "auth.xml");
+                    
                     preferences.clear();
                 } catch (Exception e) {
                     e.printStackTrace();
