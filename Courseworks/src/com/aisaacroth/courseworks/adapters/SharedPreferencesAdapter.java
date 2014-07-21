@@ -1,4 +1,4 @@
-package com.aisaacroth.courseworks.security;
+package com.aisaacroth.courseworks.adapters;
 
 import android.content.*;
 
@@ -9,11 +9,11 @@ import android.content.*;
  * @author Alexander Roth
  * @date 2014-07-21
  */
-public class AuthPreferences {
+public class SharedPreferencesAdapter {
 
     private SharedPreferences preferences;
 
-    public AuthPreferences(Context context, String preferenceName) {
+    public SharedPreferencesAdapter(Context context, String preferenceName) {
         this.preferences = context.getSharedPreferences(preferenceName,
                 Context.MODE_PRIVATE);
     }

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
-import com.aisaacroth.courseworks.security.AuthPreferences;
+import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
 import com.aisaacroth.courseworks.web.CASRestAuthenticator;
 
 import android.animation.*;
@@ -33,7 +33,7 @@ public class Login extends Activity {
     private String password;
     private String grantingTicket;
 
-    private AuthPreferences loginPreferences;
+    private SharedPreferencesAdapter loginPreferences;
     private Context context;
 
     private EditText uniTextField;
@@ -93,8 +93,8 @@ public class Login extends Activity {
         loginStatusMessageField = (TextView) findViewById(R.id.login_status_message);
     }
 
-    private AuthPreferences createLoginPreferences() {
-        return new AuthPreferences(this, "auth");
+    private SharedPreferencesAdapter createLoginPreferences() {
+        return new SharedPreferencesAdapter(this, "auth");
     }
 
     private File locateLoginSettings() {
