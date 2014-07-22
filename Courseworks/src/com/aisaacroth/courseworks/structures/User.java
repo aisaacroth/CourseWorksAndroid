@@ -32,7 +32,7 @@ public class User {
         this.displayName = displayName;
     }
     
-    public void setEmail(String emailAddress) {
+    public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
     

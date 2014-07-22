@@ -36,6 +36,11 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
     protected void setUp() throws Exception {
         super.setUp();
         setActivityInitialTouchMode(false);
+        initTestObjects();
+        cleanLoginFile();
+    }
+    
+    private void initTestObjects() {
         testLoginActivity = getActivity();
         passwordTextField = (EditText) testLoginActivity
                 .findViewById(R.id.password);
@@ -45,8 +50,10 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
                 .findViewById(R.id.sign_in_button);
         testSolo = new Solo(getInstrumentation(), getActivity());
         uniTextField = (EditText) testLoginActivity.findViewById(R.id.uni);
-        testPreferences = new SharedPreferencesAdapter(testLoginActivity,
-                "auth");
+    }
+    
+    private void cleanLoginFile() {
+        testPreferences = new SharedPreferencesAdapter(testLoginActivity, "auth");
         testPreferences.clear();
     }
 
@@ -79,6 +86,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         assertEquals(testErrorMessage, getStringFromErrorField(uniTextField));
         assertEquals(testErrorMessage,
               getStringFromErrorField(passwordTextField));
+        testSolo.getCurrentActivity().finish();
     }
 
     private String getStringFromErrorField(EditText textField) {
@@ -158,7 +166,6 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 
     @Override
     protected void tearDown() throws Exception {
-        testPreferences.clear();
         super.tearDown();
     }
     

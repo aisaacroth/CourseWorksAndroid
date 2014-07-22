@@ -34,6 +34,10 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     protected void setUp() throws Exception {
         super.setUp();
         setActivityInitialTouchMode(false);
+        initTestObjects();
+    }
+
+    private void initTestObjects() {
         testMainActivity = getActivity();
         testActionBar = testMainActivity.getActionBar();
         testTabsPagerAdapter = new TabsPagerAdapter(
@@ -64,7 +68,7 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
         assertEquals("Home", testActionBar.getTabAt(MIDDLE).getText());
         assertEquals("Calendar", testActionBar.getTabAt(RIGHT).getText());
     }
-    
+
     public void testAnnouncementViewExist() {
     }
 

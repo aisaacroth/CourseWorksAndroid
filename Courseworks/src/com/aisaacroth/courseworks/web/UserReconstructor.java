@@ -1,25 +1,18 @@
 package com.aisaacroth.courseworks.web;
 
+import com.aisaacroth.courseworks.structures.User;
+
 /**
- * Reconstructs the user's identity through their UNI.
+ * Reconstructs the user's identity via XML returned from the Courseworks API.
  * 
  * @author Alexander Roth
  * @date 2014-07-21
  */
 public class UserReconstructor {
     
-    private String username;
-
-    public UserReconstructor(String username) {
-        this.username = username;
-    }
+    private User currentUser;
     
-    public void setUsername(String username) {
-        this.username = username;
+    public User constructUser() {
+        return currentUser;
     }
-    
-    public String getUsername() {
-        return this.username;
-    }
-    
 }
