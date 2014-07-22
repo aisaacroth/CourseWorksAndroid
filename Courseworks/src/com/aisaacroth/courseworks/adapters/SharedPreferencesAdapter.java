@@ -46,5 +46,5 @@ public class SharedPreferencesAdapter {
         String path = dirtyPath.substring(0, dirtyPath.indexOf("file"));
         return path;
     }
-
+    
 }
