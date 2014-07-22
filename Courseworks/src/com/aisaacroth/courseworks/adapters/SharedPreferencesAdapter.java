@@ -41,7 +41,7 @@ public class SharedPreferencesAdapter {
         return loginAuth;
     }
 
-    public String locateFilePath(Context context) {
+    private String locateFilePath(Context context) {
         String dirtyPath = context.getFilesDir().toString();
         String path = dirtyPath.substring(0, dirtyPath.indexOf("file"));
         return path;

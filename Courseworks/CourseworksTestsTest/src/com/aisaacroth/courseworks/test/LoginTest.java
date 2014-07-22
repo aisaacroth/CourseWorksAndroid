@@ -1,5 +1,8 @@
 package com.aisaacroth.courseworks.test;
 
+import java.io.File;
+
+import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
 import com.aisaacroth.courseworks.views.Login;
 import com.aisaacroth.courseworks.views.Main;
 import com.aisaacroth.courseworks.R;
@@ -23,6 +26,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
     private EditText passwordTextField;
     private Login testLoginActivity;
     private Solo testSolo;
+    private SharedPreferencesAdapter testPreferences;
 
     public LoginTest() {
         super(Login.class);
@@ -41,8 +45,19 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
                 .findViewById(R.id.sign_in_button);
         testSolo = new Solo(getInstrumentation(), getActivity());
         uniTextField = (EditText) testLoginActivity.findViewById(R.id.uni);
+        testPreferences = new SharedPreferencesAdapter(testLoginActivity,
+                "auth");
+        testPreferences.clear();
     }
 
+    @LargeTest
+    public void testAuthFileExists() {
+        clickRememberMe();
+        sendToLoginForm(false);
+        File testFile = testPreferences.locateLoginSettings(testLoginActivity);
+        assertNotNull(testFile);
+    }
+    
     @SmallTest
     public void testEmptyFields() {
         assertTrue(getStringFromEditText(uniTextField).equals(""));
@@ -63,18 +78,18 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
         TouchUtils.clickView(this, signInButton);
         assertEquals(testErrorMessage, getStringFromErrorField(uniTextField));
         assertEquals(testErrorMessage,
-                getStringFromErrorField(passwordTextField));
+              getStringFromErrorField(passwordTextField));
     }
 
     private String getStringFromErrorField(EditText textField) {
         return textField.getError().toString();
     }
 
-    @SmallTest
-    public void testLayoutCompletely() {
-        testLayoutExist();
-        testEmptyFields();
-    }
+//      @SmallTest
+//    public void testLayoutCompletely() {
+//        testLayoutExist();
+//        testEmptyFields();
+//    }
 
     @SmallTest
     public void testLayoutExist() {
@@ -100,12 +115,12 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
     }
 
     private void sendToLoginForm(boolean error) {
+        Instrumentation passwordField = getInstrumentation();
         if (error) {
             sendKeys("A I R 2 1 1 2 ENTER");
-            sendKeys("T E S T E R R");
+            passwordField.sendStringSync("testerr");
         } else {
             sendKeys("A I R 2 1 1 2 ENTER");
-            Instrumentation passwordField = getInstrumentation();
             passwordField.sendStringSync("BA115hp34");
         }
 
@@ -136,13 +151,19 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
 
     @MediumTest
     public void testSelectCheckBox() {
-        TouchUtils.clickView(this, rememberCheckBox);
+        clickRememberMe();
         assertTrue(rememberCheckBox.isChecked());
     }
+   
 
     @Override
     protected void tearDown() throws Exception {
+        testPreferences.clear();
         super.tearDown();
+    }
+    
+    private void clickRememberMe() {
+        TouchUtils.clickView(this, rememberCheckBox);
     }
 
 }
