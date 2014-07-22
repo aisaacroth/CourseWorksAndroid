@@ -9,7 +9,7 @@ public class ExpirationTimer extends IntentService {
 
     private static final int WEEK = 1000 * 60 * 60 * 24 * 7;
 
-    public ExpirationTimer(String name) {
+    public ExpirationTimer() {
         super("ExpirationTimer");
     }
 
