@@ -6,7 +6,7 @@ import com.aisaacroth.courseworks.web.CASRestAuthenticator;
 
 import junit.framework.TestCase;
 
-public class RestAuthServiceTest extends TestCase {
+public class CASRestAuthServiceTest extends TestCase {
     private String username;
     private String password;
     private String grantingTicket;
