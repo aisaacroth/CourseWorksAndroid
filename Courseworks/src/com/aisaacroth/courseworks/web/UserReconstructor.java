@@ -17,6 +17,7 @@ public class UserReconstructor extends Reconstructor {
 
     public UserReconstructor(User user) {
         this.user = user;
+        this.xmlString = null;
     }
 
     public User constructUser(String url) {

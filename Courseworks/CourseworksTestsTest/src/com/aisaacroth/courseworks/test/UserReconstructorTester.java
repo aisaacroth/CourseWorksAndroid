@@ -1,9 +1,15 @@
 package com.aisaacroth.courseworks.test;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.Scanner;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+
+import android.provider.MediaStore.Files;
 
 import com.aisaacroth.courseworks.structures.User;
 import com.aisaacroth.courseworks.web.UserReconstructor;
@@ -39,6 +45,11 @@ public class UserReconstructorTester extends TestCase {
         String xml = testReconstructor.getXMLFromResponse(response);
         assertNotNull(xml);
     }
+    
+    public void testParseUNI() throws FileNotFoundException {
+        testReconstructor.xmlString = readFile("/CourseworksTestsTest/src/testUser.xml");
+    }
+
 
     public void testUserReconstructed() {
         testReconstructor.constructUser(url);
@@ -47,5 +58,14 @@ public class UserReconstructorTester extends TestCase {
     protected void tearDown() throws Exception {
         super.tearDown();
     }
+    
+    private static String readFile(String path) throws FileNotFoundException {
+
+        File xmlFile = new File(path);
+        @SuppressWarnings("resource")
+        String testcontent = new Scanner(xmlFile).useDelimiter("\\Z").next();
+        return testcontent;
+    }
+    
 
 }
