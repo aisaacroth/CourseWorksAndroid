@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
-import com.aisaacroth.courseworks.web.CASRestAuthenticator;
+import com.aisaacroth.courseworks.web.CASAuthUtil;
 import com.aisaacroth.courseworks.web.ExpirationTimer;
 
 import android.animation.*;
@@ -224,7 +224,7 @@ public class Login extends Activity {
 
             try {
                 if (password != null) {
-                    grantingTicket = CASRestAuthenticator.getGrantingTicket(
+                    grantingTicket = CASAuthUtil.getGrantingTicket(
                             uni, password);
                     storeGrantingTicketIfChecked(grantingTicket);
                     startTimer();
@@ -232,7 +232,7 @@ public class Login extends Activity {
                     grantingTicket = loginPreferences.getString("ticket");
                 }
                 
-                serviceTicket = CASRestAuthenticator.login(uni, grantingTicket);
+                serviceTicket = CASAuthUtil.login(uni, grantingTicket);
                 if (serviceTicket != null)
                     worked = true;
 

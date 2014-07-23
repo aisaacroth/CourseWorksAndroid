@@ -20,7 +20,7 @@ public class ExpirationTimer extends IntentService {
             synchronized (this) {
                 try {
                     wait(logoutTime - System.currentTimeMillis());
-                    CASRestAuthenticator.logout();
+                    CASAuthUtil.logout();
                     eraseLoginSettingsFile();
                 } catch (Exception e) {
                     e.printStackTrace();

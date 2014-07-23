@@ -20,23 +20,25 @@ import com.aisaacroth.courseworks.structures.User;
  * @author Alexander Roth
  * @date 2014-07-21
  */
-public class UserReconstructor {
+public class UserReconstructor extends Reconstructor {
 
-    private static User currentUser;
+    public UserReconstructor(User user) {
+        this.user = user;
+    }
 
-    public static User constructUser(String url) {
+    public User constructUser(String url) {
         try {
-            HttpResponse response = getCurrentUserResponse(url);
+            HttpResponse response = getResponse(url);
             String file = getXMLFromResponse(response);
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return currentUser;
+        return user;
     }
 
-    public static HttpResponse getCurrentUserResponse(String url)
+    public HttpResponse getResponse(String url)
             throws ClientProtocolException, IOException {
         HttpClient serverClient = new DefaultHttpClient();
         HttpGet getUsersXml = new HttpGet(url);
@@ -44,8 +46,4 @@ public class UserReconstructor {
         return currentUserResponse;
     }
 
-    public static String getXMLFromResponse(HttpResponse response) throws ParseException, IOException {
-        HttpEntity xmlEntity = response.getEntity();
-        return EntityUtils.toString(xmlEntity); 
-    }
 }

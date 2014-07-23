@@ -2,11 +2,11 @@ package com.aisaacroth.courseworks.test;
 
 import java.io.IOException;
 
-import com.aisaacroth.courseworks.web.CASRestAuthenticator;
+import com.aisaacroth.courseworks.web.CASAuthUtil;
 
 import junit.framework.TestCase;
 
-public class CASRestAuthServiceTest extends TestCase {
+public class CASAuthUtilTest extends TestCase {
     private String username;
     private String password;
     private String grantingTicket;
@@ -19,14 +19,14 @@ public class CASRestAuthServiceTest extends TestCase {
     private void initTestStrings() throws IOException {
         username = "air2112";
         password = "BA115hp34";
-        grantingTicket = CASRestAuthenticator.getGrantingTicket(username,
+        grantingTicket = CASAuthUtil.getGrantingTicket(username,
                 password);
     }
 
     public void testServiceWorks() {
         String serviceTicket = null;
         try {
-            serviceTicket = CASRestAuthenticator
+            serviceTicket = CASAuthUtil
                     .login(username, grantingTicket);
         } catch (IOException e) {
             e.printStackTrace();
@@ -37,7 +37,7 @@ public class CASRestAuthServiceTest extends TestCase {
     public void testServiceTicketExists() {
         String serviceTicket = null;
         try {
-            serviceTicket = CASRestAuthenticator
+            serviceTicket = CASAuthUtil
                     .login(username, grantingTicket);
         } catch (IOException e) {
             e.printStackTrace();
