@@ -43,9 +43,9 @@ Please refer to the [documentation][Documentation] for more security information
     
 ## ToDo
 
-1. Test Authentication Process
+1. ~~Test Authentication Process~~
 2. ~~Secure private information of user.~~
-3. Update feature list based on student responses.
+3. ~~Update feature list based on student responses.~~
 4. Move to alpha build once Courseworks servers are prepared.
 5. Implement methods to get information from the Courseworks API.
 
