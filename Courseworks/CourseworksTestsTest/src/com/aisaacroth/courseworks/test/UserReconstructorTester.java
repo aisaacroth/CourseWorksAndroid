@@ -22,26 +22,28 @@ public class UserReconstructorTester extends TestCase {
         testUser = null;
         testReconstructor = new UserReconstructor(testUser);
     }
-    
+
     public void testConstructor() {
         assertNotNull(testReconstructor);
     }
-    
-    public void testGetCurrentUserResponse() throws ClientProtocolException, IOException {
+
+    public void testGetCurrentUserResponse() throws ClientProtocolException,
+            IOException {
         response = testReconstructor.getResponse(url);
         assertNotNull(response);
     }
-    
-    public void testGetXMLFromResponse() throws ClientProtocolException, IOException {
+
+    public void testGetXMLFromResponse() throws ClientProtocolException,
+            IOException {
         response = testReconstructor.getResponse(url);
         String xml = testReconstructor.getXMLFromResponse(response);
         assertNotNull(xml);
     }
-    
+
     public void testUserReconstructed() {
         testReconstructor.constructUser(url);
     }
-    
+
     protected void tearDown() throws Exception {
         super.tearDown();
     }
