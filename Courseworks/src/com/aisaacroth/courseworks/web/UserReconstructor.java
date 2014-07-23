@@ -2,9 +2,6 @@ package com.aisaacroth.courseworks.web;
 
 import java.io.IOException;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
-
 import com.aisaacroth.courseworks.structures.User;
 
 /**
@@ -15,20 +12,27 @@ import com.aisaacroth.courseworks.structures.User;
  */
 public class UserReconstructor extends Reconstructor {
 
-    public UserReconstructor(User user) {
-        this.user = user;
+    public UserReconstructor() {
+        this.user = null;
         this.xmlString = null;
+        this.response = null;
     }
 
     public User constructUser(String url) {
         try {
-            HttpResponse response = getResponse(url);
-            this.xmlString = getXMLFromResponse(response);
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
+            setResponse(url);
+            setUserXml();
+            setUser();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return user;
+    }
+
+    private void setUser() {
+        user.setUni(parseFromTag("displayId"));
+        user.setUserID(parseFromTag("id"));
+        user.setDisplayName(parseFromTag("displayName"));
+        user.setEmailAddress(parseFromTag("email"));
     }
 }

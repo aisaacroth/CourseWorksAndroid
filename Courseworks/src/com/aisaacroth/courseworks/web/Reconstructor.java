@@ -15,6 +15,7 @@ public abstract class Reconstructor {
 
     public User user;
     public String xmlString;
+    public HttpResponse response;
 
     public HttpResponse getResponse(String url) throws ClientProtocolException,
             IOException {
@@ -40,6 +41,15 @@ public abstract class Reconstructor {
 
         String value = xmlString.substring(openTagEndIndex, indexOfCloseTag);
         return value;
+    }
+
+    protected void setUserXml() throws ParseException, IOException {
+        this.xmlString = getXMLFromResponse(response);
+    }
+
+    protected void setResponse(String url) throws ClientProtocolException,
+            IOException {
+        this.response = getResponse(url);
     }
 
 }
