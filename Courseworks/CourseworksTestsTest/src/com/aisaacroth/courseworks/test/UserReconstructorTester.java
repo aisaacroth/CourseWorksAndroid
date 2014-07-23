@@ -131,7 +131,17 @@ public class UserReconstructorTester extends TestCase {
     }
 
     public void testUserReconstructed() {
-        testReconstructor.constructUser(url);
+        testUser = testReconstructor.constructUser(prepareXMLString());
+        assertNotNull(testUser);
+        String testUni = "air2112";
+        String testID = "cff5b1bc-89d2-4473-b3c5-df79f372acf3";
+        String testDisplayName = "Alexander Isaac Roth";
+        String testEmailAddress = "air2112@columbia.edu";
+        
+        assertEquals(testUni, testUser.getUni());
+        assertEquals(testID, testUser.getUserID());
+        assertEquals(testDisplayName, testUser.getDisplayName());
+        assertEquals(testEmailAddress, testUser.getEmailAddress());
     }
 
     protected void tearDown() throws Exception {

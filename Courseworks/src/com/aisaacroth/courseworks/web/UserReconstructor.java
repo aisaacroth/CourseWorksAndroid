@@ -13,7 +13,7 @@ import com.aisaacroth.courseworks.structures.User;
 public class UserReconstructor extends Reconstructor {
 
     public UserReconstructor() {
-        this.user = null;
+        this.user = new User();
         this.xmlString = null;
         this.response = null;
     }
@@ -26,6 +26,7 @@ public class UserReconstructor extends Reconstructor {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         return user;
     }
 
