@@ -1,6 +1,4 @@
-package com.aisaacroth.courseworks.web;
-
-import java.io.IOException;
+package com.aisaacroth.courseworks.reconstructors;
 
 import com.aisaacroth.courseworks.structures.User;
 
@@ -15,17 +13,11 @@ public class UserReconstructor extends Reconstructor {
     public UserReconstructor() {
         this.user = new User();
         this.xmlString = null;
-        this.response = null;
     }
 
     public User constructUser(String url) {
-        try {
-            setResponse(url);
-            setUserXml();
-            setUser();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // setUserXml();
+        setUser();
 
         return user;
     }

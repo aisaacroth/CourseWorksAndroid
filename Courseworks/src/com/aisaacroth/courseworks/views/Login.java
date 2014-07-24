@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
-import com.aisaacroth.courseworks.web.CASAuthUtil;
-import com.aisaacroth.courseworks.web.ExpirationTimer;
+import com.aisaacroth.courseworks.utils.CASAuthUtil;
+import com.aisaacroth.courseworks.utils.ExpirationTimer;
 
 import android.animation.*;
 

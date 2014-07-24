@@ -2,7 +2,7 @@ package com.aisaacroth.courseworks.test;
 
 import java.io.IOException;
 
-import com.aisaacroth.courseworks.web.CASAuthUtil;
+import com.aisaacroth.courseworks.utils.CASAuthUtil;
 
 import junit.framework.TestCase;
 

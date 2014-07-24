@@ -3,7 +3,7 @@ package com.aisaacroth.courseworks.adapters;
 import java.util.ArrayList;
 
 import com.aisaacroth.courseworks.R;
-import com.aisaacroth.courseworks.structures.Announcements;
+import com.aisaacroth.courseworks.structures.Announcement;
 
 import android.content.Context;
 import android.view.*;
@@ -20,9 +20,9 @@ import android.widget.*;
 public class AnnouncementAdapter extends BaseExpandableListAdapter {
 
     private LayoutInflater inflater;
-    private ArrayList<Announcements> parentArrayList;
+    private ArrayList<Announcement> parentArrayList;
 
-    public AnnouncementAdapter(Context context, ArrayList<Announcements> parent) {
+    public AnnouncementAdapter(Context context, ArrayList<Announcement> parent) {
         parentArrayList = parent;
         inflater = LayoutInflater.from(context);
     }

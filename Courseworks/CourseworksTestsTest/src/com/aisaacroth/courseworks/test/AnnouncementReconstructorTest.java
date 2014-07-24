@@ -1,11 +1,8 @@
 package com.aisaacroth.courseworks.test;
 
-import java.io.IOException;
 
-import org.apache.http.client.ClientProtocolException;
-
+import com.aisaacroth.courseworks.reconstructors.AnnouncementReconstructor;
 import com.aisaacroth.courseworks.structures.User;
-import com.aisaacroth.courseworks.web.AnnouncementReconstructor;
 
 import junit.framework.TestCase;
 
@@ -37,13 +34,16 @@ public class AnnouncementReconstructorTest extends TestCase {
         assertEquals(testURL, url);
     }
     
-    public void testConnection() throws ClientProtocolException, IOException {
-        testAR.response = testAR.getResponse(url);
-        assertNotNull(testAR.response);
-    }
-
     public void testConstructor() {
         assertNotNull(testAR);
+    }
+    
+    public void testParseDate() {
+        String testDateXML = "<createdOn type=\"date\" date=\"2014-06-30T21:36:30-04:00\">1404178590672</createdOn>";
+        testAR.xmlString = testDateXML;
+        String testDate = "2014-06-30";
+        String actualDate = testAR.parseFromTag("createdOn");
+        assertEquals(testDate, actualDate);
     }
 
 
