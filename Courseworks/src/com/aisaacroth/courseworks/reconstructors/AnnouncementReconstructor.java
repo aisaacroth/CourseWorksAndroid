@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.http.client.ClientProtocolException;
 
+import com.aisaacroth.courseworks.structures.Announcement;
 import com.aisaacroth.courseworks.structures.User;
 
 /**
@@ -14,11 +15,24 @@ import com.aisaacroth.courseworks.structures.User;
  * @date 2014-07-24
  */
 public class AnnouncementReconstructor extends Reconstructor {
+    
+    private Announcement announcement;
 
     public AnnouncementReconstructor(User user) throws ClientProtocolException,
             IOException {
         this.user = user;
         this.xmlString = null;
+        this.announcement = null;
+    }
+    
+    private void setAnnouncement() {
+        
+    }
+    
+    public Announcement constructAnnouncement(String url) throws ClientProtocolException, IOException {
+        setXMLString(url);
+        setAnnouncement();
+        return announcement;
     }
 
     public String parseDateString() {
