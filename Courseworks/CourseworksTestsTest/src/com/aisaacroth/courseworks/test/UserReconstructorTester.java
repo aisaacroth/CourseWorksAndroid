@@ -19,7 +19,7 @@ public class UserReconstructorTester extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         url = "https://courseworks.columbia.edu/welcome";
-        testUser = null;
+        testUser = new User();
         testReconstructor = new UserReconstructor();
     }
 
@@ -72,7 +72,7 @@ public class UserReconstructorTester extends TestCase {
         assertEquals(testEmailAddress, actualEmailAddress);
     }
 
-    public void testParseAllFromXMLString() {
+    public void testParseAllFromXMLString() throws Exception {
         testReconstructor.xmlString = prepareXMLString();
         String actualUni = testReconstructor.parseFromTag("displayId");
         String actualId = testReconstructor.parseFromTag("id");
@@ -130,20 +130,20 @@ public class UserReconstructorTester extends TestCase {
                 + "<entityTitle>Alexander Isaac Roth</entityTitle>" + "</user>";
     }
 
-    public void testUserReconstructed() {
-        testUser = testReconstructor.constructUser(prepareXMLString());
-        assertNotNull(testUser);
-        String testUni = "air2112";
-        String testID = "cff5b1bc-89d2-4473-b3c5-df79f372acf3";
-        String testDisplayName = "Alexander Isaac Roth";
-        String testEmailAddress = "air2112@columbia.edu";
+//    public void testUserReconstructed() {
+//        testUser = testReconstructor.constructUser(prepareXMLString());
+//        assertNotNull(testUser);
+//        String testUni = "air2112";
+//        String testID = "cff5b1bc-89d2-4473-b3c5-df79f372acf3";
+//        String testDisplayName = "Alexander Isaac Roth";
+//        String testEmailAddress = "air2112@columbia.edu";
         
-        assertEquals(testUni, testUser.getUni());
-        assertEquals(testID, testUser.getUserID());
-        assertEquals(testDisplayName, testUser.getDisplayName());
-        assertEquals(testEmailAddress, testUser.getEmailAddress());
-    }
-
+//        assertEquals(testUni, testUser.getUni());
+//        assertEquals(testID, testUser.getUserID());
+//        assertEquals(testDisplayName, testUser.getDisplayName());
+//        assertEquals(testEmailAddress, testUser.getEmailAddress());
+//    }
+    
     protected void tearDown() throws Exception {
         super.tearDown();
     }
