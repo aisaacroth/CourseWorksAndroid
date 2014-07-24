@@ -1,5 +1,9 @@
 package com.aisaacroth.courseworks.reconstructors;
 
+import java.io.IOException;
+
+import org.apache.http.client.ClientProtocolException;
+
 import com.aisaacroth.courseworks.structures.User;
 
 /**
@@ -10,16 +14,9 @@ import com.aisaacroth.courseworks.structures.User;
  */
 public class UserReconstructor extends Reconstructor {
 
-    public UserReconstructor() {
+    public UserReconstructor() throws ClientProtocolException, IOException {
         this.user = new User();
         this.xmlString = null;
-    }
-
-    public User constructUser(String url) {
-        // setUserXml();
-        setUser();
-
-        return user;
     }
 
     private void setUser() {
@@ -28,4 +25,11 @@ public class UserReconstructor extends Reconstructor {
         user.setDisplayName(parseFromTag("displayName"));
         user.setEmailAddress(parseFromTag("email"));
     }
+    
+    public User constructUser(String url) throws ClientProtocolException, IOException {
+        setXMLString(url);
+        setUser();
+        return user;
+    }
+
 }

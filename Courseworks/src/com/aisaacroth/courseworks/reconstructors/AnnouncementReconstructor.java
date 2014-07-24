@@ -20,12 +20,12 @@ public class AnnouncementReconstructor extends Reconstructor {
         this.user = user;
         this.xmlString = null;
     }
-    
+
     public String parseDateString() {
         String dateSubTag = parseFromTag("createdOn");
         int startIndexDate = dateSubTag.indexOf("date=");
         int endIndexDate = dateSubTag.indexOf("T");
         return null;
     }
-    
+
 }

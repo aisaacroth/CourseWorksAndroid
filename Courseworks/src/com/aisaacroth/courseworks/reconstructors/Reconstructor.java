@@ -2,20 +2,26 @@ package com.aisaacroth.courseworks.reconstructors;
 
 import java.io.IOException;
 
-import org.apache.http.*;
-import org.apache.http.util.EntityUtils;
+import org.apache.http.client.ClientProtocolException;
 
+import com.aisaacroth.courseworks.requesters.Requester;
 import com.aisaacroth.courseworks.structures.User;
 
 public abstract class Reconstructor {
 
     public User user;
     public String xmlString;
+    private Requester requester;
 
-    public String getXMLFromResponse(HttpResponse response)
-            throws ParseException, IOException {
-        HttpEntity xmlEntity = response.getEntity();
-        return EntityUtils.toString(xmlEntity);
+    public void setXMLString(String url) throws ClientProtocolException,
+            IOException {
+        requester = new Requester();
+        this.xmlString = getXMLFromRequester(url);
+    }
+
+    private String getXMLFromRequester(String url)
+            throws ClientProtocolException, IOException {
+        return requester.getXMLFromResponse(requester.getRequest(url));
     }
 
     public String parseFromTag(String xmlTag) {
@@ -26,7 +32,8 @@ public abstract class Reconstructor {
         int indexOfCloseTag = this.xmlString.indexOf(endTag);
         int openTagEndIndex = indexOfOpenTag + startTag.length();
 
-        String value = this.xmlString.substring(openTagEndIndex, indexOfCloseTag);
+        String value = this.xmlString.substring(openTagEndIndex,
+                indexOfCloseTag);
         return value;
     }
 
