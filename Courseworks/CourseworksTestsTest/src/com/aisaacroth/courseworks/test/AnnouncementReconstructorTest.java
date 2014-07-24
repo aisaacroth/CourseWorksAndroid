@@ -42,7 +42,7 @@ public class AnnouncementReconstructorTest extends TestCase {
         String testDateXML = "<createdOn type=\"date\" date=\"2014-06-30T21:36:30-04:00\">1404178590672</createdOn>";
         testAR.xmlString = testDateXML;
         String testDate = "2014-06-30";
-        String actualDate = testAR.parseFromTag("createdOn");
+        String actualDate = testAR.parseDateString();
         assertEquals(testDate, actualDate);
     }
 

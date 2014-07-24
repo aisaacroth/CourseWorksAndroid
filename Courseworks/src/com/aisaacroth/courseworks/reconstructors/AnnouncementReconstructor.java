@@ -23,9 +23,11 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     public String parseDateString() {
         String dateSubTag = parseFromTag("createdOn");
-        int startIndexDate = dateSubTag.indexOf("date=");
+        String dateAttribute = "date=\"";
+        int startIndexDate = dateSubTag.indexOf(dateAttribute);
         int endIndexDate = dateSubTag.indexOf("T");
-        return null;
+        return dateSubTag.substring(startIndexDate + dateAttribute.length(),
+                endIndexDate);
     }
 
 }
