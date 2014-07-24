@@ -43,38 +43,6 @@ public class UserReconstructorTest extends TestCase {
         assertNotNull(xml);
     }
 
-    public void testParseUNIFromString() {
-        String testUniXml = "<displayId>air2112</displayId>";
-        testReconstructor.xmlString = testUniXml;
-        String testUni = testReconstructor.parseFromTag("displayId");
-        assertEquals("air2112", testUni);
-    }
-
-    public void testParseUserIdFromString() {
-        String testIdXml = "<id>cff5b1bc-89d2-4473-b3c5-df79f372acf3</id>";
-        String testID = "cff5b1bc-89d2-4473-b3c5-df79f372acf3";
-        testReconstructor.xmlString = testIdXml;
-        String actualId = testReconstructor.parseFromTag("id");
-        assertEquals(testID, actualId);
-    }
-
-    public void testParseDisplayNameFromString() {
-        String testDisplayNameXml = "<displayName>Alexander Isaac Roth</displayName>";
-        String testDisplayName = "Alexander Isaac Roth";
-        testReconstructor.xmlString = testDisplayNameXml;
-        String actualDisplayName = testReconstructor
-                .parseFromTag("displayName");
-        assertEquals(testDisplayName, actualDisplayName);
-    }
-
-    public void testParseEmailAddressFromString() {
-        String testEmailAddressXml = "<email>air2112@columbia.edu</email>";
-        String testEmailAddress = "air2112@columbia.edu";
-        testReconstructor.xmlString = testEmailAddressXml;
-        String actualEmailAddress = testReconstructor.parseFromTag("email");
-        assertEquals(testEmailAddress, actualEmailAddress);
-    }
-
     public void testParseAllFromXMLString() throws Exception {
         testReconstructor.xmlString = prepareXMLString();
         String actualUni = testReconstructor.parseFromTag("displayId");
@@ -92,7 +60,7 @@ public class UserReconstructorTest extends TestCase {
         assertEquals(testDisplayName, actualDisplayName);
         assertEquals(testEmailAddress, actualEmailAddress);
     }
-
+    
     private String prepareXMLString() {
         return "<user type=\"bean\" size=\"23\">"
                 + "<createdDate type=\"date\" date=\"2012-05-08T08:46:56-04:00\">1336481216570</createdDate>"
@@ -131,6 +99,38 @@ public class UserReconstructorTest extends TestCase {
                 + "</entityURL>"
                 + "<entityId>cff5b1bc-89d2-4473-b3c5-df79f372acf3</entityId>"
                 + "<entityTitle>Alexander Isaac Roth</entityTitle>" + "</user>";
+    }
+    
+    public void testParseDisplayNameFromString() {
+        String testDisplayNameXml = "<displayName>Alexander Isaac Roth</displayName>";
+        String testDisplayName = "Alexander Isaac Roth";
+        testReconstructor.xmlString = testDisplayNameXml;
+        String actualDisplayName = testReconstructor
+                .parseFromTag("displayName");
+        assertEquals(testDisplayName, actualDisplayName);
+    }
+
+    public void testParseEmailAddressFromString() {
+        String testEmailAddressXml = "<email>air2112@columbia.edu</email>";
+        String testEmailAddress = "air2112@columbia.edu";
+        testReconstructor.xmlString = testEmailAddressXml;
+        String actualEmailAddress = testReconstructor.parseFromTag("email");
+        assertEquals(testEmailAddress, actualEmailAddress);
+    }
+
+    public void testParseUNIFromString() {
+        String testUniXml = "<displayId>air2112</displayId>";
+        testReconstructor.xmlString = testUniXml;
+        String testUni = testReconstructor.parseFromTag("displayId");
+        assertEquals("air2112", testUni);
+    }
+
+    public void testParseUserIdFromString() {
+        String testIdXml = "<id>cff5b1bc-89d2-4473-b3c5-df79f372acf3</id>";
+        String testID = "cff5b1bc-89d2-4473-b3c5-df79f372acf3";
+        testReconstructor.xmlString = testIdXml;
+        String actualId = testReconstructor.parseFromTag("id");
+        assertEquals(testID, actualId);
     }
 
     // public void testUserReconstructed() {
