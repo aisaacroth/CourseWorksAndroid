@@ -20,6 +20,7 @@ public class AnnouncementTest extends TestCase {
         testAnnouncement.setDueDate("2014-01-01");
         testAnnouncement.setPostedDate("2014-01-01");
         testAnnouncement.setProfessorName("John Doe");
+        testAnnouncement.setId("bd91eca3-a367-42fa-b4ca-ad0b5681f43c");
     }
     
     public void testAllFields() {
@@ -41,6 +42,10 @@ public class AnnouncementTest extends TestCase {
     
     public void testDueDate() {
         assertEquals("2014-01-01", testAnnouncement.getDueDate());
+    }
+    
+    public void testId() {
+        assertEquals("bd91eca3-a367-42fa-b4ca-ad0b5681f43c", testAnnouncement.getId());
     }
     
     public void testPostedDate() {

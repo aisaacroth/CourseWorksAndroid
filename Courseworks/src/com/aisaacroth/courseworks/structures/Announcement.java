@@ -14,6 +14,7 @@ public class Announcement {
     private String postedDate;
     private String dueDate;
     private String professorName;
+    private String id;
 
     public Announcement() {
         this.title = null;
@@ -21,6 +22,7 @@ public class Announcement {
         this.postedDate = null;
         this.dueDate = null;
         this.professorName = null;
+        this.id = null;
     }
 
     public String getTitle() {
@@ -42,6 +44,10 @@ public class Announcement {
     public String getProfessorName() {
         return this.professorName;
     }
+    
+    public String getId() {
+        return this.id;
+    }
 
     public void setTitle(String title) {
         this.title = title;
@@ -61,6 +67,10 @@ public class Announcement {
 
     public void setProfessorName(String professorName) {
         this.professorName = professorName;
+    }
+    
+    public void setId(String id) {
+        this.id = id;
     }
 
 }
