@@ -11,6 +11,7 @@ public class Announcement {
 
     private String title;
     private String bodyText;
+    private String classId;
     private String postedDate;
     private String dueDate;
     private String professorName;
@@ -19,6 +20,7 @@ public class Announcement {
     public Announcement() {
         this.title = null;
         this.bodyText = null;
+        this.classId = null;
         this.postedDate = null;
         this.dueDate = null;
         this.professorName = null;
@@ -31,6 +33,10 @@ public class Announcement {
 
     public String getBodyText() {
         return this.bodyText;
+    }
+    
+    public String getClassId() {
+        return this.classId;
     }
 
     public String getPostedDate() {
@@ -55,6 +61,10 @@ public class Announcement {
 
     public void setBodyText(String bodyText) {
         this.bodyText = bodyText;
+    }
+    
+    public void setClassId(String classId) {
+        this.classId = classId;
     }
 
     public void setPostedDate(String postedDate) {

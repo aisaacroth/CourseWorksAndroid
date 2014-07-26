@@ -1,6 +1,7 @@
 package com.aisaacroth.courseworks.reconstructors;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 
@@ -27,13 +28,17 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     private void setAnnouncement() {
         announcement.setPostedDate(parseDateString());
+        announcement.setTitle(parseFromTag("title"));
+        announcement.setProfessorName(parseFromTag("createdByDisplayName"));
+        announcement.setBodyText(parseFromTag("body"));
+        announcement.setClassId(parseFromTag("siteId"));
     }
 
-    public Announcement constructAnnouncement(String url)
+    public ArrayList<Announcement> constructAnnouncements(String url)
             throws ClientProtocolException, IOException {
         setXMLString(url);
         setAnnouncement();
-        return announcement;
+        return null;
     }
 
     public String parseDateString() {
@@ -44,5 +49,25 @@ public class AnnouncementReconstructor extends Reconstructor {
         int startIndexLength = startIndexDate + dateAttribute.length();
         return dateSubTag.substring(startIndexLength, endIndexDate);
     }
-
+    
+    public String[] parseAnnouncementStrings() {
+        removeCollectionTag();
+        String[] announcementXMLs = xmlString.split("</announcement>");
+        removeAnnouncementTag(announcementXMLs);
+        return announcementXMLs;
+    }
+    
+    private void removeCollectionTag() {
+        int startIndex = this.xmlString.indexOf(">") + 1;
+        int endIndex = this.xmlString.indexOf("</announcement_collection");
+        this.xmlString = this.xmlString.substring(startIndex, endIndex);
+    }
+    
+    private void removeAnnouncementTag(String[] announcements) {
+        for (int i = 0; i < announcements.length; i++) {
+            int startIndex = announcements[i].indexOf(">") + 1;
+            announcements[i] = announcements[i].substring(startIndex);
+        }
+    }
+    
 }

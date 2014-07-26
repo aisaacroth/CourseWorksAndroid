@@ -38,6 +38,32 @@ public class AnnouncementReconstructorTest extends TestCase {
         assertNotNull(testAR);
     }
     
+    public void testParseAnnouncementString() {
+        String testAnnouncementsXML = "<announcement_collection entityPrefix=\"announcement\">"
+                + "<announcement>Hi</announcement>"
+                + "<announcement>Test</announcement>"
+                + "<announcement>Final One</announcement>"
+                + "</announcement_collection>";
+        testAR.xmlString = testAnnouncementsXML;
+        String[] actualAnnouncementStrings = testAR.parseAnnouncementStrings();
+        assertNotNull(actualAnnouncementStrings);
+    }
+    
+    public void testParseBody() {
+        String testBodyXML = "<body>"
+                + "<p> Estimados estudiantes,</p> <p> Aquí les adjunto una hoja"
+                + " de vocabulario para la película. También les recuerdo que el"
+                + " lunes es la última prueba (la Unidad 19).</p> <p> Saludos y"
+                + " buen fin de semana!</p> <p> Jessica</p> </body>";
+        testAR.xmlString = testBodyXML;
+        String testBody = "<p> Estimados estudiantes,</p> <p> Aquí les adjunto"
+                + " una hoja de vocabulario para la película. También les"
+                + " recuerdo que el lunes es la última prueba (la Unidad 19)."
+                + "</p> <p> Saludos y buen fin de semana!</p> <p> Jessica</p> ";
+        String actualBody = testAR.parseFromTag("body");
+        assertEquals(testBody, actualBody);
+    }
+    
     public void testParseDate() {
         String testDateXML = "<createdOn type=\"date\" date=\"2014-06-30T21:36:30-04:00\">1404178590672</createdOn>";
         testAR.xmlString = testDateXML;
@@ -45,7 +71,30 @@ public class AnnouncementReconstructorTest extends TestCase {
         String actualDate = testAR.parseDateString();
         assertEquals(testDate, actualDate);
     }
+    
+    public void testParseDisplayName() {
+        String testDisplayNameXML = "<createdByDisplayName>Jessica Gordon-Burroughs</createdByDisplayName>";
+        testAR.xmlString = testDisplayNameXML;
+        String testDisplayName = "Jessica Gordon-Burroughs";
+        String actualDisplayName = testAR.parseFromTag("createdByDisplayName");
+        assertEquals(testDisplayName, actualDisplayName);
+    }
 
+    public void testParseTitle() {
+        String testTitleXML = "<title>COMPOSICION 4.2</title>";
+        testAR.xmlString = testTitleXML;
+        String testTitle = "COMPOSICION 4.2";
+        String actualTitle = testAR.parseFromTag("title");
+        assertEquals(testTitle, actualTitle);
+    }
+    
+    public void testParseSiteId() {
+        String testSiteIdXML = "<siteId>SPANS1201_001_2014_2</siteId>";
+        testAR.xmlString = testSiteIdXML;
+        String testSiteId = "SPANS1201_001_2014_2";
+        String actualSiteId = testAR.parseFromTag("siteId");
+        assertEquals(testSiteId, actualSiteId);
+    }
 
     protected void tearDown() throws Exception {
         super.tearDown();
