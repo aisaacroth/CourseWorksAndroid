@@ -13,6 +13,7 @@ import android.animation.*;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.*;
+import android.graphics.Typeface;
 import android.os.*;
 import android.text.TextUtils;
 import android.view.*;
@@ -42,6 +43,8 @@ public class Login extends Activity {
     private View loginStatusView;
     private TextView loginStatusMessageField;
     private CheckBox rememberMeCheckBox;
+    private Button signInButton;
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +94,16 @@ public class Login extends Activity {
         loginFormView = findViewById(R.id.login_form);
         loginStatusView = findViewById(R.id.login_status);
         loginStatusMessageField = (TextView) findViewById(R.id.login_status_message);
+        signInButton = (Button) findViewById(R.id.sign_in_button);
+        forgotPassword = (TextView) findViewById(R.id.forgot_password);
+        
+        Typeface lightFont = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
+        Typeface boldFont = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
+        uniTextField.setTypeface(lightFont);
+        passwordTextField.setTypeface(lightFont);
+        rememberMeCheckBox.setTypeface(lightFont);
+        signInButton.setTypeface(boldFont);
+        forgotPassword.setTypeface(lightFont);
     }
 
     private boolean checkLoggedInBefore(File loginSettings) {
@@ -265,7 +278,7 @@ public class Login extends Activity {
                 Login.this.startActivity(mainIntent);
             } else {
                 passwordTextField
-                        .setError(getString(R.string.error_incorrect_login));
+                        .setError(getString(R.string.error_incorrect_signin));
                 passwordTextField.requestFocus();
             }
         }
