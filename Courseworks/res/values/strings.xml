@@ -5,9 +5,9 @@
     <color name="white">#FFFFFF</color>
     <color name="black_haze">#F1F2F2</color>
     <color name="delta">#A1A094</color>
-    <color name="denim">#0F69AB</color>
+    <color name="endeavour">#0167AD</color>
     <color name="iron">#DCDDDE</color>
-    <color name="shakespeare">#5CA8D6</color>
+    <color name="viking">#69B6DF</color>
 
     <string name="action_search">Search</string>
     <string name="action_settings">Settings</string>

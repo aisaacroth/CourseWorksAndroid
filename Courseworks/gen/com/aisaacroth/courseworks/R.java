@@ -807,9 +807,9 @@ containing a value of this type.
         public static final int black_haze=0x7f090005;
         public static final int columbia_blue=0x7f090003;
         public static final int delta=0x7f090006;
-        public static final int denim=0x7f090007;
+        public static final int endeavour=0x7f090007;
         public static final int iron=0x7f090008;
-        public static final int shakespeare=0x7f090009;
+        public static final int viking=0x7f090009;
         public static final int white=0x7f090004;
     }
     public static final class dimen {

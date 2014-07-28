@@ -98,11 +98,11 @@ public class Login extends Activity {
         forgotPassword = (TextView) findViewById(R.id.forgot_password);
         
         Typeface lightFont = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
-        Typeface boldFont = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
+        Typeface mediumFont = Typeface.createFromAsset(getAssets(), "Roboto-Medium.ttf");
         uniTextField.setTypeface(lightFont);
         passwordTextField.setTypeface(lightFont);
         rememberMeCheckBox.setTypeface(lightFont);
-        signInButton.setTypeface(boldFont);
+        signInButton.setTypeface(mediumFont);
         forgotPassword.setTypeface(lightFont);
     }
 

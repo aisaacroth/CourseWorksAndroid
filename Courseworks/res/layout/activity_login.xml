@@ -68,7 +68,8 @@
                 android:singleLine="true"
                 android:textColor="@color/delta"
                 android:textColorHint="@color/delta"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/password"
@@ -84,7 +85,8 @@
                 android:singleLine="true"
                 android:textColor="@color/delta"
                 android:textColorHint="@color/delta"
-                android:textCursorDrawable="@null" />
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
         </LinearLayout>
 
         <RelativeLayout
@@ -103,7 +105,8 @@
                 android:paddingLeft="32dp"
                 android:paddingRight="32dp"
                 android:text="@string/action_sign_in"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
             <TextView
                 android:id="@+id/forgot_password"
@@ -113,7 +116,8 @@
                 android:layout_alignBottom="@+id/remember_me"
                 android:layout_alignRight="@+id/sign_in_button"
                 android:text="@string/forgot_password"
-                android:textColor="@color/denim" />
+                android:textColor="@color/endeavour"
+                android:textSize="14sp" />
 
             <CheckBox
                 android:id="@+id/remember_me"
@@ -123,7 +127,7 @@
                 android:layout_below="@+id/sign_in_button"
                 android:layout_marginTop="10dp"
                 android:text="@string/remember_me"
-                android:textColor="@color/denim"
+                android:textColor="@color/endeavour"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
