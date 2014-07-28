@@ -37,7 +37,7 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/black_haze"
+        android:background="@color/light_grey"
         android:orientation="vertical" >
 
         <ImageView
@@ -66,8 +66,8 @@
                 android:maxLines="1"
                 android:padding="8dp"
                 android:singleLine="true"
-                android:textColor="@color/delta"
-                android:textColorHint="@color/delta"
+                android:textColor="@color/light_brown"
+                android:textColorHint="@color/light_brown"
                 android:textCursorDrawable="@null"
                 android:textSize="14sp" />
 
@@ -83,8 +83,8 @@
                 android:maxLines="1"
                 android:padding="8dp"
                 android:singleLine="true"
-                android:textColor="@color/delta"
-                android:textColorHint="@color/delta"
+                android:textColor="@color/light_brown"
+                android:textColorHint="@color/light_brown"
                 android:textCursorDrawable="@null"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -116,7 +116,7 @@
                 android:layout_alignBottom="@+id/remember_me"
                 android:layout_alignRight="@+id/sign_in_button"
                 android:text="@string/forgot_password"
-                android:textColor="@color/endeavour"
+                android:textColor="@color/dark_blue"
                 android:textSize="14sp" />
 
             <CheckBox
@@ -127,7 +127,7 @@
                 android:layout_below="@+id/sign_in_button"
                 android:layout_marginTop="10dp"
                 android:text="@string/remember_me"
-                android:textColor="@color/endeavour"
+                android:textColor="@color/dark_blue"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>

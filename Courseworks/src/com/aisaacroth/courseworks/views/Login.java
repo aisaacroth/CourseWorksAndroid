@@ -5,8 +5,7 @@ import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
-import com.aisaacroth.courseworks.utils.CASAuthUtil;
-import com.aisaacroth.courseworks.utils.ExpirationTimer;
+import com.aisaacroth.courseworks.utils.*;
 
 import android.animation.*;
 
@@ -88,6 +87,11 @@ public class Login extends Activity {
     }
 
     private void setUpLoginForm() {
+        setViews();
+        setFonts();
+    }
+    
+    private void setViews() {
         uniTextField = (EditText) findViewById(R.id.uni);
         passwordTextField = (EditText) findViewById(R.id.password);
         rememberMeCheckBox = (CheckBox) findViewById(R.id.remember_me);
@@ -96,14 +100,24 @@ public class Login extends Activity {
         loginStatusMessageField = (TextView) findViewById(R.id.login_status_message);
         signInButton = (Button) findViewById(R.id.sign_in_button);
         forgotPassword = (TextView) findViewById(R.id.forgot_password);
-        
+    }
+    
+    private void setFonts() {
+        setLightFonts();
+        setMediumFonts();
+    }
+    
+    private void setLightFonts() {
         Typeface lightFont = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
-        Typeface mediumFont = Typeface.createFromAsset(getAssets(), "Roboto-Medium.ttf");
         uniTextField.setTypeface(lightFont);
         passwordTextField.setTypeface(lightFont);
         rememberMeCheckBox.setTypeface(lightFont);
-        signInButton.setTypeface(mediumFont);
         forgotPassword.setTypeface(lightFont);
+    }
+    
+    private void setMediumFonts() {
+        Typeface mediumFont = Typeface.createFromAsset(getAssets(), "Roboto-Medium.ttf");
+        signInButton.setTypeface(mediumFont);
     }
 
     private boolean checkLoggedInBefore(File loginSettings) {
