@@ -805,10 +805,10 @@ containing a value of this type.
         public static final int abc_search_url_text_pressed=0x7f090002;
         public static final int abc_search_url_text_selected=0x7f090001;
         public static final int columbia_blue=0x7f090003;
-        public static final int dark_grey=0x7f090007;
+        public static final int dark_gray=0x7f090007;
+        public static final int light_gray=0x7f090005;
         public static final int sign_in_blue=0x7f090008;
         public static final int text_blue=0x7f090006;
-        public static final int text_gray=0x7f090005;
         public static final int white=0x7f090004;
     }
     public static final class dimen {
