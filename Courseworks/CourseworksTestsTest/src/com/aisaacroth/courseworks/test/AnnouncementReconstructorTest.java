@@ -11,6 +11,12 @@ import com.aisaacroth.courseworks.structures.User;
 
 import junit.framework.TestCase;
 
+/**
+ * The test suite for the AnnouncementReconstructor class
+ * 
+ * @author Alexander Roth
+ * @date 2014-07-29
+ */
 public class AnnouncementReconstructorTest extends TestCase {
     private User testUser;
     private AnnouncementReconstructor testAR;

@@ -7,6 +7,13 @@ import org.apache.http.client.ClientProtocolException;
 import com.aisaacroth.courseworks.requesters.Requester;
 import com.aisaacroth.courseworks.structures.User;
 
+/**
+ * Abstract class that provides some parsing functionality to reconstruct an
+ * XML object.
+ * 
+ * @author Alexander Roth
+ * @date 2014-07-29
+ */
 public abstract class Reconstructor {
 
     public User user;

@@ -8,6 +8,12 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+/**
+ * COMMAND-style class that launches commands to the given server.
+ * 
+ * @author Alexander Roth
+ * @date 2014-07-29
+ */
 public class Requester {
 
     public Requester() {

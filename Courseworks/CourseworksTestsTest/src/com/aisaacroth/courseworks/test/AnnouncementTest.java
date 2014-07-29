@@ -4,6 +4,12 @@ import com.aisaacroth.courseworks.structures.Announcement;
 
 import junit.framework.TestCase;
 
+/**
+ * Test suite for the Announcement class and object.
+ * 
+ * @author Alexander Roth
+ * @date 2014-07-29
+ */
 public class AnnouncementTest extends TestCase {
 
     private Announcement testAnnouncement;
