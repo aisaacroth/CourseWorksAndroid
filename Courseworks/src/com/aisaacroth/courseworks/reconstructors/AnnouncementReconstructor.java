@@ -18,6 +18,7 @@ import com.aisaacroth.courseworks.structures.User;
 public class AnnouncementReconstructor extends Reconstructor {
 
     private Announcement announcement;
+    private ArrayList<Announcement> announcementList;
 
     public AnnouncementReconstructor(User user) throws ClientProtocolException,
             IOException {
@@ -36,38 +37,58 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     public ArrayList<Announcement> constructAnnouncements(String url)
             throws ClientProtocolException, IOException {
-        setXMLString(url);
-        setAnnouncement();
-        return null;
+        // setXMLString(url);
+        String[] xmlArray = parseAnnouncementStrings();
+        announcementList = new ArrayList<Announcement>();
+
+        for (int i = 0; i < xmlArray.length; i++) {
+            this.announcement = new Announcement();
+            this.xmlString = xmlArray[i];
+            setAnnouncement();
+            announcementList.add(announcement);
+        }
+        return announcementList;
     }
 
     public String parseDateString() {
-        String dateSubTag = parseFromTag("createdOn");
-        String dateAttribute = "date=\"";
-        int startIndexDate = dateSubTag.indexOf(dateAttribute);
-        int endIndexDate = dateSubTag.indexOf("T");
-        int startIndexLength = startIndexDate + dateAttribute.length();
-        return dateSubTag.substring(startIndexLength, endIndexDate);
+        String dateSubTag = getDateLine();
+        return getDate(dateSubTag);
     }
-    
+
+    private String getDateLine() {
+        String startTag = "<createdOn";
+        String endTag = "</createdOn>";
+        int startTagLength = xmlString.indexOf(startTag) + startTag.length();
+        int endTagIndex = xmlString.indexOf(endTag);
+        return xmlString.substring(startTagLength, endTagIndex);
+    }
+
+    private String getDate(String dateString) {
+        String dateAttritube = "date=\"";
+        int startDateLength = dateString.indexOf(dateAttritube)
+                + dateAttritube.length();
+        int endIndexDate = dateString.indexOf("T");
+        return dateString.substring(startDateLength, endIndexDate);
+    }
+
     public String[] parseAnnouncementStrings() {
         removeCollectionTag();
         String[] announcementXMLs = xmlString.split("</announcement>");
         removeAnnouncementTag(announcementXMLs);
         return announcementXMLs;
     }
-    
+
     private void removeCollectionTag() {
         int startIndex = this.xmlString.indexOf(">") + 1;
         int endIndex = this.xmlString.indexOf("</announcement_collection");
         this.xmlString = this.xmlString.substring(startIndex, endIndex);
     }
-    
+
     private void removeAnnouncementTag(String[] announcements) {
         for (int i = 0; i < announcements.length; i++) {
             int startIndex = announcements[i].indexOf(">") + 1;
             announcements[i] = announcements[i].substring(startIndex);
         }
     }
-    
+
 }
