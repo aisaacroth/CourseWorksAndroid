@@ -1,11 +1,12 @@
 package com.aisaacroth.courseworks.views;
 
+import java.io.Serializable;
+
 import com.aisaacroth.courseworks.R;
+import com.aisaacroth.courseworks.structures.User;
 
 import android.support.v4.app.ListFragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.*;
 import android.widget.ArrayAdapter;
 
@@ -18,14 +19,23 @@ import android.widget.ArrayAdapter;
  * @date 2014-06-19
  */
 public class AnnouncementView extends ListFragment {
+    // private static final String USER_KEY = "user_key";
+    // private User currentUser;
 
-    String[] values = new String[]{};
+    String[] values = new String[] {};
+
+    // public static AnnouncementView newInstance(User currentUser) {
+    // AnnouncementView fragment = new AnnouncementView();
+    // Bundle bundle = new Bundle();
+    // bundle.putSerializable(USER_KEY, (Serializable) currentUser);
+    // fragment.setArguments(bundle);
+    // return fragment;
+    // }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Intent extras = getActivity().getIntent();
-        String ticket = extras.getStringExtra("ServiceTicket");
+        // currentUser = (User) getArguments().getSerializable(USER_KEY);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                 inflater.getContext(), android.R.layout.activity_list_item,
                 values);

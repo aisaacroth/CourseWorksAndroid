@@ -31,6 +31,20 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // Intent extras = getIntent();
+        // String serviceTicket = extras.getStringExtra("ServiceTicket");
+        // try {
+        // UserReconstructor reconstructor = new UserReconstructor();
+        // User currentUser =
+        // reconstructor.constructUser("https://courseworks.columbia.edu/");
+        // } catch (ClientProtocolException e) {
+        // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // } catch (IOException e) {
+        // TODO Auto-generated catch block
+        // e.printStackTrace();
+        // }
+
         initializeTabsPagerAdapter();
         setupActivity();
         addTabsToView();
