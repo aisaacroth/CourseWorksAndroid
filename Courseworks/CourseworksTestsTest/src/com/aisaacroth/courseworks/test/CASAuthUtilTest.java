@@ -25,15 +25,13 @@ public class CASAuthUtilTest extends TestCase {
     private void initTestStrings() throws IOException {
         username = "air2112";
         password = "BA115hp34";
-        grantingTicket = CASAuthUtil.getGrantingTicket(username,
-                password);
+        grantingTicket = CASAuthUtil.getGrantingTicket(username, password);
     }
 
     public void testServiceWorks() {
         String serviceTicket = null;
         try {
-            serviceTicket = CASAuthUtil
-                    .login(username, grantingTicket);
+            serviceTicket = CASAuthUtil.login(username, grantingTicket);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -43,8 +41,7 @@ public class CASAuthUtilTest extends TestCase {
     public void testServiceTicketExists() {
         String serviceTicket = null;
         try {
-            serviceTicket = CASAuthUtil
-                    .login(username, grantingTicket);
+            serviceTicket = CASAuthUtil.login(username, grantingTicket);
         } catch (IOException e) {
             e.printStackTrace();
         }

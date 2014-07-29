@@ -3,7 +3,9 @@ package com.aisaacroth.courseworks.views;
 import com.aisaacroth.courseworks.R;
 
 import android.support.v4.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.ArrayAdapter;
 
@@ -17,19 +19,19 @@ import android.widget.ArrayAdapter;
  */
 public class AnnouncementView extends ListFragment {
 
-    String[] values = new String[] { "Notification 1", "Notification 2",
-            "Notification 3", "Notification 4", "Notification 5",
-            "Notification 6", "Notification 7", "Notification 8" };
+    String[] values = new String[]{};
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        Intent extras = getActivity().getIntent();
+        String ticket = extras.getStringExtra("ServiceTicket");
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                inflater.getContext(), android.R.layout.simple_list_item_1,
+                inflater.getContext(), android.R.layout.activity_list_item,
                 values);
         setListAdapter(adapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
-
+        View view = inflater.inflate(R.layout.fragment_announcement_view, null);
+        return view;
     }
 
     @Override

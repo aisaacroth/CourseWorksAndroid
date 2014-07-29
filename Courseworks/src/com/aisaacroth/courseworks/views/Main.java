@@ -11,8 +11,8 @@ import android.support.v4.view.ViewPager;
 import android.view.*;
 
 /**
- * The Homepage activity for the Courseworks app. Acts as a container
- * for all the subsequent fragments.
+ * The Homepage activity for the Courseworks app. Acts as a container for all
+ * the subsequent fragments.
  * 
  * @author Alexander Roth
  * @date 2014-02-24
@@ -55,7 +55,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         // Set the initial fragment as the middle tab.
         viewPager.setCurrentItem(MIDDLE);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
