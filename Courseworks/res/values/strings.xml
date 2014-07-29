@@ -3,11 +3,10 @@
 
     <color name="columbia_blue">#6699CC</color>
     <color name="white">#FFFFFF</color>
-    <color name="light_grey">#F3F4F4</color>
-    <color name="light_brown">#A1A094</color>
-    <color name="dark_blue">#0167AD</color>
-    <color name="dark_grey">#DCDDDE</color>
-    <color name="light_blue">#69B6DF</color>
+    <color name="text_gray">#939598</color>
+    <color name="text_blue">#0167AD</color>
+    <color name="dark_grey">#939598</color>
+    <color name="sign_in_blue">#59A7D8</color>
 
     <string name="action_search">Search</string>
     <string name="action_settings">Settings</string>

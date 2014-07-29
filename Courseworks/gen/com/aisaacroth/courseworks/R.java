@@ -800,16 +800,15 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f080002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f09000a;
+        public static final int abc_search_url_text_holo=0x7f090009;
         public static final int abc_search_url_text_normal=0x7f090000;
         public static final int abc_search_url_text_pressed=0x7f090002;
         public static final int abc_search_url_text_selected=0x7f090001;
         public static final int columbia_blue=0x7f090003;
-        public static final int dark_blue=0x7f090007;
-        public static final int dark_grey=0x7f090008;
-        public static final int light_blue=0x7f090009;
-        public static final int light_brown=0x7f090006;
-        public static final int light_grey=0x7f090005;
+        public static final int dark_grey=0x7f090007;
+        public static final int sign_in_blue=0x7f090008;
+        public static final int text_blue=0x7f090006;
+        public static final int text_gray=0x7f090005;
         public static final int white=0x7f090004;
     }
     public static final class dimen {
@@ -996,11 +995,12 @@ containing a value of this type.
         public static final int abc_textfield_searchview_right_holo_light=0x7f020056;
         public static final int columbiaseal=0x7f020057;
         public static final int courseworks_login=0x7f020058;
-        public static final int ic_action_search=0x7f020059;
-        public static final int ic_launcher=0x7f02005a;
-        public static final int logo_courseworks=0x7f02005b;
-        public static final int rounded_button=0x7f02005c;
-        public static final int solid_textfield=0x7f02005d;
+        public static final int courseworks_logo_login=0x7f020059;
+        public static final int ic_action_search=0x7f02005a;
+        public static final int ic_launcher=0x7f02005b;
+        public static final int logo_courseworks=0x7f02005c;
+        public static final int rounded_button=0x7f02005d;
+        public static final int solid_textfield=0x7f02005e;
     }
     public static final class id {
         public static final int action_bar=0x7f07001a;

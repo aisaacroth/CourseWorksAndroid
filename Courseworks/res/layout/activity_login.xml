@@ -37,7 +37,7 @@
         android:id="@+id/login_form"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/light_grey"
+        android:background="@color/text_gray"
         android:orientation="vertical" >
 
         <ImageView
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/logo_description"
             android:paddingBottom="16dp"
-            android:src="@drawable/courseworks_login" />
+            android:src="@drawable/courseworks_logo_login" />
 
         <LinearLayout
             style="@style/LoginFormContainer"
@@ -66,8 +66,8 @@
                 android:maxLines="1"
                 android:padding="8dp"
                 android:singleLine="true"
-                android:textColor="@color/light_brown"
-                android:textColorHint="@color/light_brown"
+                android:textColor="@color/text_gray"
+                android:textColorHint="@color/text_gray"
                 android:textCursorDrawable="@null"
                 android:textSize="14sp" />
 
@@ -83,8 +83,8 @@
                 android:maxLines="1"
                 android:padding="8dp"
                 android:singleLine="true"
-                android:textColor="@color/light_brown"
-                android:textColorHint="@color/light_brown"
+                android:textColor="@color/text_gray"
+                android:textColorHint="@color/text_gray"
                 android:textCursorDrawable="@null"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -116,7 +116,7 @@
                 android:layout_alignBottom="@+id/remember_me"
                 android:layout_alignRight="@+id/sign_in_button"
                 android:text="@string/forgot_password"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/text_blue"
                 android:textSize="14sp" />
 
             <CheckBox
@@ -127,7 +127,7 @@
                 android:layout_below="@+id/sign_in_button"
                 android:layout_marginTop="10dp"
                 android:text="@string/remember_me"
-                android:textColor="@color/dark_blue"
+                android:textColor="@color/text_blue"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>
