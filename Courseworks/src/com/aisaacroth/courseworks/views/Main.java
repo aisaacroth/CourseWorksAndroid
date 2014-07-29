@@ -2,6 +2,7 @@ package com.aisaacroth.courseworks.views;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.TabsPagerAdapter;
+import com.aisaacroth.courseworks.structures.User;
 
 import android.app.*;
 import android.app.ActionBar.Tab;
@@ -23,6 +24,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private TabsPagerAdapter tabsPagerAdapter;
     private ActionBar actionBar;
     private final int MIDDLE = 1;
+    private User currentUser;
 
     private String[] tabTitles = { "Courses", "Home", "Calendar" };
 
@@ -30,21 +32,13 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Intent extras = getIntent();
-        // String serviceTicket = extras.getStringExtra("ServiceTicket");
-        // try {
-        // UserReconstructor reconstructor = new UserReconstructor();
-        // User currentUser =
-        // reconstructor.constructUser("https://courseworks.columbia.edu/");
-        // } catch (ClientProtocolException e) {
-        // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // } catch (IOException e) {
-        // TODO Auto-generated catch block
-        // e.printStackTrace();
-        // }
-
+        
+        currentUser = new User();
+        currentUser.setDisplayName("Alexander Isaac Roth");
+        currentUser.setEmailAddress("air2112@columbia.edu");
+        currentUser.setUni("air2112");
+        currentUser.setUserID("cff5b1bc-89d2-4473-b3c5-df79f372acf3");
+        
         initializeTabsPagerAdapter();
         setupActivity();
         addTabsToView();
@@ -109,6 +103,10 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         viewPager.setAdapter(tabsPagerAdapter);
         actionBar.setHomeButtonEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    }
+    
+    public User getUser() {
+        return currentUser;
     }
 
 }

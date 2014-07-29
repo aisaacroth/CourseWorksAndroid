@@ -22,7 +22,6 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     public AnnouncementReconstructor(User user) throws ClientProtocolException,
             IOException {
-        this.user = user;
         this.xmlString = null;
         this.announcement = null;
     }
@@ -36,7 +35,8 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     private String[] prepareXML(String url) throws ClientProtocolException,
             IOException {
-        setXMLString(url);
+        // setXMLString(url);
+        this.xmlString = prepareXML();
         String[] xmlArray = parseAnnouncementStrings();
         return xmlArray;
     }
@@ -104,6 +104,61 @@ public class AnnouncementReconstructor extends Reconstructor {
                 + dateAttritube.length();
         int endIndexDate = dateString.indexOf("T");
         return dateString.substring(startDateLength, endIndexDate);
+    }
+    
+    private String prepareXML() {
+        return "<announcement_collection entityPrefix=\"announcement\">"
+                + "<announcement type=\"bean\" size=\"13\">"
+                + "<announcementId>30e50f9d-6e47-4340-b314-f4135cdfc621</announcementId>"
+                + "<attachments type=\"collection\" size=\"0\"></attachments>"
+                + "<body>"
+                + "<p> Dear students:</p> <p> This message will be in English as it is very important. I was just notified that there is a scheduling conflict with our classroom for the final exam. They moved us to the fourth floor. </p> <p> HAM 411 SPAN 1201.001</p> <p> Call me if you have any problems.</p> <p> Cell: 610-420-3822</p> <p> Saludos,</p> <p> Jessica</p>"
+                + "</body>" 
+                + "<createdByDisplayName>Jessica Gordon-Burroughs</createdByDisplayName>"
+                + "<createdOn type=\"date\" date=\"2014-07-02T19:39:24-04:00\">1404344364809</createdOn>"
+                + "<id>"
+                + "SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
+                + "</id>"
+                + "<siteId>SPANS1201_001_2014_2</siteId>"
+                + "<siteTitle>My Workspace</siteTitle>"
+                + "<title>FINAL EXAM LOCATION: URGENT</title>"
+                + "<entityReference>"
+                + "/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
+                + "</entityReference>" 
+                + "<entityURL>"
+                + "https://courseworks.columbia.edu/direct/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
+                + "</entityURL>"
+                + "<entityId>"
+                + "SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
+                + "</entityId>"
+                + "<entityTitle>FINAL EXAM LOCATION: URGENT</entityTitle>"
+                + "</announcement>"
+                + "<announcement type=\"bean\" size=\"13\">"
+                + "<announcementId>30e50f9d-6e47-4340-b314-f4135cdfc621</announcementId>"
+                + "<attachments type=\"collection\" size=\"0\"></attachments>"
+                + "<body>"
+                + "<p> Dear students:</p> <p> This message will be in English as it is very important. I was just notified that there is a scheduling conflict with our classroom for the final exam. They moved us to the fourth floor. </p> <p> HAM 411 SPAN 1201.001</p> <p> Call me if you have any problems.</p> <p> Cell: 610-420-3822</p> <p> Saludos,</p> <p> Jessica</p>"
+                + "</body>" 
+                + "<createdByDisplayName>Jessica Gordon-Burroughs</createdByDisplayName>"
+                + "<createdOn type=\"date\" date=\"2014-07-02T19:39:24-04:00\">1404344364809</createdOn>"
+                + "<id>"
+                + "SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
+                + "</id>"
+                + "<siteId>SPANS1201_001_2014_2</siteId>"
+                + "<siteTitle>My Workspace</siteTitle>"
+                + "<title>FINAL EXAM LOCATION: URGENT</title>"
+                + "<entityReference>"
+                + "/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
+                + "</entityReference>" 
+                + "<entityURL>"
+                + "https://courseworks.columbia.edu/direct/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
+                + "</entityURL>"
+                + "<entityId>"
+                + "SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
+                + "</entityId>"
+                + "<entityTitle>FINAL EXAM LOCATION: URGENT</entityTitle>"
+                + "</announcement>"
+                + "</announcement_collection>";
     }
 
 }
