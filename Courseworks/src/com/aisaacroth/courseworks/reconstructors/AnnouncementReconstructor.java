@@ -27,27 +27,62 @@ public class AnnouncementReconstructor extends Reconstructor {
         this.announcement = null;
     }
 
+    public ArrayList<Announcement> constructAnnouncements(String url)
+            throws ClientProtocolException, IOException {
+        String[] xmlArray = prepareXML(url);
+        announcementList = fetchAnnouncements(xmlArray);
+        return announcementList;
+    }
+
+    private String[] prepareXML(String url) throws ClientProtocolException,
+            IOException {
+        setXMLString(url);
+        String[] xmlArray = parseAnnouncementStrings();
+        return xmlArray;
+    }
+
+    public String[] parseAnnouncementStrings() {
+        removeCollectionTag();
+        String[] announcementXMLs = splitAnnouncements();
+        removeAnnouncementTag(announcementXMLs);
+        return announcementXMLs;
+    }
+
+    private void removeCollectionTag() {
+        int startIndex = this.xmlString.indexOf(">") + 1;
+        int endIndex = this.xmlString.indexOf("</announcement_collection");
+        this.xmlString = this.xmlString.substring(startIndex, endIndex);
+    }
+
+    private String[] splitAnnouncements() {
+        return xmlString.split("</announcements");
+    }
+
+    private void removeAnnouncementTag(String[] announcements) {
+        for (int i = 0; i < announcements.length; i++) {
+            int startIndex = announcements[i].indexOf(">") + 1;
+            announcements[i] = announcements[i].substring(startIndex);
+        }
+    }
+
+    private ArrayList<Announcement> fetchAnnouncements(String[] xmlArray) {
+        ArrayList<Announcement> announcements = new ArrayList<Announcement>();
+
+        for (int i = 0; i < xmlArray.length; i++) {
+            this.announcement = new Announcement();
+            this.xmlString = xmlArray[i];
+            setAnnouncement();
+            announcements.add(announcement);
+        }
+        return announcements;
+    }
+
     private void setAnnouncement() {
         announcement.setPostedDate(parseDateString());
         announcement.setTitle(parseFromTag("title"));
         announcement.setProfessorName(parseFromTag("createdByDisplayName"));
         announcement.setBodyText(parseFromTag("body"));
         announcement.setClassId(parseFromTag("siteId"));
-    }
-
-    public ArrayList<Announcement> constructAnnouncements(String url)
-            throws ClientProtocolException, IOException {
-        // setXMLString(url);
-        String[] xmlArray = parseAnnouncementStrings();
-        announcementList = new ArrayList<Announcement>();
-
-        for (int i = 0; i < xmlArray.length; i++) {
-            this.announcement = new Announcement();
-            this.xmlString = xmlArray[i];
-            setAnnouncement();
-            announcementList.add(announcement);
-        }
-        return announcementList;
     }
 
     public String parseDateString() {
@@ -69,26 +104,6 @@ public class AnnouncementReconstructor extends Reconstructor {
                 + dateAttritube.length();
         int endIndexDate = dateString.indexOf("T");
         return dateString.substring(startDateLength, endIndexDate);
-    }
-
-    public String[] parseAnnouncementStrings() {
-        removeCollectionTag();
-        String[] announcementXMLs = xmlString.split("</announcement>");
-        removeAnnouncementTag(announcementXMLs);
-        return announcementXMLs;
-    }
-
-    private void removeCollectionTag() {
-        int startIndex = this.xmlString.indexOf(">") + 1;
-        int endIndex = this.xmlString.indexOf("</announcement_collection");
-        this.xmlString = this.xmlString.substring(startIndex, endIndex);
-    }
-
-    private void removeAnnouncementTag(String[] announcements) {
-        for (int i = 0; i < announcements.length; i++) {
-            int startIndex = announcements[i].indexOf(">") + 1;
-            announcements[i] = announcements[i].substring(startIndex);
-        }
     }
 
 }
