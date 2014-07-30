@@ -1,6 +1,5 @@
 package com.aisaacroth.courseworks.adapters;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.aisaacroth.courseworks.R;

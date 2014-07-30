@@ -26,7 +26,6 @@ public class AnnouncementView extends ListFragment {
     private User currentUser;
     private AnnouncementReconstructor reconstructor;
     private ArrayList<Announcement> announcementList;
-    private ArrayList<String> values;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -12,13 +12,9 @@
     <ListView
         android:id="@id/android:list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent" 
+        android:drawSelectorOnTop="false" >
     </ListView>
-    
-    <TextView
-        android:id="@+id/announcement_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
 
     <TextView
         android:id="@android:id/empty"
