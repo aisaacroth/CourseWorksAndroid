@@ -118,6 +118,8 @@ public class CASAuthUtil {
     private static HttpResponse postTicketToServer(String ticket)
             throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
+        
+        //TODO Switch to Production Servers
         HttpPost httpPost = new HttpPost(
                 "https://casdev.cc.columbia.edu/cas/v1/tickets/" + ticket);
 
@@ -132,6 +134,8 @@ public class CASAuthUtil {
     }
 
     private static void addService(List<NameValuePair> paramList) {
+        
+        //TODO Switch to Production Servers
         paramList.add(new BasicNameValuePair("service",
                 "https://sakaidev.cc.columbia.edu/sakai-login-tool/container?force.login=yes"));
     }

@@ -1,8 +1,6 @@
 package com.aisaacroth.courseworks.requesters;
 
 import java.io.IOException;
-import java.net.CookieHandler;
-import java.net.CookieManager;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -33,8 +31,6 @@ public class Requester {
         for (Header header : getXmlRequest.getAllHeaders()) {
             Log.d("REQUEST HEADER", header.getName() + ": " + header.getValue());
         }
-        CookieManager cookie = new CookieManager();
-        CookieHandler.setDefault(cookie);
         HttpResponse xmlResponse = serverClient.execute(getXmlRequest);
         return xmlResponse;
     };
