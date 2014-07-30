@@ -55,7 +55,7 @@ public class AnnouncementReconstructor extends Reconstructor {
     }
 
     private String[] splitAnnouncements() {
-        return xmlString.split("</announcements");
+        return xmlString.split("</announcement>");
     }
 
     private void removeAnnouncementTag(String[] announcements) {
@@ -146,7 +146,7 @@ public class AnnouncementReconstructor extends Reconstructor {
                 + "</id>"
                 + "<siteId>SPANS1201_001_2014_2</siteId>"
                 + "<siteTitle>My Workspace</siteTitle>"
-                + "<title>FINAL EXAM LOCATION: URGENT</title>"
+                + "<title>TESTING</title>"
                 + "<entityReference>"
                 + "/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
                 + "</entityReference>" 

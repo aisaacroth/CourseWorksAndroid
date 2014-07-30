@@ -1,6 +1,7 @@
 package com.aisaacroth.courseworks.adapters;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.structures.Announcement;
@@ -10,107 +11,48 @@ import android.view.*;
 import android.widget.*;
 
 /**
- * Extends the BaseExpandableListAdapter class in order to run an
- * ExpandableListVIew for the notification center within the "Courseworks"
- * application.
+ * Extends the ArrayAdapter class in order to run an ListView for the 
+ * announcement center within the "Courseworks" application.
  * 
  * @author Alexander Roth
  * @date 2014-06-12
  */
-public class AnnouncementAdapter extends BaseExpandableListAdapter {
+public class AnnouncementAdapter extends BaseAdapter {
+    
+    private Context context;
+    private List<Announcement> announcementList;
 
-    private LayoutInflater inflater;
-    private ArrayList<Announcement> parentArrayList;
-
-    public AnnouncementAdapter(Context context, ArrayList<Announcement> parent) {
-        parentArrayList = parent;
-        inflater = LayoutInflater.from(context);
+    public AnnouncementAdapter(Context context, List<Announcement> announcementList) {
+        this.context = context;
+        this.announcementList = announcementList;
     }
-
+    
     @Override
-    public int getGroupCount() {
-        return parentArrayList.size();
-    }
-
-    @Override
-    public int getChildrenCount(int groupPosition) {
-        return parentArrayList.size();
-    }
-
-    @Override
-    public Object getGroup(int groupPosition) {
-        return parentArrayList.get(groupPosition).getTitle();
-    }
-
-    @Override
-    public Object getChild(int groupPosition, int childPosition) {
-        return parentArrayList.get(groupPosition).getBodyText();
-    }
-
-    @Override
-    public long getGroupId(int groupPosition) {
-        return groupPosition;
-    }
-
-    @Override
-    public long getChildId(int groupPosition, int childPosition) {
-        return childPosition;
-    }
-
-    @Override
-    public boolean hasStableIds() {
-        return true;
-    }
-
-    @Override
-    public View getGroupView(int groupPosition, boolean isExpanded,
-            View convertView, ViewGroup parent) {
-        ViewHolder holder = new ViewHolder();
-        holder.groupPosition = getGroupCount();
-
+    public View getView(int position, View convertView, ViewGroup parent) {
+        Announcement announcement = announcementList.get(position);
         if (convertView == null) {
-            convertView = inflater.inflate(R.layout.list_item_parent, parent,
-                    false);
+            LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            convertView = inflater.inflate(R.layout.announcement_list_item, null);
         }
-
-        TextView textView = (TextView) convertView
-                .findViewById(R.id.list_item_text_view);
-        textView.setText(getGroup(groupPosition).toString());
-
-        convertView.setTag(holder);
-
+        TextView titleText = (TextView) convertView.findViewById(R.id.item_title);
+        titleText.setText(announcement.getTitle());
+        TextView classText = (TextView) convertView.findViewById(R.id.item_class);
+        classText.setText(announcement.getClassId());
         return convertView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition,
-            boolean isVisible, View convertView, ViewGroup parent) {
-        ViewHolder holder = new ViewHolder();
-        holder.childPosition = getChildTypeCount();
-        holder.groupPosition = getGroupTypeCount();
-
-        if (convertView == null) {
-            convertView = inflater.inflate(R.layout.list_item_child, parent,
-                    false);
-        }
-
-        TextView textView = (TextView) convertView
-                .findViewById(R.id.list_item_child);
-        textView.setText(parentArrayList.get(groupPosition).getBodyText());
-        convertView.setTag(holder);
-
-        return convertView;
+    public int getCount() {
+        return announcementList.size();
     }
 
     @Override
-    public boolean isChildSelectable(int groupPosition, int childPosition) {
-        return true;
+    public Object getItem(int position) {
+        return announcementList.get(position);
     }
 
-    protected class ViewHolder {
-        protected int childPosition;
-        protected int groupPosition;
-        protected Button button;
+    @Override
+    public long getItemId(int position) {
+        return position;
     }
-
 }

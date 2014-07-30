@@ -139,7 +139,7 @@ public class AnnouncementReconstructorTest extends TestCase {
                 + "</id>"
                 + "<siteId>SPANS1201_001_2014_2</siteId>"
                 + "<siteTitle>My Workspace</siteTitle>"
-                + "<title>FINAL EXAM LOCATION: URGENT</title>"
+                + "<title>TESTING METHOD TESTING</title>"
                 + "<entityReference>"
                 + "/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
                 + "</entityReference>" 

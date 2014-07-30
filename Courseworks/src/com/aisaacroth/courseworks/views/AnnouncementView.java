@@ -6,13 +6,13 @@ import java.util.ArrayList;
 import org.apache.http.client.ClientProtocolException;
 
 import com.aisaacroth.courseworks.R;
+import com.aisaacroth.courseworks.adapters.AnnouncementAdapter;
 import com.aisaacroth.courseworks.reconstructors.AnnouncementReconstructor;
 import com.aisaacroth.courseworks.structures.*;
 
 import android.support.v4.app.ListFragment;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.ArrayAdapter;
 
 /**
  * Maintains a dynamic list of announcements that are pushed to the user each
@@ -40,15 +40,9 @@ public class AnnouncementView extends ListFragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
-        values = new ArrayList<String>();
-        for (Announcement announcement : announcementList) {
-            values.add(announcement.getTitle());
-        }
-        
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                inflater.getContext(), R.layout.list_item_parent,
-                values);
+
+        AnnouncementAdapter adapter = new AnnouncementAdapter(
+                this.getActivity(), announcementList);
         setListAdapter(adapter);
         View view = inflater.inflate(R.layout.fragment_announcement_view, null);
         return view;
