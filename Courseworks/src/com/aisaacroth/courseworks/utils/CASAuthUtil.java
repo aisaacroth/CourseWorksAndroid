@@ -53,6 +53,7 @@ public class CASAuthUtil {
         HttpResponse response = httpClient.execute(httpPost);
         return response;
     }
+    
 
     private static void addUserPasswordParameter(List<NameValuePair> paramList,
             String username, String password) {
@@ -60,10 +61,9 @@ public class CASAuthUtil {
         paramList.add(new BasicNameValuePair("password", password));
     }
 
-    private static void logPost(HttpPost post) {
-        Log.d("Courseworks", post.getURI().toString()
-                + post.getParams().toString());
-        Log.d("Courseworks", post.getEntity().toString());
+    private static void logPost(HttpPost post) throws ParseException, IOException {
+        Log.d("Courseworks", post.getURI().toString());
+        Log.d("Courseworks", EntityUtils.toString(post.getEntity()));
     }
 
     private static String parseTicket(String ticket, HttpResponse response) {
@@ -133,7 +133,7 @@ public class CASAuthUtil {
 
     private static void addService(List<NameValuePair> paramList) {
         paramList.add(new BasicNameValuePair("service",
-                "https://courseworks.columbia.edu/sakai-login-tool/container"));
+                "https://sakaidev.cc.columbia.edu/sakai-login-tool/container?force.login=yes"));
     }
 
     private static boolean connectionIsGood(HttpResponse response) {
