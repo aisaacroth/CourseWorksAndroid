@@ -6,6 +6,7 @@ import java.net.*;
 public class CookieParser {
 
     private static URLConnection conn;
+    private static String cookie;
 
     public static String getCookie(String url, String type) throws IOException {
         URL cookieURL = new URL(url);
@@ -17,7 +18,7 @@ public class CookieParser {
 
     private static String parseCookie(String type) {
         String headerName = null;
-        String cookie = null;
+        cookie = null;
         for (int i = 1; (headerName = conn.getHeaderFieldKey(i)) != null; i++) {
             cookie = extractCookieFromHeaders(headerName, type, i);
         }
@@ -26,7 +27,6 @@ public class CookieParser {
 
     private static String extractCookieFromHeaders(String header, String type,
             int pos) {
-        String cookie = null;
         if (isSetCookie(header, type) && connHasJSession(pos)) {
             String headerString = conn.getHeaderField(pos);
             cookie = extractCookieFromString(headerString);
