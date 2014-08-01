@@ -287,7 +287,7 @@ public class Login extends Activity {
 
             if (success) {
                 finish();
-                Intent mainIntent = new Intent(Login.this, Main.class);
+                Intent mainIntent = new Intent(Login.this, HiddenWebView.class);
                 mainIntent.putExtra("ServiceTicket", serviceTicket);
                 Login.this.startActivity(mainIntent);
             } else {

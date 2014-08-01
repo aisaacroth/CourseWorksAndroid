@@ -5,6 +5,7 @@ import java.io.IOException;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
@@ -46,7 +47,10 @@ public class CookieParserTest extends TestCase {
         serviceTicket = CASAuthUtil.login(username, grantingTicket);
         String url = "https://sakaidev.cc.columbia.edu/sakai-login-tool/"
                 + "container?force.login=yes&ticket=" + serviceTicket;
-        String cookie = CookieParser.getCookie(url, "Set-Cookie");
+        HttpClient client = new DefaultHttpClient();
+        HttpGet get = new HttpGet(url);
+        HttpResponse reponse = client.execute(get);
+        Log.d("RESPONSE", EntityUtils.toString(reponse.getEntity()));
     }
 
     protected void tearDown() throws Exception {

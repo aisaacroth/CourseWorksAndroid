@@ -32,8 +32,8 @@
         <activity
             android:name="com.aisaacroth.courseworks.views.Login"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="adjustResize|stateVisible" 
-            android:theme="@android:style/Theme.Holo.Light.NoActionBar">
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize|stateVisible" >
         </activity>
 
         <!-- Main activity -->
@@ -58,10 +58,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <!-- RestAuth Service -->
         <service android:name="com.aisaacroth.courseworks.utils.ExpirationTimer" >
         </service>
+
+        <!-- HiddenWebView -->
+        <activity
+            android:name="com.aisaacroth.courseworks.views.HiddenWebView"
+            android:label="@string/title_activity_hidden_web_view"
+            android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
     </application>
 
 </manifest>

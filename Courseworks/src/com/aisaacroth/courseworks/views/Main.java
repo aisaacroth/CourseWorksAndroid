@@ -6,9 +6,11 @@ import com.aisaacroth.courseworks.structures.User;
 
 import android.app.*;
 import android.app.ActionBar.Tab;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.*;
 
 /**
@@ -34,14 +36,14 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         setContentView(R.layout.activity_main);
         
         currentUser = new User();
-        currentUser.setDisplayName("Alexander Isaac Roth");
-        currentUser.setEmailAddress("air2112@columbia.edu");
-        currentUser.setUni("air2112");
-        currentUser.setUserID("cff5b1bc-89d2-4473-b3c5-df79f372acf3");
         
         initializeTabsPagerAdapter();
         setupActivity();
         addTabsToView();
+        
+        Intent extras = getIntent();
+        String cookies = extras.getStringExtra("JSESSION");
+        Log.d("COOKIE PASSED", cookies);
 
         // Linking the tabs to their displays.
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
