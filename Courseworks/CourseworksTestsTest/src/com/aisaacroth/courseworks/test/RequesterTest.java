@@ -12,12 +12,10 @@ public class RequesterTest extends TestCase {
     private String username;
     private String password;
     private String grantingTicket;
-    private Requester testRequester;
 
     protected void setUp() throws Exception {
         super.setUp();
         initTestString();
-        testRequester = new Requester();
     }
 
     private void initTestString() throws IOException {

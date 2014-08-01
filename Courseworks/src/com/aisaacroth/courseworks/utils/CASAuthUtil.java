@@ -137,7 +137,7 @@ public class CASAuthUtil {
         
         //TODO Switch to Production Servers
         paramList.add(new BasicNameValuePair("service",
-                "https://sakaidev.cc.columbia.edu/sakai-login-tool/container"));
+                "https://sakaidev.cc.columbia.edu/sakai-login-tool/container?force.login=yes"));
     }
 
     private static boolean connectionIsGood(HttpResponse response) {
