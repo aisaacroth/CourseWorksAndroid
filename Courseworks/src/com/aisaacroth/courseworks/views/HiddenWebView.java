@@ -2,6 +2,7 @@ package com.aisaacroth.courseworks.views;
 
 import com.aisaacroth.courseworks.R;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.*;
 
+@SuppressLint("SetJavaScriptEnabled")
 public class HiddenWebView extends Activity {
 
     private WebView webView;

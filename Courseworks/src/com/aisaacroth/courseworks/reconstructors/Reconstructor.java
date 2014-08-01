@@ -20,15 +20,15 @@ public abstract class Reconstructor {
     public String xmlString;
     private Requester requester;
 
-    public void setXMLString(String url) throws ClientProtocolException,
+    public void setXMLString(String url, String sessionID) throws ClientProtocolException,
             IOException {
         requester = new Requester();
-        this.xmlString = getXMLFromRequester(url);
+        this.xmlString = getXMLFromRequester(url, sessionID);
     }
 
-    private String getXMLFromRequester(String url)
+    private String getXMLFromRequester(String url, String sessionID)
             throws ClientProtocolException, IOException {
-        return requester.getXMLFromResponse(requester.getRequest(url));
+        return requester.getXMLFromResponse(requester.getRequest(url, sessionID));
     }
 
     public String parseFromTag(String xmlTag) {

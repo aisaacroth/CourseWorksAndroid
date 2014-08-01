@@ -19,13 +19,13 @@ import android.util.Log;
 public class Requester {
 
     public Requester() {
-
     }
 
-    public HttpResponse getRequest(String url) throws ClientProtocolException,
+    public HttpResponse getRequest(String url, String sessionId) throws ClientProtocolException,
             IOException {
         HttpClient serverClient = new DefaultHttpClient();
         HttpGet getXmlRequest = new HttpGet(url);
+        getXmlRequest.setHeader("Cookie", sessionId);
         for (Header header : getXmlRequest.getAllHeaders()) {
             Log.d("REQUEST HEADER", header.getName() + ": " + header.getValue());
         }

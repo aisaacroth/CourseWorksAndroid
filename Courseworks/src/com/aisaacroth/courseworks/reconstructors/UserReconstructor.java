@@ -25,9 +25,10 @@ public class UserReconstructor extends Reconstructor {
         user.setDisplayName(parseFromTag("displayName"));
         user.setEmailAddress(parseFromTag("email"));
     }
-    
-    public User constructUser(String url) throws ClientProtocolException, IOException {
-        setXMLString(url);
+
+    public User constructUser(String url, String sessionID)
+            throws ClientProtocolException, IOException {
+        setXMLString(url, sessionID);
         setUser();
         return user;
     }

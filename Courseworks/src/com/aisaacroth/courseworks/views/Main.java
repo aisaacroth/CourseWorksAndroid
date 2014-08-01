@@ -1,7 +1,9 @@
 package com.aisaacroth.courseworks.views;
 
+
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.TabsPagerAdapter;
+import com.aisaacroth.courseworks.feeds.UserFeed;
 import com.aisaacroth.courseworks.structures.User;
 
 import android.app.*;
@@ -10,7 +12,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.*;
 
 /**
@@ -34,16 +35,15 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
-        currentUser = new User();
-        
+
+        Intent sessionIntent = getIntent();
+        String sessionCookie = sessionIntent.getStringExtra("JSESSION");
+        UserFeed userFeed = new UserFeed();
+        userFeed.execute(sessionCookie);
+       
         initializeTabsPagerAdapter();
         setupActivity();
         addTabsToView();
-        
-        Intent extras = getIntent();
-        String cookies = extras.getStringExtra("JSESSION");
-        Log.d("COOKIE PASSED", cookies);
 
         // Linking the tabs to their displays.
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -106,7 +106,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         actionBar.setHomeButtonEnabled(true);
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }
-    
+
     public User getUser() {
         return currentUser;
     }
