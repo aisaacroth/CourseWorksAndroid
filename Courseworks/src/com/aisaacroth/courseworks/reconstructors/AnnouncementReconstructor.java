@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 
-import android.util.Log;
-
 import com.aisaacroth.courseworks.structures.Announcement;
 
 /**
@@ -71,7 +69,6 @@ public class AnnouncementReconstructor extends Reconstructor {
         for (int i = 0; i < xmlArray.length - 1; i++) {
             this.announcement = new Announcement();
             this.xmlString = xmlArray[i];
-            Log.d("XML STRING " + i, xmlString);
             setAnnouncement();
             announcements.add(announcement);
         }
@@ -96,10 +93,7 @@ public class AnnouncementReconstructor extends Reconstructor {
         String endTag = "</createdOn>";
         int startTagLength = xmlString.indexOf(startTag) + startTag.length();
         int endTagIndex = xmlString.indexOf(endTag);
-        Log.d("DATE PARSE", "Start Tag Index = " + String.valueOf(startTagLength));
-        Log.d("DATE PARSE", "End Tag Index = " + String.valueOf(endTagIndex));
         String dateLine = xmlString.substring(startTagLength, endTagIndex);
-        Log.d("DATE LINE", dateLine);
         return dateLine;
     }
 

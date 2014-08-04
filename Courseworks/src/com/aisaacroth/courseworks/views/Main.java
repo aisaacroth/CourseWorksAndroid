@@ -79,7 +79,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.options_menu, menu);
+        inflater.inflate(R.menu.main, menu);
 
         return true;
     }

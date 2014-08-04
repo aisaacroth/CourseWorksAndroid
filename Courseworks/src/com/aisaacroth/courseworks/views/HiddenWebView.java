@@ -28,6 +28,7 @@ public class HiddenWebView extends Activity {
         String url = "https://sakaidev.cc.columbia.edu/sakai-login-tool/"
                 + "container?force.login=yes&ticket=" + ticket;
         webView.loadUrl(url);
+        Log.d("HIDDEN WEB VIEW URL", url);
         
         webView.setWebViewClient(new WebViewClient() {
             

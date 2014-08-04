@@ -9,7 +9,6 @@ import com.aisaacroth.courseworks.reconstructors.AnnouncementReconstructor;
 import com.aisaacroth.courseworks.structures.Announcement;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class AnnouncementFeed extends
         AsyncTask<String, Void, ArrayList<Announcement>> {
@@ -35,7 +34,6 @@ public class AnnouncementFeed extends
         try {
             announcementList = announcementReconstructor
                     .constructAnnouncements(url, params[0]);
-            Log.d("ANNOUNCEMENTS", "Got the announcements");
         } catch (ClientProtocolException e) {
             e.printStackTrace();
         } catch (IOException e) {

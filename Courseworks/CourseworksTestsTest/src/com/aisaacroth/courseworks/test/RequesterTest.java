@@ -2,26 +2,29 @@ package com.aisaacroth.courseworks.test;
 
 import java.io.IOException;
 
-import com.aisaacroth.courseworks.utils.CASAuthUtil;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.util.EntityUtils;
+
+import android.util.Log;
+
+import com.aisaacroth.courseworks.requesters.Requester;
 
 import junit.framework.TestCase;
 
 public class RequesterTest extends TestCase {
-    private String username;
-    private String password;
-    private String grantingTicket;
-    private String serviceTicket;
+    private Requester requester;
 
     protected void setUp() throws Exception {
         super.setUp();
-        initTestString();
+        requester = new Requester();
     }
 
-    private void initTestString() throws IOException {
-        username = "air2112";
-        password = "BA115hp34";
-        grantingTicket = CASAuthUtil.getGrantingTicket(username, password);
-        serviceTicket = CASAuthUtil.login(username, grantingTicket);
+    
+    public void testGetPage() throws ClientProtocolException, IOException {
+        String url = "https://sakaidev.cc.columbia.edu/";
+        HttpResponse response = requester.getRequest(url, "dummy");
+        Log.d("TESTING CLASSES", EntityUtils.toString(response.getEntity()));
     }
 
     protected void tearDown() throws Exception {

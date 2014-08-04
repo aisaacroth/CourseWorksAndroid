@@ -12,8 +12,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/courseworks_logo_login"
         android:theme="@style/AppTheme" >
 
         <!-- AnnouncementView Activity -->
@@ -68,6 +67,10 @@
             android:name="com.aisaacroth.courseworks.views.HiddenWebView"
             android:label="@string/title_activity_hidden_web_view"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
+        </activity>
+        <activity
+            android:name="com.aisaacroth.courseworks.views.AnnouncementView"
+            android:label="@string/title_activity_announcement_view" >
         </activity>
     </application>
 

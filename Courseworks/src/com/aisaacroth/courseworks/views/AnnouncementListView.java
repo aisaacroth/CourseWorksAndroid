@@ -40,6 +40,7 @@ public class AnnouncementListView extends ListFragment {
             e.printStackTrace();
         }
         
+        setHasOptionsMenu(true);
         AnnouncementAdapter adapter = new AnnouncementAdapter(
                 this.getActivity(), announcementList);
         setListAdapter(adapter);
@@ -57,5 +58,11 @@ public class AnnouncementListView extends ListFragment {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.announcement_list_view, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 }
