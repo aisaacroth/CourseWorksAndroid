@@ -10,6 +10,13 @@ import android.util.Log;
 import android.view.View;
 import android.webkit.*;
 
+/**
+ * Opens a non-visible WebView that parses the Session cookie to secure a web
+ * connection
+ * 
+ * @author Alexander Roth
+ * @date 2014-08-04
+ */
 @SuppressLint("SetJavaScriptEnabled")
 public class HiddenWebView extends Activity {
 

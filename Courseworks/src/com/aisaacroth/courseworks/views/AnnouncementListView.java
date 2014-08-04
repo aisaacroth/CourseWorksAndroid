@@ -28,10 +28,34 @@ public class AnnouncementListView extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        Intent sessionIntent = getActivity().getIntent();
-        String sessionID = sessionIntent.getStringExtra("JSESSION");
+        getAnnouncements();
+        setHasOptionsMenu(true);
+        AnnouncementAdapter adapter = new AnnouncementAdapter(
+                this.getActivity(), announcementList);
+        setListAdapter(adapter);
+        View view = inflater.inflate(R.layout.fragment_announcement_list_view,
+                null);
+        return view;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.announcement_list_view, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    private void getAnnouncements() {
+        String sessionID = getSessionID();
         AnnouncementFeed announcementFeed = new AnnouncementFeed();
-        
         try {
             announcementList = announcementFeed.execute(sessionID).get();
         } catch (InterruptedException e) {
@@ -39,30 +63,11 @@ public class AnnouncementListView extends ListFragment {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        
-        setHasOptionsMenu(true);
-        AnnouncementAdapter adapter = new AnnouncementAdapter(
-                this.getActivity(), announcementList);
-        setListAdapter(adapter);
-        View view = inflater.inflate(R.layout.fragment_announcement_list_view, null);
-        return view;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+    private String getSessionID() {
+        Intent sessionIntent = getActivity().getIntent();
+        return sessionIntent.getStringExtra("JSESSION");
     }
-    
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.announcement_list_view, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
+
 }
