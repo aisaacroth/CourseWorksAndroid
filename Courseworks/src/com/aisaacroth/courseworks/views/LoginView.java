@@ -26,7 +26,7 @@ import android.widget.*;
  * @author Alexander Roth
  * @date 2014-02-25
  */
-public class Login extends Activity {
+public class LoginView extends Activity {
 
     private UserLoginTask loginTask = null;
 
@@ -48,7 +48,7 @@ public class Login extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_view);
         setUpLoginForm();
 
         loginPreferences = new SharedPreferencesAdapter(this, "auth");
@@ -276,7 +276,7 @@ public class Login extends Activity {
         }
         
         private void startTimer() {
-            Intent timeoutIntent = new Intent(Login.this, ExpirationTimer.class);
+            Intent timeoutIntent = new Intent(LoginView.this, ExpirationTimer.class);
             startService(timeoutIntent);
         }
 
@@ -287,9 +287,9 @@ public class Login extends Activity {
 
             if (success) {
                 finish();
-                Intent mainIntent = new Intent(Login.this, HiddenWebView.class);
+                Intent mainIntent = new Intent(LoginView.this, HiddenWebView.class);
                 mainIntent.putExtra("ServiceTicket", serviceTicket);
-                Login.this.startActivity(mainIntent);
+                LoginView.this.startActivity(mainIntent);
             } else {
                 passwordTextField
                         .setError(getString(R.string.error_incorrect_signin));
@@ -307,7 +307,7 @@ public class Login extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.login, menu);
+        getMenuInflater().inflate(R.menu.login_view, menu);
         return true;
     }
 

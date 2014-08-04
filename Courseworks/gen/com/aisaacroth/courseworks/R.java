@@ -1146,9 +1146,9 @@ containing a value of this type.
         public static final int activity_calendar_view=0x7f03001a;
         public static final int activity_course_view=0x7f03001b;
         public static final int activity_hidden_web_view=0x7f03001c;
-        public static final int activity_login=0x7f03001d;
+        public static final int activity_login_view=0x7f03001d;
         public static final int activity_main=0x7f03001e;
-        public static final int activity_splash=0x7f03001f;
+        public static final int activity_splash_view=0x7f03001f;
         public static final int announcement_list_item=0x7f030020;
         public static final int fragment_announcement_list_view=0x7f030021;
         public static final int fragment_announcement_view=0x7f030022;
@@ -1162,7 +1162,7 @@ containing a value of this type.
         public static final int calendar_view=0x7f0f0002;
         public static final int course_view=0x7f0f0003;
         public static final int hidden_web_view=0x7f0f0004;
-        public static final int login=0x7f0f0005;
+        public static final int login_view=0x7f0f0005;
         public static final int main=0x7f0f0006;
         public static final int main_context_menu=0x7f0f0007;
         public static final int options_menu=0x7f0f0008;

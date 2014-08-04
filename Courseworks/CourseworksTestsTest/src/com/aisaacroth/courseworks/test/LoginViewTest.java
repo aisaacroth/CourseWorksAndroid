@@ -18,17 +18,17 @@ import android.widget.*;
  * @author Alexander Roth
  * @date 2014-07-09
  */
-public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
+public class LoginViewTest extends ActivityInstrumentationTestCase2<LoginView> {
     private Button signInButton;
     private CheckBox rememberCheckBox;
     private EditText uniTextField;
     private EditText passwordTextField;
-    private Login testLoginActivity;
+    private LoginView testLoginActivity;
     private Solo testSolo;
     private SharedPreferencesAdapter testPreferences;
 
-    public LoginTest() {
-        super(Login.class);
+    public LoginViewTest() {
+        super(LoginView.class);
     }
 
     @Override

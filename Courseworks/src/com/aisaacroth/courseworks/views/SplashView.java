@@ -15,7 +15,7 @@ import android.os.*;
  * @author Alexander Roth
  * @date 2014-02-24
  */
-public class Splash extends Activity {
+public class SplashView extends Activity {
 
     // Simulates the load time.
     private static int SPLASH_TIME_OUT = 1000;
@@ -23,7 +23,7 @@ public class Splash extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        setContentView(R.layout.activity_splash_view);
 
         new Handler().postDelayed(new Runnable() {
 
@@ -31,7 +31,7 @@ public class Splash extends Activity {
             public void run() {
                 // Go to the Login screen after this is implemented.
                 // TODO: Move back to Login class. Only set to Main for dev.
-                Intent i = new Intent(Splash.this, Login.class);
+                Intent i = new Intent(SplashView.this, LoginView.class);
                 startActivity(i);
 
                 // Close this activity
