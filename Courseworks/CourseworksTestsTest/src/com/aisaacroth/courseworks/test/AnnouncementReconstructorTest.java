@@ -25,7 +25,7 @@ public class AnnouncementReconstructorTest extends TestCase {
     protected void setUp() throws Exception {
         super.setUp();
         testUser = new User();
-        testAR = new AnnouncementReconstructor(testUser);
+        testAR = new AnnouncementReconstructor();
         url = "https://courseworks.columbia.edu/welcome/";
         setUpUser();
     }
@@ -94,7 +94,7 @@ public class AnnouncementReconstructorTest extends TestCase {
     public void testParseFullAnnouncements() throws ClientProtocolException, IOException {
         String testAnnouncementsXML = prepareXML();
         testAR.xmlString = testAnnouncementsXML;
-        ArrayList<Announcement> results = testAR.constructAnnouncements("dummy");
+        ArrayList<Announcement> results = testAR.constructAnnouncements("dummy", "dummy");
         assertNotNull(results);
         assertEquals(2, results.size());
     }

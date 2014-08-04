@@ -1,5 +1,6 @@
 package com.aisaacroth.courseworks.views;
 
+import java.util.concurrent.ExecutionException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.TabsPagerAdapter;
@@ -12,6 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.*;
 
 /**
@@ -36,11 +38,19 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+            
         Intent sessionIntent = getIntent();
         String sessionCookie = sessionIntent.getStringExtra("JSESSION");
         UserFeed userFeed = new UserFeed();
-        userFeed.execute(sessionCookie);
-       
+        try {
+            currentUser = userFeed.execute(sessionCookie).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        Log.d("USER IN MAIN", currentUser.getDisplayName());
+
         initializeTabsPagerAdapter();
         setupActivity();
         addTabsToView();

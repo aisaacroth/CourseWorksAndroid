@@ -1,16 +1,15 @@
 package com.aisaacroth.courseworks.views;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import org.apache.http.client.ClientProtocolException;
+import java.util.concurrent.ExecutionException;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.AnnouncementAdapter;
-import com.aisaacroth.courseworks.reconstructors.AnnouncementReconstructor;
+import com.aisaacroth.courseworks.feeds.AnnouncementFeed;
 import com.aisaacroth.courseworks.structures.*;
 
 import android.support.v4.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 
@@ -23,23 +22,24 @@ import android.view.*;
  * @date 2014-06-19
  */
 public class AnnouncementView extends ListFragment {
-    private User currentUser;
-    private AnnouncementReconstructor reconstructor;
     private ArrayList<Announcement> announcementList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        currentUser = ((Main) getActivity()).getUser();
+
+        Intent sessionIntent = getActivity().getIntent();
+        String sessionID = sessionIntent.getStringExtra("JSESSION");
+        AnnouncementFeed announcementFeed = new AnnouncementFeed();
+        
         try {
-            reconstructor = new AnnouncementReconstructor(currentUser);
-            announcementList = reconstructor.constructAnnouncements("dummy");
-        } catch (ClientProtocolException e) {
+            announcementList = announcementFeed.execute(sessionID).get();
+        } catch (InterruptedException e) {
             e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ExecutionException e) {
             e.printStackTrace();
         }
-
+        
         AnnouncementAdapter adapter = new AnnouncementAdapter(
                 this.getActivity(), announcementList);
         setListAdapter(adapter);

@@ -5,8 +5,9 @@ import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 
+import android.util.Log;
+
 import com.aisaacroth.courseworks.structures.Announcement;
-import com.aisaacroth.courseworks.structures.User;
 
 /**
  * Reconstructs the current User's Announcements XML file returned from the
@@ -20,23 +21,22 @@ public class AnnouncementReconstructor extends Reconstructor {
     private Announcement announcement;
     private ArrayList<Announcement> announcementList;
 
-    public AnnouncementReconstructor(User user) throws ClientProtocolException,
+    public AnnouncementReconstructor() throws ClientProtocolException,
             IOException {
         this.xmlString = null;
         this.announcement = null;
     }
 
-    public ArrayList<Announcement> constructAnnouncements(String url)
+    public ArrayList<Announcement> constructAnnouncements(String url, String sessionID)
             throws ClientProtocolException, IOException {
-        String[] xmlArray = prepareXML(url);
+        String[] xmlArray = prepareXML(url, sessionID);
         announcementList = fetchAnnouncements(xmlArray);
         return announcementList;
     }
 
-    private String[] prepareXML(String url) throws ClientProtocolException,
+    private String[] prepareXML(String url, String sessionID) throws ClientProtocolException,
             IOException {
-        // setXMLString(url);
-        this.xmlString = prepareXML();
+        setXMLString(url, sessionID);
         String[] xmlArray = parseAnnouncementStrings();
         return xmlArray;
     }
@@ -68,9 +68,10 @@ public class AnnouncementReconstructor extends Reconstructor {
     private ArrayList<Announcement> fetchAnnouncements(String[] xmlArray) {
         ArrayList<Announcement> announcements = new ArrayList<Announcement>();
 
-        for (int i = 0; i < xmlArray.length; i++) {
+        for (int i = 0; i < xmlArray.length - 1; i++) {
             this.announcement = new Announcement();
             this.xmlString = xmlArray[i];
+            Log.d("XML STRING " + i, xmlString);
             setAnnouncement();
             announcements.add(announcement);
         }
@@ -95,7 +96,11 @@ public class AnnouncementReconstructor extends Reconstructor {
         String endTag = "</createdOn>";
         int startTagLength = xmlString.indexOf(startTag) + startTag.length();
         int endTagIndex = xmlString.indexOf(endTag);
-        return xmlString.substring(startTagLength, endTagIndex);
+        Log.d("DATE PARSE", "Start Tag Index = " + String.valueOf(startTagLength));
+        Log.d("DATE PARSE", "End Tag Index = " + String.valueOf(endTagIndex));
+        String dateLine = xmlString.substring(startTagLength, endTagIndex);
+        Log.d("DATE LINE", dateLine);
+        return dateLine;
     }
 
     private String getDate(String dateString) {
@@ -106,59 +111,4 @@ public class AnnouncementReconstructor extends Reconstructor {
         return dateString.substring(startDateLength, endIndexDate);
     }
     
-    private String prepareXML() {
-        return "<announcement_collection entityPrefix=\"announcement\">"
-                + "<announcement type=\"bean\" size=\"13\">"
-                + "<announcementId>30e50f9d-6e47-4340-b314-f4135cdfc621</announcementId>"
-                + "<attachments type=\"collection\" size=\"0\"></attachments>"
-                + "<body>"
-                + "<p> Dear students:</p> <p> This message will be in English as it is very important. I was just notified that there is a scheduling conflict with our classroom for the final exam. They moved us to the fourth floor. </p> <p> HAM 411 SPAN 1201.001</p> <p> Call me if you have any problems.</p> <p> Cell: 610-420-3822</p> <p> Saludos,</p> <p> Jessica</p>"
-                + "</body>" 
-                + "<createdByDisplayName>Jessica Gordon-Burroughs</createdByDisplayName>"
-                + "<createdOn type=\"date\" date=\"2014-07-02T19:39:24-04:00\">1404344364809</createdOn>"
-                + "<id>"
-                + "SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
-                + "</id>"
-                + "<siteId>SPANS1201_001_2014_2</siteId>"
-                + "<siteTitle>My Workspace</siteTitle>"
-                + "<title>FINAL EXAM LOCATION: URGENT</title>"
-                + "<entityReference>"
-                + "/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
-                + "</entityReference>" 
-                + "<entityURL>"
-                + "https://courseworks.columbia.edu/direct/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
-                + "</entityURL>"
-                + "<entityId>"
-                + "SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
-                + "</entityId>"
-                + "<entityTitle>FINAL EXAM LOCATION: URGENT</entityTitle>"
-                + "</announcement>"
-                + "<announcement type=\"bean\" size=\"13\">"
-                + "<announcementId>30e50f9d-6e47-4340-b314-f4135cdfc621</announcementId>"
-                + "<attachments type=\"collection\" size=\"0\"></attachments>"
-                + "<body>"
-                + "<p> Dear students:</p> <p> This message will be in English as it is very important. I was just notified that there is a scheduling conflict with our classroom for the final exam. They moved us to the fourth floor. </p> <p> HAM 411 SPAN 1201.001</p> <p> Call me if you have any problems.</p> <p> Cell: 610-420-3822</p> <p> Saludos,</p> <p> Jessica</p>"
-                + "</body>" 
-                + "<createdByDisplayName>Jessica Gordon-Burroughs</createdByDisplayName>"
-                + "<createdOn type=\"date\" date=\"2014-07-02T19:39:24-04:00\">1404344364809</createdOn>"
-                + "<id>"
-                + "SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
-                + "</id>"
-                + "<siteId>SPANS1201_001_2014_2</siteId>"
-                + "<siteTitle>My Workspace</siteTitle>"
-                + "<title>TESTING</title>"
-                + "<entityReference>"
-                + "/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
-                + "</entityReference>" 
-                + "<entityURL>"
-                + "https://courseworks.columbia.edu/direct/announcement/SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
-                + "</entityURL>"
-                + "<entityId>"
-                + "SPANS1201_001_2014_2:main:30e50f9d-6e47-4340-b314-f4135cdfc621"
-                + "</entityId>"
-                + "<entityTitle>FINAL EXAM LOCATION: URGENT</entityTitle>"
-                + "</announcement>"
-                + "</announcement_collection>";
-    }
-
 }

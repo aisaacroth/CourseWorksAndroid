@@ -3,8 +3,7 @@ package com.aisaacroth.courseworks.test;
 import java.io.File;
 
 import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
-import com.aisaacroth.courseworks.views.Login;
-import com.aisaacroth.courseworks.views.Main;
+import com.aisaacroth.courseworks.views.*;
 import com.aisaacroth.courseworks.R;
 import com.robotium.solo.Solo;
 
@@ -110,7 +109,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
     @LargeTest
     public void testLoginIsFinished() {
         sendToLoginForm(false);
-        testSolo.assertCurrentActivity("Did not leave Login class", Main.class);
+        testSolo.assertCurrentActivity("Did not leave Login class", HiddenWebView.class);
         assertTrue(testLoginActivity.isFinishing());
         testSolo.getCurrentActivity().finish();
     }
@@ -118,7 +117,7 @@ public class LoginTest extends ActivityInstrumentationTestCase2<Login> {
     @LargeTest
     public void testLoginSuccessful() {
         sendToLoginForm(false);
-        testSolo.assertCurrentActivity("Did not leave Login Class", Main.class);
+        testSolo.assertCurrentActivity("Did not leave Login Class", HiddenWebView.class);
         testSolo.getCurrentActivity().finish();
     }
 

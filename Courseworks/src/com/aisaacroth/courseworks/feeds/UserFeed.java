@@ -11,7 +11,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 public class UserFeed extends AsyncTask<String, Void, User> {
-    
+
     private User currentUser;
     private UserReconstructor userReconstructor;
     private String url;
@@ -44,5 +44,5 @@ public class UserFeed extends AsyncTask<String, Void, User> {
         }
         return currentUser;
     }
-
+    
 }
