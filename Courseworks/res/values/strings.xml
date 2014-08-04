@@ -15,7 +15,8 @@
     <string name="logo_description">Courseworks logo</string>
     <string name="remember_me">Remember Me</string>
     <string name="splash_desc">Columbia University Courseworks</string>
-    <string name="title_activity_announcement_view">Announcements</string>
+    <string name="title_activity_announcment_list_view">Announcements</string>
+    <string name="title_activity_announcement_view">Announcement</string>
     <string name="title_activity_calendar_view">Calendar</string>
     <string name="title_activity_course_view">Courses</string>
     <string name="title_activity_hidden_web_view">HiddenWebView</string>

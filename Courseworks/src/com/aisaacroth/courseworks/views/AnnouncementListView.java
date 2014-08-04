@@ -12,6 +12,7 @@ import android.support.v4.app.ListFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
+import android.widget.ListView;
 
 /**
  * Maintains a dynamic list of announcements that are pushed to the user each
@@ -38,21 +39,6 @@ public class AnnouncementListView extends ListFragment {
         return view;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.announcement_list_view, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     private void getAnnouncements() {
         String sessionID = getSessionID();
         AnnouncementFeed announcementFeed = new AnnouncementFeed();
@@ -68,6 +54,30 @@ public class AnnouncementListView extends ListFragment {
     private String getSessionID() {
         Intent sessionIntent = getActivity().getIntent();
         return sessionIntent.getStringExtra("JSESSION");
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.announcement_list_view, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+
+        Intent announcement = new Intent(getActivity().getBaseContext(),
+                AnnouncementView.class);
+         announcement.putExtra("Announcement", announcementList.get(position));
     }
 
 }
