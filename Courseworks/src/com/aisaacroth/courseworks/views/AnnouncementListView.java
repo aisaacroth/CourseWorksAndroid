@@ -21,7 +21,7 @@ import android.view.*;
  * @author Alexander Roth
  * @date 2014-06-19
  */
-public class AnnouncementView extends ListFragment {
+public class AnnouncementListView extends ListFragment {
     private ArrayList<Announcement> announcementList;
 
     @Override
@@ -43,7 +43,7 @@ public class AnnouncementView extends ListFragment {
         AnnouncementAdapter adapter = new AnnouncementAdapter(
                 this.getActivity(), announcementList);
         setListAdapter(adapter);
-        View view = inflater.inflate(R.layout.fragment_announcement_view, null);
+        View view = inflater.inflate(R.layout.fragment_announcement_list_view, null);
         return view;
     }
 

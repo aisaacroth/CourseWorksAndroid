@@ -13,7 +13,7 @@ import android.widget.ArrayAdapter;
  * @author Alexander Roth
  * @data 2014-06-19
  */
-public class CourseView extends ListFragment {
+public class CourseListView extends ListFragment {
 
     String[] values = new String[] { "Course 1", "Course 2", "Course 3",
             "Course 4", "Course 5" };

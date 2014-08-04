@@ -35,9 +35,9 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int index) {
         switch (index) {
         case 0:
-            return new CourseView();
+            return new CourseListView();
         case 1:
-            return new AnnouncementView();
+            return new AnnouncementListView();
         case 2:
             return new CalendarView();
         }

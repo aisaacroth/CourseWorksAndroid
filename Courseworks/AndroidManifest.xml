@@ -18,7 +18,7 @@
 
         <!-- AnnouncementView Activity -->
         <activity
-            android:name="com.aisaacroth.courseworks.views.AnnouncementView"
+            android:name="com.aisaacroth.courseworks.views.AnnouncementListView"
             android:label="@string/title_activity_announcement_view" >
         </activity>
 
