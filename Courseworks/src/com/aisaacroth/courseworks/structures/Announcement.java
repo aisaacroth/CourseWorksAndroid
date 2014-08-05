@@ -9,6 +9,8 @@ import java.io.Serializable;
  * @author Alexander Roth
  * @date 2014-06-12
  */
+
+
 @SuppressWarnings("serial")
 public class Announcement implements Serializable {
 

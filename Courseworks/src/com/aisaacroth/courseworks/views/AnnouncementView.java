@@ -3,11 +3,16 @@ package com.aisaacroth.courseworks.views;
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.structures.Announcement;
 
-import android.app.*;
+import android.app.Activity;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.*;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 public class AnnouncementView extends Activity {
 
@@ -18,7 +23,7 @@ public class AnnouncementView extends Activity {
         Intent announcementData = getIntent();
         Announcement announcement = (Announcement) announcementData
                 .getSerializableExtra("Announcement");
-        
+
         Log.d("ANNOUNCEMENT IN VIEW", "Title: " + announcement.getTitle());
 
         if (savedInstanceState == null) {
