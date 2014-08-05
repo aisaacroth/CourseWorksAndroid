@@ -1,7 +1,41 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/container"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aisaacroth.courseworks.views.AnnouncementView"
-    tools:ignore="MergeRootFrame" />
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/logo_description"
+        android:paddingBottom="16dp"
+        android:src="@drawable/courseworks_logo_login" />
+
+    <LinearLayout
+        android:id="@+id/announcement_container"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/announcement_title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Project Name"
+            android:textColor="@color/light_blue"
+            android:textSize="16sp" />
+        
+        <TextView
+            android:id="@+id/announcement_class"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Classs Name"
+            android:textColor="@color/black"
+            android:textSize="14sp"/>
+    </LinearLayout>
+
+</LinearLayout>
