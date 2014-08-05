@@ -125,10 +125,10 @@ int color abc_search_url_text_normal 0x7f090000
 int color abc_search_url_text_pressed 0x7f090002
 int color abc_search_url_text_selected 0x7f090001
 int color columbia_blue 0x7f090003
+int color dark_blue 0x7f090006
 int color dark_gray 0x7f090007
+int color light_blue 0x7f090008
 int color light_gray 0x7f090005
-int color sign_in_blue 0x7f090008
-int color text_blue 0x7f090006
 int color white 0x7f090004
 int dimen abc_action_bar_default_height 0x7f0a0002
 int dimen abc_action_bar_icon_vertical_padding 0x7f0a0003
@@ -243,6 +243,7 @@ int drawable ic_launcher 0x7f02005b
 int drawable logo_courseworks 0x7f02005c
 int drawable rounded_button 0x7f02005d
 int drawable solid_textfield 0x7f02005e
+int drawable tab_selected 0x7f02005f
 int id action_bar 0x7f07001a
 int id action_bar_activity_content 0x7f070015
 int id action_bar_container 0x7f070019
@@ -439,9 +440,13 @@ int string title_activity_hidden_web_view 0x7f0c0018
 int string title_activity_login 0x7f0c001c
 int string title_activity_settings 0x7f0c002d
 int string welcome 0x7f0c002c
+int style ActionBarMain 0x7f0d0081
+int style ActionBarWhite 0x7f0d0082
 int style AppBaseTheme 0x7f0d007f
 int style AppTheme 0x7f0d0080
-int style LoginFormContainer 0x7f0d0081
+int style LoginFormContainer 0x7f0d0085
+int style TabTextWhite 0x7f0d0084
+int style TabsLightBlue 0x7f0d0083
 int style TextAppearance_AppCompat_Base_CompactMenu_Dialog 0x7f0d0061
 int style TextAppearance_AppCompat_Base_SearchResult 0x7f0d0069
 int style TextAppearance_AppCompat_Base_SearchResult_Subtitle 0x7f0d006b

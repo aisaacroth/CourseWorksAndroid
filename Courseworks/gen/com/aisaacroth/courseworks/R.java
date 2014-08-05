@@ -805,10 +805,10 @@ containing a value of this type.
         public static final int abc_search_url_text_pressed=0x7f090002;
         public static final int abc_search_url_text_selected=0x7f090001;
         public static final int columbia_blue=0x7f090003;
+        public static final int dark_blue=0x7f090006;
         public static final int dark_gray=0x7f090007;
+        public static final int light_blue=0x7f090008;
         public static final int light_gray=0x7f090005;
-        public static final int sign_in_blue=0x7f090008;
-        public static final int text_blue=0x7f090006;
         public static final int white=0x7f090004;
     }
     public static final class dimen {
@@ -1001,6 +1001,7 @@ containing a value of this type.
         public static final int logo_courseworks=0x7f02005c;
         public static final int rounded_button=0x7f02005d;
         public static final int solid_textfield=0x7f02005e;
+        public static final int tab_selected=0x7f02005f;
     }
     public static final class id {
         public static final int action_bar=0x7f07001a;
@@ -1271,6 +1272,8 @@ containing a value of this type.
         public static final int welcome=0x7f0c002c;
     }
     public static final class style {
+        public static final int ActionBarMain=0x7f0d0081;
+        public static final int ActionBarWhite=0x7f0d0082;
         /** 
         Base application theme, dependent on API level. This theme is replaced
         by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
@@ -1297,7 +1300,9 @@ containing a value of this type.
  All customizations that are NOT specific to a particular API-level can go here. 
          */
         public static final int AppTheme=0x7f0d0080;
-        public static final int LoginFormContainer=0x7f0d0081;
+        public static final int LoginFormContainer=0x7f0d0085;
+        public static final int TabTextWhite=0x7f0d0084;
+        public static final int TabsLightBlue=0x7f0d0083;
         /**  Mimic text appearance in select_dialog_item.xml 
          */
         public static final int TextAppearance_AppCompat_Base_CompactMenu_Dialog=0x7f0d0061;

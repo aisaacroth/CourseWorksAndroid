@@ -116,7 +116,7 @@
                 android:layout_alignBottom="@+id/remember_me"
                 android:layout_alignRight="@+id/sign_in_button"
                 android:text="@string/forgot_password"
-                android:textColor="@color/text_blue"
+                android:textColor="@color/dark_blue"
                 android:textSize="14sp" />
 
             <CheckBox
@@ -127,7 +127,7 @@
                 android:layout_below="@+id/sign_in_button"
                 android:layout_marginTop="10dp"
                 android:text="@string/remember_me"
-                android:textColor="@color/text_blue"
+                android:textColor="@color/dark_blue"
                 android:textSize="14sp" />
         </RelativeLayout>
     </LinearLayout>

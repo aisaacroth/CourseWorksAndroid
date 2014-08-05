@@ -1,6 +1,5 @@
 package com.aisaacroth.courseworks.test;
 
-import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.TabsPagerAdapter;
 import com.aisaacroth.courseworks.views.Main;
 
@@ -9,6 +8,7 @@ import android.support.v4.view.ViewPager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
 
+import com.aisaacroth.courseworks.R;
 /**
  * The test suite for the Main Activity. There are not that many tests because
  * most of the actions are handled by respective fragments.

@@ -8,9 +8,11 @@ import com.aisaacroth.courseworks.R;
 import com.robotium.solo.Solo;
 
 import android.app.Instrumentation;
-import android.test.*;
+import android.test.ActivityInstrumentationTestCase2;
+import android.test.TouchUtils;
 import android.test.suitebuilder.annotation.*;
 import android.widget.*;
+
 
 /**
  * The test suite for the UI elements of the Login Activity.
@@ -44,7 +46,7 @@ public class LoginViewTest extends ActivityInstrumentationTestCase2<LoginView> {
         passwordTextField = (EditText) testLoginActivity
                 .findViewById(R.id.password);
         rememberCheckBox = (CheckBox) testLoginActivity
-                .findViewById(R.id.remember_me);
+                .findViewById(com.aisaacroth.courseworks.R.id.remember_me);
         signInButton = (Button) testLoginActivity
                 .findViewById(R.id.sign_in_button);
         testSolo = new Solo(getInstrumentation(), getActivity());
