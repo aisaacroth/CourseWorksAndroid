@@ -74,10 +74,10 @@ public class AnnouncementListView extends ListFragment {
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
-        Intent announcement = new Intent(getActivity().getBaseContext(),
-                AnnouncementView.class);
-         announcement.putExtra("Announcement", announcementList.get(position));
+        
+        Intent announcementData = new Intent(getActivity(), AnnouncementView.class);
+        announcementData.putExtra("Announcement", announcementList.get(position));
+        startActivity(announcementData);
     }
 
 }

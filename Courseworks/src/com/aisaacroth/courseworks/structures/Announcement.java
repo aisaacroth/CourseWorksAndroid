@@ -1,7 +1,6 @@
 package com.aisaacroth.courseworks.structures;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
 
 /**
  * Acts as a container for all possible announcements that will be generated and
@@ -10,7 +9,8 @@ import android.os.Parcelable;
  * @author Alexander Roth
  * @date 2014-06-12
  */
-public class Announcement implements Parcelable {
+@SuppressWarnings("serial")
+public class Announcement implements Serializable {
 
     private String title;
     private String bodyText;
@@ -28,18 +28,6 @@ public class Announcement implements Parcelable {
         this.dueDate = null;
         this.professorName = null;
         this.id = null;
-    }
-
-    public Announcement(Parcel in) {
-        String[] data = new String[7];
-
-        this.title = data[0];
-        this.bodyText = data[1];
-        this.classId = data[2];
-        this.postedDate = data[3];
-        this.dueDate = data[4];
-        this.professorName = data[5];
-        this.id = data[6];
     }
 
     public String getTitle() {
@@ -97,33 +85,4 @@ public class Announcement implements Parcelable {
     public void setId(String id) {
         this.id = id;
     }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeStringArray(transformToStringArray());
-    }
-
-    private String[] transformToStringArray() {
-        return new String[] { this.title, this.bodyText, this.classId,
-                this.postedDate, this.dueDate, this.professorName, this.id };
-    }
-
-    public static final Parcelable.Creator<Announcement> CREATOR = new Creator<Announcement>() {
-
-        @Override
-        public Announcement[] newArray(int size) {
-            return new Announcement[size];
-        }
-
-        @Override
-        public Announcement createFromParcel(Parcel source) {
-            return new Announcement(source);
-        }
-    };
-
 }
