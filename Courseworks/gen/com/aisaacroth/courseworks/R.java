@@ -800,16 +800,18 @@ containing a value of this type.
         public static final int abc_split_action_bar_is_narrow=0x7f080002;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f090009;
+        public static final int abc_search_url_text_holo=0x7f09000b;
         public static final int abc_search_url_text_normal=0x7f090000;
         public static final int abc_search_url_text_pressed=0x7f090002;
         public static final int abc_search_url_text_selected=0x7f090001;
-        public static final int columbia_blue=0x7f090003;
-        public static final int dark_blue=0x7f090006;
-        public static final int dark_gray=0x7f090007;
-        public static final int light_blue=0x7f090008;
-        public static final int light_gray=0x7f090005;
-        public static final int white=0x7f090004;
+        public static final int announcement_blue=0x7f09000a;
+        public static final int black=0x7f090003;
+        public static final int columbia_blue=0x7f090004;
+        public static final int dark_blue=0x7f090007;
+        public static final int dark_gray=0x7f090008;
+        public static final int light_blue=0x7f090009;
+        public static final int light_gray=0x7f090006;
+        public static final int white=0x7f090005;
     }
     public static final class dimen {
         /**  Default height of an action bar. 
@@ -1017,12 +1019,12 @@ containing a value of this type.
         public static final int action_mode_bar=0x7f07002f;
         public static final int action_mode_bar_stub=0x7f07002e;
         public static final int action_mode_close_button=0x7f070022;
-        public static final int action_settings=0x7f070055;
+        public static final int action_settings=0x7f070057;
         public static final int activity_chooser_view_content=0x7f070023;
         public static final int always=0x7f07000b;
-        public static final int announcements=0x7f070052;
+        public static final int announcements=0x7f070054;
         public static final int beginning=0x7f070011;
-        public static final int calendarView1=0x7f070053;
+        public static final int calendarView1=0x7f070055;
         public static final int checkbox=0x7f07002b;
         public static final int collapseActionView=0x7f07000d;
         public static final int container=0x7f070042;
@@ -1041,8 +1043,10 @@ containing a value of this type.
         public static final int icon=0x7f070028;
         public static final int ifRoom=0x7f07000a;
         public static final int image=0x7f070025;
-        public static final int item1=0x7f070054;
-        public static final int item_class=0x7f070051;
+        public static final int item1=0x7f070056;
+        public static final int item_class=0x7f070052;
+        public static final int item_date=0x7f070053;
+        public static final int item_subtext=0x7f070051;
         public static final int item_title=0x7f070050;
         public static final int left_icon=0x7f070031;
         public static final int listMode=0x7f070001;
@@ -1052,7 +1056,7 @@ containing a value of this type.
         public static final int login_status=0x7f070044;
         public static final int login_status_message=0x7f070045;
         public static final int logo=0x7f070047;
-        public static final int main_header=0x7f070056;
+        public static final int main_header=0x7f070058;
         public static final int middle=0x7f070012;
         public static final int never=0x7f070009;
         public static final int none=0x7f070010;

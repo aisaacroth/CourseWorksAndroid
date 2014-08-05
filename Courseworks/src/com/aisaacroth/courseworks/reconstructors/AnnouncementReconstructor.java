@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 
+import android.util.Log;
+
 import com.aisaacroth.courseworks.structures.Announcement;
 
 /**
@@ -85,7 +87,9 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     public String parseDateString() {
         String dateSubTag = getDateLine();
-        return getDate(dateSubTag);
+        String dashDate = getDate(dateSubTag);
+        String dotDate = removeDots(dashDate);
+        return dotDate;
     }
 
     private String getDateLine() {
@@ -98,11 +102,15 @@ public class AnnouncementReconstructor extends Reconstructor {
     }
 
     private String getDate(String dateString) {
-        String dateAttritube = "date=\"";
+        String dateAttritube = "date=\'";
         int startDateLength = dateString.indexOf(dateAttritube)
                 + dateAttritube.length();
         int endIndexDate = dateString.indexOf("T");
+        Log.d("DATE", dateString.substring(startDateLength, endIndexDate));
         return dateString.substring(startDateLength, endIndexDate);
     }
     
+    private String removeDots(String dateString) {
+        return dateString.replace('-', '.');
+    }
 }
