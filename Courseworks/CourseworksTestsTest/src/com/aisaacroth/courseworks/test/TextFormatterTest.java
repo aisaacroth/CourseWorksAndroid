@@ -44,25 +44,6 @@ public class TextFormatterTest extends TestCase {
         assertTrue(formattedString.contains("\n"));
     }
 
-    public void testRemoveEndPTags() {
-        formattedString = formatter.removeEndPTags(testString);
-        assertTrue(!hasEndTag(formattedString));
-    }
-
-    public void testRemoveStartingPTags() {
-        formattedString = formatter.removeStartPTags(testString);
-        assertTrue(!hasStartTag(formattedString));
-        Log.d("STRING", formattedString);
-    }
-
-    public void testReplaceEndPTagsWithNewLine() {
-        formattedString = formatter.replaceWithNewLines(testString);
-        Log.d("STRING", formattedString);
-        assertTrue(!hasEndTag(formattedString));
-        assertTrue(formattedString.contains("\n"));
-
-    }
-
     private boolean hasEndTag(String textString) {
         return (textString.contains(P_END_TAG)) ? true : false;
     }

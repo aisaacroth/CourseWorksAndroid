@@ -14,17 +14,12 @@ public class TextFormatter {
        return formattedString;
     }
     
-    public String removeStartPTags(String textString) {
+    private String removeStartPTags(String textString) {
         String startTagFreeString = textString.replace(P_START_TAG, "");
         return startTagFreeString;
     }
     
-    public String removeEndPTags(String textString) {
-        String endTagFreeString = textString.replace(P_END_TAG, "");
-        return endTagFreeString;
-    }
-    
-    public String replaceWithNewLines(String textString) {
+    private String replaceWithNewLines(String textString) {
         String newLineString = textString.replace(P_END_TAG, "\n");
         return newLineString;
     }
