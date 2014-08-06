@@ -22,14 +22,14 @@ public class TextFormatterTest extends TestCase {
 
     private String prepareTestMessage() {
         return "&lt;p&gt;  Dear students:&lt;/p&gt; "
-                + "&lt;p&gt;  This message will be in English as it is very important. I was "
-                + "just notified that there is a scheduling conflict with our classroom"
-                + "for the final exam. They moved us to the fourth floor. &lt;/p&gt;"
+                + "&lt;p&gt;  This message&lt;br /&gt; will be in English&lt;br /&gt; as it is very important. I was "
+                + "just notified&lt;br /&gt; that there is a scheduling conflict with our classroom"
+                + "for the final exam.&lt;br /&gt; They moved us to the fourth floor. &lt;/p&gt;"
                 + "&lt;p&gt;  HAM 411 SPAN 1201.001&lt;/p&gt;"
                 + "&lt;p&gt;  Call me if you have any problems.&lt;/p&gt;"
                 + "&lt;p&gt;  Cell: 610-420-3822&lt;/p&gt;"
                 + "&lt;p&gt;  Saludos,&lt;/p&gt;"
-                + "&lt;p&gt;  Jessica&lt;/p&gt;<";
+                + "&lt;p&gt;  Jessica&lt;/p&gt;";
     }
 
     public void testConstructor() {
@@ -42,6 +42,12 @@ public class TextFormatterTest extends TestCase {
         assertTrue(!hasStartTag(formattedString));
         assertTrue(!hasEndTag(formattedString));
         assertTrue(formattedString.contains("\n"));
+    }
+    
+    public void testRemoveBRTag() {
+        formattedString = formatter.replaceBRTags(testString);
+        Log.d("STRING AFTER", formattedString);
+        assertTrue(!formattedString.contains("&lt;br /&gt;"));
     }
 
     private boolean hasEndTag(String textString) {

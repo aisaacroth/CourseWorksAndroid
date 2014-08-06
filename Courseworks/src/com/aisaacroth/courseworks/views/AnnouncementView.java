@@ -21,6 +21,7 @@ public class AnnouncementView extends Activity {
                 .getSerializableExtra("Announcement");
 
         Log.d("ANNOUNCEMENT IN VIEW", "Title: " + announcement.getTitle());
+
         TextView titleText = (TextView) findViewById(R.id.announcement_title);
         titleText.setText(announcement.getTitle());
         TextView classText = (TextView) findViewById(R.id.announcement_class);

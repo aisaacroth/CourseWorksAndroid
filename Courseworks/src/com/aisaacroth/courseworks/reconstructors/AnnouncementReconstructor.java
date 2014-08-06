@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.apache.http.client.ClientProtocolException;
 
 import com.aisaacroth.courseworks.structures.Announcement;
+import com.aisaacroth.courseworks.utils.TextFormatter;
 
 /**
  * Reconstructs the current User's Announcements XML file returned from the
@@ -18,11 +19,13 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     private Announcement announcement;
     private ArrayList<Announcement> announcementList;
+    private TextFormatter formatter;
 
     public AnnouncementReconstructor() throws ClientProtocolException,
             IOException {
-        this.xmlString = null;
         this.announcement = null;
+        this.formatter = new TextFormatter();
+        this.xmlString = null;
     }
 
     public ArrayList<Announcement> constructAnnouncements(String url,
@@ -79,7 +82,7 @@ public class AnnouncementReconstructor extends Reconstructor {
         announcement.setPostedDate(parseDateString());
         announcement.setTitle(parseFromTag("title"));
         announcement.setProfessorName(parseFromTag("createdByDisplayName"));
-        announcement.setBodyText(parseFromTag("body"));
+        announcement.setBodyText(formatBodyText());
         announcement.setClassId(parseFromTag("siteId"));
     }
 
@@ -109,5 +112,11 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     private String removeDots(String dateString) {
         return dateString.replace('-', '.');
+    }
+    
+    private String formatBodyText() {
+        String xmlBodyString = parseFromTag("body");
+        String cleanBodyText = formatter.formatText(xmlBodyString);
+        return cleanBodyText;
     }
 }
