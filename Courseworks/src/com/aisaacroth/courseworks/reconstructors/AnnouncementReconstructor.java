@@ -106,7 +106,6 @@ public class AnnouncementReconstructor extends Reconstructor {
         int startDateLength = dateString.indexOf(dateAttritube)
                 + dateAttritube.length();
         int endIndexDate = dateString.indexOf("T");
-        Log.d("DATE", dateString.substring(startDateLength, endIndexDate));
         return dateString.substring(startDateLength, endIndexDate);
     }
     

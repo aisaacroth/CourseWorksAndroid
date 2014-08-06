@@ -70,7 +70,8 @@
         </activity>
         <activity
             android:name="com.aisaacroth.courseworks.views.AnnouncementView"
-            android:label="@string/title_activity_announcement_view" >
+            android:label="@string/title_activity_announcement_view"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar" >
         </activity>
     </application>
 

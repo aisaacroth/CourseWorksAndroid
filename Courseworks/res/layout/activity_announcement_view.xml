@@ -25,17 +25,27 @@
             android:id="@+id/announcement_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Project Name"
             android:textColor="@color/light_blue"
             android:textSize="16sp" />
-        
+
         <TextView
             android:id="@+id/announcement_class"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Classs Name"
             android:textColor="@color/black"
-            android:textSize="14sp"/>
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/announcement_body"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/posted_date"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </LinearLayout>

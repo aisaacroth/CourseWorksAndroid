@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.*;
+import android.widget.TextView;
 
 public class AnnouncementView extends Activity {
 
@@ -20,6 +21,15 @@ public class AnnouncementView extends Activity {
                 .getSerializableExtra("Announcement");
 
         Log.d("ANNOUNCEMENT IN VIEW", "Title: " + announcement.getTitle());
+        TextView titleText = (TextView) findViewById(R.id.announcement_title);
+        titleText.setText(announcement.getTitle());
+        TextView classText = (TextView) findViewById(R.id.announcement_class);
+        classText.setText(announcement.getClassId());
+        TextView bodyText = (TextView) findViewById(R.id.announcement_body);
+        bodyText.setText(announcement.getBodyText());
+        TextView dateText = (TextView) findViewById(R.id.posted_date);
+        dateText.setText("Posted " + announcement.getPostedDate());
+
     }
 
     @Override
