@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 
-import android.util.Log;
-
 import com.aisaacroth.courseworks.structures.Announcement;
 
 /**
@@ -27,15 +25,15 @@ public class AnnouncementReconstructor extends Reconstructor {
         this.announcement = null;
     }
 
-    public ArrayList<Announcement> constructAnnouncements(String url, String sessionID)
-            throws ClientProtocolException, IOException {
+    public ArrayList<Announcement> constructAnnouncements(String url,
+            String sessionID) throws ClientProtocolException, IOException {
         String[] xmlArray = prepareXML(url, sessionID);
         announcementList = fetchAnnouncements(xmlArray);
         return announcementList;
     }
 
-    private String[] prepareXML(String url, String sessionID) throws ClientProtocolException,
-            IOException {
+    private String[] prepareXML(String url, String sessionID)
+            throws ClientProtocolException, IOException {
         setXMLString(url, sessionID);
         String[] xmlArray = parseAnnouncementStrings();
         return xmlArray;
@@ -108,7 +106,7 @@ public class AnnouncementReconstructor extends Reconstructor {
         int endIndexDate = dateString.indexOf("T");
         return dateString.substring(startDateLength, endIndexDate);
     }
-    
+
     private String removeDots(String dateString) {
         return dateString.replace('-', '.');
     }
