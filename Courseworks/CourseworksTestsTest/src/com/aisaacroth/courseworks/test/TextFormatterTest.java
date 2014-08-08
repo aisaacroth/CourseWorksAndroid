@@ -45,7 +45,6 @@ public class TextFormatterTest extends TestCase {
     }
     
     public void testRemoveBRTag() {
-        formattedString = formatter.replaceBRTags(testString);
         Log.d("STRING AFTER", formattedString);
         assertTrue(!formattedString.contains("&lt;br /&gt;"));
     }

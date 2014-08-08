@@ -1,7 +1,5 @@
 package com.aisaacroth.courseworks.utils;
 
-import android.util.Log;
-
 public class TextFormatter {
     private final String P_START_TAG = "&lt;p&gt;";
     private final String P_END_TAG = "&lt;/p&gt;";
@@ -12,47 +10,63 @@ public class TextFormatter {
     }
 
     public String formatText(String textString) {
-        String brString = textString;
-        String frontTagLessString = removeStartPTags(brString);
-        String newlineFreeString = removeCurrentNewLines(frontTagLessString);
-        String untrimmedString = replaceWithNewLines(newlineFreeString);
-        String[] trimmedStrings = trimStrings(untrimmedString);
-        String formattedString = rebuiltString(trimmedStrings);
+        String paragraphString = parseParagraphs(textString);
+        String formattedString = parseBreaks(paragraphString);
         return formattedString;
     }
 
-    private String removeStartPTags(String textString) {
-        return textString.replace(P_START_TAG, "");
+    private String parseParagraphs(String textString) {
+        String frontTagLessString = removeTags(textString, P_START_TAG);
+        String newlineFreeString = removeCurrentNewLines(frontTagLessString);
+        String untrimmedString = replaceWithBlankLines(newlineFreeString,
+                P_END_TAG);
+        String[] trimmedStrings = trimStrings(untrimmedString, "\n\n");
+        String paragraphString = rebuildString(trimmedStrings, "\n\n");
+        return paragraphString;
     }
 
-    private String replaceWithNewLines(String textString) {
-        return textString.replace(P_END_TAG, "\n\n");
+    private String parseBreaks(String textString) {
+        String formattedString = null;
+        if (textString.contains(BR_TAG)) {
+            String unformattedString = replaceWithNewLine(textString, BR_TAG);
+            String[] trimmedStrings = trimStrings(unformattedString, "\n");
+            formattedString = rebuildString(trimmedStrings, "\n");
+        }
+
+        return formattedString;
+    }
+
+    private String removeTags(String textString, String tagType) {
+        return textString.replace(tagType, "");
+    }
+
+    private String replaceWithBlankLines(String textString, String tagType) {
+        return textString.replace(tagType, "\n\n");
+    }
+
+    private String replaceWithNewLine(String textString, String tagType) {
+        return textString.replace(tagType, "\n");
     }
 
     private String removeCurrentNewLines(String textString) {
         return textString.replace("\n", "");
     }
 
-    private String[] trimStrings(String textString) {
-        String[] textStrings = textString.split("\n\n");
+    private String[] trimStrings(String textString, String pattern) {
+        String[] textStrings = textString.split(pattern);
+
         for (int i = 0; i < textStrings.length; i++) {
             textStrings[i] = textStrings[i].trim();
-            if (textStrings[i].contains(BR_TAG)) {
-                textStrings[i] = replaceBRTags(textStrings[i]);
-            }
         }
         return textStrings;
     }
 
-    private String rebuiltString(String[] textStrings) {
+    private String rebuildString(String[] textStrings, String endline) {
         StringBuilder builder = new StringBuilder();
         for (String string : textStrings) {
-            builder.append(string + "\n\n");
+            builder.append(string + endline);
         }
         return builder.toString();
     }
 
-    public String replaceBRTags(String textString) {
-        return textString.replace(BR_TAG, "\n");
-    }
 }
