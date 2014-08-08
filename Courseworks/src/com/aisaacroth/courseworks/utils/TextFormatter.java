@@ -1,9 +1,18 @@
 package com.aisaacroth.courseworks.utils;
 
+/**
+ * Reformats Text that is taken in from the XML feeds on the Courseworks Systems.
+ * 
+ * @author Alexander Roth
+ * @date 2014-08-06
+ */
 public class TextFormatter {
     private final String P_START_TAG = "&lt;p&gt;";
     private final String P_END_TAG = "&lt;/p&gt;";
     private final String BR_TAG = "&lt;br /&gt;";
+
+    private final String BLANK_LINE = "\n\n";
+    private final String LINE_BREAK = "\n";
 
     public TextFormatter() {
 
@@ -20,17 +29,17 @@ public class TextFormatter {
         String newlineFreeString = removeCurrentNewLines(frontTagLessString);
         String untrimmedString = replaceWithBlankLines(newlineFreeString,
                 P_END_TAG);
-        String[] trimmedStrings = trimStrings(untrimmedString, "\n\n");
-        String paragraphString = rebuildString(trimmedStrings, "\n\n");
+        String[] trimmedStrings = trimStrings(untrimmedString, BLANK_LINE);
+        String paragraphString = rebuildString(trimmedStrings, BLANK_LINE);
         return paragraphString;
     }
 
     private String parseBreaks(String textString) {
-        String formattedString = null;
+        String formattedString = textString;
         if (textString.contains(BR_TAG)) {
             String unformattedString = replaceWithNewLine(textString, BR_TAG);
-            String[] trimmedStrings = trimStrings(unformattedString, "\n");
-            formattedString = rebuildString(trimmedStrings, "\n");
+            String[] trimmedStrings = trimStrings(unformattedString, LINE_BREAK);
+            formattedString = rebuildString(trimmedStrings, LINE_BREAK);
         }
 
         return formattedString;
@@ -41,15 +50,15 @@ public class TextFormatter {
     }
 
     private String replaceWithBlankLines(String textString, String tagType) {
-        return textString.replace(tagType, "\n\n");
+        return textString.replace(tagType, BLANK_LINE);
     }
 
     private String replaceWithNewLine(String textString, String tagType) {
-        return textString.replace(tagType, "\n");
+        return textString.replace(tagType, LINE_BREAK);
     }
 
     private String removeCurrentNewLines(String textString) {
-        return textString.replace("\n", "");
+        return textString.replace(LINE_BREAK, "");
     }
 
     private String[] trimStrings(String textString, String pattern) {
