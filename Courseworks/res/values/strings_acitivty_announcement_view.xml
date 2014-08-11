@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="posted_date">POSTED</string>
+    <string name="class_tag">CLASS</string>
+    <string name="announcement_view">Announcement</string>
+</resources>

@@ -3,17 +3,24 @@ package com.aisaacroth.courseworks.views;
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.structures.Announcement;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
-import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.*;
 import android.widget.TextView;
 
 public class AnnouncementView extends Activity {
+    private TextView titleText;
+    private TextView classText;
+    private TextView bodyText;
+    private TextView dateText;
+    private TextView classBox;
+    private TextView postedBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,35 +32,43 @@ public class AnnouncementView extends Activity {
 
         Log.d("ANNOUNCEMENT IN VIEW", "Title: " + announcement.getTitle());
 
-        setTextViews(announcement);
+        setActionBar();
+        setAnnouncementView(announcement);
     }
     
-    private void setTextViews(Announcement announcement) {
-        setTitleTextView(announcement.getTitle());
-        setClassTextView(announcement.getClassId());
-        setBodyTextView(Html.fromHtml(announcement.getBodyText()));
-        setDateTextView(announcement.getPostedDate());
+    private void setActionBar() {
+        getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getActionBar().setCustomView(R.layout.announcement_view_actionbar);
     }
     
-    private void setTitleTextView(String title) {
-        TextView titleText = (TextView) findViewById(R.id.announcement_title);
-        titleText.setText(title);
+    private void setAnnouncementView(Announcement announcement) {
+        setTextViews();
+        populateTextViews(announcement);
+        setFonts();
+       
     }
     
-    private void setClassTextView(String className) {
-        TextView classText = (TextView) findViewById(R.id.announcement_class);
-        classText.setText(className);
+    private void setTextViews() {
+        titleText = (TextView) findViewById(R.id.announcement_title);
+        classBox = (TextView) findViewById(R.id.announcement_class_box);
+        classText = (TextView) findViewById(R.id.announcement_class);
+        bodyText = (TextView) findViewById(R.id.announcement_body);
+        dateText = (TextView) findViewById(R.id.announcement_posted_date);
+        postedBox = (TextView) findViewById(R.id.announcement_posted_box);
     }
     
-    private void setBodyTextView(Spanned bodyString) {
-        TextView bodyText = (TextView) findViewById(R.id.announcement_body);
-        bodyText.setText(bodyString);
+    private void populateTextViews(Announcement announcement) {
+        titleText.setText(announcement.getTitle());
+        classText.setText(announcement.getClassId());
+        bodyText.setText(Html.fromHtml(announcement.getBodyText()));
         bodyText.setMovementMethod(LinkMovementMethod.getInstance());
+        dateText.setText(announcement.getPostedDate());
     }
     
-    private void setDateTextView(String date) {
-        TextView dateText = (TextView) findViewById(R.id.posted_date);
-        dateText.setText("Posted " + date);
+    private void setFonts() {
+        Typeface boldFont = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
+        classBox.setTypeface(boldFont);
+        postedBox.setTypeface(boldFont);
     }
 
     @Override
