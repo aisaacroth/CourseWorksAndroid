@@ -15,6 +15,8 @@ import android.view.*;
 import android.widget.TextView;
 
 public class AnnouncementView extends Activity {
+    private TextView actionBarBackText;
+    private TextView actionBarTitleText;
     private TextView titleText;
     private TextView classText;
     private TextView bodyText;
@@ -35,20 +37,22 @@ public class AnnouncementView extends Activity {
         setActionBar();
         setAnnouncementView(announcement);
     }
-    
+
     private void setActionBar() {
         getActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         getActionBar().setCustomView(R.layout.announcement_view_actionbar);
     }
-    
+
     private void setAnnouncementView(Announcement announcement) {
         setTextViews();
         populateTextViews(announcement);
         setFonts();
-       
+
     }
-    
+
     private void setTextViews() {
+        actionBarBackText = (TextView) findViewById(R.id.announcement_actionbar_back);
+        actionBarTitleText = (TextView) findViewById(R.id.announcement_actionbar_title);
         titleText = (TextView) findViewById(R.id.announcement_title);
         classBox = (TextView) findViewById(R.id.announcement_class_box);
         classText = (TextView) findViewById(R.id.announcement_class);
@@ -56,7 +60,7 @@ public class AnnouncementView extends Activity {
         dateText = (TextView) findViewById(R.id.announcement_posted_date);
         postedBox = (TextView) findViewById(R.id.announcement_posted_box);
     }
-    
+
     private void populateTextViews(Announcement announcement) {
         titleText.setText(announcement.getTitle());
         classText.setText(announcement.getClassId());
@@ -64,11 +68,24 @@ public class AnnouncementView extends Activity {
         bodyText.setMovementMethod(LinkMovementMethod.getInstance());
         dateText.setText(announcement.getPostedDate());
     }
-    
+
     private void setFonts() {
-        Typeface boldFont = Typeface.createFromAsset(getAssets(), "Roboto-Bold.ttf");
+        setBoldFont();
+        setNarrowFont();
+    }
+
+    private void setBoldFont() {
+        Typeface boldFont = Typeface.createFromAsset(getAssets(),
+                "Roboto-Bold.ttf");
         classBox.setTypeface(boldFont);
         postedBox.setTypeface(boldFont);
+    }
+
+    private void setNarrowFont() {
+        Typeface thinFont = Typeface.createFromAsset(getAssets(),
+                "Roboto-Light.ttf");
+        actionBarBackText.setTypeface(thinFont);
+        actionBarTitleText.setTypeface(thinFont);
     }
 
     @Override

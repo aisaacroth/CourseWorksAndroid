@@ -11,10 +11,11 @@
         android:id="@+id/logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:background="@drawable/solid_bottom_line"
         android:contentDescription="@string/logo_description"
         android:paddingBottom="16dp"
-        android:src="@drawable/courseworks_logo_login"
-        android:background="@drawable/solid_bottom_line" />
+        android:src="@drawable/courseworks_screenshot" />
 
     <ScrollView
         android:id="@+id/announcement_scroll"

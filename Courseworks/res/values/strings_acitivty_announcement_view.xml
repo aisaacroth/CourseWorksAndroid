@@ -4,4 +4,5 @@
     <string name="posted_date">POSTED</string>
     <string name="class_tag">CLASS</string>
     <string name="announcement_view">Announcement</string>
+    <string name="back_button">Back</string>
 </resources>
