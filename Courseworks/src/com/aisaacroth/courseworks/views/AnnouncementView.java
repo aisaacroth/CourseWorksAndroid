@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.*;
@@ -24,16 +25,35 @@ public class AnnouncementView extends Activity {
 
         Log.d("ANNOUNCEMENT IN VIEW", "Title: " + announcement.getTitle());
 
+        setTextViews(announcement);
+    }
+    
+    private void setTextViews(Announcement announcement) {
+        setTitleTextView(announcement.getTitle());
+        setClassTextView(announcement.getClassId());
+        setBodyTextView(Html.fromHtml(announcement.getBodyText()));
+        setDateTextView(announcement.getPostedDate());
+    }
+    
+    private void setTitleTextView(String title) {
         TextView titleText = (TextView) findViewById(R.id.announcement_title);
-        titleText.setText(announcement.getTitle());
+        titleText.setText(title);
+    }
+    
+    private void setClassTextView(String className) {
         TextView classText = (TextView) findViewById(R.id.announcement_class);
-        classText.setText(announcement.getClassId());
+        classText.setText(className);
+    }
+    
+    private void setBodyTextView(Spanned bodyString) {
         TextView bodyText = (TextView) findViewById(R.id.announcement_body);
-        bodyText.setText(Html.fromHtml(announcement.getBodyText()));
+        bodyText.setText(bodyString);
         bodyText.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+    
+    private void setDateTextView(String date) {
         TextView dateText = (TextView) findViewById(R.id.posted_date);
-        dateText.setText("Posted " + announcement.getPostedDate());
-
+        dateText.setText("Posted " + date);
     }
 
     @Override
