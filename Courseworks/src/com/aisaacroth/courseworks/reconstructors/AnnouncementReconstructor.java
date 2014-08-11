@@ -5,8 +5,10 @@ import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 
+import android.text.Html;
+import android.text.Spanned;
+
 import com.aisaacroth.courseworks.structures.Announcement;
-import com.aisaacroth.courseworks.utils.TextFormatter;
 
 /**
  * Reconstructs the current User's Announcements XML file returned from the
@@ -19,12 +21,10 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     private Announcement announcement;
     private ArrayList<Announcement> announcementList;
-    private TextFormatter formatter;
 
     public AnnouncementReconstructor() throws ClientProtocolException,
             IOException {
         this.announcement = null;
-        this.formatter = new TextFormatter();
         this.xmlString = null;
     }
 
@@ -116,7 +116,7 @@ public class AnnouncementReconstructor extends Reconstructor {
     
     private String formatBodyText() {
         String xmlBodyString = parseFromTag("body");
-        String cleanBodyText = formatter.formatText(xmlBodyString);
-        return cleanBodyText;
+        Spanned spannedText = Html.fromHtml(xmlBodyString);
+        return spannedText.toString();
     }
 }

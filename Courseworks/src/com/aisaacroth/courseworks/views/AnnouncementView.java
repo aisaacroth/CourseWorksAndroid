@@ -6,6 +6,8 @@ import com.aisaacroth.courseworks.structures.Announcement;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.*;
 import android.widget.TextView;
@@ -27,7 +29,8 @@ public class AnnouncementView extends Activity {
         TextView classText = (TextView) findViewById(R.id.announcement_class);
         classText.setText(announcement.getClassId());
         TextView bodyText = (TextView) findViewById(R.id.announcement_body);
-        bodyText.setText(announcement.getBodyText());
+        bodyText.setText(Html.fromHtml(announcement.getBodyText()));
+        bodyText.setMovementMethod(LinkMovementMethod.getInstance());
         TextView dateText = (TextView) findViewById(R.id.posted_date);
         dateText.setText("Posted " + announcement.getPostedDate());
 
