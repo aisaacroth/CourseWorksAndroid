@@ -1,5 +1,8 @@
 package com.aisaacroth.courseworks.views;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.structures.Announcement;
 
@@ -17,6 +20,8 @@ import android.widget.TextView;
 public class AnnouncementView extends Activity {
     private TextView actionBarBackText;
     private TextView actionBarTitleText;
+    private TextView currentDate;
+    private TextView updateTime;
     private TextView titleText;
     private TextView classText;
     private TextView bodyText;
@@ -53,6 +58,8 @@ public class AnnouncementView extends Activity {
     private void setTextViews() {
         actionBarBackText = (TextView) findViewById(R.id.announcement_actionbar_back);
         actionBarTitleText = (TextView) findViewById(R.id.announcement_actionbar_title);
+        currentDate = (TextView) findViewById(R.id.announcement_current_date);
+        updateTime = (TextView) findViewById(R.id.announcement_update_time);
         titleText = (TextView) findViewById(R.id.announcement_title);
         classBox = (TextView) findViewById(R.id.announcement_class_box);
         classText = (TextView) findViewById(R.id.announcement_class);
@@ -62,11 +69,23 @@ public class AnnouncementView extends Activity {
     }
 
     private void populateTextViews(Announcement announcement) {
+        currentDate.setText(setCurrentDate());
+        updateTime.setText(setUpdateTime());
         titleText.setText(announcement.getTitle());
         classText.setText(announcement.getClassId());
         bodyText.setText(Html.fromHtml(announcement.getBodyText()));
         bodyText.setMovementMethod(LinkMovementMethod.getInstance());
         dateText.setText(announcement.getPostedDate());
+    }
+
+    private String setCurrentDate() {
+        return DateFormat.getDateInstance().format(new Date());
+    }
+
+    private String setUpdateTime() {
+        return "UPDATED "
+                + DateFormat.getTimeInstance(DateFormat.SHORT).format(
+                        new Date());
     }
 
     private void setFonts() {
