@@ -12,8 +12,8 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/courseworks_logo_login"
-        android:theme="@style/AppTheme" >
+        android:icon="@drawable/pixel"
+        android:theme="@android:color/transparent">
 
         <!-- AnnouncementList Activity -->
         <activity
@@ -65,7 +65,7 @@
             </intent-filter>
         </activity>
 
-        <!-- RestAuth Service -->
+        <!-- Expiration Timer Service -->
         <service android:name="com.aisaacroth.courseworks.utils.ExpirationTimer" >
         </service>
 

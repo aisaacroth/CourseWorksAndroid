@@ -1,5 +1,7 @@
 package com.aisaacroth.courseworks.views;
 
+import java.text.DateFormat;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import com.aisaacroth.courseworks.R;
@@ -14,6 +16,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.*;
+import android.widget.TextView;
 
 /**
  * The Homepage activity for the Courseworks app. Acts as a container for all
@@ -27,6 +30,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private ViewPager viewPager;
     private TabsPagerAdapter tabsPagerAdapter;
     private ActionBar actionBar;
+    private TextView currentDate;
+    private TextView updatedTime;
     private final int MIDDLE = 1;
     private User currentUser;
 
@@ -37,7 +42,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-            
         Intent sessionIntent = getIntent();
         String sessionCookie = sessionIntent.getStringExtra("JSESSION");
         UserFeed userFeed = new UserFeed();
@@ -53,7 +57,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         setupActivity();
         addTabsToView();
 
-        // Linking the tabs to their displays.
         viewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 
             @Override
@@ -70,8 +73,25 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
             }
         });
 
-        // Set the initial fragment as the middle tab.
         viewPager.setCurrentItem(MIDDLE);
+        setDateAndTime();
+    }
+
+    private void setDateAndTime() {
+        currentDate = (TextView) findViewById(R.id.main_current_date);
+        updatedTime = (TextView) findViewById(R.id.main_update_time);
+        currentDate.setText(setCurrentDate());
+        updatedTime.setText(setUpdatedTime());
+    }
+
+    private String setCurrentDate() {
+        return DateFormat.getDateInstance().format(new Date());
+    }
+
+    private String setUpdatedTime() {
+        return "UPDATED "
+                + DateFormat.getTimeInstance(DateFormat.SHORT).format(
+                        new Date());
     }
 
     @Override

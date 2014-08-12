@@ -9,6 +9,7 @@ import com.aisaacroth.courseworks.feeds.AnnouncementFeed;
 import com.aisaacroth.courseworks.structures.*;
 
 import android.support.v4.app.ListFragment;
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
@@ -24,11 +25,13 @@ import android.widget.ListView;
  */
 public class AnnouncementListView extends ListFragment {
     private ArrayList<Announcement> announcementList;
+    private ActionBar actionBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
+        setActionBar();
         getAnnouncements();
         setHasOptionsMenu(true);
         AnnouncementAdapter adapter = new AnnouncementAdapter(
@@ -37,6 +40,13 @@ public class AnnouncementListView extends ListFragment {
         View view = inflater.inflate(R.layout.fragment_announcement_list_view,
                 null);
         return view;
+    }
+
+    private void setActionBar() {
+        actionBar = getActivity().getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
+                | ActionBar.DISPLAY_SHOW_HOME);
+        actionBar.setCustomView(R.layout.announcement_list_actionbar);
     }
 
     private void getAnnouncements() {

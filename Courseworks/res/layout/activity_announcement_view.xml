@@ -7,6 +7,12 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin" >
 
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/a_final_attempt"
+        android:contentDescription="@string/logo_description" />
+
     <ScrollView
         android:id="@+id/announcement_scroll"
         android:layout_width="match_parent"
@@ -17,28 +23,28 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-            
+
             <RelativeLayout
                 android:id="@+id/announcement_datetime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:background="@drawable/solid_bottom_line">
-                
-                <TextView 
+                android:background="@drawable/solid_bottom_line"
+                android:orientation="horizontal" >
+
+                <TextView
                     android:id="@+id/announcement_current_date"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
                     android:gravity="left"
-                    android:textSize="10sp" />
-                
-                <TextView 
-                    android:id="@+id/announcement_update_time"
-                    android:layout_width ="fill_parent"
-                    android:layout_height="wrap_content"
                     android:textColor="@color/black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/announcement_update_time"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
                     android:gravity="right"
+                    android:textColor="@color/black"
                     android:textSize="10sp" />
             </RelativeLayout>
 
@@ -46,8 +52,8 @@
                 android:id="@+id/announcement_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/light_blue"
                 android:layout_marginLeft="4dp"
+                android:textColor="@color/light_blue"
                 android:textSize="16sp" />
 
             <LinearLayout
@@ -59,8 +65,8 @@
                     android:id="@+id/announcement_class_box"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="12dp"
                     android:layout_marginLeft="4dp"
+                    android:layout_marginRight="12dp"
                     android:background="@drawable/blue_rectangle"
                     android:text="@string/class_tag"
                     android:textColor="@color/white"
