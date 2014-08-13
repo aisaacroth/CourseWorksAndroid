@@ -14,7 +14,9 @@ import android.app.Activity;
 import android.content.*;
 import android.graphics.Typeface;
 import android.os.*;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.widget.*;
@@ -33,6 +35,7 @@ public class LoginView extends Activity {
     private String uni;
     private String password;
     private String grantingTicket;
+    private final String FORGOT_PASSWORD_LINK = "<a href=\"https://uniapp.cc.columbia.edu/acctmanage/resetpasswd\">Forgot Password</a>";
 
     private SharedPreferencesAdapter loginPreferences;
 
@@ -89,8 +92,9 @@ public class LoginView extends Activity {
     private void setUpLoginForm() {
         setViews();
         setFonts();
+        setForgotPasswordLink();
     }
-    
+
     private void setViews() {
         uniTextField = (EditText) findViewById(R.id.uni);
         passwordTextField = (EditText) findViewById(R.id.password);
@@ -101,23 +105,30 @@ public class LoginView extends Activity {
         signInButton = (Button) findViewById(R.id.sign_in_button);
         forgotPassword = (TextView) findViewById(R.id.forgot_password);
     }
-    
+
     private void setFonts() {
         setLightFonts();
         setMediumFonts();
     }
-    
+
     private void setLightFonts() {
-        Typeface lightFont = Typeface.createFromAsset(getAssets(), "Roboto-Light.ttf");
+        Typeface lightFont = Typeface.createFromAsset(getAssets(),
+                "Roboto-Light.ttf");
         uniTextField.setTypeface(lightFont);
         passwordTextField.setTypeface(lightFont);
         rememberMeCheckBox.setTypeface(lightFont);
         forgotPassword.setTypeface(lightFont);
     }
-    
+
     private void setMediumFonts() {
-        Typeface mediumFont = Typeface.createFromAsset(getAssets(), "Roboto-Medium.ttf");
+        Typeface mediumFont = Typeface.createFromAsset(getAssets(),
+                "Roboto-Medium.ttf");
         signInButton.setTypeface(mediumFont);
+    }
+
+    private void setForgotPasswordLink() {
+        forgotPassword.setText(Html.fromHtml(FORGOT_PASSWORD_LINK));
+        forgotPassword.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     private boolean checkLoggedInBefore(File loginSettings) {
@@ -251,14 +262,14 @@ public class LoginView extends Activity {
 
             try {
                 if (password != null) {
-                    grantingTicket = CASAuthUtil.getGrantingTicket(
-                            uni, password);
+                    grantingTicket = CASAuthUtil.getGrantingTicket(uni,
+                            password);
                     storeGrantingTicketIfChecked(grantingTicket);
                     startTimer();
                 } else {
                     grantingTicket = loginPreferences.getString("ticket");
                 }
-                
+
                 serviceTicket = CASAuthUtil.login(uni, grantingTicket);
                 if (serviceTicket != null)
                     worked = true;
@@ -274,9 +285,10 @@ public class LoginView extends Activity {
                 loginPreferences.put("ticket", grantingTicket);
             }
         }
-        
+
         private void startTimer() {
-            Intent timeoutIntent = new Intent(LoginView.this, ExpirationTimer.class);
+            Intent timeoutIntent = new Intent(LoginView.this,
+                    ExpirationTimer.class);
             startService(timeoutIntent);
         }
 
@@ -287,7 +299,8 @@ public class LoginView extends Activity {
 
             if (success) {
                 finish();
-                Intent mainIntent = new Intent(LoginView.this, HiddenWebView.class);
+                Intent mainIntent = new Intent(LoginView.this,
+                        HiddenWebView.class);
                 mainIntent.putExtra("ServiceTicket", serviceTicket);
                 LoginView.this.startActivity(mainIntent);
             } else {

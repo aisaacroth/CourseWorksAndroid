@@ -116,7 +116,6 @@
                 android:layout_alignBaseline="@+id/remember_me"
                 android:layout_alignBottom="@+id/remember_me"
                 android:layout_alignRight="@+id/sign_in_button"
-                android:text="@string/forgot_password"
                 android:textColor="@color/dark_blue"
                 android:textSize="14sp" />
 
