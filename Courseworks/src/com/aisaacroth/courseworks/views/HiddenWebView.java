@@ -1,6 +1,7 @@
 package com.aisaacroth.courseworks.views;
 
 import com.aisaacroth.courseworks.R;
+import com.aisaacroth.courseworks.adapters.*;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -19,6 +20,7 @@ import android.webkit.*;
 @SuppressLint("SetJavaScriptEnabled")
 public class HiddenWebView extends Activity {
 
+    private SharedPreferencesAdapter preferenceAdapter;
     private WebView webView;
 
     @Override
@@ -34,13 +36,20 @@ public class HiddenWebView extends Activity {
                 + "container?force.login=yes&ticket=" + ticket;
         webView.loadUrl(url);
         Log.d("HIDDEN WEB VIEW URL", url);
-        
+
         webView.setWebViewClient(new WebViewClient() {
-            
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 String cookies = CookieManager.getInstance().getCookie(url);
-                Log.d("COOKIES",  "Cookies: " + cookies);
+                Log.d("COOKIES", "Cookies: " + cookies);
+                preferenceAdapter = new SharedPreferencesAdapter(
+                        getApplicationContext(), "auth");
+                boolean remembered = Boolean.parseBoolean(preferenceAdapter
+                        .getString("rememberMe"));
+                if (remembered) {
+                    preferenceAdapter.put("sessionId", cookies);
+                }
                 finish();
                 Intent mainIntent = new Intent(HiddenWebView.this, Main.class);
                 mainIntent.putExtra("JSESSION", cookies);
