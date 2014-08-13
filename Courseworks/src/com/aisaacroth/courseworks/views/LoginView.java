@@ -1,6 +1,5 @@
 package com.aisaacroth.courseworks.views;
 
-import java.io.File;
 import java.io.IOException;
 
 import com.aisaacroth.courseworks.R;
@@ -14,7 +13,7 @@ import android.app.Activity;
 import android.content.*;
 import android.graphics.Typeface;
 import android.os.*;
-import android.text.Html;
+import android.text.*;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.*;
@@ -55,11 +54,6 @@ public class LoginView extends Activity {
         setUpLoginForm();
 
         loginPreferences = new SharedPreferencesAdapter(this, "auth");
-        File loginSettings = loginPreferences.locateLoginSettings(this);
-
-        if (checkLoggedInBefore(loginSettings)) {
-            proceedWithLogin();
-        }
 
         passwordTextField
                 .setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -78,16 +72,15 @@ public class LoginView extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
-                        if (rememberMeCheckBox.isChecked()) {
-                            storeUsername();
-                        } else {
-                            loginPreferences.clear();
-                        }
+                        storeRememberBooleanIfChecked();
                         attemptLogin();
                     }
                 });
     }
+    
+    private void storeRememberBooleanIfChecked() {
+        loginPreferences.put("rememberMe", String.valueOf(rememberMeCheckBox.isChecked()));
+}
 
     private void setUpLoginForm() {
         setViews();
@@ -131,22 +124,6 @@ public class LoginView extends Activity {
         forgotPassword.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
-    private boolean checkLoggedInBefore(File loginSettings) {
-        if (loginSettings.exists() && hasUNI()) {
-            return true;
-        }
-        return false;
-    }
-
-    private boolean hasUNI() {
-        return (loginPreferences.getString("uni") != null) ? true : false;
-    }
-
-    private void storeUsername() {
-        uni = retrieveTextFromTextField(uniTextField);
-        loginPreferences.put("uni", uni);
-    }
-
     public void attemptLogin() {
         if (loginTask != null) {
             return;
@@ -154,7 +131,6 @@ public class LoginView extends Activity {
 
         resetErrorNotification();
 
-        // Store values at the time of the login attempt.
         uni = retrieveTextFromTextField(uniTextField);
         password = retrieveTextFromTextField(passwordTextField);
 
@@ -261,14 +237,8 @@ public class LoginView extends Activity {
             boolean worked = false;
 
             try {
-                if (password != null) {
-                    grantingTicket = CASAuthUtil.getGrantingTicket(uni,
-                            password);
-                    storeGrantingTicketIfChecked(grantingTicket);
-                    startTimer();
-                } else {
-                    grantingTicket = loginPreferences.getString("ticket");
-                }
+                grantingTicket = CASAuthUtil.getGrantingTicket(uni, password);
+                startTimer();
 
                 serviceTicket = CASAuthUtil.login(uni, grantingTicket);
                 if (serviceTicket != null)
@@ -278,12 +248,6 @@ public class LoginView extends Activity {
                 e.printStackTrace();
             }
             return worked;
-        }
-
-        private void storeGrantingTicketIfChecked(String grantingTicket) {
-            if (rememberMeCheckBox.isChecked()) {
-                loginPreferences.put("ticket", grantingTicket);
-            }
         }
 
         private void startTimer() {

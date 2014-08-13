@@ -1,6 +1,9 @@
 package com.aisaacroth.courseworks.views;
 
+import java.io.File;
+
 import com.aisaacroth.courseworks.R;
+import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -16,30 +19,53 @@ import android.os.*;
  * @date 2014-02-24
  */
 public class SplashView extends Activity {
-
-    // Simulates the load time.
-    private static int SPLASH_TIME_OUT = 1000;
+    private SharedPreferencesAdapter preferenceAdapter;
+    private File loginPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_view);
 
-        new Handler().postDelayed(new Runnable() {
+        preferenceAdapter = new SharedPreferencesAdapter(this, "auth");
+        loginPreferences = preferenceAdapter.locateLoginSettings(this);
 
-            @Override
-            public void run() {
-                // Go to the Login screen after this is implemented.
-                // TODO: Move back to Login class. Only set to Main for dev.
-                Intent i = new Intent(SplashView.this, LoginView.class);
-                startActivity(i);
+        if (loggedInBefore()) {
+            new Handler().postDelayed(new Runnable() {
 
-                // Close this activity
-                finish();
+                @Override
+                public void run() {
+                    Intent mainIntent = new Intent(SplashView.this, Main.class);
+                    String jsession = preferenceAdapter.getString("sessionId");
+                    mainIntent.putExtra("JSESSION", jsession);
+                    startActivity(mainIntent);
+                    finish();
 
-            }
-        }, SPLASH_TIME_OUT);
+                }
+            }, 0);
 
+        } else {
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    Intent loginIntent = new Intent(SplashView.this,
+                            LoginView.class);
+                    startActivity(loginIntent);
+                    finish();
+                }
+            }, 0);
+        }
+
+    }
+
+    private boolean loggedInBefore() {
+        return ((loginPreferences.exists()) && hasSessionId()) ? true : false;
+    }
+
+    private boolean hasSessionId() {
+        return (preferenceAdapter.getString("sessionId") != null) ? true
+                : false;
     }
 
 }
