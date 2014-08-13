@@ -15,10 +15,11 @@ import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.*;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 public class AnnouncementView extends Activity {
-    private TextView actionBarBackText;
+    private TextView actionBarBackButton;
     private TextView actionBarTitleText;
     private TextView currentDate;
     private TextView updateTime;
@@ -52,11 +53,11 @@ public class AnnouncementView extends Activity {
         setTextViews();
         populateTextViews(announcement);
         setFonts();
-
+        setBackButtonCommand();
     }
 
     private void setTextViews() {
-        actionBarBackText = (TextView) findViewById(R.id.announcement_actionbar_back);
+        actionBarBackButton = (TextView) findViewById(R.id.announcement_actionbar_back);
         actionBarTitleText = (TextView) findViewById(R.id.announcement_actionbar_title);
         currentDate = (TextView) findViewById(R.id.announcement_current_date);
         updateTime = (TextView) findViewById(R.id.announcement_update_time);
@@ -103,8 +104,17 @@ public class AnnouncementView extends Activity {
     private void setNarrowFont() {
         Typeface thinFont = Typeface.createFromAsset(getAssets(),
                 "Roboto-Light.ttf");
-        actionBarBackText.setTypeface(thinFont);
+        actionBarBackButton.setTypeface(thinFont);
         actionBarTitleText.setTypeface(thinFont);
+    }
+    
+    private void setBackButtonCommand() {
+           actionBarBackButton.setOnClickListener(new OnClickListener(){
+               @Override
+               public void onClick(View arg0) {
+                   onBackPressed();
+               }
+           });
     }
 
     @Override
