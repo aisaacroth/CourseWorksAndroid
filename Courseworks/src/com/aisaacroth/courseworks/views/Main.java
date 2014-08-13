@@ -41,6 +41,8 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        final View homeIcon = findViewById(android.R.id.home);
+        ((View) homeIcon.getParent()).setVisibility(View.GONE);
 
         Intent sessionIntent = getIntent();
         String sessionCookie = sessionIntent.getStringExtra("JSESSION");

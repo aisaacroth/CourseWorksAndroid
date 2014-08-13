@@ -26,7 +26,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:text="Test Date"
             android:textColor="@color/black"
             android:textSize="10sp" />
 
@@ -35,7 +34,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
-            android:text="Test Time"
             android:textColor="@color/black"
             android:textSize="10sp" />
     </RelativeLayout>

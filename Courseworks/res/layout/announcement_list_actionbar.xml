@@ -12,8 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:background="@drawable/solid_bottom_line"
         android:text="@string/announcement_list_title"
         android:textColor="@color/black" />
+    
+    <ImageView 
+        android:src="@drawable/a_final_attempt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:contentDescription="@string/logo_description"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingBottom="22dp" />
 
 </LinearLayout>

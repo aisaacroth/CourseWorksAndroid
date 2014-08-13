@@ -49,6 +49,7 @@ public class AnnouncementListView extends ListFragment {
         actionBar.setCustomView(R.layout.announcement_list_actionbar);
     }
 
+
     private void getAnnouncements() {
         String sessionID = getSessionID();
         AnnouncementFeed announcementFeed = new AnnouncementFeed();

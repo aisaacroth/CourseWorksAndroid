@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.webkit.*;
 
 /**
@@ -31,7 +30,6 @@ public class HiddenWebView extends Activity {
         String ticket = extraIntent.getStringExtra("ServiceTicket");
         webView = (WebView) findViewById(R.id.hiddenWebView);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.setVisibility(View.INVISIBLE);
         String url = "https://sakaidev.cc.columbia.edu/sakai-login-tool/"
                 + "container?force.login=yes&ticket=" + ticket;
         webView.loadUrl(url);
