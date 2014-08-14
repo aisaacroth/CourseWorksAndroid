@@ -158,11 +158,4 @@ public class CASAuthUtil {
         return serviceTicket;
     }
 
-    public static void logout() throws ClientProtocolException, IOException {
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpDelete delete = new HttpDelete(
-                "http://cas.columbia.edu/cas/v1/tickets/" + tGT);
-        httpClient.execute(delete);
-    }
-
 }

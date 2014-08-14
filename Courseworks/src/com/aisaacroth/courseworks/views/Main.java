@@ -44,8 +44,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         final View homeIcon = findViewById(android.R.id.home);
         ((View) homeIcon.getParent()).setVisibility(View.GONE);
 
-        Intent sessionIntent = getIntent();
-        String sessionCookie = sessionIntent.getStringExtra("JSESSION");
+        String sessionCookie = extractSessionCookieFromIntent();
         UserFeed userFeed = new UserFeed();
         try {
             currentUser = userFeed.execute(sessionCookie).get();
@@ -77,6 +76,23 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         viewPager.setCurrentItem(MIDDLE);
         setDateAndTime();
+    }
+
+    private void initializeTabsPagerAdapter() {
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        actionBar = getActionBar();
+        tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
+    }
+
+    private void setupActivity() {
+        viewPager.setAdapter(tabsPagerAdapter);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    }
+
+    private String extractSessionCookieFromIntent() {
+        Intent sessionIntent = getIntent();
+        return sessionIntent.getStringExtra("JSESSION");
     }
 
     private void setDateAndTime() {
@@ -123,18 +139,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
                     .setTabListener(this));
 
         }
-    }
-
-    private void initializeTabsPagerAdapter() {
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        actionBar = getActionBar();
-        tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
-    }
-
-    private void setupActivity() {
-        viewPager.setAdapter(tabsPagerAdapter);
-        actionBar.setHomeButtonEnabled(true);
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
     }
 
     public User getUser() {

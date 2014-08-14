@@ -6,14 +6,12 @@ import java.util.Date;
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.structures.Announcement;
 
-import android.app.ActionBar;
-import android.app.Activity;
+import android.app.*;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -37,8 +35,6 @@ public class AnnouncementView extends Activity {
         Intent announcementData = getIntent();
         Announcement announcement = (Announcement) announcementData
                 .getSerializableExtra("Announcement");
-
-        Log.d("ANNOUNCEMENT IN VIEW", "Title: " + announcement.getTitle());
 
         setActionBar();
         setAnnouncementView(announcement);
@@ -126,9 +122,6 @@ public class AnnouncementView extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
