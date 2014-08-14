@@ -12,9 +12,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/logo_description"
         android:scaleType="fitCenter"
-        android:src="@drawable/a_final_attempt"
-        android:layout_marginTop="-20dp"
-        android:layout_marginBottom="-10dp" />
+        android:src="@drawable/courseworks_logo_login" />
 
     <ScrollView
         android:id="@+id/announcement_scroll"
@@ -51,36 +49,43 @@
                     android:textSize="10sp" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/announcement_title"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="4dp"
-                android:textColor="@color/light_blue"
-                android:textSize="16sp" />
-
             <LinearLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal" >
+                android:background="@color/white"
+                android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/announcement_class_box"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/announcement_title"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="12dp"
-                    android:background="@drawable/blue_rectangle"
-                    android:text="@string/class_tag"
-                    android:textColor="@color/white"
-                    android:textSize="10sp" />
+                    android:gravity="center"
+                    android:textColor="@color/light_blue"
+                    android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/announcement_class"
-                    android:layout_width="fill_parent"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/announcement_class_box"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="12dp"
+                        android:background="@drawable/blue_rectangle"
+                        android:text="@string/class_tag"
+                        android:textColor="@color/white"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/announcement_class"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <TextView
