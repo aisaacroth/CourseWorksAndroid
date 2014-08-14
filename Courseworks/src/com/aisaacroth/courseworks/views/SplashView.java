@@ -1,7 +1,5 @@
 package com.aisaacroth.courseworks.views;
 
-import java.io.File;
-
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
 
@@ -20,7 +18,6 @@ import android.os.*;
  */
 public class SplashView extends Activity {
     private SharedPreferencesAdapter preferenceAdapter;
-    private File loginPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +25,6 @@ public class SplashView extends Activity {
         setContentView(R.layout.activity_splash_view);
 
         preferenceAdapter = new SharedPreferencesAdapter(this, "auth");
-        loginPreferences = preferenceAdapter.locateLoginSettings(this);
 
         if (loggedInBefore()) {
             new Handler().postDelayed(new Runnable() {
@@ -55,7 +51,7 @@ public class SplashView extends Activity {
     }
 
     private boolean loggedInBefore() {
-        return ((loginPreferences.exists()) && hasSessionId()) ? true : false;
+        return (hasSessionId()) ? true : false;
     }
 
     private boolean hasSessionId() {

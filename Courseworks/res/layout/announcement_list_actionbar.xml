@@ -16,7 +16,7 @@
         android:textColor="@color/black" />
     
     <ImageView 
-        android:src="@drawable/a_final_attempt"
+        android:src="@drawable/courseworks_logo_login"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
