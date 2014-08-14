@@ -29,7 +29,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             return new CalendarView();
         }
 
-        return null;
+        throw new NullPointerException();
     }
 
     @Override

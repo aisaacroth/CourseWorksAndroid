@@ -1,9 +1,6 @@
 package com.aisaacroth.courseworks.feeds;
 
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
-
+import com.aisaacroth.courseworks.exceptions.FailedConnectionException;
 import com.aisaacroth.courseworks.reconstructors.UserReconstructor;
 import com.aisaacroth.courseworks.structures.User;
 
@@ -26,28 +23,23 @@ public class UserFeed extends AsyncTask<String, Void, User> {
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        
-        //TODO: Switch to Production servers.
+
+        // TODO: Switch to Production servers.
         url = "https://sakaidev.cc.columbia.edu/direct/user/current.xml";
-        try {
-            userReconstructor = new UserReconstructor();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        userReconstructor = new UserReconstructor();
     }
 
     @Override
     protected User doInBackground(String... params) {
         try {
             currentUser = userReconstructor.constructUser(url, params[0]);
-            logUser();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (FailedConnectionException e) {
+            e = new FailedConnectionException(
+                    "There appears to be a connection error.");
             e.printStackTrace();
         }
+
+        logUser();
         return currentUser;
     }
 

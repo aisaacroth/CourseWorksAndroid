@@ -1,15 +1,12 @@
 package com.aisaacroth.courseworks.reconstructors;
 
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
-
+import com.aisaacroth.courseworks.exceptions.FailedConnectionException;
 import com.aisaacroth.courseworks.requesters.Requester;
 import com.aisaacroth.courseworks.structures.User;
 
 /**
- * Abstract class that provides some parsing functionality to reconstruct an
- * XML object.
+ * Abstract class that provides some parsing functionality to reconstruct an XML
+ * object.
  * 
  * @author Alexander Roth
  * @date 2014-07-29
@@ -20,15 +17,16 @@ public abstract class Reconstructor {
     public String xmlString;
     private Requester requester;
 
-    public void setXMLString(String url, String sessionID) throws ClientProtocolException,
-            IOException {
+    public void setXMLString(String url, String sessionID)
+            throws FailedConnectionException {
         requester = new Requester();
         this.xmlString = getXMLFromRequester(url, sessionID);
     }
 
     private String getXMLFromRequester(String url, String sessionID)
-            throws ClientProtocolException, IOException {
-        return requester.getXMLFromResponse(requester.getRequest(url, sessionID));
+            throws FailedConnectionException {
+        return requester.getXMLFromResponse(requester
+                .getRequest(url, sessionID));
     }
 
     public String parseFromTag(String xmlTag) {

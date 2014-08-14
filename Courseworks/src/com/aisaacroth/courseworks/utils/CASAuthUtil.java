@@ -12,6 +12,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 
+import com.aisaacroth.courseworks.exceptions.FailedConnectionException;
+
 import android.util.Log;
 
 /**
@@ -29,11 +31,20 @@ public class CASAuthUtil {
     private static final int LOCATION = 2;
 
     public static String getGrantingTicket(String username, String password)
-            throws IOException {
+            throws FailedConnectionException {
         String ticket = null;
-        HttpResponse response = postUserInfoToServer(username, password);
+        HttpResponse response = attemptPostToServer(username, password);
         ticket = parseTicket(ticket, response);
         return ticket;
+    }
+
+    private static HttpResponse attemptPostToServer(String username,
+            String password) throws FailedConnectionException {
+        try {
+            return postUserInfoToServer(username, password);
+        } catch (IOException e) {
+            throw new FailedConnectionException(e.getLocalizedMessage());
+        }
     }
 
     private static HttpResponse postUserInfoToServer(String username,
@@ -53,7 +64,6 @@ public class CASAuthUtil {
         HttpResponse response = httpClient.execute(httpPost);
         return response;
     }
-    
 
     private static void addUserPasswordParameter(List<NameValuePair> paramList,
             String username, String password) {
@@ -61,7 +71,8 @@ public class CASAuthUtil {
         paramList.add(new BasicNameValuePair("password", password));
     }
 
-    private static void logPost(HttpPost post) throws ParseException, IOException {
+    private static void logPost(HttpPost post) throws ParseException,
+            IOException {
         Log.d("Courseworks", post.getURI().toString());
         Log.d("Courseworks", EntityUtils.toString(post.getEntity()));
     }
@@ -86,7 +97,7 @@ public class CASAuthUtil {
     }
 
     public static String login(String username, String ticket)
-            throws IOException {
+            throws FailedConnectionException {
         tGT = ticket;
         String serviceTicket = null;
         if (ticketGrantingTicketExists()) {
@@ -105,21 +116,31 @@ public class CASAuthUtil {
     }
 
     private static String getServiceTicket(String ticket)
-            throws ClientProtocolException, IOException {
+            throws FailedConnectionException {
         String serviceTicket = null;
-        HttpResponse response = postTicketToServer(ticket);
-
+        HttpResponse response = attemptPostTicketToServer(ticket);
         if (connectionIsGood(response)) {
             serviceTicket = getServiceTicketFromResponse(response);
         }
         return serviceTicket;
     }
 
+    private static HttpResponse attemptPostTicketToServer(String ticket)
+            throws FailedConnectionException {
+        try {
+            return postTicketToServer(ticket);
+        } catch (ClientProtocolException e) {
+            throw new FailedConnectionException(e.getLocalizedMessage());
+        } catch (IOException e) {
+            throw new FailedConnectionException(e.getLocalizedMessage());
+        }
+    }
+
     private static HttpResponse postTicketToServer(String ticket)
             throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
-        
-        //TODO Switch to Production Servers
+
+        // TODO Switch to Production Servers
         HttpPost httpPost = new HttpPost(
                 "https://casdev.cc.columbia.edu/cas/v1/tickets/" + ticket);
 
@@ -134,10 +155,11 @@ public class CASAuthUtil {
     }
 
     private static void addService(List<NameValuePair> paramList) {
-        
-        //TODO Switch to Production Servers
-        paramList.add(new BasicNameValuePair("service",
-                "https://sakaidev.cc.columbia.edu/sakai-login-tool/container?force.login=yes"));
+
+        // TODO Switch to Production Servers
+        paramList
+                .add(new BasicNameValuePair("service",
+                        "https://sakaidev.cc.columbia.edu/sakai-login-tool/container?force.login=yes"));
     }
 
     private static boolean connectionIsGood(HttpResponse response) {

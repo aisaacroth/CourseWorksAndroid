@@ -1,9 +1,6 @@
 package com.aisaacroth.courseworks.reconstructors;
 
-import java.io.IOException;
-
-import org.apache.http.client.ClientProtocolException;
-
+import com.aisaacroth.courseworks.exceptions.FailedConnectionException;
 import com.aisaacroth.courseworks.structures.User;
 
 /**
@@ -14,7 +11,7 @@ import com.aisaacroth.courseworks.structures.User;
  */
 public class UserReconstructor extends Reconstructor {
 
-    public UserReconstructor() throws ClientProtocolException, IOException {
+    public UserReconstructor() {
         this.user = new User();
         this.xmlString = null;
     }
@@ -27,7 +24,7 @@ public class UserReconstructor extends Reconstructor {
     }
 
     public User constructUser(String url, String sessionID)
-            throws ClientProtocolException, IOException {
+            throws FailedConnectionException {
         setXMLString(url, sessionID);
         setUser();
         return user;
