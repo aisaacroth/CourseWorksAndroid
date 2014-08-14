@@ -5,6 +5,13 @@ import android.content.Intent;
 
 import com.aisaacroth.courseworks.adapters.*;
 
+/**
+ * Handler event that occurs at Login. Automatically logs the user out after one
+ * week.
+ * 
+ * @author Alexander Roth
+ * @date 2014-07-29
+ */
 public class ExpirationTimer extends IntentService {
 
     private static final int WEEK = 1000 * 60 * 60 * 24 * 7;
@@ -20,7 +27,6 @@ public class ExpirationTimer extends IntentService {
             synchronized (this) {
                 try {
                     wait(logoutTime - System.currentTimeMillis());
-                    CASAuthUtil.logout();
                     eraseLoginSettingsFile();
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -42,5 +48,4 @@ public class ExpirationTimer extends IntentService {
                 getBaseContext(), "auth");
         preferences.clear();
     }
-
 }

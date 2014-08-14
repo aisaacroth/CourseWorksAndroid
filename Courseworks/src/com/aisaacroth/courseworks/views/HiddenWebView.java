@@ -28,14 +28,10 @@ public class HiddenWebView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hidden_web_view);
 
-        Intent extraIntent = getIntent();
-        String ticket = extraIntent.getStringExtra("ServiceTicket");
-        webView = (WebView) findViewById(R.id.hiddenWebView);
-        webView.getSettings().setJavaScriptEnabled(true);
-        String url = "https://sakaidev.cc.columbia.edu/sakai-login-tool/"
-                + "container?force.login=yes&ticket=" + ticket;
-        webView.loadUrl(url);
-        Log.d("HIDDEN WEB VIEW URL", url);
+        String ticket = getServiceTicketFromIntent();
+        prepareWebView();
+        accessPage(ticket);
+        preferenceAdapter = new SharedPreferencesAdapter(this, "auth");
 
         webView.setWebViewClient(new WebViewClient() {
 
@@ -43,19 +39,43 @@ public class HiddenWebView extends Activity {
             public void onPageFinished(WebView view, String url) {
                 String cookies = CookieManager.getInstance().getCookie(url);
                 Log.d("COOKIES", "Cookies: " + cookies);
-                preferenceAdapter = new SharedPreferencesAdapter(
-                        getApplicationContext(), "auth");
-                boolean remembered = Boolean.parseBoolean(preferenceAdapter
-                        .getString("rememberMe"));
-                if (remembered) {
-                    preferenceAdapter.put("sessionId", cookies);
-                }
+                storeCookieIfRemembered(cookies);
                 finish();
-                Intent mainIntent = new Intent(HiddenWebView.this, Main.class);
-                mainIntent.putExtra("JSESSION", cookies);
-                HiddenWebView.this.startActivity(mainIntent);
+                startMainWithIntent(cookies);
             }
         });
     }
 
+    private String getServiceTicketFromIntent() {
+        Intent serviceTicketIntet = getIntent();
+        return serviceTicketIntet.getStringExtra("ServiceTicket");
+    }
+
+    private void prepareWebView() {
+        webView = (WebView) findViewById(R.id.hiddenWebView);
+        webView.getSettings().setJavaScriptEnabled(true);
+    }
+
+    private void accessPage(String ticket) {
+        // TODO: Move to Production Server
+        String url = "https://sakaidev.cc.columbia.edu/sakai-login-tool/"
+                + "container?force.login=yes&ticket=" + ticket;
+        webView.loadUrl(url);
+        Log.d("HIDDEN WEB VIEW URL", url);
+    }
+
+    private void storeCookieIfRemembered(String cookies) {
+        boolean remembered = Boolean.parseBoolean(preferenceAdapter
+                .getString("rememberMe"));
+        if (remembered) {
+            preferenceAdapter.put("sessionId", cookies);
+        }
+
+    }
+    
+    private void startMainWithIntent(String cookies) {
+        Intent mainIntent = new Intent(HiddenWebView.this, Main.class);
+        mainIntent.putExtra("JSESSION", cookies);
+        startActivity(mainIntent);
+    }
 }

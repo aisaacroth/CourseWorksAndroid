@@ -26,9 +26,7 @@ public class Requester {
         HttpClient serverClient = new DefaultHttpClient();
         HttpGet getXmlRequest = new HttpGet(url);
         getXmlRequest.setHeader("Cookie", sessionId);
-        for (Header header : getXmlRequest.getAllHeaders()) {
-            Log.d("REQUEST HEADER", header.getName() + ": " + header.getValue());
-        }
+        logRequestHeaders(getXmlRequest);
         HttpResponse xmlResponse = serverClient.execute(getXmlRequest);
         return xmlResponse;
     };
@@ -37,6 +35,12 @@ public class Requester {
             throws ParseException, IOException {
         HttpEntity xmlEntity = response.getEntity();
         return EntityUtils.toString(xmlEntity);
+    }
+    
+    private void logRequestHeaders(HttpGet xmlRequest) {
+        for (Header header : xmlRequest.getAllHeaders()) {
+            Log.d("REQUEST HEADER", header.getName() + ": " + header.getValue());
+        }
     }
     
 }

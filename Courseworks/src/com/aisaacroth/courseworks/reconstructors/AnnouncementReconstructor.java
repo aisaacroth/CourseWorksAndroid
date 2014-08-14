@@ -44,7 +44,7 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     public String[] parseAnnouncementStrings() {
         removeCollectionTag();
-        String[] announcementXMLs = splitAnnouncements();
+        String[] announcementXMLs = separateplitAnnouncements();
         removeAnnouncementTag(announcementXMLs);
         return announcementXMLs;
     }
@@ -55,7 +55,7 @@ public class AnnouncementReconstructor extends Reconstructor {
         this.xmlString = this.xmlString.substring(startIndex, endIndex);
     }
 
-    private String[] splitAnnouncements() {
+    private String[] separateplitAnnouncements() {
         return xmlString.split("</announcement>");
     }
 
@@ -89,7 +89,7 @@ public class AnnouncementReconstructor extends Reconstructor {
     public String parseDateString() {
         String dateSubTag = getDateLine();
         String dashDate = getDate(dateSubTag);
-        String dotDate = removeDots(dashDate);
+        String dotDate = replaceDashesWithDots(dashDate);
         return dotDate;
     }
 
@@ -110,7 +110,7 @@ public class AnnouncementReconstructor extends Reconstructor {
         return dateString.substring(startDateLength, endIndexDate);
     }
 
-    private String removeDots(String dateString) {
+    private String replaceDashesWithDots(String dateString) {
         return dateString.replace('-', '.');
     }
     

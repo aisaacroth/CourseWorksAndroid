@@ -35,10 +35,7 @@ public class SplashView extends Activity {
 
                 @Override
                 public void run() {
-                    Intent mainIntent = new Intent(SplashView.this, Main.class);
-                    String jsession = preferenceAdapter.getString("sessionId");
-                    mainIntent.putExtra("JSESSION", jsession);
-                    startActivity(mainIntent);
+                    startMainWithSessionId();
                     finish();
 
                 }
@@ -49,9 +46,7 @@ public class SplashView extends Activity {
 
                 @Override
                 public void run() {
-                    Intent loginIntent = new Intent(SplashView.this,
-                            LoginView.class);
-                    startActivity(loginIntent);
+                    startLogin();
                     finish();
                 }
             }, 0);
@@ -68,4 +63,15 @@ public class SplashView extends Activity {
                 : false;
     }
 
+    private void startMainWithSessionId() {
+        Intent mainIntent = new Intent(SplashView.this, Main.class);
+        String jsession = preferenceAdapter.getString("sessionId");
+        mainIntent.putExtra("JSESSION", jsession);
+        startActivity(mainIntent);
+    }
+    
+    private void startLogin() {
+        Intent loginIntent = new Intent(SplashView.this, LoginView.class);
+        startActivity(loginIntent);
+    }
 }
