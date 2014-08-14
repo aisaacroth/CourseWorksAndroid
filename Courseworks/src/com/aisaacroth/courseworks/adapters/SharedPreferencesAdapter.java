@@ -28,7 +28,7 @@ public class SharedPreferencesAdapter {
         if (preferences.contains(key)) {
             return preferences.getString(key, "");
         }
-        return null;
+        throw new NullPointerException();
     }
 
     public void clear() {

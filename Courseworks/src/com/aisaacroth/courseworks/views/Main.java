@@ -41,8 +41,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final View homeIcon = findViewById(android.R.id.home);
-        ((View) homeIcon.getParent()).setVisibility(View.GONE);
+        removeHomeIcon();
 
         String sessionCookie = extractSessionCookieFromIntent();
         UserFeed userFeed = new UserFeed();
@@ -76,6 +75,11 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
         viewPager.setCurrentItem(MIDDLE);
         setDateAndTime();
+    }
+
+    private void removeHomeIcon() {
+        final View homeIcon = findViewById(android.R.id.home);
+        ((View) homeIcon.getParent()).setVisibility(View.GONE);
     }
 
     private void initializeTabsPagerAdapter() {

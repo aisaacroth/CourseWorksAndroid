@@ -1,9 +1,8 @@
 package com.aisaacroth.courseworks.views;
 
-import java.io.IOException;
-
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.SharedPreferencesAdapter;
+import com.aisaacroth.courseworks.exceptions.FailedConnectionException;
 import com.aisaacroth.courseworks.utils.*;
 
 import android.animation.*;
@@ -14,7 +13,6 @@ import android.content.*;
 import android.graphics.Typeface;
 import android.os.*;
 import android.text.*;
-import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.view.*;
 import android.view.inputmethod.EditorInfo;
@@ -77,10 +75,11 @@ public class LoginView extends Activity {
                     }
                 });
     }
-    
+
     private void storeRememberBooleanIfChecked() {
-        loginPreferences.put("rememberMe", String.valueOf(rememberMeCheckBox.isChecked()));
-}
+        loginPreferences.put("rememberMe",
+                String.valueOf(rememberMeCheckBox.isChecked()));
+    }
 
     private void setUpLoginForm() {
         setViews();
@@ -237,23 +236,31 @@ public class LoginView extends Activity {
             boolean worked = false;
 
             try {
-                grantingTicket = CASAuthUtil.getGrantingTicket(uni, password);
-                startTimer();
-
-                serviceTicket = CASAuthUtil.login(uni, grantingTicket);
-                if (serviceTicket != null)
-                    worked = true;
-
-            } catch (IOException e) {
-                e.printStackTrace();
+                login();
+            } catch (FailedConnectionException e) {
+                e = new FailedConnectionException("There appears to be a connection error. Please try again later");
+                displayConnectionErrorMessage(e.getLocalizedMessage());
             }
+
+            if (serviceTicket != null)
+                worked = true;
             return worked;
+        }
+        
+        private void login() throws FailedConnectionException {
+            grantingTicket = CASAuthUtil.getGrantingTicket(uni, password);
+            startTimer();
+            serviceTicket = CASAuthUtil.login(uni, grantingTicket);
         }
 
         private void startTimer() {
             Intent timeoutIntent = new Intent(LoginView.this,
                     ExpirationTimer.class);
             startService(timeoutIntent);
+        }
+        
+        private void displayConnectionErrorMessage(String message) {
+            Toast.makeText(getParent(), message, Toast.LENGTH_SHORT).show();
         }
 
         @Override

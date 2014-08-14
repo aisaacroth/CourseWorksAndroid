@@ -1,13 +1,10 @@
 package com.aisaacroth.courseworks.reconstructors;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.http.client.ClientProtocolException;
+import android.text.*;
 
-import android.text.Html;
-import android.text.Spanned;
-
+import com.aisaacroth.courseworks.exceptions.FailedConnectionException;
 import com.aisaacroth.courseworks.structures.Announcement;
 
 /**
@@ -22,21 +19,20 @@ public class AnnouncementReconstructor extends Reconstructor {
     private Announcement announcement;
     private ArrayList<Announcement> announcementList;
 
-    public AnnouncementReconstructor() throws ClientProtocolException,
-            IOException {
+    public AnnouncementReconstructor() {
         this.announcement = null;
         this.xmlString = null;
     }
 
     public ArrayList<Announcement> constructAnnouncements(String url,
-            String sessionID) throws ClientProtocolException, IOException {
+            String sessionID) throws FailedConnectionException {
         String[] xmlArray = prepareXML(url, sessionID);
         announcementList = fetchAnnouncements(xmlArray);
         return announcementList;
     }
 
     private String[] prepareXML(String url, String sessionID)
-            throws ClientProtocolException, IOException {
+            throws FailedConnectionException {
         setXMLString(url, sessionID);
         String[] xmlArray = parseAnnouncementStrings();
         return xmlArray;
@@ -113,7 +109,7 @@ public class AnnouncementReconstructor extends Reconstructor {
     private String replaceDashesWithDots(String dateString) {
         return dateString.replace('-', '.');
     }
-    
+
     private String formatBodyText() {
         String xmlBodyString = parseFromTag("body");
         Spanned spannedText = Html.fromHtml(xmlBodyString);

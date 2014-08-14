@@ -1,10 +1,8 @@
 package com.aisaacroth.courseworks.feeds;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.http.client.ClientProtocolException;
-
+import com.aisaacroth.courseworks.exceptions.FailedConnectionException;
 import com.aisaacroth.courseworks.reconstructors.AnnouncementReconstructor;
 import com.aisaacroth.courseworks.structures.Announcement;
 
@@ -26,16 +24,9 @@ public class AnnouncementFeed extends
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        
-        //TODO: Switch to production servers
+        // TODO: Switch to production servers
         url = "https://sakaidev.cc.columbia.edu/direct/announcement/user.xml?n=20&d=100";
-        try {
-            announcementReconstructor = new AnnouncementReconstructor();
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        announcementReconstructor = new AnnouncementReconstructor();
     }
 
     @Override
@@ -43,9 +34,9 @@ public class AnnouncementFeed extends
         try {
             announcementList = announcementReconstructor
                     .constructAnnouncements(url, params[0]);
-        } catch (ClientProtocolException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (FailedConnectionException e) {
+            e = new FailedConnectionException(
+                    "There appears to be a connection error.");
             e.printStackTrace();
         }
 

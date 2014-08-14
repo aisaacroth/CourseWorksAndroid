@@ -8,6 +8,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 
+import com.aisaacroth.courseworks.exceptions.FailedConnectionException;
+
 import android.util.Log;
 
 /**
@@ -21,26 +23,48 @@ public class Requester {
     public Requester() {
     }
 
-    public HttpResponse getRequest(String url, String sessionId) throws ClientProtocolException,
-            IOException {
+    public HttpResponse getRequest(String url, String sessionId)
+            throws FailedConnectionException {
         HttpClient serverClient = new DefaultHttpClient();
         HttpGet getXmlRequest = new HttpGet(url);
         getXmlRequest.setHeader("Cookie", sessionId);
         logRequestHeaders(getXmlRequest);
-        HttpResponse xmlResponse = serverClient.execute(getXmlRequest);
+        HttpResponse xmlResponse = recieveResponse(serverClient, getXmlRequest);
         return xmlResponse;
     };
 
     public String getXMLFromResponse(HttpResponse response)
-            throws ParseException, IOException {
+            throws FailedConnectionException {
         HttpEntity xmlEntity = response.getEntity();
-        return EntityUtils.toString(xmlEntity);
+        return parseEntityToString(xmlEntity);
     }
-    
+
     private void logRequestHeaders(HttpGet xmlRequest) {
         for (Header header : xmlRequest.getAllHeaders()) {
             Log.d("REQUEST HEADER", header.getName() + ": " + header.getValue());
         }
     }
-    
+
+    private HttpResponse recieveResponse(HttpClient client, HttpGet request)
+            throws FailedConnectionException {
+        try {
+            return client.execute(request);
+        } catch (ClientProtocolException e) {
+            throw new FailedConnectionException(e.getLocalizedMessage());
+        } catch (IOException e) {
+            throw new FailedConnectionException(e.getLocalizedMessage());
+        }
+    }
+
+    private String parseEntityToString(HttpEntity entity)
+            throws FailedConnectionException {
+        try {
+            return EntityUtils.toString(entity);
+        } catch (ParseException e) {
+            throw new FailedConnectionException(e.getLocalizedMessage());
+        } catch (IOException e) {
+            throw new FailedConnectionException(e.getLocalizedMessage());
+        }
+    }
+
 }
