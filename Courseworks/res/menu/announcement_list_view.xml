@@ -3,8 +3,7 @@
     tools:context="com.aisaacroth.courseworks.AnnouncementListView" >
 
     <item
-        android:id="@+id/item1"
-        android:icon="@drawable/courseworks_logo_login"
-        android:title="@string/title_activity_announcement_view"/>
+        android:id="@+id/announcement_list_signout_option"
+        android:title="@string/announcement_list_signout_option" />
 
 </menu>

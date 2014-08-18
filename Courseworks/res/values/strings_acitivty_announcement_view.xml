@@ -5,4 +5,5 @@
     <string name="class_tag">CLASS</string>
     <string name="announcement_view">Announcement</string>
     <string name="back_button">Back</string>
+    <string name="announcement_view_signout_option">Sign Out</string>
 </resources>

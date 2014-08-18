@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.structures.Announcement;
+import com.aisaacroth.courseworks.utils.LogoutUtil;
 
 import android.app.*;
 import android.content.Intent;
@@ -123,7 +124,8 @@ public class AnnouncementView extends Activity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.announcement_view_signout_option) {
+            LogoutUtil.logout(this);
             return true;
         }
         return super.onOptionsItemSelected(item);

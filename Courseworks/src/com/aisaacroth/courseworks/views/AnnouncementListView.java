@@ -7,6 +7,7 @@ import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.AnnouncementAdapter;
 import com.aisaacroth.courseworks.feeds.AnnouncementFeed;
 import com.aisaacroth.courseworks.structures.*;
+import com.aisaacroth.courseworks.utils.LogoutUtil;
 
 import android.support.v4.app.ListFragment;
 import android.app.ActionBar;
@@ -70,7 +71,8 @@ public class AnnouncementListView extends ListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.announcement_list_signout_option) {
+            LogoutUtil.logout(getActivity());
             return true;
         }
         return super.onOptionsItemSelected(item);
