@@ -32,18 +32,7 @@ public class HiddenWebView extends Activity {
         prepareWebView();
         accessPage(ticket);
         preferenceAdapter = new SharedPreferencesAdapter(this, "auth");
-
-        webView.setWebViewClient(new WebViewClient() {
-
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                String cookies = CookieManager.getInstance().getCookie(url);
-                Log.d("COOKIES", "Cookies: " + cookies);
-                storeCookieIfRemembered(cookies);
-                finish();
-                startMainWithIntent(cookies);
-            }
-        });
+        setUpWebView();
     }
 
     private String getServiceTicketFromIntent() {
@@ -52,7 +41,7 @@ public class HiddenWebView extends Activity {
     }
 
     private void prepareWebView() {
-        webView = (WebView) findViewById(R.id.hiddenWebView);
+        webView = (WebView) findViewById(R.id.hidden_web_view);
         webView.getSettings().setJavaScriptEnabled(true);
     }
 
@@ -64,6 +53,21 @@ public class HiddenWebView extends Activity {
         Log.d("HIDDEN WEB VIEW URL", url);
     }
 
+    private void setUpWebView() {
+        webView.setWebViewClient(new WebViewClient() {
+
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                String cookies = CookieManager.getInstance().getCookie(url);
+                Log.d("COOKIES", "Cookies: " + cookies);
+                storeCookieIfRemembered(cookies);
+                finish();
+                startMainWithIntent(cookies);
+            }
+        });
+
+    }
+
     private void storeCookieIfRemembered(String cookies) {
         boolean remembered = Boolean.parseBoolean(preferenceAdapter
                 .getString("rememberMe"));
@@ -72,10 +76,11 @@ public class HiddenWebView extends Activity {
         }
 
     }
-    
+
     private void startMainWithIntent(String cookies) {
         Intent mainIntent = new Intent(HiddenWebView.this, Main.class);
         mainIntent.putExtra("JSESSION", cookies);
         startActivity(mainIntent);
     }
+
 }

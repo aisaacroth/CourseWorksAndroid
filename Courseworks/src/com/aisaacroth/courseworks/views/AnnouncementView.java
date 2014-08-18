@@ -125,6 +125,7 @@ public class AnnouncementView extends Activity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.announcement_view_signout_option) {
+            finish();
             LogoutUtil.logout(this);
             return true;
         }

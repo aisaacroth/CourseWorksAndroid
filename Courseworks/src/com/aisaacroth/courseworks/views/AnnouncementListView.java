@@ -72,6 +72,7 @@ public class AnnouncementListView extends ListFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.announcement_list_signout_option) {
+            getActivity().finish();
             LogoutUtil.logout(getActivity());
             return true;
         }
