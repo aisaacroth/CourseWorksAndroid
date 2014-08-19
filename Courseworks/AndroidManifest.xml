@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.aisaacroth.courseworks"
+    package="edu.columbia.cuit.courseworks"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -16,14 +16,14 @@
 
         <!-- AnnouncementView Activity -->
         <activity
-            android:name="com.aisaacroth.courseworks.views.AnnouncementView"
+            android:name="edu.columbia.cuit.courseworks.views.AnnouncementView"
             android:label="@string/title_activity_announcement_view"
             android:theme="@android:style/Theme.Holo.Light" >
         </activity>
 
         <!-- Login activity -->
         <activity
-            android:name="com.aisaacroth.courseworks.views.LoginView"
+            android:name="edu.columbia.cuit.courseworks.views.LoginView"
             android:label="@string/title_activity_login"
             android:theme="@android:style/Theme.Holo.Light.NoActionBar"
             android:windowSoftInputMode="adjustResize|stateVisible" >
@@ -31,7 +31,7 @@
 
         <!-- Main activity -->
         <activity
-            android:name="com.aisaacroth.courseworks.views.Main"
+            android:name="edu.columbia.cuit.courseworks.views.Main"
             android:label="@string/app_name"
             android:theme="@style/ActionBarMain" >
             <meta-data
@@ -41,7 +41,7 @@
 
         <!-- Splash Screen -->
         <activity
-            android:name="com.aisaacroth.courseworks.views.SplashView"
+            android:name="edu.columbia.cuit.courseworks.views.SplashView"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
@@ -53,17 +53,17 @@
         </activity>
 
         <!-- Expiration Timer Service -->
-        <service android:name="com.aisaacroth.courseworks.utils.ExpirationTimer" >
+        <service android:name="edu.columbia.cuit.courseworks.utils.ExpirationTimer" >
         </service>
 
         <!-- HiddenWebView -->
         <activity
-            android:name="com.aisaacroth.courseworks.views.HiddenWebView"
+            android:name="edu.columbia.cuit.courseworks.views.HiddenWebView"
             android:label="@string/title_activity_hidden_web_view"
             android:theme="@android:style/Theme.Light.NoTitleBar" >
         </activity>
         <activity
-            android:name="com.aisaacroth.courseworks.views.CourseView"
+            android:name="edu.columbia.cuit.courseworks.views.CourseView"
             android:label="@string/title_activity_course_view" >
         </activity>
     </application>
