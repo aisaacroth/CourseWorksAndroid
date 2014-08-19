@@ -21,7 +21,7 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     public AnnouncementReconstructor() {
         this.announcement = null;
-        this.xmlString = null;
+        this.dataString = null;
     }
 
     public ArrayList<Announcement> constructAnnouncements(String url,
@@ -33,7 +33,7 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     private String[] prepareXML(String url, String sessionID)
             throws FailedConnectionException {
-        setXMLString(url, sessionID);
+        setDataString(url, sessionID);
         String[] xmlArray = parseAnnouncementStrings();
         return xmlArray;
     }
@@ -46,13 +46,13 @@ public class AnnouncementReconstructor extends Reconstructor {
     }
 
     private void removeCollectionTag() {
-        int startIndex = this.xmlString.indexOf(">") + 1;
-        int endIndex = this.xmlString.indexOf("</announcement_collection");
-        this.xmlString = this.xmlString.substring(startIndex, endIndex);
+        int startIndex = this.dataString.indexOf(">") + 1;
+        int endIndex = this.dataString.indexOf("</announcement_collection");
+        this.dataString = this.dataString.substring(startIndex, endIndex);
     }
 
     private String[] separateplitAnnouncements() {
-        return xmlString.split("</announcement>");
+        return dataString.split("</announcement>");
     }
 
     private void removeAnnouncementTag(String[] announcements) {
@@ -67,7 +67,7 @@ public class AnnouncementReconstructor extends Reconstructor {
 
         for (int i = 0; i < xmlArray.length - 1; i++) {
             this.announcement = new Announcement();
-            this.xmlString = xmlArray[i];
+            this.dataString = xmlArray[i];
             setAnnouncement();
             announcements.add(announcement);
         }
@@ -92,9 +92,9 @@ public class AnnouncementReconstructor extends Reconstructor {
     private String getDateLine() {
         String startTag = "<createdOn";
         String endTag = "</createdOn>";
-        int startTagLength = xmlString.indexOf(startTag) + startTag.length();
-        int endTagIndex = xmlString.indexOf(endTag);
-        String dateLine = xmlString.substring(startTagLength, endTagIndex);
+        int startTagLength = dataString.indexOf(startTag) + startTag.length();
+        int endTagIndex = dataString.indexOf(endTag);
+        String dateLine = dataString.substring(startTagLength, endTagIndex);
         return dateLine;
     }
 

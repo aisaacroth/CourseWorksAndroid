@@ -18,7 +18,7 @@ public class UserReconstructorTest extends TestCase {
     }
 
     public void testParseAllFromXMLString() throws Exception {
-        testUR.xmlString = prepareXMLString();
+        testUR.dataString = prepareXMLString();
         String actualUni = testUR.parseFromTag("displayId");
         String actualId = testUR.parseFromTag("id");
         String actualDisplayName = testUR.parseFromTag("displayName");
@@ -77,7 +77,7 @@ public class UserReconstructorTest extends TestCase {
     public void testParseDisplayNameFromString() {
         String testDisplayNameXml = "<displayName>Alexander Isaac Roth</displayName>";
         String testDisplayName = "Alexander Isaac Roth";
-        testUR.xmlString = testDisplayNameXml;
+        testUR.dataString = testDisplayNameXml;
         String actualDisplayName = testUR.parseFromTag("displayName");
         assertEquals(testDisplayName, actualDisplayName);
     }
@@ -85,14 +85,14 @@ public class UserReconstructorTest extends TestCase {
     public void testParseEmailAddressFromString() {
         String testEmailAddressXml = "<email>air2112@columbia.edu</email>";
         String testEmailAddress = "air2112@columbia.edu";
-        testUR.xmlString = testEmailAddressXml;
+        testUR.dataString = testEmailAddressXml;
         String actualEmailAddress = testUR.parseFromTag("email");
         assertEquals(testEmailAddress, actualEmailAddress);
     }
 
     public void testParseUNIFromString() {
         String testUniXml = "<displayId>air2112</displayId>";
-        testUR.xmlString = testUniXml;
+        testUR.dataString = testUniXml;
         String testUni = testUR.parseFromTag("displayId");
         assertEquals("air2112", testUni);
     }
@@ -100,7 +100,7 @@ public class UserReconstructorTest extends TestCase {
     public void testParseUserIdFromString() {
         String testIdXml = "<id>cff5b1bc-89d2-4473-b3c5-df79f372acf3</id>";
         String testID = "cff5b1bc-89d2-4473-b3c5-df79f372acf3";
-        testUR.xmlString = testIdXml;
+        testUR.dataString = testIdXml;
         String actualId = testUR.parseFromTag("id");
         assertEquals(testID, actualId);
     }

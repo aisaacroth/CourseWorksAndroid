@@ -1,11 +1,17 @@
 package com.aisaacroth.courseworks.views;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
 import com.aisaacroth.courseworks.R;
+import com.aisaacroth.courseworks.adapters.CourseAdapter;
+import com.aisaacroth.courseworks.feeds.CourseFeed;
+import com.aisaacroth.courseworks.structures.Course;
 
 import android.support.v4.app.ListFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.ArrayAdapter;
 
 /**
  * TODO: Implement CourseView styling
@@ -14,19 +20,36 @@ import android.widget.ArrayAdapter;
  * @data 2014-06-19
  */
 public class CourseListView extends ListFragment {
+    private ArrayList<Course> courseList;
 
-    String[] values = new String[] { "Course 1", "Course 2", "Course 3",
-            "Course 4", "Course 5" };
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                inflater.getContext(), android.R.layout.simple_list_item_1,
-                values);
+        
+        getCourses();
+        setHasOptionsMenu(true);
+        CourseAdapter adapter = new CourseAdapter(getActivity(), courseList);
         setListAdapter(adapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
-
+        View view = inflater.inflate(R.layout.fragment_course_list_view, null);
+        return view;
+    }
+    
+    public void getCourses() {
+        String sessionID = getSessionID();
+        CourseFeed courseFeed = new CourseFeed();
+        try {
+            courseList = courseFeed.execute(sessionID).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private String getSessionID() {
+        Intent sessionIntent = getActivity().getIntent();
+        return sessionIntent.getStringExtra("JSESSION");
     }
 
     @Override

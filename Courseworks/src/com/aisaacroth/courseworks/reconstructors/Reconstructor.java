@@ -14,16 +14,16 @@ import com.aisaacroth.courseworks.structures.User;
 public abstract class Reconstructor {
 
     public User user;
-    public String xmlString;
+    public String dataString;
     private Requester requester;
 
-    public void setXMLString(String url, String sessionID)
+    public void setDataString(String url, String sessionID)
             throws FailedConnectionException {
         requester = new Requester();
-        this.xmlString = getXMLFromRequester(url, sessionID);
+        this.dataString = getDataFromRequester(url, sessionID);
     }
 
-    private String getXMLFromRequester(String url, String sessionID)
+    private String getDataFromRequester(String url, String sessionID)
             throws FailedConnectionException {
         return requester.getXMLFromResponse(requester
                 .getRequest(url, sessionID));
@@ -33,11 +33,11 @@ public abstract class Reconstructor {
         String startTag = "<" + xmlTag + ">";
         String endTag = "</" + xmlTag + ">";
 
-        int indexOfOpenTag = this.xmlString.indexOf(startTag);
-        int indexOfCloseTag = this.xmlString.indexOf(endTag);
+        int indexOfOpenTag = this.dataString.indexOf(startTag);
+        int indexOfCloseTag = this.dataString.indexOf(endTag);
         int openTagEndIndex = indexOfOpenTag + startTag.length();
 
-        String value = this.xmlString.substring(openTagEndIndex,
+        String value = this.dataString.substring(openTagEndIndex,
                 indexOfCloseTag);
         return value;
     }

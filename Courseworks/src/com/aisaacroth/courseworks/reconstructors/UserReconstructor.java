@@ -13,7 +13,7 @@ public class UserReconstructor extends Reconstructor {
 
     public UserReconstructor() {
         this.user = new User();
-        this.xmlString = null;
+        this.dataString = null;
     }
 
     private void setUser() {
@@ -25,7 +25,7 @@ public class UserReconstructor extends Reconstructor {
 
     public User constructUser(String url, String sessionID)
             throws FailedConnectionException {
-        setXMLString(url, sessionID);
+        setDataString(url, sessionID);
         setUser();
         return user;
     }

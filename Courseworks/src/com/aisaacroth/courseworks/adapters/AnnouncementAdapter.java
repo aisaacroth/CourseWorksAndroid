@@ -53,9 +53,9 @@ public class AnnouncementAdapter extends BaseAdapter {
     }
 
     private void setListItemViews(View view) {
-        titleText = (TextView) view.findViewById(R.id.item_title);
-        classText = (TextView) view.findViewById(R.id.item_class);
-        dateText = (TextView) view.findViewById(R.id.item_date);
+        titleText = (TextView) view.findViewById(R.id.announcement_item_title);
+        classText = (TextView) view.findViewById(R.id.announcement_item_class);
+        dateText = (TextView) view.findViewById(R.id.announcement_item_date);
     }
 
     private void setTextInViews(Announcement announcement) {

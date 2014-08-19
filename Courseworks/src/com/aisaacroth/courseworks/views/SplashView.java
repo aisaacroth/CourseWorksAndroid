@@ -35,7 +35,7 @@ public class SplashView extends Activity {
                     finish();
 
                 }
-            }, 0);
+            }, 1000);
 
         } else {
             new Handler().postDelayed(new Runnable() {
