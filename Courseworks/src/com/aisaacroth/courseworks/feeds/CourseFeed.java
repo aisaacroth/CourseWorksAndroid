@@ -27,6 +27,8 @@ public class CourseFeed extends AsyncTask<String, Void, ArrayList<Course>>{
         try {
             courseList = courseReconstructor.constructCourses(url, params[0]);
         } catch (FailedConnectionException e) {
+            e = new FailedConnectionException(
+                    "There appears to be a connection error.");
             e.printStackTrace();
         }
         

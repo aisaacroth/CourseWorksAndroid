@@ -7,6 +7,7 @@ import com.aisaacroth.courseworks.R;
 import com.aisaacroth.courseworks.adapters.CourseAdapter;
 import com.aisaacroth.courseworks.feeds.CourseFeed;
 import com.aisaacroth.courseworks.structures.Course;
+import com.aisaacroth.courseworks.utils.LogoutUtil;
 
 import android.support.v4.app.ListFragment;
 import android.content.Intent;
@@ -55,10 +56,18 @@ public class CourseListView extends ListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+        if (id == R.id.course_list_signout_option) {
+            getActivity().finish();
+            LogoutUtil.logout(getActivity());
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+    
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater infalter) {
+        infalter.inflate(R.menu.course_list_view, menu);
+        super.onCreateOptionsMenu(menu, infalter);
     }
 
 }
