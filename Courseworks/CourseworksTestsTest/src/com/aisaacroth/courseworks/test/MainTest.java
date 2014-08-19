@@ -42,7 +42,7 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
         testActionBar = testMainActivity.getActionBar();
         testTabsPagerAdapter = new TabsPagerAdapter(
                 testMainActivity.getSupportFragmentManager());
-        testViewer = (ViewPager) testMainActivity.findViewById(R.id.pager);
+        testViewer = (ViewPager) testMainActivity.findViewById(R.id.main_pager);
     }
 
     @SmallTest

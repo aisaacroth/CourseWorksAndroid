@@ -83,7 +83,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
     private void initializeTabsPagerAdapter() {
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager = (ViewPager) findViewById(R.id.main_pager);
         actionBar = getActionBar();
         tabsPagerAdapter = new TabsPagerAdapter(getSupportFragmentManager());
     }
