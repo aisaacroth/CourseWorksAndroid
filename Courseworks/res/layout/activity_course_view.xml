@@ -3,5 +3,5 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.aisaacroth.courseworks.views.CourseListView"
+    tools:context="edu.columbia.cuit.courseworks.views.CourseListView"
     tools:ignore="MergeRootFrame" />
