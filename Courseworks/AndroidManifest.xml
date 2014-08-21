@@ -79,7 +79,7 @@
             android:label="@string/title_activity_past_course_list_view" >
         </activity>
         <activity
-            android:name="edu.columbia.cuit.courseworks.CurrentCourseListView"
+            android:name="edu.columbia.cuit.courseworks.views.CourseListView"
             android:label="@string/title_activity_current_course_list_view" >
         </activity>
         <activity

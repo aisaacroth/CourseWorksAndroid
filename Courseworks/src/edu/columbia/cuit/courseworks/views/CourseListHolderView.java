@@ -31,8 +31,8 @@ public class CourseListHolderView extends FragmentActivity implements
     private TextView updateTime;
     private final int MIDDLE = 1;
 
-    private String[] tabTitles = { "Past Courses", "Current Semester",
-            "Next Semester" };
+    private String[] tabTitles = { "Past\nCourses", "Current\nCourses",
+            "Next\nSemester" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

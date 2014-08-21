@@ -1,6 +1,6 @@
 package edu.columbia.cuit.courseworks.adapters;
 
-import edu.columbia.cuit.courseworks.*;
+import edu.columbia.cuit.courseworks.views.CourseListView;
 import android.support.v4.app.*;
 
 public class CourseTabsPagerAdapter extends FragmentPagerAdapter {
@@ -13,11 +13,11 @@ public class CourseTabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int index) {
         switch (index) {
         case 0:
-            return new PastCourseListView();
+            return new CourseListView();
         case 1:
-            return new CurrentCourseListView();
+            return new CourseListView();
         case 2:
-            return new NextCourseListView();
+            return new CourseListView();
         }
         throw new NullPointerException();
     }
