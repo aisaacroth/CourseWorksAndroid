@@ -1,20 +1,10 @@
 package edu.columbia.cuit.courseworks.views;
 
 import edu.columbia.cuit.courseworks.R;
-import edu.columbia.cuit.courseworks.R.id;
-import edu.columbia.cuit.courseworks.R.layout;
-import edu.columbia.cuit.courseworks.R.menu;
 
 import android.app.Activity;
-import android.app.ActionBar;
-import android.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
+import android.view.*;
 
 public class CourseView extends Activity {
 
@@ -23,12 +13,8 @@ public class CourseView extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_view);
 
-        if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment()).commit();
-        }
     }
-
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -47,23 +33,6 @@ public class CourseView extends Activity {
             return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_course_view,
-                    container, false);
-            return rootView;
-        }
     }
 
 }

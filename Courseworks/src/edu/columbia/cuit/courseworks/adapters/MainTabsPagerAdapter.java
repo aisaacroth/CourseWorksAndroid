@@ -12,9 +12,9 @@ import android.support.v4.app.*;
  * @author Alexander Roth
  * @date 2014-06-19
  */
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+public class MainTabsPagerAdapter extends FragmentPagerAdapter {
 
-    public TabsPagerAdapter(FragmentManager fm) {
+    public MainTabsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -22,7 +22,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int index) {
         switch (index) {
         case 0:
-            return new CourseListView();
         case 1:
             return new AnnouncementListView();
         case 2:

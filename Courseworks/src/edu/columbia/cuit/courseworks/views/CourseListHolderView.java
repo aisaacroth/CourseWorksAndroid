@@ -2,57 +2,44 @@ package edu.columbia.cuit.courseworks.views;
 
 import java.text.DateFormat;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
-
 
 import edu.columbia.cuit.courseworks.R;
-import edu.columbia.cuit.courseworks.adapters.MainTabsPagerAdapter;
-import edu.columbia.cuit.courseworks.feeds.UserFeed;
-import edu.columbia.cuit.courseworks.structures.User;
+import edu.columbia.cuit.courseworks.adapters.CourseTabsPagerAdapter;
 
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.ViewPager;
 import android.app.*;
 import android.app.ActionBar.Tab;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.TextView;
 
 /**
- * The Homepage activity for the Courseworks app. Acts as a container for all
- * the subsequent fragments.
+ * TODO: Implement CourseView styling
  * 
  * @author Alexander Roth
- * @date 2014-02-24
+ * @data 2014-06-19
  */
-public class Main extends FragmentActivity implements ActionBar.TabListener {
+public class CourseListHolderView extends FragmentActivity implements
+        ActionBar.TabListener {
 
     private ViewPager viewPager;
-    private MainTabsPagerAdapter tabsPagerAdapter;
+    private CourseTabsPagerAdapter tabsPagerAdapter;
     private ActionBar actionBar;
     private TextView updateDate;
     private TextView updateTime;
     private final int MIDDLE = 1;
-    private User currentUser;
 
-    private String[] tabTitles = { "Courses", "Home", "Calendar" };
+    private String[] tabTitles = { "Past Courses", "Current Semester",
+            "Next Semester" };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_course_list_holder_view);
         removeHomeIcon();
-
         final String sessionCookie = extractSessionCookieFromIntent();
-        UserFeed userFeed = new UserFeed();
-        try {
-            currentUser = userFeed.execute(sessionCookie).get();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        }
 
         initializeTabsPagerAdapter();
         setupActivity();
@@ -63,11 +50,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
             @Override
             public void onPageSelected(int position) {
                 actionBar.setSelectedNavigationItem(position);
-                if (actionBar.getSelectedTab().getText().equals("Courses")) {
-                    Intent courseListIntent = new Intent(Main.this, CourseListHolderView.class);
-                    courseListIntent.putExtra("JSESSION", sessionCookie);
-                    startActivity(courseListIntent);
-                }
             }
 
             @Override
@@ -87,16 +69,16 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
         final View homeIcon = findViewById(android.R.id.home);
         ((View) homeIcon.getParent()).setVisibility(View.GONE);
     }
-    
+
     private String extractSessionCookieFromIntent() {
         Intent sessionIntent = getIntent();
         return sessionIntent.getStringExtra("JSESSION");
     }
 
     private void initializeTabsPagerAdapter() {
-        viewPager = (ViewPager) findViewById(R.id.main_pager);
+        viewPager = (ViewPager) findViewById(R.id.course_pager);
         actionBar = getActionBar();
-        tabsPagerAdapter = new MainTabsPagerAdapter(getSupportFragmentManager());
+        tabsPagerAdapter = new CourseTabsPagerAdapter(getSupportFragmentManager());
     }
 
     private void setupActivity() {
@@ -106,36 +88,27 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     }
 
     private void addTabsToView() {
-        for (String tab_name : tabTitles) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name)
+        for (String tabName : tabTitles) {
+            actionBar.addTab(actionBar.newTab().setText(tabName)
                     .setTabListener(this));
-
         }
     }
 
     private void setDateAndTime() {
-        updateDate = (TextView) findViewById(R.id.main_current_date);
-        updateTime = (TextView) findViewById(R.id.main_update_time);
-        updateDate.setText(setCurrentDate());
-        updateTime.setText(setUpdatedTime());
+        updateDate = (TextView) findViewById(R.id.course_update_date);
+        updateTime = (TextView) findViewById(R.id.course_update_time);
+        updateDate.setText(setUpdateDate());
+        updateTime.setText(setUpdateTime());
     }
 
-    private String setCurrentDate() {
+    private String setUpdateDate() {
         return DateFormat.getDateInstance().format(new Date());
     }
 
-    private String setUpdatedTime() {
+    private String setUpdateTime() {
         return "UPDATED "
                 + DateFormat.getTimeInstance(DateFormat.SHORT).format(
                         new Date());
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.main, menu);
-
-        return true;
     }
 
     @Override
@@ -149,10 +122,6 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
 
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {
-    }
-
-    public User getUser() {
-        return currentUser;
     }
 
 }

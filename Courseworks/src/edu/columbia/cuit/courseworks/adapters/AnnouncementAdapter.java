@@ -2,7 +2,6 @@ package edu.columbia.cuit.courseworks.adapters;
 
 import java.util.List;
 
-
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.structures.Announcement;
 

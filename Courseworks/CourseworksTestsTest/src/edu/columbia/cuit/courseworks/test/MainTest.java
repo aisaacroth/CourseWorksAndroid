@@ -8,7 +8,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 
 
 import edu.columbia.cuit.courseworks.R;
-import edu.columbia.cuit.courseworks.adapters.TabsPagerAdapter;
+import edu.columbia.cuit.courseworks.adapters.MainTabsPagerAdapter;
 import edu.columbia.cuit.courseworks.views.Main;
 /**
  * The test suite for the Main Activity. There are not that many tests because
@@ -20,7 +20,7 @@ import edu.columbia.cuit.courseworks.views.Main;
 public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     private ActionBar testActionBar;
     private Main testMainActivity;
-    private TabsPagerAdapter testTabsPagerAdapter;
+    private MainTabsPagerAdapter testTabsPagerAdapter;
     private ViewPager testViewer;
 
     private final int LEFT = 0;
@@ -41,7 +41,7 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     private void initTestObjects() {
         testMainActivity = getActivity();
         testActionBar = testMainActivity.getActionBar();
-        testTabsPagerAdapter = new TabsPagerAdapter(
+        testTabsPagerAdapter = new MainTabsPagerAdapter(
                 testMainActivity.getSupportFragmentManager());
         testViewer = (ViewPager) testMainActivity.findViewById(R.id.main_pager);
     }

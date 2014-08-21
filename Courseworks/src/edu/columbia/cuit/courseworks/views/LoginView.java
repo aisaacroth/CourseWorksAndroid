@@ -240,7 +240,6 @@ public class LoginView extends Activity {
                 login();
             } catch (FailedConnectionException e) {
                 e = new FailedConnectionException("There appears to be a connection error. Please try again later");
-                displayConnectionErrorMessage(e.getLocalizedMessage());
             }
 
             if (serviceTicket != null)
@@ -260,10 +259,6 @@ public class LoginView extends Activity {
             startService(timeoutIntent);
         }
         
-        private void displayConnectionErrorMessage(String message) {
-            Toast.makeText(getParent(), message, Toast.LENGTH_SHORT).show();
-        }
-
         @Override
         protected void onPostExecute(final Boolean success) {
             loginTask = null;
