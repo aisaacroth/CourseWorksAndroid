@@ -38,6 +38,7 @@ public class CourseListHolderView extends FragmentActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list_holder_view);
+        setActionBar();
         removeHomeIcon();
         final String sessionCookie = extractSessionCookieFromIntent();
 
@@ -65,6 +66,12 @@ public class CourseListHolderView extends FragmentActivity implements
         setDateAndTime();
     }
 
+    private void setActionBar() {
+        actionBar = this.getActionBar();
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+        actionBar.setCustomView(R.layout.course_list_actionbar);
+        actionBar.setTitle("Courses");
+    }
     private void removeHomeIcon() {
         final View homeIcon = findViewById(android.R.id.home);
         ((View) homeIcon.getParent()).setVisibility(View.GONE);
@@ -123,5 +130,5 @@ public class CourseListHolderView extends FragmentActivity implements
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {
     }
-
+    
 }

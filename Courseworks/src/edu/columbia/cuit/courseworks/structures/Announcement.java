@@ -11,9 +11,9 @@ import java.io.Serializable;
  */
 
 
-@SuppressWarnings("serial")
 public class Announcement implements Serializable {
 
+    private static final long serialVersionUID = -4365391312601577084L;
     private String title;
     private String bodyText;
     private String classId;

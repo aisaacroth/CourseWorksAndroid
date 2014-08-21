@@ -1,13 +1,16 @@
 package edu.columbia.cuit.courseworks.structures;
 
+import java.io.Serializable;
+
 /**
  * Serves as a container for a course within the Courseworks system.
  * 
  * @author Alexander Roth
  * @date 2014-08-19
  */
-public class Course {
+public class Course implements Serializable {
 
+    private static final long serialVersionUID = 8230063438087641954L;
     private String title;
     private String professor;
     private String meetingTime;

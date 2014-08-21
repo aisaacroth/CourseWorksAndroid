@@ -1,9 +1,0 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.aisaacroth.courseworks.CourseListView" >
-
-    <item
-        android:id="@+id/course_list_signout_option"
-        android:title="@string/course_list_signout_option"/>
-
-</menu>

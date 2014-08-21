@@ -3,7 +3,6 @@ package edu.columbia.cuit.courseworks.views;
 import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
-
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.AnnouncementAdapter;
 import edu.columbia.cuit.courseworks.feeds.AnnouncementFeed;
@@ -51,7 +50,6 @@ public class AnnouncementListView extends ListFragment {
         actionBar.setCustomView(R.layout.announcement_list_actionbar);
     }
 
-
     private void getAnnouncements() {
         String sessionID = getSessionID();
         AnnouncementFeed announcementFeed = new AnnouncementFeed();
@@ -72,7 +70,7 @@ public class AnnouncementListView extends ListFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.announcement_list_signout_option) {
+        if (id == R.id.list_signout_option) {
             getActivity().finish();
             LogoutUtil.logout(getActivity());
             return true;
@@ -82,7 +80,7 @@ public class AnnouncementListView extends ListFragment {
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.announcement_list_view, menu);
+        inflater.inflate(R.menu.list_view, menu);
         super.onCreateOptionsMenu(menu, inflater);
     }
 
