@@ -26,17 +26,17 @@ public class Requester {
     public HttpResponse getRequest(String url, String sessionId)
             throws FailedConnectionException {
         HttpClient serverClient = new DefaultHttpClient();
-        HttpGet getXmlRequest = new HttpGet(url);
-        getXmlRequest.setHeader("Cookie", sessionId);
-        logRequestHeaders(getXmlRequest);
-        HttpResponse xmlResponse = recieveResponse(serverClient, getXmlRequest);
-        return xmlResponse;
+        HttpGet getDataRequest = new HttpGet(url);
+        getDataRequest.setHeader("Cookie", sessionId);
+        logRequestHeaders(getDataRequest);
+        HttpResponse dataResponse = recieveResponse(serverClient, getDataRequest);
+        return dataResponse;
     };
 
-    public String getXMLFromResponse(HttpResponse response)
+    public String getDataFromResponse(HttpResponse response)
             throws FailedConnectionException {
-        HttpEntity xmlEntity = response.getEntity();
-        return parseEntityToString(xmlEntity);
+        HttpEntity dataEntity = response.getEntity();
+        return parseEntityToString(dataEntity);
     }
 
     private void logRequestHeaders(HttpGet xmlRequest) {

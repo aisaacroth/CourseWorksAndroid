@@ -41,7 +41,7 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     public String[] parseAnnouncementStrings() {
         removeCollectionTag();
-        String[] announcementXMLs = separateplitAnnouncements();
+        String[] announcementXMLs = splitAnnouncements();
         removeAnnouncementTag(announcementXMLs);
         return announcementXMLs;
     }
@@ -52,7 +52,7 @@ public class AnnouncementReconstructor extends Reconstructor {
         this.dataString = this.dataString.substring(startIndex, endIndex);
     }
 
-    private String[] separateplitAnnouncements() {
+    private String[] splitAnnouncements() {
         return dataString.split("</announcement>");
     }
 
@@ -77,10 +77,10 @@ public class AnnouncementReconstructor extends Reconstructor {
 
     private void setAnnouncement() {
         announcement.setPostedDate(parseDateString());
-        announcement.setTitle(parseFromTag("title"));
-        announcement.setProfessorName(parseFromTag("createdByDisplayName"));
+        announcement.setTitle(parseFromXMLTag("title"));
+        announcement.setProfessorName(parseFromXMLTag("createdByDisplayName"));
         announcement.setBodyText(formatBodyText());
-        announcement.setClassId(parseFromTag("siteId"));
+        announcement.setClassId(parseFromXMLTag("siteId"));
     }
 
     public String parseDateString() {
@@ -112,7 +112,7 @@ public class AnnouncementReconstructor extends Reconstructor {
     }
 
     private String formatBodyText() {
-        String xmlBodyString = parseFromTag("body");
+        String xmlBodyString = parseFromXMLTag("body");
         Spanned spannedText = Html.fromHtml(xmlBodyString);
         return spannedText.toString();
     }

@@ -18,10 +18,10 @@ public class UserReconstructor extends Reconstructor {
     }
 
     private void setUser() {
-        user.setUni(parseFromTag("displayId"));
-        user.setUserID(parseFromTag("id"));
-        user.setDisplayName(parseFromTag("displayName"));
-        user.setEmailAddress(parseFromTag("email"));
+        user.setUni(parseFromXMLTag("displayId"));
+        user.setUserID(parseFromXMLTag("id"));
+        user.setDisplayName(parseFromXMLTag("displayName"));
+        user.setEmailAddress(parseFromXMLTag("email"));
     }
 
     public User constructUser(String url, String sessionID)

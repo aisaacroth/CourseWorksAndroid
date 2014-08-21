@@ -19,10 +19,10 @@ public class UserReconstructorTest extends TestCase {
 
     public void testParseAllFromXMLString() throws Exception {
         testUR.dataString = prepareXMLString();
-        String actualUni = testUR.parseFromTag("displayId");
-        String actualId = testUR.parseFromTag("id");
-        String actualDisplayName = testUR.parseFromTag("displayName");
-        String actualEmailAddress = testUR.parseFromTag("email");
+        String actualUni = testUR.parseFromXMLTag("displayId");
+        String actualId = testUR.parseFromXMLTag("id");
+        String actualDisplayName = testUR.parseFromXMLTag("displayName");
+        String actualEmailAddress = testUR.parseFromXMLTag("email");
         String testUni = "air2112";
         String testID = "cff5b1bc-89d2-4473-b3c5-df79f372acf3";
         String testDisplayName = "Alexander Isaac Roth";
@@ -78,7 +78,7 @@ public class UserReconstructorTest extends TestCase {
         String testDisplayNameXml = "<displayName>Alexander Isaac Roth</displayName>";
         String testDisplayName = "Alexander Isaac Roth";
         testUR.dataString = testDisplayNameXml;
-        String actualDisplayName = testUR.parseFromTag("displayName");
+        String actualDisplayName = testUR.parseFromXMLTag("displayName");
         assertEquals(testDisplayName, actualDisplayName);
     }
 
@@ -86,14 +86,14 @@ public class UserReconstructorTest extends TestCase {
         String testEmailAddressXml = "<email>air2112@columbia.edu</email>";
         String testEmailAddress = "air2112@columbia.edu";
         testUR.dataString = testEmailAddressXml;
-        String actualEmailAddress = testUR.parseFromTag("email");
+        String actualEmailAddress = testUR.parseFromXMLTag("email");
         assertEquals(testEmailAddress, actualEmailAddress);
     }
 
     public void testParseUNIFromString() {
         String testUniXml = "<displayId>air2112</displayId>";
         testUR.dataString = testUniXml;
-        String testUni = testUR.parseFromTag("displayId");
+        String testUni = testUR.parseFromXMLTag("displayId");
         assertEquals("air2112", testUni);
     }
 
@@ -101,7 +101,7 @@ public class UserReconstructorTest extends TestCase {
         String testIdXml = "<id>cff5b1bc-89d2-4473-b3c5-df79f372acf3</id>";
         String testID = "cff5b1bc-89d2-4473-b3c5-df79f372acf3";
         testUR.dataString = testIdXml;
-        String actualId = testUR.parseFromTag("id");
+        String actualId = testUR.parseFromXMLTag("id");
         assertEquals(testID, actualId);
     }
 

@@ -26,11 +26,11 @@ public abstract class Reconstructor {
 
     private String getDataFromRequester(String url, String sessionID)
             throws FailedConnectionException {
-        return requester.getXMLFromResponse(requester
+        return requester.getDataFromResponse(requester
                 .getRequest(url, sessionID));
     }
 
-    public String parseFromTag(String xmlTag) {
+    public String parseFromXMLTag(String xmlTag) {
         String startTag = "<" + xmlTag + ">";
         String endTag = "</" + xmlTag + ">";
 

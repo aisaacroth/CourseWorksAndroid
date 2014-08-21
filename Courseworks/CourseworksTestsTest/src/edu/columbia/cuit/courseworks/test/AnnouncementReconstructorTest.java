@@ -72,7 +72,7 @@ public class AnnouncementReconstructorTest extends TestCase {
                 + " una hoja de vocabulario para la película. También les"
                 + " recuerdo que el lunes es la última prueba (la Unidad 19)."
                 + "</p> <p> Saludos y buen fin de semana!</p> <p> Jessica</p> ";
-        String actualBody = testAR.parseFromTag("body");
+        String actualBody = testAR.parseFromXMLTag("body");
         assertEquals(testBody, actualBody);
     }
 
@@ -88,7 +88,7 @@ public class AnnouncementReconstructorTest extends TestCase {
         String testDisplayNameXML = "<createdByDisplayName>Jessica Gordon-Burroughs</createdByDisplayName>";
         testAR.dataString = testDisplayNameXML;
         String testDisplayName = "Jessica Gordon-Burroughs";
-        String actualDisplayName = testAR.parseFromTag("createdByDisplayName");
+        String actualDisplayName = testAR.parseFromXMLTag("createdByDisplayName");
         assertEquals(testDisplayName, actualDisplayName);
     }
 
@@ -159,7 +159,7 @@ public class AnnouncementReconstructorTest extends TestCase {
         String testTitleXML = "<title>COMPOSICION 4.2</title>";
         testAR.dataString = testTitleXML;
         String testTitle = "COMPOSICION 4.2";
-        String actualTitle = testAR.parseFromTag("title");
+        String actualTitle = testAR.parseFromXMLTag("title");
         assertEquals(testTitle, actualTitle);
     }
 
@@ -167,7 +167,7 @@ public class AnnouncementReconstructorTest extends TestCase {
         String testSiteIdXML = "<siteId>SPANS1201_001_2014_2</siteId>";
         testAR.dataString = testSiteIdXML;
         String testSiteId = "SPANS1201_001_2014_2";
-        String actualSiteId = testAR.parseFromTag("siteId");
+        String actualSiteId = testAR.parseFromXMLTag("siteId");
         assertEquals(testSiteId, actualSiteId);
     }
 
