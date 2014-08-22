@@ -11,10 +11,8 @@ import android.graphics.Typeface;
 import android.view.*;
 import android.widget.*;
 
-public class CourseAdapter extends BaseAdapter {
+public class CourseAdapter extends ItemAdapter<Course> {
 
-    private Context context;
-    private List<Course> courseList;
     private TextView titleText;
     private TextView courseIDText;
     private TextView professorText;
@@ -23,12 +21,12 @@ public class CourseAdapter extends BaseAdapter {
 
     public CourseAdapter(Context context, List<Course> courseList) {
         this.context = context;
-        this.courseList = courseList;
+        this.itemList = courseList;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Course course = courseList.get(position);
+        Course course = itemList.get(position);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -40,13 +38,15 @@ public class CourseAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void setListItemFormat(View view, Course course) {
+    @Override
+    protected void setListItemFormat(View view, Course course) {
         setListItemViews(view);
         setTextInViews(course);
         setFontsForText();
     }
 
-    private void setListItemViews(View view) {
+    @Override
+    protected void setListItemViews(View view) {
         titleText = (TextView) view.findViewById(R.id.course_item_title);
         courseIDText = (TextView) view.findViewById(R.id.course_item_id);
         professorText = (TextView) view
@@ -57,7 +57,8 @@ public class CourseAdapter extends BaseAdapter {
                 .findViewById(R.id.course_item_meeting_place);
     }
 
-    private void setTextInViews(Course course) {
+    @Override
+    protected void setTextInViews(Course course) {
         titleText.setText(course.getTitle());
         courseIDText.setText(course.getCourseID());
         professorText.setText(course.getProfessor());
@@ -65,7 +66,8 @@ public class CourseAdapter extends BaseAdapter {
         meetingPlaceText.setText(course.getMeetingPlace());
     }
 
-    private void setFontsForText() {
+    @Override
+    protected void setFontsForText() {
         setRegularFonts();
         setMediumFonts();
     }
@@ -85,18 +87,4 @@ public class CourseAdapter extends BaseAdapter {
         meetingPlaceText.setTypeface(mediumFont);
     }
 
-    @Override
-    public int getCount() {
-        return courseList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return courseList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 }
