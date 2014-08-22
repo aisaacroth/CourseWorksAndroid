@@ -24,9 +24,8 @@ public class AnnouncementAdapter extends ItemAdapter<Announcement> {
     private TextView dateText;
 
     public AnnouncementAdapter(Context context,
-            List<Announcement> announcementList) {
-        this.context = context;
-        this.itemList = announcementList;
+            List<Announcement> itemList) {
+        super(context, itemList);
     }
 
     @Override

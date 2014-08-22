@@ -1,16 +1,12 @@
 package edu.columbia.cuit.courseworks.views;
 
-import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.AnnouncementAdapter;
 import edu.columbia.cuit.courseworks.feeds.AnnouncementFeed;
 import edu.columbia.cuit.courseworks.structures.*;
-import edu.columbia.cuit.courseworks.utils.LogoutUtil;
 
-import android.support.v4.app.ListFragment;
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
@@ -24,37 +20,26 @@ import android.widget.ListView;
  * @author Alexander Roth
  * @date 2014-06-19
  */
-public class AnnouncementListView extends ListFragment {
-    private ArrayList<Announcement> announcementList;
-    private ActionBar actionBar;
+public class AnnouncementListView extends ItemListView<Announcement> {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        setActionBar();
+        setActionBar(R.layout.announcement_list_actionbar);
         getAnnouncements();
         setHasOptionsMenu(true);
-        AnnouncementAdapter adapter = new AnnouncementAdapter(
-                this.getActivity(), announcementList);
+        adapter = new AnnouncementAdapter(this.getActivity(), itemList);
         setListAdapter(adapter);
-        View view = inflater.inflate(R.layout.fragment_announcement_list_view,
-                null);
-        return view;
-    }
-
-    private void setActionBar() {
-        actionBar = getActivity().getActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
-                | ActionBar.DISPLAY_SHOW_HOME);
-        actionBar.setCustomView(R.layout.announcement_list_actionbar);
+        return super.onCreateView(inflater, container, savedInstanceState,
+                R.layout.fragment_announcement_list_view);
     }
 
     private void getAnnouncements() {
         String sessionID = getSessionID();
         AnnouncementFeed announcementFeed = new AnnouncementFeed();
         try {
-            announcementList = announcementFeed.execute(sessionID).get();
+            itemList = announcementFeed.execute(sessionID).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -62,34 +47,12 @@ public class AnnouncementListView extends ListFragment {
         }
     }
 
-    private String getSessionID() {
-        Intent sessionIntent = getActivity().getIntent();
-        return sessionIntent.getStringExtra("JSESSION");
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.list_signout_option) {
-            getActivity().finish();
-            LogoutUtil.logout(getActivity());
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.list_view, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
 
         Intent announcement = new Intent(getActivity(), AnnouncementView.class);
-        announcement.putExtra("Announcement", announcementList.get(position));
+        announcement.putExtra("Announcement", itemList.get(position));
         startActivity(announcement);
     }
 

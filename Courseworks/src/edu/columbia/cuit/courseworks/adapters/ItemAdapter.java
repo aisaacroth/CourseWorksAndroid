@@ -11,6 +11,11 @@ public abstract class ItemAdapter<T> extends BaseAdapter {
     protected Context context;
     protected List<T> itemList;
     
+    public ItemAdapter(Context context, List<T> itemList) {
+        this.context = context;
+        this.itemList = itemList;
+    }
+    
     public abstract View getView(int position, View convertView, ViewGroup parent);
     
     protected void setListItemFormat(View view, T item) {

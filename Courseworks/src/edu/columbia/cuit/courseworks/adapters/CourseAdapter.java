@@ -13,15 +13,15 @@ import android.widget.*;
 
 public class CourseAdapter extends ItemAdapter<Course> {
 
+
     private TextView titleText;
     private TextView courseIDText;
     private TextView professorText;
     private TextView meetingTimeText;
     private TextView meetingPlaceText;
-
-    public CourseAdapter(Context context, List<Course> courseList) {
-        this.context = context;
-        this.itemList = courseList;
+    
+    public CourseAdapter(Context context, List<Course> itemList) {
+        super(context, itemList);
     }
 
     @Override
