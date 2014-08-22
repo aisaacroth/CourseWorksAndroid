@@ -129,6 +129,11 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
                 + DateFormat.getTimeInstance(DateFormat.SHORT).format(
                         new Date());
     }
+    
+    protected void onResume() {
+        super.onResume();
+        viewPager.setCurrentItem(MIDDLE);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

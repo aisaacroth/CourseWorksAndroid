@@ -16,13 +16,16 @@ public class CourseListView extends ItemListView<Course> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        setActionBar(R.layout.course_list_actionbar);
         getCourses();
         setHasOptionsMenu(true);
         adapter = new CourseAdapter(this.getActivity(), itemList);
         setListAdapter(adapter);
         return super.onCreateView(inflater, container, savedInstanceState,
                 R.layout.fragment_course_list_view);
+    }
+    
+    private void getCourses() {
+        itemList = new ArrayList<Course>();
     }
 
     @Override
@@ -34,7 +37,4 @@ public class CourseListView extends ItemListView<Course> {
         startActivity(course);
     }
     
-    private void getCourses() {
-        itemList = new ArrayList<Course>();
-    }
 }

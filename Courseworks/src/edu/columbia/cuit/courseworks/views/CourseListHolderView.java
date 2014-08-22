@@ -13,6 +13,7 @@ import android.app.ActionBar.Tab;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 /**
@@ -29,6 +30,7 @@ public class CourseListHolderView extends FragmentActivity implements
     private ActionBar actionBar;
     private TextView updateDate;
     private TextView updateTime;
+    private TextView actionBarBackButton;
     private final int MIDDLE = 1;
 
     private String[] tabTitles = { "Past\nCourses", "Current\nCourses",
@@ -39,6 +41,7 @@ public class CourseListHolderView extends FragmentActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list_holder_view);
         setActionBar();
+        setBackButton();
         removeHomeIcon();
         final String sessionCookie = extractSessionCookieFromIntent();
 
@@ -68,10 +71,25 @@ public class CourseListHolderView extends FragmentActivity implements
 
     private void setActionBar() {
         actionBar = this.getActionBar();
-        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+        actionBar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM
+                | ActionBar.DISPLAY_SHOW_HOME);
         actionBar.setCustomView(R.layout.course_list_actionbar);
-        actionBar.setTitle("Courses");
     }
+
+    private void setBackButton() {
+        actionBarBackButton = (TextView) findViewById(R.id.course_list_actionbar_back);
+        setBackButtonCommand();
+    }
+
+    private void setBackButtonCommand() {
+        actionBarBackButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                onBackPressed();
+            }
+        });
+    }
+
     private void removeHomeIcon() {
         final View homeIcon = findViewById(android.R.id.home);
         ((View) homeIcon.getParent()).setVisibility(View.GONE);
@@ -85,7 +103,8 @@ public class CourseListHolderView extends FragmentActivity implements
     private void initializeTabsPagerAdapter() {
         viewPager = (ViewPager) findViewById(R.id.course_pager);
         actionBar = getActionBar();
-        tabsPagerAdapter = new CourseTabsPagerAdapter(getSupportFragmentManager());
+        tabsPagerAdapter = new CourseTabsPagerAdapter(
+                getSupportFragmentManager());
     }
 
     private void setupActivity() {
@@ -130,5 +149,5 @@ public class CourseListHolderView extends FragmentActivity implements
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {
     }
-    
+
 }
