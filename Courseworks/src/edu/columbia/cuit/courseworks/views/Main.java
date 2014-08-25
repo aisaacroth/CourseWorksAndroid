@@ -7,6 +7,8 @@ import java.util.concurrent.ExecutionException;
 
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.MainTabsPagerAdapter;
+import edu.columbia.cuit.courseworks.dialogs.NetworkDialog;
+import edu.columbia.cuit.courseworks.dialogs.NetworkDialog.NetworkDialogListener;
 import edu.columbia.cuit.courseworks.feeds.UserFeed;
 import edu.columbia.cuit.courseworks.structures.User;
 
@@ -25,7 +27,7 @@ import android.widget.TextView;
  * @author Alexander Roth
  * @date 2014-02-24
  */
-public class Main extends Activity implements ActionBar.TabListener {
+public class Main extends Activity implements ActionBar.TabListener, NetworkDialogListener {
 
     private ViewPager viewPager;
     private MainTabsPagerAdapter tabsPagerAdapter;
@@ -34,6 +36,7 @@ public class Main extends Activity implements ActionBar.TabListener {
     private TextView updateTime;
     private final int MIDDLE = 1;
     private User currentUser;
+    private String sessionCookie;
 
     private String[] tabTitles = { "Courses", "Home", "Calendar" };
 
@@ -43,7 +46,7 @@ public class Main extends Activity implements ActionBar.TabListener {
         setContentView(R.layout.activity_main);
         removeHomeIcon();
 
-        final String sessionCookie = extractSessionCookieFromIntent();
+        sessionCookie = extractSessionCookieFromIntent();
         UserFeed userFeed = new UserFeed();
         try {
             currentUser = userFeed.execute(sessionCookie).get();
@@ -159,4 +162,13 @@ public class Main extends Activity implements ActionBar.TabListener {
         return currentUser;
     }
 
+    public void showNetworkDialog() {
+        DialogFragment dialog = new NetworkDialog();
+        dialog.show(getFragmentManager(), "NetworkDialogFragment");
+    }
+
+    @Override
+    public void onDialogPositiveClick(DialogFragment dialog) {
+    }
+    
 }
