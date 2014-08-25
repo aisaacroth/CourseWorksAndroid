@@ -4,10 +4,16 @@ import java.util.ArrayList;
 
 import android.util.Log;
 
-
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.structures.Course;
 
+/**
+ * Reconstructs the current User's Courses XML file returned from the
+ * Courseworks API.
+ * 
+ * @author Alexander Roth
+ * @date 2014-08-20
+ */
 public class CourseReconstructor extends Reconstructor {
 
     private Course course;

@@ -6,6 +6,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.*;
 
+/**
+ * A singleton view of any given course. Called from the CourseListView
+ * fragment.
+ * 
+ * @author Alexander Roth
+ * @date 2014-08-20
+ */
 public class CourseView extends Activity {
 
     @Override
@@ -14,7 +21,7 @@ public class CourseView extends Activity {
         setContentView(R.layout.activity_course_view);
 
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 

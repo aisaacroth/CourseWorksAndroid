@@ -6,16 +6,10 @@ import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.ItemAdapter;
 import edu.columbia.cuit.courseworks.utils.LogoutUtil;
 
-import android.app.ActionBar;
+import android.app.*;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 
 public abstract class ItemListView<T> extends ListFragment {
     

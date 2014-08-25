@@ -1,6 +1,5 @@
 package edu.columbia.cuit.courseworks.reconstructors;
 
-
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.requesters.Requester;
 import edu.columbia.cuit.courseworks.structures.User;

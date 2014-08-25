@@ -2,7 +2,7 @@ package edu.columbia.cuit.courseworks.views;
 
 import edu.columbia.cuit.courseworks.R;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.*;
 

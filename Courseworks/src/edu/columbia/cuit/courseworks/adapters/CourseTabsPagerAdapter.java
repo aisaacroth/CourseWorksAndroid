@@ -1,7 +1,8 @@
 package edu.columbia.cuit.courseworks.adapters;
 
 import edu.columbia.cuit.courseworks.views.CourseListView;
-import android.support.v4.app.*;
+import android.app.*;
+import android.support.v13.app.*;
 
 public class CourseTabsPagerAdapter extends FragmentPagerAdapter {
 

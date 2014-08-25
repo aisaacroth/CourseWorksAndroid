@@ -1,6 +1,5 @@
 package edu.columbia.cuit.courseworks.views;
 
-
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.SharedPreferencesAdapter;
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;

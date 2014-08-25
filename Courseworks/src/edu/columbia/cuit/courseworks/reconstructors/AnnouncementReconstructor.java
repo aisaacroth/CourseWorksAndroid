@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.text.*;
 
-
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.structures.Announcement;
 

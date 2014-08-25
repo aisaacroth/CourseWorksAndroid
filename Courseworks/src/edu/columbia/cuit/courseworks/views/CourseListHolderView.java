@@ -6,7 +6,6 @@ import java.util.Date;
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.CourseTabsPagerAdapter;
 
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.app.*;
 import android.app.ActionBar.Tab;
@@ -22,7 +21,7 @@ import android.widget.TextView;
  * @author Alexander Roth
  * @data 2014-06-19
  */
-public class CourseListHolderView extends FragmentActivity implements
+public class CourseListHolderView extends Activity implements
         ActionBar.TabListener {
 
     private ViewPager viewPager;
@@ -103,8 +102,7 @@ public class CourseListHolderView extends FragmentActivity implements
     private void initializeTabsPagerAdapter() {
         viewPager = (ViewPager) findViewById(R.id.course_pager);
         actionBar = getActionBar();
-        tabsPagerAdapter = new CourseTabsPagerAdapter(
-                getSupportFragmentManager());
+        tabsPagerAdapter = new CourseTabsPagerAdapter(getFragmentManager());
     }
 
     private void setupActivity() {

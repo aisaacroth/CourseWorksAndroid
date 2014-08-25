@@ -2,19 +2,25 @@ package edu.columbia.cuit.courseworks.feeds;
 
 import java.util.ArrayList;
 
-
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.reconstructors.CourseReconstructor;
 import edu.columbia.cuit.courseworks.structures.Course;
 
 import android.os.AsyncTask;
 
-public class CourseFeed extends AsyncTask<String, Void, ArrayList<Course>>{
+/**
+ * Accesses the Courseworks API and pulls in all information relating to the
+ * current user's courses
+ * 
+ * @author Alexander Roth
+ * @date 2014-08-20
+ */
+public class CourseFeed extends AsyncTask<String, Void, ArrayList<Course>> {
 
     private String url;
     private CourseReconstructor courseReconstructor;
     private ArrayList<Course> courseList;
-    
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -32,10 +38,9 @@ public class CourseFeed extends AsyncTask<String, Void, ArrayList<Course>>{
                     "There appears to be a connection error.");
             e.printStackTrace();
         }
-        
+
         return courseList;
-        
+
     }
-    
-    
+
 }

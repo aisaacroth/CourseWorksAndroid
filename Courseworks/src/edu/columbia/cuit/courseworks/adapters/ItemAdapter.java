@@ -6,6 +6,16 @@ import android.content.Context;
 import android.view.*;
 import android.widget.BaseAdapter;
 
+/**
+ * The generalized structure for an BaseAdapter that is used for the listViews
+ * on the Courseworks application.
+ * 
+ * @author Alexander Roth
+ * @date 2014-08-22
+ *
+ * @param <T>
+ *    Any sort of UI item that can be passed into the adapter.
+ */
 public abstract class ItemAdapter<T> extends BaseAdapter {
 
     protected Context context;

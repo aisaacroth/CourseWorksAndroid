@@ -2,7 +2,6 @@ package edu.columbia.cuit.courseworks.utils;
 
 import android.content.*;
 
-
 import edu.columbia.cuit.courseworks.adapters.SharedPreferencesAdapter;
 import edu.columbia.cuit.courseworks.views.LoginView;
 

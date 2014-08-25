@@ -2,7 +2,6 @@ package edu.columbia.cuit.courseworks.adapters;
 
 import java.util.List;
 
-
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.structures.Course;
 
@@ -11,6 +10,13 @@ import android.graphics.Typeface;
 import android.view.*;
 import android.widget.*;
 
+/**
+ * Extends the ArrayAdapter class in order to run an ListView for a student's
+ * Courses.
+ * 
+ * @author Alexander Roth
+ * @date 2014-08-22
+ */
 public class CourseAdapter extends ItemAdapter<Course> {
 
 

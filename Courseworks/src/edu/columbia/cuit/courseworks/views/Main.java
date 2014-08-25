@@ -14,7 +14,6 @@ import android.app.*;
 import android.app.ActionBar.Tab;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.*;
 import android.widget.TextView;
@@ -26,7 +25,7 @@ import android.widget.TextView;
  * @author Alexander Roth
  * @date 2014-02-24
  */
-public class Main extends FragmentActivity implements ActionBar.TabListener {
+public class Main extends Activity implements ActionBar.TabListener {
 
     private ViewPager viewPager;
     private MainTabsPagerAdapter tabsPagerAdapter;
@@ -96,7 +95,7 @@ public class Main extends FragmentActivity implements ActionBar.TabListener {
     private void initializeTabsPagerAdapter() {
         viewPager = (ViewPager) findViewById(R.id.main_pager);
         actionBar = getActionBar();
-        tabsPagerAdapter = new MainTabsPagerAdapter(getSupportFragmentManager());
+        tabsPagerAdapter = new MainTabsPagerAdapter(getFragmentManager());
     }
 
     private void setupActivity() {

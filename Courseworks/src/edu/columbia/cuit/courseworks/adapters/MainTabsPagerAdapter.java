@@ -2,7 +2,8 @@ package edu.columbia.cuit.courseworks.adapters;
 
 import edu.columbia.cuit.courseworks.views.*;
 
-import android.support.v4.app.*;
+import android.app.*;
+import android.support.v13.app.FragmentPagerAdapter;
 
 /**
  * Extends the FragmentPagerAdapter class in order to

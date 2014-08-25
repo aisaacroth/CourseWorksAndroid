@@ -23,8 +23,7 @@ public class AnnouncementAdapter extends ItemAdapter<Announcement> {
     private TextView classText;
     private TextView dateText;
 
-    public AnnouncementAdapter(Context context,
-            List<Announcement> itemList) {
+    public AnnouncementAdapter(Context context, List<Announcement> itemList) {
         super(context, itemList);
     }
 

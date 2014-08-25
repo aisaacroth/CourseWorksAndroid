@@ -10,6 +10,13 @@ import android.os.Bundle;
 import android.view.*;
 import android.widget.ListView;
 
+/**
+ * Maintains a dynamic list of courses that are pushed to the user each
+ * time he/she accesses the "Courses" tab on the application.
+ * 
+ * @author Alexander Roth
+ * @date 2014-08-22
+ */
 public class CourseListView extends ItemListView<Course> {
 
     @Override
