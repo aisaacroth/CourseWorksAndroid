@@ -5,7 +5,6 @@ import java.util.Date;
 
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.structures.Announcement;
-import edu.columbia.cuit.courseworks.utils.LogoutUtil;
 
 import android.app.*;
 import android.content.Intent;
