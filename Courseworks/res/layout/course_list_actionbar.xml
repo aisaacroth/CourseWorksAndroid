@@ -5,15 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".views.Main" >
+    tools:context=".views.CourseListHolderView" >
 
-    <TextView
-        android:id="@+id/announcement_list_actionbar_title"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/announcement_list_title"
-        android:textColor="@color/black" />
+        android:orientation="horizontal"
+        android:gravity="center_horizontal" >
+
+        <TextView
+            android:id="@+id/course_list_actionbar_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="28dp"
+            android:text="@string/back_button"
+            android:textColor="@color/dark_blue" />
+
+        <TextView
+            android:id="@+id/course_list_actionbar_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="@string/course_list_title"
+            android:textColor="@color/black" />
+    </RelativeLayout>
 
     <ImageView
         android:layout_width="match_parent"

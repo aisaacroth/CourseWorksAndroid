@@ -2,8 +2,7 @@ package edu.columbia.cuit.courseworks.test;
 
 import java.io.IOException;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
+import org.apache.http.*;
 import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
@@ -21,12 +20,12 @@ public class RequesterTest extends TestCase {
     }
 
     
-    public void testGetPage() throws ClientProtocolException, IOException {
-        String url = "https://sakaidev.cc.columbia.edu/";
-        HttpResponse response = requester.getRequest(url, "dummy");
+    public void testGetPage() throws ParseException, IOException {
+        String url = "https://sakaidev.cc.columbia.edu/portal";
+        HttpResponse response = requester.getRequest(url, "JSESSIONID=ac2edec0-5d5b-4e7a-9c9b-92ea1ef38a9f.sakaidev1-ci");
         Log.d("TESTING CLASSES", EntityUtils.toString(response.getEntity()));
     }
-
+    
     protected void tearDown() throws Exception {
         super.tearDown();
     }

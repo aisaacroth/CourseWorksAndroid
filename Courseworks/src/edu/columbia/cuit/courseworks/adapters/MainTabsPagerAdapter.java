@@ -1,9 +1,9 @@
 package edu.columbia.cuit.courseworks.adapters;
 
-import android.app.*;
-import android.support.v13.app.FragmentPagerAdapter;
 import edu.columbia.cuit.courseworks.views.*;
 
+import android.app.*;
+import android.support.v13.app.FragmentPagerAdapter;
 
 /**
  * Extends the FragmentPagerAdapter class in order to
@@ -13,9 +13,9 @@ import edu.columbia.cuit.courseworks.views.*;
  * @author Alexander Roth
  * @date 2014-06-19
  */
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+public class MainTabsPagerAdapter extends FragmentPagerAdapter {
 
-    public TabsPagerAdapter(FragmentManager fm) {
+    public MainTabsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
@@ -23,7 +23,6 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int index) {
         switch (index) {
         case 0:
-            return new CourseListView();
         case 1:
             return new AnnouncementListView();
         case 2:

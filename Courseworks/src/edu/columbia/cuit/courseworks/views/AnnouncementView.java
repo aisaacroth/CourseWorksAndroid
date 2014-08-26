@@ -7,7 +7,6 @@ import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.structures.Announcement;
 import edu.columbia.cuit.courseworks.utils.LogoutUtil;
 
-
 import android.app.*;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -18,6 +17,13 @@ import android.view.*;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+/**
+ * A singleton view of any given announcement. Called from the
+ * AnnouncementListView fragment.
+ * 
+ * @author Alexander Roth
+ * @date 2014-07-20 
+ */
 public class AnnouncementView extends Activity {
     private TextView actionBarBackButton;
     private TextView actionBarTitleText;
@@ -105,14 +111,14 @@ public class AnnouncementView extends Activity {
         actionBarBackButton.setTypeface(thinFont);
         actionBarTitleText.setTypeface(thinFont);
     }
-    
+
     private void setBackButtonCommand() {
-           actionBarBackButton.setOnClickListener(new OnClickListener(){
-               @Override
-               public void onClick(View arg0) {
-                   onBackPressed();
-               }
-           });
+        actionBarBackButton.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                onBackPressed();
+            }
+        });
     }
 
     @Override

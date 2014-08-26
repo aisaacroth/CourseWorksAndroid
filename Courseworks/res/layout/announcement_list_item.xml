@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/list_item"
+    android:id="@+id/announcement_list_item"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/item_title"
+        android:id="@+id/announcement_item_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/announcement_blue"
         android:textSize="14sp" />
 
     <LinearLayout
-        android:id="@+id/item_subtext"
+        android:id="@+id/announcement_item_subtext"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/item_class"
+            android:id="@+id/announcement_item_class"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_gray"
             android:textSize="12sp" />
 
         <TextView
-            android:id="@+id/item_date"
+            android:id="@+id/announcement_item_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"

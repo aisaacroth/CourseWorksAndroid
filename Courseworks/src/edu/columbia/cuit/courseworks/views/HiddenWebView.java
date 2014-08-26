@@ -60,6 +60,7 @@ public class HiddenWebView extends Activity {
             public void onPageFinished(WebView view, String url) {
                 String cookies = CookieManager.getInstance().getCookie(url);
                 Log.d("COOKIES", "Cookies: " + cookies);
+                Log.d("HTML", view.getUrl());
                 storeCookieIfRemembered(cookies);
                 finish();
                 startMainWithIntent(cookies);

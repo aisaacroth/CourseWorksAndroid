@@ -56,7 +56,7 @@ public class AnnouncementReconstructorTest extends TestCase {
                 + "<announcement>Test</announcement>"
                 + "<announcement>Final One</announcement>"
                 + "</announcement_collection>";
-        testAR.xmlString = testAnnouncementsXML;
+        testAR.dataString = testAnnouncementsXML;
         String[] actualAnnouncementStrings = testAR.parseAnnouncementStrings();
         assertNotNull(actualAnnouncementStrings);
     }
@@ -67,18 +67,18 @@ public class AnnouncementReconstructorTest extends TestCase {
                 + " de vocabulario para la película. También les recuerdo que el"
                 + " lunes es la última prueba (la Unidad 19).</p> <p> Saludos y"
                 + " buen fin de semana!</p> <p> Jessica</p> </body>";
-        testAR.xmlString = testBodyXML;
+        testAR.dataString = testBodyXML;
         String testBody = "<p> Estimados estudiantes,</p> <p> Aquí les adjunto"
                 + " una hoja de vocabulario para la película. También les"
                 + " recuerdo que el lunes es la última prueba (la Unidad 19)."
                 + "</p> <p> Saludos y buen fin de semana!</p> <p> Jessica</p> ";
-        String actualBody = testAR.parseFromTag("body");
+        String actualBody = testAR.parseFromXMLTag("body");
         assertEquals(testBody, actualBody);
     }
 
     public void testParseDate() {
         String testDateXML = "<createdOn type=\"date\" date=\"2014-06-30T21:36:30-04:00\">1404178590672</createdOn>";
-        testAR.xmlString = testDateXML;
+        testAR.dataString = testDateXML;
         String testDate = "2014-06-30";
         String actualDate = testAR.parseDateString();
         assertEquals(testDate, actualDate);
@@ -86,15 +86,15 @@ public class AnnouncementReconstructorTest extends TestCase {
 
     public void testParseDisplayName() {
         String testDisplayNameXML = "<createdByDisplayName>Jessica Gordon-Burroughs</createdByDisplayName>";
-        testAR.xmlString = testDisplayNameXML;
+        testAR.dataString = testDisplayNameXML;
         String testDisplayName = "Jessica Gordon-Burroughs";
-        String actualDisplayName = testAR.parseFromTag("createdByDisplayName");
+        String actualDisplayName = testAR.parseFromXMLTag("createdByDisplayName");
         assertEquals(testDisplayName, actualDisplayName);
     }
 
     public void testParseFullAnnouncements() throws ClientProtocolException, IOException {
         String testAnnouncementsXML = prepareXML();
-        testAR.xmlString = testAnnouncementsXML;
+        testAR.dataString = testAnnouncementsXML;
         ArrayList<Announcement> results = testAR.constructAnnouncements("dummy", "dummy");
         assertNotNull(results);
         assertEquals(2, results.size());
@@ -157,17 +157,17 @@ public class AnnouncementReconstructorTest extends TestCase {
 
     public void testParseTitle() {
         String testTitleXML = "<title>COMPOSICION 4.2</title>";
-        testAR.xmlString = testTitleXML;
+        testAR.dataString = testTitleXML;
         String testTitle = "COMPOSICION 4.2";
-        String actualTitle = testAR.parseFromTag("title");
+        String actualTitle = testAR.parseFromXMLTag("title");
         assertEquals(testTitle, actualTitle);
     }
 
     public void testParseSiteId() {
         String testSiteIdXML = "<siteId>SPANS1201_001_2014_2</siteId>";
-        testAR.xmlString = testSiteIdXML;
+        testAR.dataString = testSiteIdXML;
         String testSiteId = "SPANS1201_001_2014_2";
-        String actualSiteId = testAR.parseFromTag("siteId");
+        String actualSiteId = testAR.parseFromXMLTag("siteId");
         assertEquals(testSiteId, actualSiteId);
     }
 

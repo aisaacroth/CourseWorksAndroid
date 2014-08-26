@@ -2,14 +2,15 @@ package edu.columbia.cuit.courseworks.views;
 
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.SharedPreferencesAdapter;
+import edu.columbia.cuit.courseworks.dialogs.NetworkDialog;
+import edu.columbia.cuit.courseworks.dialogs.NetworkDialog.NetworkDialogListener;
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.utils.*;
-
 
 import android.animation.*;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
+import android.app.*;
 import android.content.*;
 import android.graphics.Typeface;
 import android.os.*;
@@ -26,7 +27,7 @@ import android.widget.*;
  * @author Alexander Roth
  * @date 2014-02-25
  */
-public class LoginView extends Activity {
+public class LoginView extends Activity implements NetworkDialogListener {
 
     private UserLoginTask loginTask = null;
 
@@ -123,7 +124,7 @@ public class LoginView extends Activity {
         forgotPassword.setText(Html.fromHtml(FORGOT_PASSWORD_LINK));
         forgotPassword.setMovementMethod(LinkMovementMethod.getInstance());
     }
-
+    
     public void attemptLogin() {
         if (loginTask != null) {
             return;
@@ -239,15 +240,17 @@ public class LoginView extends Activity {
             try {
                 login();
             } catch (FailedConnectionException e) {
-                e = new FailedConnectionException("There appears to be a connection error. Please try again later");
-                displayConnectionErrorMessage(e.getLocalizedMessage());
+                e = new FailedConnectionException(
+                        "There appears to be a connection error. Please try again later");
+                showNetworkDialog();
+
             }
 
             if (serviceTicket != null)
                 worked = true;
             return worked;
         }
-        
+
         private void login() throws FailedConnectionException {
             grantingTicket = CASAuthUtil.getGrantingTicket(uni, password);
             startTimer();
@@ -258,10 +261,6 @@ public class LoginView extends Activity {
             Intent timeoutIntent = new Intent(LoginView.this,
                     ExpirationTimer.class);
             startService(timeoutIntent);
-        }
-        
-        private void displayConnectionErrorMessage(String message) {
-            Toast.makeText(getParent(), message, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -296,4 +295,11 @@ public class LoginView extends Activity {
         return true;
     }
 
+    public void showNetworkDialog() {
+        DialogFragment dialog = new NetworkDialog();
+        dialog.show(getFragmentManager(), "NetworkDialogFragment");
+    }
+
+    public void onDialogPositiveClick(DialogFragment dialog) {
+    }
 }

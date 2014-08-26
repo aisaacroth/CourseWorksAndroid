@@ -1,41 +1,47 @@
 package edu.columbia.cuit.courseworks.views;
 
-import edu.columbia.cuit.courseworks.R;
+import java.util.ArrayList;
 
-import android.support.v4.app.ListFragment;
+import edu.columbia.cuit.courseworks.R;
+import edu.columbia.cuit.courseworks.adapters.CourseAdapter;
+import edu.columbia.cuit.courseworks.structures.Course;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 /**
- * TODO: Implement CourseView styling
+ * Maintains a dynamic list of courses that are pushed to the user each
+ * time he/she accesses the "Courses" tab on the application.
  * 
  * @author Alexander Roth
- * @data 2014-06-19
+ * @date 2014-08-22
  */
-public class CourseListView extends ListFragment {
-
-    String[] values = new String[] { "Course 1", "Course 2", "Course 3",
-            "Course 4", "Course 5" };
+public class CourseListView extends ItemListView<Course> {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                inflater.getContext(), android.R.layout.simple_list_item_1,
-                values);
-        setListAdapter(adapter);
-        return super.onCreateView(inflater, container, savedInstanceState);
 
+        getCourses();
+        setHasOptionsMenu(true);
+        adapter = new CourseAdapter(this.getActivity(), itemList);
+        setListAdapter(adapter);
+        return super.onCreateView(inflater, container, savedInstanceState,
+                R.layout.fragment_course_list_view);
+    }
+    
+    private void getCourses() {
+        itemList = new ArrayList<Course>();
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
 
+        Intent course = new Intent(getActivity(), CourseView.class);
+        course.putExtra("Course", itemList.get(position));
+        startActivity(course);
+    }
+    
 }

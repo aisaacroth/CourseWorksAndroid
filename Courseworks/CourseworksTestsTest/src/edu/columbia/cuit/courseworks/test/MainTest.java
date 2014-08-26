@@ -1,15 +1,14 @@
 package edu.columbia.cuit.courseworks.test;
 
-
 import android.app.ActionBar;
 import android.support.v4.view.ViewPager;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.SmallTest;
 
 import edu.columbia.cuit.courseworks.R;
-
-import edu.columbia.cuit.courseworks.adapters.TabsPagerAdapter;
+import edu.columbia.cuit.courseworks.adapters.MainTabsPagerAdapter;
 import edu.columbia.cuit.courseworks.views.Main;
+
 /**
  * The test suite for the Main Activity. There are not that many tests because
  * most of the actions are handled by respective fragments.
@@ -20,7 +19,7 @@ import edu.columbia.cuit.courseworks.views.Main;
 public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     private ActionBar testActionBar;
     private Main testMainActivity;
-    private TabsPagerAdapter testTabsPagerAdapter;
+    private MainTabsPagerAdapter testTabsPagerAdapter;
     private ViewPager testViewer;
 
     private final int LEFT = 0;
@@ -41,9 +40,9 @@ public class MainTest extends ActivityInstrumentationTestCase2<Main> {
     private void initTestObjects() {
         testMainActivity = getActivity();
         testActionBar = testMainActivity.getActionBar();
-        testTabsPagerAdapter = new TabsPagerAdapter(
-                testMainActivity.getSupportFragmentManager());
-        testViewer = (ViewPager) testMainActivity.findViewById(R.id.pager);
+        testTabsPagerAdapter = new MainTabsPagerAdapter(
+                testMainActivity.getFragmentManager());
+        testViewer = (ViewPager) testMainActivity.findViewById(R.id.main_pager);
     }
 
     @SmallTest

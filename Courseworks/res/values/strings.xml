@@ -23,5 +23,10 @@
     <string name="title_activity_course_view">Courses</string>
     <string name="title_activity_hidden_web_view">HiddenWebView</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_course_place_holder_view">CoursePlaceHolderView</string>
+    <string name="title_activity_past_course_list_view">PastCourseListView</string>
+    <string name="title_activity_current_course_list_view">CurrentCourseListView</string>
+    <string name="title_activity_next_course_list_view">NextCourseListView</string>
+    <string name="title_activity_network_dialog">NetworkDialog</string>
 
 </resources>

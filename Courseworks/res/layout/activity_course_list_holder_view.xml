@@ -6,23 +6,24 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Main" >
+    tools:context="edu.columbia.cuit.courseworks.views.CourseListHolderView"
+    tools:ignore="MergeRootFrame" >
 
     <android.support.v4.view.ViewPager
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/main_pager"
+        android:id="@+id/course_pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
     </android.support.v4.view.ViewPager>
 
     <RelativeLayout
-        android:id="@+id/main_datetime"
+        android:id="@+id/course_datetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/main_current_date"
+            android:id="@+id/course_update_date"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
@@ -30,12 +31,11 @@
             android:textSize="10sp" />
 
         <TextView
-            android:id="@+id/main_update_time"
+            android:id="@+id/course_update_time"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:textColor="@color/black"
             android:textSize="10sp" />
     </RelativeLayout>
-
 </RelativeLayout>

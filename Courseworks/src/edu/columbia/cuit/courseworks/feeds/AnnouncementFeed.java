@@ -2,7 +2,6 @@ package edu.columbia.cuit.courseworks.feeds;
 
 import java.util.ArrayList;
 
-
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.reconstructors.AnnouncementReconstructor;
 import edu.columbia.cuit.courseworks.structures.Announcement;

@@ -2,9 +2,9 @@ package edu.columbia.cuit.courseworks.test;
 
 import java.io.File;
 
-import edu.columbia.cuit.courseworks.R;
 import com.robotium.solo.Solo;
 
+import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.SharedPreferencesAdapter;
 import edu.columbia.cuit.courseworks.views.*;
 

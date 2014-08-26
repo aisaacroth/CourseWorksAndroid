@@ -5,13 +5,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/login_textfield" >
 
-    <TextView
+    <Button
         android:id="@+id/announcement_actionbar_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:text="@string/back_button"
         android:textColor="@color/dark_blue"
+        android:background="@color/white"
         android:textSize="12sp" />
 
     <TextView

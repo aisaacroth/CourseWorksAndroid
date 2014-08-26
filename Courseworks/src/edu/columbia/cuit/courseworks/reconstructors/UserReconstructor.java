@@ -1,6 +1,5 @@
 package edu.columbia.cuit.courseworks.reconstructors;
 
-
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.structures.User;
 
@@ -14,19 +13,19 @@ public class UserReconstructor extends Reconstructor {
 
     public UserReconstructor() {
         this.user = new User();
-        this.xmlString = null;
+        this.dataString = null;
     }
 
     private void setUser() {
-        user.setUni(parseFromTag("displayId"));
-        user.setUserID(parseFromTag("id"));
-        user.setDisplayName(parseFromTag("displayName"));
-        user.setEmailAddress(parseFromTag("email"));
+        user.setUni(parseFromXMLTag("displayId"));
+        user.setUserID(parseFromXMLTag("id"));
+        user.setDisplayName(parseFromXMLTag("displayName"));
+        user.setEmailAddress(parseFromXMLTag("email"));
     }
 
     public User constructUser(String url, String sessionID)
             throws FailedConnectionException {
-        setXMLString(url, sessionID);
+        setDataString(url, sessionID);
         setUser();
         return user;
     }

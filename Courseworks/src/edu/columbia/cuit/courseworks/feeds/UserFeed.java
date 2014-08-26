@@ -1,6 +1,5 @@
 package edu.columbia.cuit.courseworks.feeds;
 
-
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.reconstructors.UserReconstructor;
 import edu.columbia.cuit.courseworks.structures.User;

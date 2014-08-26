@@ -17,23 +17,19 @@ import android.widget.*;
  * @author Alexander Roth
  * @date 2014-06-12
  */
-public class AnnouncementAdapter extends BaseAdapter {
+public class AnnouncementAdapter extends ItemAdapter<Announcement> {
 
-    private Context context;
-    private List<Announcement> announcementList;
     private TextView titleText;
     private TextView classText;
     private TextView dateText;
 
-    public AnnouncementAdapter(Context context,
-            List<Announcement> announcementList) {
-        this.context = context;
-        this.announcementList = announcementList;
+    public AnnouncementAdapter(Context context, List<Announcement> itemList) {
+        super(context, itemList);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        Announcement announcement = announcementList.get(position);
+        Announcement announcement = itemList.get(position);
 
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) context
@@ -46,25 +42,29 @@ public class AnnouncementAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void setListItemFormat(View view, Announcement announcement) {
+    @Override
+    protected void setListItemFormat(View view, Announcement announcement) {
         setListItemViews(view);
         setTextInViews(announcement);
         setFontsForText();
     }
 
-    private void setListItemViews(View view) {
-        titleText = (TextView) view.findViewById(R.id.item_title);
-        classText = (TextView) view.findViewById(R.id.item_class);
-        dateText = (TextView) view.findViewById(R.id.item_date);
+    @Override
+    protected void setListItemViews(View view) {
+        titleText = (TextView) view.findViewById(R.id.announcement_item_title);
+        classText = (TextView) view.findViewById(R.id.announcement_item_class);
+        dateText = (TextView) view.findViewById(R.id.announcement_item_date);
     }
 
-    private void setTextInViews(Announcement announcement) {
+    @Override
+    protected void setTextInViews(Announcement announcement) {
         titleText.setText(announcement.getTitle());
         classText.setText(announcement.getClassId());
         dateText.setText("/ Posted " + announcement.getPostedDate());
     }
 
-    private void setFontsForText() {
+    @Override
+    protected void setFontsForText() {
         setRegularFont();
         setMediumFont();
     }
@@ -82,18 +82,4 @@ public class AnnouncementAdapter extends BaseAdapter {
         dateText.setTypeface(mediumFont);
     }
 
-    @Override
-    public int getCount() {
-        return announcementList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return announcementList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
 }
