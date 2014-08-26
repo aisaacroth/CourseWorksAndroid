@@ -10,8 +10,7 @@ import edu.columbia.cuit.courseworks.utils.*;
 import android.animation.*;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
-import android.app.DialogFragment;
+import android.app.*;
 import android.content.*;
 import android.graphics.Typeface;
 import android.os.*;
@@ -125,7 +124,7 @@ public class LoginView extends Activity implements NetworkDialogListener {
         forgotPassword.setText(Html.fromHtml(FORGOT_PASSWORD_LINK));
         forgotPassword.setMovementMethod(LinkMovementMethod.getInstance());
     }
-
+    
     public void attemptLogin() {
         if (loginTask != null) {
             return;
