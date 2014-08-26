@@ -23,6 +23,8 @@ public class LogoutUtil {
 
     private static void sendToLoginScreen(Context context) {
         Intent logoutIntent = new Intent(context, LoginView.class);
+        logoutIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        logoutIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(logoutIntent);
     }
 

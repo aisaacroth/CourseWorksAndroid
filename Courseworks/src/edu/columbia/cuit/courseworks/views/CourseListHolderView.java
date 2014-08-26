@@ -147,5 +147,5 @@ public class CourseListHolderView extends Activity implements
     @Override
     public void onTabReselected(Tab tab, FragmentTransaction ft) {
     }
-
+    
 }
