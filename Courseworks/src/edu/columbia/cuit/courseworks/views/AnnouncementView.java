@@ -121,22 +121,4 @@ public class AnnouncementView extends Activity {
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        getMenuInflater().inflate(R.menu.announcement_view, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.announcement_view_signout_option) {
-            finish();
-            LogoutUtil.logout(this);
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 }
