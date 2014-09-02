@@ -24,8 +24,7 @@ public class AnnouncementFeed extends
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        // TODO: Switch to production servers
-        url = "https://sakaidev.cc.columbia.edu/direct/announcement/user.xml?n=20&d=100";
+        url = "https://courseworks.columbia.edu/direct/announcement/user.xml?n=20&d=100";
         announcementReconstructor = new AnnouncementReconstructor();
     }
 

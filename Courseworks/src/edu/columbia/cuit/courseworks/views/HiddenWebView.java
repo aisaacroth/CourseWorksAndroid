@@ -46,8 +46,7 @@ public class HiddenWebView extends Activity {
     }
 
     private void accessPage(String ticket) {
-        // TODO: Move to Production Server
-        String url = "https://sakaidev.cc.columbia.edu/sakai-login-tool/"
+        String url = "https://courseworks.columbia.edu/sakai-login-tool/"
                 + "container?force.login=yes&ticket=" + ticket;
         webView.loadUrl(url);
         Log.d("HIDDEN WEB VIEW URL", url);

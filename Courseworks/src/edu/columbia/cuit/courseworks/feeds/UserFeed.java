@@ -24,8 +24,7 @@ public class UserFeed extends AsyncTask<String, Void, User> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        // TODO: Switch to Production servers.
-        url = "https://sakaidev.cc.columbia.edu/direct/user/current.xml";
+        url = "https://courseworks.columbia.edu/direct/user/current.xml";
         userReconstructor = new UserReconstructor();
     }
 

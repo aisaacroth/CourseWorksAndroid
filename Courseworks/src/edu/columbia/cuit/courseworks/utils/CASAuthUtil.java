@@ -51,9 +51,8 @@ public class CASAuthUtil {
             String password) throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
 
-        // TODO: Switch to Production server. Currently testing on Dev servers.
         HttpPost httpPost = new HttpPost(
-                "https://casdev.cc.columbia.edu/cas/v1/tickets");
+                "https://cas.columbia.edu/cas/v1/tickets");
 
         List<NameValuePair> paramList = new ArrayList<NameValuePair>();
         addUserPasswordParameter(paramList, username, password);
@@ -140,9 +139,8 @@ public class CASAuthUtil {
             throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
 
-        // TODO Switch to Production Servers
         HttpPost httpPost = new HttpPost(
-                "https://casdev.cc.columbia.edu/cas/v1/tickets/" + ticket);
+                "https://cas.columbia.edu/cas/v1/tickets/" + ticket);
 
         List<NameValuePair> paramList = new ArrayList<NameValuePair>();
         addService(paramList);
@@ -156,10 +154,9 @@ public class CASAuthUtil {
 
     private static void addService(List<NameValuePair> paramList) {
 
-        // TODO Switch to Production Servers
         paramList
                 .add(new BasicNameValuePair("service",
-                        "https://sakaidev.cc.columbia.edu/sakai-login-tool/container?force.login=yes"));
+                        "https://courseworks.columbia.edu/sakai-login-tool/container?force.login=yes"));
     }
 
     private static boolean connectionIsGood(HttpResponse response) {
