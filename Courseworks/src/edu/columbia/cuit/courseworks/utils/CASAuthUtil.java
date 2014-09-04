@@ -29,6 +29,8 @@ public class CASAuthUtil {
 
     private static String tGT;
     private static final int LOCATION = 2;
+    private static final String CAS_HOST = "https://cas.columbia.edu/cas/";
+    private static final String COURSEWORKS_HOST = "https://courseworks.columbia.edu";
 
     public static String getGrantingTicket(String username, String password)
             throws FailedConnectionException {
@@ -51,8 +53,7 @@ public class CASAuthUtil {
             String password) throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
 
-        HttpPost httpPost = new HttpPost(
-                "https://cas.columbia.edu/cas/v1/tickets");
+        HttpPost httpPost = new HttpPost(CAS_HOST + "v1/tickets");
 
         List<NameValuePair> paramList = new ArrayList<NameValuePair>();
         addUserPasswordParameter(paramList, username, password);
@@ -139,8 +140,7 @@ public class CASAuthUtil {
             throws ClientProtocolException, IOException {
         HttpClient httpClient = new DefaultHttpClient();
 
-        HttpPost httpPost = new HttpPost(
-                "https://cas.columbia.edu/cas/v1/tickets/" + ticket);
+        HttpPost httpPost = new HttpPost(CAS_HOST + "v1/tickets/" + ticket);
 
         List<NameValuePair> paramList = new ArrayList<NameValuePair>();
         addService(paramList);
@@ -154,9 +154,8 @@ public class CASAuthUtil {
 
     private static void addService(List<NameValuePair> paramList) {
 
-        paramList
-                .add(new BasicNameValuePair("service",
-                        "https://courseworks.columbia.edu/sakai-login-tool/container?force.login=yes"));
+        paramList.add(new BasicNameValuePair("service", COURSEWORKS_HOST
+                + "sakai-login-tool/container?force.login=yes"));
     }
 
     private static boolean connectionIsGood(HttpResponse response) {

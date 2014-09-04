@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     
+    <string name="announcement_list_signout_option">Sign Out</string>
     <string name="announcement_list_title">Announcements</string>
     <string name="no_announcements">No Announcements have been posted</string>
-    <string name="announcement_list_signout_option">Sign Out</string>
 </resources>

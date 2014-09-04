@@ -21,6 +21,8 @@ import android.webkit.*;
 public class HiddenWebView extends Activity {
 
     private SharedPreferencesAdapter preferenceAdapter;
+    private static final String COURSEWORK_HOST = "https://courseworks.columbia.edu/";
+    private static final String SAKAI_LOGIN_TOOL = "sakai-login-tool/";
     private WebView webView;
 
     @Override
@@ -46,7 +48,7 @@ public class HiddenWebView extends Activity {
     }
 
     private void accessPage(String ticket) {
-        String url = "https://courseworks.columbia.edu/sakai-login-tool/"
+        String url = COURSEWORK_HOST + SAKAI_LOGIN_TOOL
                 + "container?force.login=yes&ticket=" + ticket;
         webView.loadUrl(url);
         Log.d("HIDDEN WEB VIEW URL", url);

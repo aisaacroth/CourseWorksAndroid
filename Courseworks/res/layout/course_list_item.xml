@@ -10,8 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/announcement_blue"
-        android:textSize="14sp"
-        android:text="Class Name" />
+        android:textSize="14sp" />
     
     <LinearLayout
         android:id="@+id/course_item_subtext_1"
@@ -24,16 +23,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_gray"
-            android:textSize="12sp" 
-            android:text="COMSW1004" />
+            android:textSize="12sp" />
         
         <TextView
             android:id="@+id/course_item_professor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/dark_gray"
-            android:textSize="12sp" 
-            android:text="Adam Cannon" />
+            android:textSize="12sp" />
         
     </LinearLayout>
     <LinearLayout 
@@ -47,16 +44,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="12sp" 
-            android:text="M, W, 11:40-12:55"/>
+            android:textSize="12sp" />
         
         <TextView 
             android:id="@+id/course_item_meeting_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
-            android:textSize="12sp"
-            android:text="301 NorthWest"/>
+            android:textSize="12sp" />
     </LinearLayout>
     
 

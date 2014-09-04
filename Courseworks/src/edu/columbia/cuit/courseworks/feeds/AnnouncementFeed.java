@@ -20,11 +20,12 @@ public class AnnouncementFeed extends
     private AnnouncementReconstructor announcementReconstructor;
     private ArrayList<Announcement> announcementList;
     private String url;
+    private final String COURSEWORKS_DIRECT = "https://courseworks.columbia.edu/direct/";
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        url = "https://courseworks.columbia.edu/direct/announcement/user.xml?n=20&d=100";
+        url = COURSEWORKS_DIRECT + "announcement/user.xml?n=20&d=100";
         announcementReconstructor = new AnnouncementReconstructor();
     }
 

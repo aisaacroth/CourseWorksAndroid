@@ -4,6 +4,6 @@
 
     <item
         android:id="@+id/list_signout_option"
-        android:title="@string/announcement_list_signout_option" />
+        android:title="@string/announcement_list_signout_option"/>
 
 </menu>

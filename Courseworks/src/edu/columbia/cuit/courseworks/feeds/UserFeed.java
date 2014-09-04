@@ -19,12 +19,13 @@ public class UserFeed extends AsyncTask<String, Void, User> {
     private User currentUser;
     private UserReconstructor userReconstructor;
     private String url;
+    private final String COURSEWORKS_DIRECT = "https://courseworks.columbia.edu/direct/";
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
 
-        url = "https://courseworks.columbia.edu/direct/user/current.xml";
+        url = COURSEWORKS_DIRECT + "user/current.xml";
         userReconstructor = new UserReconstructor();
     }
 
