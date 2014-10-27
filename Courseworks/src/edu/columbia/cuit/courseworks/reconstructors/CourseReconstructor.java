@@ -6,6 +6,7 @@ import android.util.Log;
 
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.structures.Course;
+import edu.columbia.cuit.courseworks.structures.User;
 
 /**
  * Reconstructs the current User's Courses XML file returned from the
