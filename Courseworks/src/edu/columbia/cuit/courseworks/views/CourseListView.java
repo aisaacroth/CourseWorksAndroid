@@ -1,12 +1,14 @@
 package edu.columbia.cuit.courseworks.views;
 
-import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.CourseAdapter;
+import edu.columbia.cuit.courseworks.feeds.CourseFeed;
 import edu.columbia.cuit.courseworks.structures.Course;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.ListView;
 
@@ -23,7 +25,12 @@ public class CourseListView extends ItemListView<Course> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        getCourses();
+        Intent intent = getActivity().getIntent();
+        String uni = intent.getStringExtra("USER");
+        String sessionCookie = intent.getStringExtra("JSESSION");
+        Log.d("USER", uni);
+        Log.d("SESSION ID", sessionCookie);
+        getCourses(uni, sessionCookie);
         setHasOptionsMenu(true);
         adapter = new CourseAdapter(this.getActivity(), itemList);
         setListAdapter(adapter);
@@ -31,8 +38,16 @@ public class CourseListView extends ItemListView<Course> {
                 R.layout.fragment_course_list_view);
     }
     
-    private void getCourses() {
-        itemList = new ArrayList<Course>();
+    private void getCourses(String user, String sessionCookie) {
+        CourseFeed courseFeed = new CourseFeed(user, "current");
+        try {
+            itemList = courseFeed.execute(sessionCookie).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        
     }
 
     @Override

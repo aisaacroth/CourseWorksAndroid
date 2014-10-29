@@ -9,7 +9,6 @@ import edu.columbia.cuit.courseworks.adapters.CourseTabsPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.app.*;
 import android.app.ActionBar.Tab;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.*;
 import android.view.View.OnClickListener;
@@ -42,7 +41,6 @@ public class CourseListHolderView extends Activity implements
         setActionBar();
         setBackButton();
         removeHomeIcon();
-        final String sessionCookie = extractSessionCookieFromIntent();
 
         initializeTabsPagerAdapter();
         setupActivity();
@@ -92,11 +90,6 @@ public class CourseListHolderView extends Activity implements
     private void removeHomeIcon() {
         final View homeIcon = findViewById(android.R.id.home);
         ((View) homeIcon.getParent()).setVisibility(View.GONE);
-    }
-
-    private String extractSessionCookieFromIntent() {
-        Intent sessionIntent = getIntent();
-        return sessionIntent.getStringExtra("JSESSION");
     }
 
     private void initializeTabsPagerAdapter() {

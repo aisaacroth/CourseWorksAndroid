@@ -67,6 +67,7 @@ public class Main extends Activity implements ActionBar.TabListener, NetworkDial
                 if (actionBar.getSelectedTab().getText().equals("Courses")) {
                     Intent courseListIntent = new Intent(Main.this, CourseListHolderView.class);
                     courseListIntent.putExtra("JSESSION", sessionCookie);
+                    courseListIntent.putExtra("USER", currentUser.getUni());
                     startActivity(courseListIntent);
                 }
             }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.reconstructors.CourseReconstructor;
 import edu.columbia.cuit.courseworks.structures.Course;
-import edu.columbia.cuit.courseworks.structures.User;
 
 import android.os.AsyncTask;
 
@@ -22,12 +21,12 @@ public class CourseFeed extends AsyncTask<String, Void, ArrayList<Course>> {
     private CourseReconstructor courseReconstructor;
     private String url;
     private final String COURSEWORKS_DIRECT = "https://courseworks.columbia.edu/direct/";
-    private User user;
+    private String uni;
     private String semester;
 
-    public CourseFeed(User user, String semester) {
+    public CourseFeed(String uni, String semester) {
         super();
-        this.user = user;
+        this.uni = uni;
         this.semester = semester;
     }
 
@@ -35,8 +34,8 @@ public class CourseFeed extends AsyncTask<String, Void, ArrayList<Course>> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        url = COURSEWORKS_DIRECT + "my_courses/" + semester + "/"
-                + user.getUni() + ".xml";
+        url = COURSEWORKS_DIRECT + "my_courses/access/" + semester + "/" + uni
+                + ".xml";
         courseReconstructor = new CourseReconstructor();
     }
 
