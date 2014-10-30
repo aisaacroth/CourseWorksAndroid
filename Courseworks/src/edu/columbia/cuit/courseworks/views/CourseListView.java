@@ -13,8 +13,8 @@ import android.view.*;
 import android.widget.ListView;
 
 /**
- * Maintains a dynamic list of courses that are pushed to the user each
- * time he/she accesses the "Courses" tab on the application.
+ * Maintains a dynamic list of courses that are pushed to the user each time
+ * he/she accesses the "Courses" tab on the application.
  * 
  * @author Alexander Roth
  * @date 2014-08-22
@@ -28,18 +28,18 @@ public class CourseListView extends ItemListView<Course> {
         Intent intent = getActivity().getIntent();
         String uni = intent.getStringExtra("USER");
         String sessionCookie = intent.getStringExtra("JSESSION");
-        Log.d("USER", uni);
-        Log.d("SESSION ID", sessionCookie);
-        getCourses(uni, sessionCookie);
+        String semester = savedInstanceState.getString("SEMESTER");
+        loggingStatements(uni, sessionCookie, semester);
+        getCourses(uni, sessionCookie, semester);
         setHasOptionsMenu(true);
         adapter = new CourseAdapter(this.getActivity(), itemList);
         setListAdapter(adapter);
         return super.onCreateView(inflater, container, savedInstanceState,
                 R.layout.fragment_course_list_view);
     }
-    
-    private void getCourses(String user, String sessionCookie) {
-        CourseFeed courseFeed = new CourseFeed(user, "current");
+
+    private void getCourses(String user, String sessionCookie, String semester) {
+        CourseFeed courseFeed = new CourseFeed(user, semester);
         try {
             itemList = courseFeed.execute(sessionCookie).get();
         } catch (InterruptedException e) {
@@ -47,7 +47,6 @@ public class CourseListView extends ItemListView<Course> {
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
-        
     }
 
     @Override
@@ -59,4 +58,10 @@ public class CourseListView extends ItemListView<Course> {
         startActivity(course);
     }
     
+    private void loggingStatements(String uni, String cookie, String semester) {
+        Log.d("USER", uni);
+        Log.d("SESSION ID", cookie);
+        Log.d("SEMESTER", semester);
+    }
+
 }

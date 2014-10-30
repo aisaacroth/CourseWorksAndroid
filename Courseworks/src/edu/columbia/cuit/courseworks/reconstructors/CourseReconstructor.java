@@ -1,6 +1,9 @@
 package edu.columbia.cuit.courseworks.reconstructors;
 
 import java.util.ArrayList;
+import java.util.Locale;
+
+import android.util.Log;
 
 import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.structures.Course;
@@ -74,7 +77,19 @@ public class CourseReconstructor extends Reconstructor {
 
     private void setCourse() {
         course.setCourseID(parseFromXMLTag("siteId"));
-        course.setTitle(parseFromXMLTag("siteTitle"));
+        course.setTitle(reformatTitle(parseFromXMLTag("siteTitle")));
+        Log.d("COURSE ID", course.getCourseID());
+        Log.d("COURSE NAME", course.getTitle());
+    }
+
+    private String reformatTitle(String title) {
+        String[] words = title.split(" ");
+        String cleanTitle = "";
+        for (String word : words) {
+            cleanTitle += word.substring(0, 1).toUpperCase(Locale.US)
+                    + word.substring(1).toLowerCase(Locale.US) + " ";
+        }
+        return cleanTitle;
     }
 
 }

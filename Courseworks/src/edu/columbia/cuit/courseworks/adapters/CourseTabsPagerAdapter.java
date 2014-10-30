@@ -2,7 +2,9 @@ package edu.columbia.cuit.courseworks.adapters;
 
 import edu.columbia.cuit.courseworks.views.CourseListView;
 import android.app.*;
+import android.os.Bundle;
 import android.support.v13.app.*;
+import android.util.Log;
 
 public class CourseTabsPagerAdapter extends FragmentPagerAdapter {
 
@@ -14,11 +16,11 @@ public class CourseTabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int index) {
         switch (index) {
         case 0:
-            return new CourseListView();
+            return newInstance("past");
         case 1:
-            return new CourseListView();
+            return newInstance("current");
         case 2:
-            return new CourseListView();
+            return newInstance("current");
         }
         throw new NullPointerException();
     }
@@ -26,5 +28,14 @@ public class CourseTabsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public int getCount() {
         return 3;
+    }
+    
+    private static final CourseListView newInstance(String semester) {
+        CourseListView courseListView = new CourseListView();
+        Bundle bdl = new Bundle(1);
+        Log.d("BUNDLE", semester);
+        bdl.putString("SEMESTER", semester);
+        courseListView.setArguments(bdl);
+        return courseListView;
     }
 }
