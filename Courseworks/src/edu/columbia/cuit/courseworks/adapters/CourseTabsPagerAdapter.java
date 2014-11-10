@@ -20,7 +20,7 @@ public class CourseTabsPagerAdapter extends FragmentPagerAdapter {
         case 1:
             return newInstance("current");
         case 2:
-            return newInstance("current");
+            return newInstance("next");
         }
         throw new NullPointerException();
     }
@@ -32,7 +32,7 @@ public class CourseTabsPagerAdapter extends FragmentPagerAdapter {
     
     private static final CourseListView newInstance(String semester) {
         CourseListView courseListView = new CourseListView();
-        Bundle bdl = new Bundle(1);
+        Bundle bdl = new Bundle();
         Log.d("BUNDLE", semester);
         bdl.putString("SEMESTER", semester);
         courseListView.setArguments(bdl);

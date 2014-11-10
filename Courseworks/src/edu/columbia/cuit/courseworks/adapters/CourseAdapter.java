@@ -66,7 +66,7 @@ public class CourseAdapter extends ItemAdapter<Course> {
     @Override
     protected void setTextInViews(Course course) {
         titleText.setText(course.getTitle());
-        courseIDText.setText(course.getCourseID());
+        courseIDText.setText(santizeCourseID(course.getCourseID()));
         professorText.setText(course.getProfessor());
         meetingTimeText.setText(course.getMeetingTime());
         meetingPlaceText.setText(course.getMeetingPlace());
@@ -91,6 +91,14 @@ public class CourseAdapter extends ItemAdapter<Course> {
         professorText.setTypeface(mediumFont);
         meetingTimeText.setTypeface(mediumFont);
         meetingPlaceText.setTypeface(mediumFont);
+    }
+    
+    private String santizeCourseID(String courseID) {
+        String noSectionNumber = courseID.substring(0, courseID.indexOf("_"));
+        String courseSegment = noSectionNumber.substring(0, 4);
+        String sectionNumber = noSectionNumber.substring(4);
+        String cleanID = courseSegment + " " + sectionNumber;
+        return cleanID;
     }
 
 }

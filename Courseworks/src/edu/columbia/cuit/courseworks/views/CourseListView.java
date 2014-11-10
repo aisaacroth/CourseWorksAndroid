@@ -28,7 +28,7 @@ public class CourseListView extends ItemListView<Course> {
         Intent intent = getActivity().getIntent();
         String uni = intent.getStringExtra("USER");
         String sessionCookie = intent.getStringExtra("JSESSION");
-        String semester = savedInstanceState.getString("SEMESTER");
+        String semester = this.getArguments().getString("SEMESTER");
         loggingStatements(uni, sessionCookie, semester);
         getCourses(uni, sessionCookie, semester);
         setHasOptionsMenu(true);
@@ -42,6 +42,7 @@ public class CourseListView extends ItemListView<Course> {
         CourseFeed courseFeed = new CourseFeed(user, semester);
         try {
             itemList = courseFeed.execute(sessionCookie).get();
+            CourseInfoFeed courseInfoFeed = new CourseInfoFeed(itemList);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

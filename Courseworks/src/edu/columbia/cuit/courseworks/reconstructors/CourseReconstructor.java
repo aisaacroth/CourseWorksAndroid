@@ -1,11 +1,9 @@
 package edu.columbia.cuit.courseworks.reconstructors;
 
-import java.util.ArrayList;
-import java.util.Locale;
+import java.util.*;
 
-import android.util.Log;
+import org.json.*;
 
-import edu.columbia.cuit.courseworks.exceptions.FailedConnectionException;
 import edu.columbia.cuit.courseworks.structures.Course;
 
 /**
@@ -15,79 +13,56 @@ import edu.columbia.cuit.courseworks.structures.Course;
  * @author Alexander Roth
  * @date 2014-08-20
  */
-public class CourseReconstructor extends Reconstructor {
+public class CourseReconstructor {
 
-    private Course course;
-    private ArrayList<Course> courseList;
-
-    public CourseReconstructor() {
-        this.course = null;
-        this.dataString = null;
+    public ArrayList<Course> readCoursesFromJSON(String string)
+            throws JSONException {
+        JSONObject fullJSON = readStringToJSONObject(string);
+        JSONArray courseArray = readArrayFromJsonObject(fullJSON);
+        ArrayList<Course> courses = readCourseArray(courseArray);
+        return courses;
     }
 
-    public ArrayList<Course> constructCourses(String url, String sessionID)
-            throws FailedConnectionException {
-        String[] xmlArray = prepareXML(url, sessionID);
-        courseList = fetchCourses(xmlArray);
-        return courseList;
+    private JSONObject readStringToJSONObject(String string)
+            throws JSONException {
+        return new JSONObject(string);
     }
 
-    private String[] prepareXML(String url, String sessionID)
-            throws FailedConnectionException {
-        setDataString(url, sessionID);
-        String[] xmlArray = parseCourseStrings();
-        return xmlArray;
+    private JSONArray readArrayFromJsonObject(JSONObject object)
+            throws JSONException {
+        return object.getJSONArray("my_courses_collection");
     }
 
-    private String[] parseCourseStrings() {
-        removeCollectionTag();
-        String[] courseXMLs = splitCourses();
-        removeCourseTag(courseXMLs);
-        return courseXMLs;
-    }
-
-    private void removeCollectionTag() {
-        int startIndex = this.dataString.indexOf(">") + 1;
-        int endIndex = this.dataString.indexOf("</my_courses_collection");
-        this.dataString = this.dataString.substring(startIndex, endIndex);
-    }
-
-    private String[] splitCourses() {
-        return dataString.split("</my_courses>");
-    }
-
-    private void removeCourseTag(String[] courses) {
-        for (int i = 0; i < courses.length; i++) {
-            int startIndex = courses[i].indexOf(">") + 1;
-            courses[i] = courses[i].substring(startIndex);
-        }
-    }
-
-    private ArrayList<Course> fetchCourses(String[] xmlArray) {
+    private ArrayList<Course> readCourseArray(JSONArray courseArray)
+            throws JSONException {
         ArrayList<Course> courses = new ArrayList<Course>();
-
-        for (int i = 0; i < xmlArray.length - 1; i++) {
-            this.course = new Course();
-            this.dataString = xmlArray[i];
-            setCourse();
-            courses.add(course);
+        for (int i = 0; i < courseArray.length(); i++) {
+            JSONObject values = courseArray.getJSONObject(i);
+            JSONObject data = values.getJSONObject("data");
+            String courseTitle = data.getString("siteTitle");
+            String courseID = data.getString("siteId");
+            if (courseTitle.equals("null") && courseID.equals("null")) {
+            } else {
+                String cleanTitle = santizeTitle(courseTitle);
+                courses.add(new Course(cleanTitle, courseID));
+            }
         }
         return courses;
     }
 
-    private void setCourse() {
-        course.setCourseID(parseFromXMLTag("siteId"));
-        course.setTitle(reformatTitle(parseFromXMLTag("siteTitle")));
-        Log.d("COURSE ID", course.getCourseID());
-        Log.d("COURSE NAME", course.getTitle());
-    }
-
-    private String reformatTitle(String title) {
+    private String santizeTitle(String title) {
         String[] words = title.split(" ");
         String cleanTitle = "";
         for (String word : words) {
-            cleanTitle += word.substring(0, 1).toUpperCase(Locale.US)
-                    + word.substring(1).toLowerCase(Locale.US) + " ";
+            String segment = "";
+            if (word.equals("II") || word.equals("I") || word.equals("III")
+                    || word.equals("IV")) {
+                segment = word;
+            } else {
+                segment = word.substring(0, 1)
+                        + word.substring(1).toLowerCase(Locale.US);
+            }
+            cleanTitle += segment + " ";
         }
         return cleanTitle;
     }
