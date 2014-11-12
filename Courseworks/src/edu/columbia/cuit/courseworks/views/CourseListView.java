@@ -1,18 +1,21 @@
 package edu.columbia.cuit.courseworks.views;
 
-import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.CourseAdapter;
+import edu.columbia.cuit.courseworks.feeds.CourseFeed;
+import edu.columbia.cuit.courseworks.feeds.CourseInfoFeed;
 import edu.columbia.cuit.courseworks.structures.Course;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.*;
 import android.widget.ListView;
 
 /**
- * Maintains a dynamic list of courses that are pushed to the user each
- * time he/she accesses the "Courses" tab on the application.
+ * Maintains a dynamic list of courses that are pushed to the user each time
+ * he/she accesses the "Courses" tab on the application.
  * 
  * @author Alexander Roth
  * @date 2014-08-22
@@ -23,16 +26,30 @@ public class CourseListView extends ItemListView<Course> {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
 
-        getCourses();
+        Intent intent = getActivity().getIntent();
+        String uni = intent.getStringExtra("USER");
+        String sessionCookie = intent.getStringExtra("JSESSION");
+        String semester = this.getArguments().getString("SEMESTER");
+        loggingStatements(uni, sessionCookie, semester);
+        getCourses(uni, sessionCookie, semester);
         setHasOptionsMenu(true);
         adapter = new CourseAdapter(this.getActivity(), itemList);
         setListAdapter(adapter);
         return super.onCreateView(inflater, container, savedInstanceState,
                 R.layout.fragment_course_list_view);
     }
-    
-    private void getCourses() {
-        itemList = new ArrayList<Course>();
+
+    private void getCourses(String user, String sessionCookie, String semester) {
+        CourseFeed courseFeed = new CourseFeed(user, semester);
+        try {
+            itemList = courseFeed.execute(sessionCookie).get();
+            CourseInfoFeed courseInfoFeed = new CourseInfoFeed(itemList);
+            itemList = courseInfoFeed.execute(sessionCookie).get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -44,4 +61,10 @@ public class CourseListView extends ItemListView<Course> {
         startActivity(course);
     }
     
+    private void loggingStatements(String uni, String cookie, String semester) {
+        Log.d("USER", uni);
+        Log.d("SESSION ID", cookie);
+        Log.d("SEMESTER", semester);
+    }
+
 }

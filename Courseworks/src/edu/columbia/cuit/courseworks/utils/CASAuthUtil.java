@@ -155,7 +155,7 @@ public class CASAuthUtil {
     private static void addService(List<NameValuePair> paramList) {
 
         paramList.add(new BasicNameValuePair("service", COURSEWORKS_HOST
-                + "sakai-login-tool/container?force.login=yes"));
+                + "/sakai-login-tool/container?force.login=yes"));
     }
 
     private static boolean connectionIsGood(HttpResponse response) {

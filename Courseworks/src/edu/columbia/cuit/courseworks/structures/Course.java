@@ -24,6 +24,14 @@ public class Course implements Serializable {
         this.meetingPlace = null;
         this.courseID = null;
     }
+    
+    public Course(String title, String courseID) {
+        this.title = title;
+        this.courseID = courseID;
+        this.professor = null;
+        this.meetingPlace = null;
+        this.meetingTime = null;
+    }
 
     public String getTitle() {
         return this.title;

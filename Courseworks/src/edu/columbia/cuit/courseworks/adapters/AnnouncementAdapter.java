@@ -59,8 +59,16 @@ public class AnnouncementAdapter extends ItemAdapter<Announcement> {
     @Override
     protected void setTextInViews(Announcement announcement) {
         titleText.setText(announcement.getTitle());
-        classText.setText(announcement.getClassId());
+        classText.setText(santizeClassID(announcement.getClassId()));
         dateText.setText("/ Posted " + announcement.getPostedDate());
+    }
+    
+    private String santizeClassID(String classID) {
+        String noSectionNumber = classID.substring(0, classID.indexOf("_"));
+        String deptTag = noSectionNumber.substring(0, 4);
+        String courseNumber = noSectionNumber.substring(4);
+        String cleanID = deptTag + " " + courseNumber;
+        return cleanID;
     }
 
     @Override
