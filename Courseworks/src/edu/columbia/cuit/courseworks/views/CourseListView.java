@@ -5,6 +5,7 @@ import java.util.concurrent.ExecutionException;
 import edu.columbia.cuit.courseworks.R;
 import edu.columbia.cuit.courseworks.adapters.CourseAdapter;
 import edu.columbia.cuit.courseworks.feeds.CourseFeed;
+import edu.columbia.cuit.courseworks.feeds.CourseInfoFeed;
 import edu.columbia.cuit.courseworks.structures.Course;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,6 +44,7 @@ public class CourseListView extends ItemListView<Course> {
         try {
             itemList = courseFeed.execute(sessionCookie).get();
             CourseInfoFeed courseInfoFeed = new CourseInfoFeed(itemList);
+            itemList = courseInfoFeed.execute(sessionCookie).get();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
