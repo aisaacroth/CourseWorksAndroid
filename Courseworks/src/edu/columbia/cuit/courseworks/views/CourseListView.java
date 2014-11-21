@@ -43,6 +43,7 @@ public class CourseListView extends ItemListView<Course> {
         CourseFeed courseFeed = new CourseFeed(user, semester);
         try {
             itemList = courseFeed.execute(sessionCookie).get();
+            Log.d("TEST", semester);
             CourseInfoFeed courseInfoFeed = new CourseInfoFeed(itemList);
             itemList = courseInfoFeed.execute(sessionCookie).get();
         } catch (InterruptedException e) {
@@ -58,9 +59,9 @@ public class CourseListView extends ItemListView<Course> {
 
         Intent course = new Intent(getActivity(), CourseView.class);
         course.putExtra("Course", itemList.get(position));
-        startActivity(course);
+        // startActivity(course);
     }
-    
+
     private void loggingStatements(String uni, String cookie, String semester) {
         Log.d("USER", uni);
         Log.d("SESSION ID", cookie);

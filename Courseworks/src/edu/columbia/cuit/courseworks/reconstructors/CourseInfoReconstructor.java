@@ -2,6 +2,8 @@ package edu.columbia.cuit.courseworks.reconstructors;
 
 import org.json.*;
 
+import android.util.Log;
+
 import edu.columbia.cuit.courseworks.structures.Course;
 
 public class CourseInfoReconstructor {
@@ -12,6 +14,7 @@ public class CourseInfoReconstructor {
             throws JSONException {
         JSONObject fullJSON = readStringToJSONObject(string);
         JSONObject courseProperties = extractCoursePropertiesFromJSON(fullJSON);
+        Log.d("TEST", courseProperties.toString());
         Course updatedCourse = updateCourseInformation(courseProperties, course);
         return updatedCourse;
     }
@@ -38,8 +41,12 @@ public class CourseInfoReconstructor {
     private String sanitizeMeetingPlace(String meetingPlace) {
         String building = "";
         String roomNumber = "";
-        roomNumber = meetingPlace.substring(meetingPlace.lastIndexOf(" "));
-        building = getBuildingName(meetingPlace);
+        if (meetingPlace.equals("RTBA")) {
+            building = "RTBA";
+        } else {
+            roomNumber = meetingPlace.substring(meetingPlace.lastIndexOf(" "));
+            building = getBuildingName(meetingPlace);
+        }
 
         return building + " " + roomNumber;
     }
@@ -74,17 +81,19 @@ public class CourseInfoReconstructor {
             building = "Dodge Hall";
         } else if (meetingPlace.contains("KNOX")) {
             building = "Knox Hall";
+        } else if (meetingPlace.contains("HORACE")) {
+            building = "Horace Mann";
         }
         return building;
     }
-    
+
     private String sanitizeMeetingTime(String meetingTime) {
         int timeIndex = meetingTime.indexOf(" ");
         String time = meetingTime.substring(timeIndex).trim();
         String days = meetingTime.substring(0, timeIndex);
         return days + " " + cleanTime(time);
     }
-    
+
     private String cleanTime(String time) {
         String cleanTime = "";
         if (time.contains("P") && time.contains("A")) {

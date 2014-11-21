@@ -60,7 +60,7 @@ public class AnnouncementAdapter extends ItemAdapter<Announcement> {
     protected void setTextInViews(Announcement announcement) {
         titleText.setText(announcement.getTitle());
         classText.setText(santizeClassID(announcement.getClassId()));
-        dateText.setText("/ Posted " + announcement.getPostedDate());
+        dateText.setText(" / Posted " + announcement.getPostedDate());
     }
     
     private String santizeClassID(String classID) {

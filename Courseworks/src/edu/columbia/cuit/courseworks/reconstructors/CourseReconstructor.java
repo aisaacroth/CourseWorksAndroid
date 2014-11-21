@@ -4,6 +4,8 @@ import java.util.*;
 
 import org.json.*;
 
+import android.util.Log;
+
 import edu.columbia.cuit.courseworks.structures.Course;
 
 /**
@@ -19,6 +21,7 @@ public class CourseReconstructor {
             throws JSONException {
         JSONObject fullJSON = readStringToJSONObject(string);
         JSONArray courseArray = readArrayFromJsonObject(fullJSON);
+        Log.d("TEST", courseArray.toString());
         ArrayList<Course> courses = readCourseArray(courseArray);
         return courses;
     }
@@ -55,16 +58,43 @@ public class CourseReconstructor {
         String cleanTitle = "";
         for (String word : words) {
             String segment = "";
-            if (word.equals("II") || word.equals("I") || word.equals("III")
-                    || word.equals("IV")) {
+            if (hasRomanNumerals(word)) {
                 segment = word;
             } else {
                 segment = word.substring(0, 1)
                         + word.substring(1).toLowerCase(Locale.US);
             }
+
+            if (segment.contains("/")) {
+                segment = cleanForwardSlash(segment);
+            }
+
+            if (segment.contains("-")) {
+                segment = cleanDash(segment);
+            }
             cleanTitle += segment + " ";
         }
         return cleanTitle;
     }
+    
+    private boolean hasRomanNumerals(String word) {
+        return word.equals("I") || word.equals("II") || word.equals("III") || word.equals("IV");
+    }
 
+    private String cleanForwardSlash(String segment) {
+        int forwardIndex = segment.indexOf("/");
+        segment = segment.substring(0, forwardIndex + 1)
+                + segment.substring(forwardIndex + 1, forwardIndex + 2)
+                        .toUpperCase(Locale.US)
+                + segment.substring(forwardIndex + 2);
+        return segment;
+    }
+
+    private String cleanDash(String segment) {
+        int dashIndex = segment.indexOf("-");
+        segment = segment.substring(0, dashIndex + 1)
+                + segment.substring(dashIndex + 1, dashIndex + 2).toUpperCase(
+                        Locale.US) + segment.substring(dashIndex + 2);
+        return segment;
+    }
 }
