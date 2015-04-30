@@ -24,7 +24,7 @@ public class CASAuthUtilTest extends TestCase {
 
     private void initTestStrings() throws IOException {
         username = "air2112";
-        password = "BA115hp34";
+        password = "test";
         grantingTicket = CASAuthUtil.getGrantingTicket(username, password);
     }
 
